@@ -1,4 +1,0 @@
-DIT
-===
-
-DIT Networking
