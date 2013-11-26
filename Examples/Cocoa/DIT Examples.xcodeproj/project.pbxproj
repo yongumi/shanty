@@ -187,7 +187,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		450D6CD3182AC9B500D540B9 /* DIT */ = {
+		450D6CD3182AC9B500D540B9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				450D6CD4182AC9B500D540B9 /* DITClient.h */,
@@ -208,14 +208,14 @@
 				450D6CE1182AC9B500D540B9 /* NSNetService+DITUserInfo.h */,
 				450D6CE2182AC9B500D540B9 /* NSNetService+DITUserInfo.m */,
 			);
-			name = DIT;
-			path = ../../DIT;
+			name = Source;
+			path = ../../Source;
 			sourceTree = "<group>";
 		};
 		450FAE36182067F200772BA3 = {
 			isa = PBXGroup;
 			children = (
-				450D6CD3182AC9B500D540B9 /* DIT */,
+				450D6CD3182AC9B500D540B9 /* Source */,
 				450FD6BF182ACB130022909D /* DIT iOS Example */,
 				450FD6AE182ACAE80022909D /* DIT CLI Example */,
 				454FCD26182AD70200A06C8B /* DIT Mac Example */,
