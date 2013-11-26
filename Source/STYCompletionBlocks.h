@@ -1,5 +1,5 @@
 //
-//  NSNetService+ShantyUserInfo.h
+//  STYCompletionBlocks.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/5/13.
@@ -8,8 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSNetService (ShantyUserInfo)
-
-@property (readwrite, nonatomic, strong) id dit_userInfo;
-
-@end
+typedef void (^STYCompletionBlock)(NSError *error);
+typedef void (^STYResultBlock)(id result, NSError *error);

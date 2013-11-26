@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		450D6CE3182AC9B500D540B9 /* ShantyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* ShantyClient.m */; };
-		450D6CE5182AC9B500D540B9 /* ShantyDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */; };
-		450D6CE7182AC9B500D540B9 /* ShantyDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */; };
-		450D6CE9182AC9B500D540B9 /* ShantyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* ShantyMessage.m */; };
-		450D6CEB182AC9B500D540B9 /* ShantyMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */; };
-		450D6CED182AC9B500D540B9 /* ShantyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* ShantyServer.m */; };
-		450D6CEF182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */; };
+		450D6CE3182AC9B500D540B9 /* STYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* STYClient.m */; };
+		450D6CE5182AC9B500D540B9 /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */; };
+		450D6CE7182AC9B500D540B9 /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* STYDataScanner.m */; };
+		450D6CE9182AC9B500D540B9 /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* STYMessage.m */; };
+		450D6CEB182AC9B500D540B9 /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */; };
+		450D6CED182AC9B500D540B9 /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* STYServer.m */; };
+		450D6CEF182AC9B500D540B9 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */; };
 		450FAE43182067F200772BA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450FAE42182067F200772BA3 /* Foundation.framework */; };
 		450FD6B3182ACAE80022909D /* CTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6B0182ACAE80022909D /* CTest.m */; };
 		450FD6B4182ACAE80022909D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6B1182ACAE80022909D /* main.m */; };
@@ -29,7 +29,6 @@
 		450FD6D5182ACB130022909D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6D4182ACB130022909D /* Images.xcassets */; };
 		453E552D18298CA3006DA24B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453E552C18298CA3006DA24B /* CFNetwork.framework */; };
 		453E55321829B0A0006DA24B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453E55311829B0A0006DA24B /* JavaScriptCore.framework */; };
-		454FCD1A182AD3BC00A06C8B /* ShantyMessageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */; };
 		454FCD21182AD70200A06C8B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454FCD20182AD70200A06C8B /* Cocoa.framework */; };
 		454FCD2B182AD70200A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD29182AD70200A06C8B /* InfoPlist.strings */; };
 		454FCD2D182AD70200A06C8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD2C182AD70200A06C8B /* main.m */; };
@@ -37,35 +36,32 @@
 		454FCD34182AD70200A06C8B /* NIMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD33182AD70200A06C8B /* NIMAppDelegate.m */; };
 		454FCD37182AD70200A06C8B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD35182AD70200A06C8B /* MainMenu.xib */; };
 		454FCD39182AD70200A06C8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD38182AD70200A06C8B /* Images.xcassets */; };
-		454FCD6D182AD97A00A06C8B /* ShantyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* ShantyClient.m */; };
-		454FCD6E182AD97A00A06C8B /* ShantyDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */; };
-		454FCD6F182AD97A00A06C8B /* ShantyDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */; };
-		454FCD70182AD97A00A06C8B /* ShantyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* ShantyMessage.m */; };
-		454FCD71182AD97A00A06C8B /* ShantyMessageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */; };
-		454FCD72182AD97A00A06C8B /* ShantyMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */; };
-		454FCD73182AD97A00A06C8B /* ShantyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* ShantyServer.m */; };
-		454FCD74182AD97A00A06C8B /* NSNetService+ShantyUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */; };
-		454FCD75182AD97A00A06C8B /* ShantyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* ShantyClient.m */; };
-		454FCD76182AD97A00A06C8B /* ShantyDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */; };
-		454FCD77182AD97A00A06C8B /* ShantyDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */; };
-		454FCD78182AD97A00A06C8B /* ShantyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* ShantyMessage.m */; };
-		454FCD79182AD97A00A06C8B /* ShantyMessageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */; };
-		454FCD7A182AD97A00A06C8B /* ShantyMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */; };
-		454FCD7B182AD97A00A06C8B /* ShantyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* ShantyServer.m */; };
-		454FCD7C182AD97A00A06C8B /* NSNetService+ShantyUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */; };
+		454FCD6D182AD97A00A06C8B /* STYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* STYClient.m */; };
+		454FCD6E182AD97A00A06C8B /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */; };
+		454FCD6F182AD97A00A06C8B /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* STYDataScanner.m */; };
+		454FCD70182AD97A00A06C8B /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* STYMessage.m */; };
+		454FCD72182AD97A00A06C8B /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */; };
+		454FCD73182AD97A00A06C8B /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* STYServer.m */; };
+		454FCD74182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */; };
+		454FCD75182AD97A00A06C8B /* STYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* STYClient.m */; };
+		454FCD76182AD97A00A06C8B /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */; };
+		454FCD77182AD97A00A06C8B /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* STYDataScanner.m */; };
+		454FCD78182AD97A00A06C8B /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* STYMessage.m */; };
+		454FCD7A182AD97A00A06C8B /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */; };
+		454FCD7B182AD97A00A06C8B /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* STYServer.m */; };
+		454FCD7C182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */; };
 		454FCD82182AD9BE00A06C8B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452EF848182815B400C67D8B /* XCTest.framework */; };
 		454FCD88182AD9BE00A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD86182AD9BE00A06C8B /* InfoPlist.strings */; };
 		4588AEE2182AF25300A08681 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4588AEE1182AF25300A08681 /* SceneKit.framework */; };
 		4588AEE4182AF31000A08681 /* Cube.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4588AEE3182AF31000A08681 /* Cube.dae */; };
 		45A9C716182ADBE40044D09B /* Message_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A9C715182ADBE40044D09B /* Message_Tests.m */; };
-		45A9C717182ADC240044D09B /* ShantyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* ShantyClient.m */; };
-		45A9C718182ADC240044D09B /* ShantyDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */; };
-		45A9C719182ADC240044D09B /* ShantyDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */; };
-		45A9C71A182ADC240044D09B /* ShantyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* ShantyMessage.m */; };
-		45A9C71B182ADC240044D09B /* ShantyMessageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */; };
-		45A9C71C182ADC240044D09B /* ShantyMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */; };
-		45A9C71D182ADC240044D09B /* ShantyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* ShantyServer.m */; };
-		45A9C71E182ADC240044D09B /* NSNetService+ShantyUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */; };
+		45A9C717182ADC240044D09B /* STYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD5182AC9B500D540B9 /* STYClient.m */; };
+		45A9C718182ADC240044D09B /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */; };
+		45A9C719182ADC240044D09B /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CD9182AC9B500D540B9 /* STYDataScanner.m */; };
+		45A9C71A182ADC240044D09B /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDB182AC9B500D540B9 /* STYMessage.m */; };
+		45A9C71C182ADC240044D09B /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */; };
+		45A9C71D182ADC240044D09B /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE0182AC9B500D540B9 /* STYServer.m */; };
+		45A9C71E182ADC240044D09B /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */; };
 		45A9C71F182ADC3A0044D09B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453E552C18298CA3006DA24B /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,21 +78,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		450D6CD4182AC9B500D540B9 /* ShantyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyClient.h; sourceTree = "<group>"; };
-		450D6CD5182AC9B500D540B9 /* ShantyClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyClient.m; sourceTree = "<group>"; };
-		450D6CD6182AC9B500D540B9 /* ShantyDataScanner+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShantyDataScanner+Message.h"; sourceTree = "<group>"; };
-		450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShantyDataScanner+Message.m"; sourceTree = "<group>"; };
-		450D6CD8182AC9B500D540B9 /* ShantyDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyDataScanner.h; sourceTree = "<group>"; };
-		450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyDataScanner.m; sourceTree = "<group>"; };
-		450D6CDA182AC9B500D540B9 /* ShantyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyMessage.h; sourceTree = "<group>"; };
-		450D6CDB182AC9B500D540B9 /* ShantyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyMessage.m; sourceTree = "<group>"; };
-		450D6CDC182AC9B500D540B9 /* ShantyCompletionBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyCompletionBlocks.h; sourceTree = "<group>"; };
-		450D6CDD182AC9B500D540B9 /* ShantyMessagingPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyMessagingPeer.h; sourceTree = "<group>"; };
-		450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyMessagingPeer.m; sourceTree = "<group>"; };
-		450D6CDF182AC9B500D540B9 /* ShantyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyServer.h; sourceTree = "<group>"; };
-		450D6CE0182AC9B500D540B9 /* ShantyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyServer.m; sourceTree = "<group>"; };
-		450D6CE1182AC9B500D540B9 /* NSNetService+ShantyUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNetService+ShantyUserInfo.h"; sourceTree = "<group>"; };
-		450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNetService+ShantyUserInfo.m"; sourceTree = "<group>"; };
+		450D6CD4182AC9B500D540B9 /* STYClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYClient.h; sourceTree = "<group>"; };
+		450D6CD5182AC9B500D540B9 /* STYClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYClient.m; sourceTree = "<group>"; };
+		450D6CD6182AC9B500D540B9 /* STYDataScanner+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STYDataScanner+Message.h"; sourceTree = "<group>"; };
+		450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STYDataScanner+Message.m"; sourceTree = "<group>"; };
+		450D6CD8182AC9B500D540B9 /* STYDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYDataScanner.h; sourceTree = "<group>"; };
+		450D6CD9182AC9B500D540B9 /* STYDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYDataScanner.m; sourceTree = "<group>"; };
+		450D6CDA182AC9B500D540B9 /* STYMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYMessage.h; sourceTree = "<group>"; };
+		450D6CDB182AC9B500D540B9 /* STYMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessage.m; sourceTree = "<group>"; };
+		450D6CDC182AC9B500D540B9 /* STYCompletionBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYCompletionBlocks.h; sourceTree = "<group>"; };
+		450D6CDD182AC9B500D540B9 /* STYMessagingPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYMessagingPeer.h; sourceTree = "<group>"; };
+		450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessagingPeer.m; sourceTree = "<group>"; };
+		450D6CDF182AC9B500D540B9 /* STYServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYServer.h; sourceTree = "<group>"; };
+		450D6CE0182AC9B500D540B9 /* STYServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYServer.m; sourceTree = "<group>"; };
+		450D6CE1182AC9B500D540B9 /* NSNetService+STYUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNetService+STYUserInfo.h"; sourceTree = "<group>"; };
+		450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNetService+STYUserInfo.m"; sourceTree = "<group>"; };
 		450FAE3F182067F200772BA3 /* Shanty CLI Example */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Shanty CLI Example"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450FAE42182067F200772BA3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		450FD6AF182ACAE80022909D /* CTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTest.h; sourceTree = "<group>"; };
@@ -120,8 +116,6 @@
 		452EF848182815B400C67D8B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		453E552C18298CA3006DA24B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		453E55311829B0A0006DA24B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		454FCD18182AD3BC00A06C8B /* ShantyMessageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShantyMessageSerialization.h; sourceTree = "<group>"; };
-		454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShantyMessageSerialization.m; sourceTree = "<group>"; };
 		454FCD1F182AD70200A06C8B /* Shanty Mac Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shanty Mac Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		454FCD20182AD70200A06C8B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		454FCD23182AD70200A06C8B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -190,23 +184,21 @@
 		450D6CD3182AC9B500D540B9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				450D6CD4182AC9B500D540B9 /* ShantyClient.h */,
-				450D6CD5182AC9B500D540B9 /* ShantyClient.m */,
-				450D6CD6182AC9B500D540B9 /* ShantyDataScanner+Message.h */,
-				450D6CD7182AC9B500D540B9 /* ShantyDataScanner+Message.m */,
-				450D6CD8182AC9B500D540B9 /* ShantyDataScanner.h */,
-				450D6CD9182AC9B500D540B9 /* ShantyDataScanner.m */,
-				450D6CDA182AC9B500D540B9 /* ShantyMessage.h */,
-				450D6CDB182AC9B500D540B9 /* ShantyMessage.m */,
-				454FCD18182AD3BC00A06C8B /* ShantyMessageSerialization.h */,
-				454FCD19182AD3BC00A06C8B /* ShantyMessageSerialization.m */,
-				450D6CDC182AC9B500D540B9 /* ShantyCompletionBlocks.h */,
-				450D6CDD182AC9B500D540B9 /* ShantyMessagingPeer.h */,
-				450D6CDE182AC9B500D540B9 /* ShantyMessagingPeer.m */,
-				450D6CDF182AC9B500D540B9 /* ShantyServer.h */,
-				450D6CE0182AC9B500D540B9 /* ShantyServer.m */,
-				450D6CE1182AC9B500D540B9 /* NSNetService+ShantyUserInfo.h */,
-				450D6CE2182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m */,
+				450D6CD4182AC9B500D540B9 /* STYClient.h */,
+				450D6CD5182AC9B500D540B9 /* STYClient.m */,
+				450D6CD6182AC9B500D540B9 /* STYDataScanner+Message.h */,
+				450D6CD7182AC9B500D540B9 /* STYDataScanner+Message.m */,
+				450D6CD8182AC9B500D540B9 /* STYDataScanner.h */,
+				450D6CD9182AC9B500D540B9 /* STYDataScanner.m */,
+				450D6CDA182AC9B500D540B9 /* STYMessage.h */,
+				450D6CDB182AC9B500D540B9 /* STYMessage.m */,
+				450D6CDC182AC9B500D540B9 /* STYCompletionBlocks.h */,
+				450D6CDD182AC9B500D540B9 /* STYMessagingPeer.h */,
+				450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */,
+				450D6CDF182AC9B500D540B9 /* STYServer.h */,
+				450D6CE0182AC9B500D540B9 /* STYServer.m */,
+				450D6CE1182AC9B500D540B9 /* NSNetService+STYUserInfo.h */,
+				450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -429,7 +421,7 @@
 						DevelopmentTeam = 6E23EP94PG;
 					};
 					454FCD80182AD9BE00A06C8B = {
-						TestTargetID = 450FAE3E182067F200772BA3;
+						TestTargetID = 450FAE3E182067F200772BA3 /* Shanty CLI Example */;
 					};
 				};
 			};
@@ -493,16 +485,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				450D6CE5182AC9B500D540B9 /* ShantyDataScanner+Message.m in Sources */,
-				450D6CE9182AC9B500D540B9 /* ShantyMessage.m in Sources */,
-				450D6CE3182AC9B500D540B9 /* ShantyClient.m in Sources */,
-				454FCD1A182AD3BC00A06C8B /* ShantyMessageSerialization.m in Sources */,
-				450D6CEB182AC9B500D540B9 /* ShantyMessagingPeer.m in Sources */,
-				450D6CEF182AC9B500D540B9 /* NSNetService+ShantyUserInfo.m in Sources */,
+				450D6CE5182AC9B500D540B9 /* STYDataScanner+Message.m in Sources */,
+				450D6CE9182AC9B500D540B9 /* STYMessage.m in Sources */,
+				450D6CE3182AC9B500D540B9 /* STYClient.m in Sources */,
+				450D6CEB182AC9B500D540B9 /* STYMessagingPeer.m in Sources */,
+				450D6CEF182AC9B500D540B9 /* NSNetService+STYUserInfo.m in Sources */,
 				450FD6B3182ACAE80022909D /* CTest.m in Sources */,
-				450D6CED182AC9B500D540B9 /* ShantyServer.m in Sources */,
+				450D6CED182AC9B500D540B9 /* STYServer.m in Sources */,
 				450FD6B4182ACAE80022909D /* main.m in Sources */,
-				450D6CE7182AC9B500D540B9 /* ShantyDataScanner.m in Sources */,
+				450D6CE7182AC9B500D540B9 /* STYDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,17 +501,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				454FCD78182AD97A00A06C8B /* ShantyMessage.m in Sources */,
+				454FCD78182AD97A00A06C8B /* STYMessage.m in Sources */,
 				450FD6CA182ACB130022909D /* CAppDelegate.m in Sources */,
-				454FCD75182AD97A00A06C8B /* ShantyClient.m in Sources */,
-				454FCD7B182AD97A00A06C8B /* ShantyServer.m in Sources */,
-				454FCD79182AD97A00A06C8B /* ShantyMessageSerialization.m in Sources */,
+				454FCD75182AD97A00A06C8B /* STYClient.m in Sources */,
+				454FCD7B182AD97A00A06C8B /* STYServer.m in Sources */,
 				450FD6C6182ACB130022909D /* main.m in Sources */,
-				454FCD7C182AD97A00A06C8B /* NSNetService+ShantyUserInfo.m in Sources */,
+				454FCD7C182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */,
 				450FD6D3182ACB130022909D /* CViewController.m in Sources */,
-				454FCD7A182AD97A00A06C8B /* ShantyMessagingPeer.m in Sources */,
-				454FCD76182AD97A00A06C8B /* ShantyDataScanner+Message.m in Sources */,
-				454FCD77182AD97A00A06C8B /* ShantyDataScanner.m in Sources */,
+				454FCD7A182AD97A00A06C8B /* STYMessagingPeer.m in Sources */,
+				454FCD76182AD97A00A06C8B /* STYDataScanner+Message.m in Sources */,
+				454FCD77182AD97A00A06C8B /* STYDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,16 +518,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				454FCD70182AD97A00A06C8B /* ShantyMessage.m in Sources */,
-				454FCD6F182AD97A00A06C8B /* ShantyDataScanner.m in Sources */,
-				454FCD6D182AD97A00A06C8B /* ShantyClient.m in Sources */,
-				454FCD72182AD97A00A06C8B /* ShantyMessagingPeer.m in Sources */,
+				454FCD70182AD97A00A06C8B /* STYMessage.m in Sources */,
+				454FCD6F182AD97A00A06C8B /* STYDataScanner.m in Sources */,
+				454FCD6D182AD97A00A06C8B /* STYClient.m in Sources */,
+				454FCD72182AD97A00A06C8B /* STYMessagingPeer.m in Sources */,
 				454FCD2D182AD70200A06C8B /* main.m in Sources */,
-				454FCD71182AD97A00A06C8B /* ShantyMessageSerialization.m in Sources */,
 				454FCD34182AD70200A06C8B /* NIMAppDelegate.m in Sources */,
-				454FCD73182AD97A00A06C8B /* ShantyServer.m in Sources */,
-				454FCD74182AD97A00A06C8B /* NSNetService+ShantyUserInfo.m in Sources */,
-				454FCD6E182AD97A00A06C8B /* ShantyDataScanner+Message.m in Sources */,
+				454FCD73182AD97A00A06C8B /* STYServer.m in Sources */,
+				454FCD74182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */,
+				454FCD6E182AD97A00A06C8B /* STYDataScanner+Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,15 +534,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45A9C718182ADC240044D09B /* ShantyDataScanner+Message.m in Sources */,
-				45A9C71E182ADC240044D09B /* NSNetService+ShantyUserInfo.m in Sources */,
-				45A9C71D182ADC240044D09B /* ShantyServer.m in Sources */,
+				45A9C718182ADC240044D09B /* STYDataScanner+Message.m in Sources */,
+				45A9C71E182ADC240044D09B /* NSNetService+STYUserInfo.m in Sources */,
+				45A9C71D182ADC240044D09B /* STYServer.m in Sources */,
 				45A9C716182ADBE40044D09B /* Message_Tests.m in Sources */,
-				45A9C717182ADC240044D09B /* ShantyClient.m in Sources */,
-				45A9C71B182ADC240044D09B /* ShantyMessageSerialization.m in Sources */,
-				45A9C71C182ADC240044D09B /* ShantyMessagingPeer.m in Sources */,
-				45A9C71A182ADC240044D09B /* ShantyMessage.m in Sources */,
-				45A9C719182ADC240044D09B /* ShantyDataScanner.m in Sources */,
+				45A9C717182ADC240044D09B /* STYClient.m in Sources */,
+				45A9C71C182ADC240044D09B /* STYMessagingPeer.m in Sources */,
+				45A9C71A182ADC240044D09B /* STYMessage.m in Sources */,
+				45A9C719182ADC240044D09B /* STYDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

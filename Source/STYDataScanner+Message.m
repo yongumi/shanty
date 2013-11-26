@@ -1,18 +1,18 @@
 //
-//  ShantyDataScanner+Message.m
+//  STYDataScanner+Message.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyDataScanner+Message.h"
+#import "STYDataScanner+Message.h"
 
-#import "ShantyMessage.h"
+#import "STYMessage.h"
 
-@implementation ShantyDataScanner (Message)
+@implementation STYDataScanner (Message)
 
-- (BOOL)scanMessage:(ShantyMessage *__autoreleasing *)outValue error:(NSError *__autoreleasing *)outError
+- (BOOL)scanMessage:(STYMessage *__autoreleasing *)outValue error:(NSError *__autoreleasing *)outError
     {
     [self pushRange];
 
@@ -41,7 +41,7 @@
         self.range = [self popRange];
         return(NO);
         }
-    NSDictionary *theControlDataObject = [[ShantyMessage class] decode:theControlData error:outError];
+    NSDictionary *theControlDataObject = [[STYMessage class] decode:theControlData error:outError];
 
     NSData *theMetadata;
     if ([self scanData:&theMetadata length:theMetadataLength error:outError] == NO)
@@ -49,7 +49,7 @@
         self.range = [self popRange];
         return(NO);
         }
-    NSDictionary *theMetadataObject = [[ShantyMessage class] decode:theMetadata error:outError];
+    NSDictionary *theMetadataObject = [[STYMessage class] decode:theMetadata error:outError];
 
     NSData *theData;
     if ([self scanData:&theData length:theDataLength error:outError] == NO)
@@ -60,7 +60,7 @@
 
     if (outValue)
         {
-        ShantyMessage *theMessage = [[ShantyMessage alloc] initWithControlData:theControlDataObject metadata:theMetadataObject data:theData];
+        STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlDataObject metadata:theMetadataObject data:theData];
         *outValue = theMessage;
         }
 

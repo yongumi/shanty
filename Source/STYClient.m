@@ -1,12 +1,12 @@
 //
-//  ShantyClient.m
+//  STYClient.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyClient.h"
+#import "STYClient.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -14,7 +14,7 @@
 static void MyCFHostClientCallBack(CFHostRef theHost, CFHostInfoType typeInfo, const CFStreamError *error, void *info);
 static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info);
 
-@interface ShantyClient ()
+@interface STYClient ()
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFHostRef host;
 @property (readwrite, nonatomic, strong) NSData *address;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
@@ -23,7 +23,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
 #pragma mark -
 
-@implementation ShantyClient
+@implementation STYClient
 
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort
     {
@@ -36,7 +36,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     return self;
     }
 
-- (void)connect:(ShantyCompletionBlock)inCompletionBlock;
+- (void)connect:(STYCompletionBlock)inCompletionBlock;
     {
     if (self.hostname.length == 0)
         {
@@ -67,7 +67,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     return(_address);
     }
 
-- (void)_resolve:(ShantyCompletionBlock)inCompletionBlock;
+- (void)_resolve:(STYCompletionBlock)inCompletionBlock;
     {
     CFHostRef theHost = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)self.hostname);
 
@@ -108,7 +108,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     CFRelease(theHost);
     }
 
-- (void)_connect:(ShantyCompletionBlock)inCompletionBlock;
+- (void)_connect:(STYCompletionBlock)inCompletionBlock;
     {
 
     // Create the socket...
@@ -125,7 +125,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
     __weak typeof(self) weak_self = self;
 
-    ShantyCompletionBlock theBlock = ^(NSError *inError) {
+    STYCompletionBlock theBlock = ^(NSError *inError) {
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self != NULL)
             {
@@ -164,7 +164,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
 //static void MyCFHostClientCallBack(CFHostRef theHost, CFHostInfoType typeInfo, const CFStreamError *error, void *info)
 //    {
-//    ShantyClient *theClient = (__bridge ShantyClient *)info;
+//    STYClient *theClient = (__bridge STYClient *)info;
 //
 //    Boolean theResolvedFlag = NO;
 //    NSArray *theAddresses = (__bridge NSArray *)CFHostGetAddressing(theClient.host, &theResolvedFlag);
@@ -175,7 +175,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     {
     if (type == kCFSocketConnectCallBack)
         {
-        ShantyCompletionBlock theBlock = (__bridge ShantyCompletionBlock)info;
+        STYCompletionBlock theBlock = (__bridge STYCompletionBlock)info;
         theBlock(NULL);
         }
     }

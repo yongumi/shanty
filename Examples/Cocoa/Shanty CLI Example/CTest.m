@@ -10,15 +10,15 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
-#import "ShantyClient.h"
-#import "ShantyServer.h"
-#import "ShantyMessagingPeer.h"
-#import "ShantyMessage.h"
+#import "STYClient.h"
+#import "STYServer.h"
+#import "STYMessagingPeer.h"
+#import "STYMessage.h"
 
 @interface CTest ()
-@property (readwrite, nonatomic) ShantyServer *server;
+@property (readwrite, nonatomic) STYServer *server;
 @property (readwrite, nonatomic) NSMutableSet *servedPeers;
-@property (readwrite, nonatomic) ShantyClient *client;
+@property (readwrite, nonatomic) STYClient *client;
 @end
 
 @implementation CTest
@@ -36,11 +36,11 @@
 - (void)_startServer
     {
     NSLog(@"Starting server");
-    self.server = [[ShantyServer alloc] init];
+    self.server = [[STYServer alloc] init];
     self.servedPeers = [NSMutableSet set];
 
     NSDictionary *theMessageHandlers = @{
-        @"evaluate_script": ^(ShantyMessagingPeer *inPeer, ShantyMessage *inMessage, NSError **outError) {
+        @"evaluate_script": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             NSLog(@"%@", inMessage);
             NSString *theScript = [[NSString alloc] initWithData:inMessage.data encoding:NSUTF8StringEncoding];
             JSVirtualMachine *theVirtualMachine = [[JSVirtualMachine alloc] init];
@@ -49,12 +49,12 @@
             NSLog(@"%@", theResult);
 
 
-//            ShantyMessage *theResponse = [[ShantyMessage alloc] initWithControlData:<#(NSDictionary *)#> metadata:<#(NSDictionary *)#> data:<#(NSData *)#>
+//            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:<#(NSDictionary *)#> metadata:<#(NSDictionary *)#> data:<#(NSData *)#>
 //            [inPeer sendMessage:theResponse];
 
             return(YES);
             },
-        @"script_result": ^(ShantyMessagingPeer *inPeer, ShantyMessage *inMessage, NSError **outError) {
+        @"script_result": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             NSLog(@"%@", inMessage);
 
 
@@ -68,7 +68,7 @@
 
     self.server.connectHandler = ^(CFSocketRef inSocket, NSData *inAddress, NSError **outError) {
         __strong typeof(weak_self) strong_self = weak_self;
-        ShantyMessagingPeer *thePeer = [[ShantyMessagingPeer alloc] initWithSocket:inSocket messageHandlers:theMessageHandlers];
+        STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandlers:theMessageHandlers];
         [strong_self.servedPeers addObject:thePeer];
         return(YES);
         };
@@ -81,9 +81,9 @@
 - (void)_startClient
     {
     NSLog(@"Starting client");
-    self.client = [[ShantyClient alloc] initWithHostname:NULL port:self.server.port];
+    self.client = [[STYClient alloc] initWithHostname:NULL port:self.server.port];
     [self.client connect:^(NSError *error) {
-        ShantyMessagingPeer *thePeer = [[ShantyMessagingPeer alloc] initWithSocket:self.client.socket];
+        STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:self.client.socket];
 
         for (int N = 0; N != 1; ++N)
             {
@@ -92,7 +92,7 @@
                 };
             NSString *theScript = @"10 + 10";
             NSData *theData = [theScript dataUsingEncoding:NSUTF8StringEncoding];
-            ShantyMessage *theMessage = [[ShantyMessage alloc] initWithControlData:theControlData metadata:NULL data:theData];
+            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:theData];
             [thePeer sendMessage:theMessage replyBlock:NULL];
             }
         }];

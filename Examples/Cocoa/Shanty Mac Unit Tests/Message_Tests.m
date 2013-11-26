@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "ShantyMessage.h"
+#import "STYMessage.h"
 
 @interface Message_Tests : XCTestCase
 
@@ -30,8 +30,8 @@
 
 - (void)testExample
 {
-	ShantyMessage *theMessage = [[ShantyMessage alloc] initWithControlData:@{} metadata:@{} data:NULL];
-	ShantyMessage *theOtherMessage = [[ShantyMessage alloc] initWithDataBuffer:[theMessage buffer:NULL] error:NULL];
+	STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{} metadata:@{} data:NULL];
+	STYMessage *theOtherMessage = [[STYMessage alloc] initWithDataBuffer:[theMessage buffer:NULL] error:NULL];
 	XCTAssertEqualObjects([theMessage buffer:NULL], [theOtherMessage buffer:NULL], @"");
 }
 

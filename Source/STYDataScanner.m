@@ -1,21 +1,21 @@
 //
-//  ShantyDataScanner.m
+//  STYDataScanner.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyDataScanner.h"
+#import "STYDataScanner.h"
 
-@interface ShantyDataScanner ()
+@interface STYDataScanner ()
 @property (readwrite, nonatomic, copy) NSData *data;
 @property (readwrite, nonatomic) NSMutableArray *rangeStack;
 @end
 
 #pragma mark -
 
-@implementation ShantyDataScanner
+@implementation STYDataScanner
 
 - (instancetype)init
     {

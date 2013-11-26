@@ -1,5 +1,5 @@
 //
-//  Client.h
+//  STYClient.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ShantyCompletionBlocks.h"
+#import "STYCompletionBlocks.h"
 
-@interface ShantyClient : NSObject
+@interface STYClient : NSObject
 
 @property (readonly, nonatomic) NSString *hostname;
 @property (readonly, nonatomic) unsigned short port;
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
 
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort;
-- (void)connect:(ShantyCompletionBlock)inCompletionBlock;
+- (void)connect:(STYCompletionBlock)inCompletionBlock;
 
 @end

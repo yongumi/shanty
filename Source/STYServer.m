@@ -1,22 +1,22 @@
 //
-//  ShantyServer.m
+//  STYServer.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 10/29/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyServer.h"
+#import "STYServer.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
 
-#import "NSNetService+ShantyUserInfo.h"
+#import "NSNetService+STYUserInfo.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
-@interface ShantyServer () <NSNetServiceDelegate>
+@interface STYServer () <NSNetServiceDelegate>
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
@@ -25,7 +25,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 #pragma mark -
 
-@implementation ShantyServer
+@implementation STYServer
 
 static id gSharedInstance = NULL;
 
@@ -61,7 +61,7 @@ static id gSharedInstance = NULL;
 
 #pragma mark -
 
-- (void)startListening:(ShantyCompletionBlock)inResultHandler
+- (void)startListening:(STYCompletionBlock)inResultHandler
     {
     [self _startListening:^(NSError *error) {
         if (error == NULL)
@@ -71,7 +71,7 @@ static id gSharedInstance = NULL;
         }];
     }
 
-- (void)stopListening:(ShantyCompletionBlock)inResultHandler
+- (void)stopListening:(STYCompletionBlock)inResultHandler
     {
     [self _stopPublishing:NULL];
 
@@ -86,7 +86,7 @@ static id gSharedInstance = NULL;
 
 #pragma mark -
 
-- (void)_startListening:(ShantyCompletionBlock)inResultHandler
+- (void)_startListening:(STYCompletionBlock)inResultHandler
     {
 //getifaddrs
 
@@ -141,17 +141,17 @@ static id gSharedInstance = NULL;
         }
     }
 
-- (void)_startPublishing:(ShantyCompletionBlock)inResultHandler
+- (void)_startPublishing:(STYCompletionBlock)inResultHandler
     {
     NSParameterAssert(self.netService == NULL);
 
     self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.port];
-    self.netService.dit_userInfo = [inResultHandler copy];
+    self.netService.sty_userInfo = [inResultHandler copy];
     self.netService.delegate = self;
     [self.netService publishWithOptions:0];
     }
 
-- (void)_stopPublishing:(ShantyCompletionBlock)inResultHandler
+- (void)_stopPublishing:(STYCompletionBlock)inResultHandler
     {
     NSParameterAssert(self.netService != NULL);
 
@@ -176,21 +176,21 @@ static id gSharedInstance = NULL;
 
 - (void)netServiceDidPublish:(NSNetService *)sender
     {
-    ShantyCompletionBlock theBlock = sender.dit_userInfo;
+    STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
         theBlock(NULL);
-        sender.dit_userInfo = NULL;
+        sender.sty_userInfo = NULL;
         }
     }
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
     {
-    ShantyCompletionBlock theBlock = sender.dit_userInfo;
+    STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
         theBlock([NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL]);
-        sender.dit_userInfo = NULL;
+        sender.sty_userInfo = NULL;
         }
     }
 
@@ -202,7 +202,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     {
     #pragma unused (inSocket, inAddress)
 
-    ShantyServer *theServer = (__bridge ShantyServer *)ioInfo;
+    STYServer *theServer = (__bridge STYServer *)ioInfo;
     if (inCallbackType == kCFSocketAcceptCallBack)
         {
         CFSocketNativeHandle theNativeSocketHandle = *(CFSocketNativeHandle *)inData;

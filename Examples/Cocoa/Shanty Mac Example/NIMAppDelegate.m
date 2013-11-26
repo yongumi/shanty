@@ -11,15 +11,15 @@
 #import <SceneKit/SceneKit.h>
 #import <GLKit/GLKit.h>
 
-#import "ShantyClient.h"
-#import "ShantyMessagingPeer.h"
-#import "ShantyMessage.h"
+#import "STYClient.h"
+#import "STYMessagingPeer.h"
+#import "STYMessage.h"
 
 @interface NIMAppDelegate () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
 @property (readwrite, nonatomic) NSNetService *service;
-@property (readwrite, nonatomic) ShantyClient *client;
-@property (readwrite, nonatomic) ShantyMessagingPeer *peer;
+@property (readwrite, nonatomic) STYClient *client;
+@property (readwrite, nonatomic) STYMessagingPeer *peer;
 @property (readwrite, nonatomic) NSDictionary *lastMetadata;
 @property (readwrite, nonatomic) IBOutlet SCNView *sceneView;
 @property (readwrite, nonatomic) SCNScene *scene;
@@ -51,7 +51,7 @@
     self.serviceBrowser.delegate = self;
     [self.serviceBrowser searchForServicesOfType:@"_schwatest._tcp." inDomain:@""];
 
-//    self.client = [[ShantyClient alloc] initWithHostname:<#(NSString *)#> port:<#(unsigned short)#>
+//    self.client = [[STYClient alloc] initWithHostname:<#(NSString *)#> port:<#(unsigned short)#>
     }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
@@ -80,13 +80,13 @@
     [self.service stop];
     self.service = NULL;
 
-    self.client = [[ShantyClient alloc] initWithHostname:sender.hostName port:sender.port];
+    self.client = [[STYClient alloc] initWithHostname:sender.hostName port:sender.port];
     [self.client connect:^(NSError *error) {
 
         NSLog(@"CONNECTED");
 
         NSDictionary *theMessageHandlers = @{
-            @"gyro_update": ^(ShantyMessagingPeer *inPeer, ShantyMessage *inMessage, NSError **outError) {
+            @"gyro_update": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 //                NSLog(@"%@ %@", inPeer, inMessage);
 
                 self.lastMetadata = inMessage.metadata;
@@ -107,7 +107,7 @@
                 },
             };
 
-        self.peer = [[ShantyMessagingPeer alloc] initWithSocket:self.client.socket messageHandlers:theMessageHandlers];
+        self.peer = [[STYMessagingPeer alloc] initWithSocket:self.client.socket messageHandlers:theMessageHandlers];
         }];
     }
 

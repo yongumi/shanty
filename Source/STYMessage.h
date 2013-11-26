@@ -1,5 +1,5 @@
 //
-//  ShantyMessage.h
+//  STYMessage.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 10/29/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ShantyMessage : NSObject
+@interface STYMessage : NSObject
 
 @property (readonly, nonatomic, copy) NSDictionary *controlData;
 @property (readonly, nonatomic, copy) NSDictionary *metadata;

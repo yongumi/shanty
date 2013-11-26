@@ -10,13 +10,13 @@
 
 @import CoreMotion;
 
-#import "ShantyServer.h"
-#import "ShantyMessagingPeer.h"
-#import "ShantyMessage.h"
+#import "STYServer.h"
+#import "STYMessagingPeer.h"
+#import "STYMessage.h"
 
 @interface CViewController ()
 @property (readwrite, nonatomic) CMMotionManager *motionManager;
-@property (readwrite, nonatomic) ShantyServer *server;
+@property (readwrite, nonatomic) STYServer *server;
 @property (readwrite, nonatomic) NSMutableSet *servedPeers;
 @end
 
@@ -33,14 +33,14 @@
 - (void)_startServer
     {
     NSLog(@"Starting server");
-    self.server = [[ShantyServer alloc] init];
+    self.server = [[STYServer alloc] init];
     self.servedPeers = [NSMutableSet set];
 
     __weak typeof(self) weak_self = self;
 
     self.server.connectHandler = ^(CFSocketRef inSocket, NSData *inAddress, NSError **outError) {
         __strong typeof(weak_self) strong_self = weak_self;
-        ShantyMessagingPeer *thePeer = [[ShantyMessagingPeer alloc] initWithSocket:inSocket];
+        STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket];
         [strong_self.servedPeers addObject:thePeer];
         return(YES);
         };
@@ -75,9 +75,9 @@
             @"w": @(theAttitude.quaternion.w),
             };
 
-        for (ShantyMessagingPeer *thePeer in self.servedPeers)
+        for (STYMessagingPeer *thePeer in self.servedPeers)
             {
-            ShantyMessage *theMessage = [[ShantyMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
+            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
             [thePeer sendMessage:theMessage replyBlock:NULL];
             }
         }];

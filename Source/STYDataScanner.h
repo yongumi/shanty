@@ -1,5 +1,5 @@
 //
-//  ShantyDataScanner.h
+//  STYDataScanner.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
@@ -20,7 +20,7 @@ typedef enum {
 	DataScannerDataEndianness_Network = DataScannerDataEndianness_Big,
 	} EDataScannerDataEndianness;
 
-@interface ShantyDataScanner : NSObject
+@interface STYDataScanner : NSObject
 
 @property (readonly, nonatomic, copy) NSData *data;
 @property (readwrite, nonatomic) NSRange range;

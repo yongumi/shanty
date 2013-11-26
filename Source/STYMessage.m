@@ -1,21 +1,21 @@
 //
-//  ShantyMessage.m
+//  STYMessage.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 10/29/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyMessage.h"
+#import "STYMessage.h"
 
-#import "ShantyDataScanner.h"
+#import "STYDataScanner.h"
 
-@interface ShantyMessage ()
+@interface STYMessage ()
 @end
 
 #pragma mark -
 
-@implementation ShantyMessage
+@implementation STYMessage
 
 - (instancetype)initWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData
     {
@@ -30,7 +30,7 @@
 
 - (instancetype)initWithDataBuffer:(NSData *)inDataBuffer error:(NSError *__autoreleasing *)outError
     {
-    ShantyDataScanner *theScanner = [[ShantyDataScanner alloc] initWithData:inDataBuffer];
+    STYDataScanner *theScanner = [[STYDataScanner alloc] initWithData:inDataBuffer];
     theScanner.dataEndianness = DataScannerDataEndianness_Network;
     uint16_t theControlDataLength;
     if ([theScanner scan_uint16:&theControlDataLength error:outError] == NO)

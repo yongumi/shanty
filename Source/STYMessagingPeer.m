@@ -1,17 +1,17 @@
 //
-//  ShantyMessagingPeer.m
+//  STYMessagingPeer.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "ShantyMessagingPeer.h"
+#import "STYMessagingPeer.h"
 
-#import "ShantyMessage.h"
-#import "ShantyDataScanner+Message.h"
+#import "STYMessage.h"
+#import "STYDataScanner+Message.h"
 
-@interface ShantyMessagingPeer ()
+@interface STYMessagingPeer ()
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
 @property (readonly, nonatomic) dispatch_queue_t queue;
 @property (readonly, nonatomic) dispatch_io_t channel;
@@ -25,7 +25,7 @@
 
 #pragma mark -
 
-@implementation ShantyMessagingPeer
+@implementation STYMessagingPeer
 
 - (instancetype)initWithSocket:(CFSocketRef)inSocket
     {
@@ -55,7 +55,7 @@
         dispatch_resume(_readSource);
 
         __weak typeof(self) weak_self = self;
-        [self addCommand:@"HELLO" handler:^(ShantyMessagingPeer *inPeer, ShantyMessage *inMessage, NSError **outError) {
+        [self addCommand:@"HELLO" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 
             __strong typeof(weak_self) strong_self = weak_self;
 
@@ -64,13 +64,13 @@
                 @"in-reply-to": inMessage.controlData[@"msgid"],
                 };
 
-            ShantyMessage *theResponse = [[ShantyMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
+            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
             [strong_self sendMessage:theResponse replyBlock:NULL];
 
             NSLog(@"%@", inMessage);
             return(YES);
             }];
-        [self addCommand:@"HELLO_RESPONSE" handler:^(ShantyMessagingPeer *inPeer, ShantyMessage *inMessage, NSError **outError) {
+        [self addCommand:@"HELLO_RESPONSE" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             NSLog(@"%@", inMessage);
             return(YES);
             }];
@@ -90,13 +90,13 @@
 
 
 
-- (void)sendMessage:(ShantyMessage *)inMessage replyBlock:(MessageHandlerBlock)inBlock
+- (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
     {
     NSMutableDictionary *theControlData = [inMessage.controlData mutableCopy];
     theControlData[@"msgid"] = @(self.nextOutgoingMessageID);
     self.nextOutgoingMessageID += 1;
 
-    ShantyMessage *theMessage = [[ShantyMessage alloc] initWithControlData:theControlData metadata:inMessage.metadata data:inMessage.data];
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:inMessage.metadata data:inMessage.data];
 
     if (inBlock != NULL)
         {
@@ -115,7 +115,7 @@
 
 - (void)read
     {
-    ShantyDataScanner *theDataScanner = [[ShantyDataScanner alloc] initWithData:self.data];
+    STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
 
     dispatch_io_read(self.channel, 0, SIZE_MAX, self.queue, ^(bool done, dispatch_data_t data, int error) {
@@ -132,7 +132,7 @@
             {
             [theDataScanner feedData:(NSData *)data];
 
-            ShantyMessage *theMessage = NULL;
+            STYMessage *theMessage = NULL;
             while ([theDataScanner scanMessage:&theMessage error:NULL] == YES)
                 {
                 [self _handleMessage:theMessage error:NULL];
@@ -157,7 +157,7 @@
     dispatch_source_cancel(self.readSource);
     }
 
-- (BOOL)_handleMessage:(ShantyMessage *)inMessage error:(NSError *__autoreleasing *)outError
+- (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
     NSInteger incoming_message_id = [inMessage.controlData[@"msgid"] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
@@ -168,7 +168,7 @@
 
     self.lastIncomingMessageID = incoming_message_id;
 
-    MessageHandlerBlock theHandler = self.handlersForResponses[inMessage.controlData[@"in-response-to"]];
+    STYMessageBlock theHandler = self.handlersForResponses[inMessage.controlData[@"in-response-to"]];
     if (theHandler)
         {
         BOOL theResult = theHandler(self, inMessage, outError);
@@ -186,7 +186,7 @@
     return(NO);
     }
 
-- (void)addCommand:(NSString *)inCommand handler:(MessageHandlerBlock)inBlock;
+- (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;
     {
     [self.handlersForCommands setObject:inBlock forKey:inCommand];
     }
