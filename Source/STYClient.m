@@ -110,6 +110,8 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
 - (void)_connect:(STYCompletionBlock)inCompletionBlock;
     {
+    NSParameterAssert(self.address.length > 0);
+
 
     // Create the socket...
     CFSocketSignature theSocketSignature = {
@@ -119,7 +121,7 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
         .address = (__bridge_retained CFDataRef)self.address,
         };
 
-    NSLog(@"%@ %lu/%lu %d", self.address, (unsigned long)self.address.length, sizeof(struct sockaddr_in), self.port);
+//    NSLog(@"%@ %lu/%lu %d", self.address, (unsigned long)self.address.length, sizeof(struct sockaddr_in), self.port);
 
     CFRunLoopRef theRunLoop = CFRunLoopGetCurrent();
 
