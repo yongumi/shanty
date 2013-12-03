@@ -15,6 +15,7 @@
 @interface STYAppDelegate ()
 @property (readwrite, nonatomic) STYServer *server;
 @property (readwrite, nonatomic) NSMutableSet *servedPeers;
+@property (readwrite, nonatomic) NSMutableArray *events;
 
 @end
 
@@ -24,6 +25,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
     {
+    _events = [NSMutableArray array];
+
     [self _startServer];
     }
 
@@ -40,6 +43,11 @@
         @"log": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             NSString *theLogMessage = [[NSString alloc] initWithData:inMessage.data encoding:NSUTF8StringEncoding];
             NSLog(@"%@", theLogMessage);
+
+            NSDictionary *theEvent = @{ @"message": theLogMessage };
+            [self willChangeValueForKey:@"events"];
+            [self.events addObject:theEvent];
+            [self didChangeValueForKey:@"events"];
             },
         };
 
