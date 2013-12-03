@@ -17,6 +17,7 @@
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
 
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort;
+- (instancetype)initWithNetService:(NSNetService *)inService;
 - (void)connect:(STYCompletionBlock)inCompletionBlock;
 
 @end

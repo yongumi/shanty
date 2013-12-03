@@ -11,9 +11,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-static void MyCFHostClientCallBack(CFHostRef theHost, CFHostInfoType typeInfo, const CFStreamError *error, void *info);
-static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info);
-
 @interface STYClient ()
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFHostRef host;
 @property (readwrite, nonatomic, strong) NSData *address;
@@ -25,13 +22,25 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
 @implementation STYClient
 
+// TODO decide on the designated initializer.
+
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort
     {
     if ((self = [super init]) != NULL)
         {
         _hostname = inHostname;
         _port = inPort;
-        [self address];
+        }
+    return self;
+    }
+
+- (instancetype)initWithNetService:(NSNetService *)inService;
+    {
+    if ((self = [super init]) != NULL)
+        {
+        // TODO We should resolve the service.
+        // TODO Let's hope [0] is the right address!!!
+        _address = inService.addresses[0];
         }
     return self;
     }
@@ -62,7 +71,6 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
             .sin_addr = htonl(INADDR_ANY),
             };
         _address = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
-        NSLog(@"%@", _address);
         }
     return(_address);
     }
@@ -71,39 +79,29 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     {
     CFHostRef theHost = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)self.hostname);
 
-//    CFHostClientContext theHostClientContext = {
-//        .info = (__bridge void *)self,
-//        };
-//    CFHostSetClient(theHost, &MyCFHostClientCallBack, &theHostClientContext);
-
     CFStreamError theStreamError;
     /*BOOL theResult = */CFHostStartInfoResolution(theHost, kCFHostAddresses, &theStreamError);
-//    NSLog(@"***** %d %d %ld", theResult, theStreamError.error, theStreamError.domain);
 
-//    CFHostScheduleWithRunLoop(theHost, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-//    self.host = theHost;
+    Boolean theResolvedFlag = NO;
+    NSArray *theAddresses = (__bridge NSArray *)CFHostGetAddressing(theHost, &theResolvedFlag);
 
-    if (1)
+    if (theResolvedFlag == NO)
         {
-        Boolean theResolvedFlag = NO;
-        NSArray *theAddresses = (__bridge NSArray *)CFHostGetAddressing(theHost, &theResolvedFlag);
-//        NSLog(@"***** %@", theAddresses);
-
-        self.address = theAddresses[0];
-
-        // Create an IPV4 address...
-        struct sockaddr_in theAddress;
-        memcpy(&theAddress, self.address.bytes, sizeof(theAddresses));
-        theAddress.sin_port = htons(self.port);
-
-        self.address = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
-//        NSLog(@"%@", _address);
-
-
-
-        inCompletionBlock(NULL);
+        NSLog(@"Could not resolve");
+        return;
         }
 
+    // TODO this might not get the ipv4 address we want in this case...
+    self.address = theAddresses[0];
+
+    // Create an IPV4 address...
+    struct sockaddr_in theAddress;
+    memcpy(&theAddress, self.address.bytes, sizeof(theAddresses));
+    theAddress.sin_port = htons(self.port);
+
+    self.address = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
+
+    inCompletionBlock(NULL);
 
     CFRelease(theHost);
     }
@@ -111,7 +109,6 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
 - (void)_connect:(STYCompletionBlock)inCompletionBlock;
     {
     NSParameterAssert(self.address.length > 0);
-
 
     // Create the socket...
     CFSocketSignature theSocketSignature = {
@@ -121,7 +118,6 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
         .address = (__bridge_retained CFDataRef)self.address,
         };
 
-//    NSLog(@"%@ %lu/%lu %d", self.address, (unsigned long)self.address.length, sizeof(struct sockaddr_in), self.port);
 
     CFRunLoopRef theRunLoop = CFRunLoopGetCurrent();
 
@@ -160,10 +156,6 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
     CFRelease(theRunLoopSource);
     }
 
-@end
-
-#pragma mark -
-
 //static void MyCFHostClientCallBack(CFHostRef theHost, CFHostInfoType typeInfo, const CFStreamError *error, void *info)
 //    {
 //    STYClient *theClient = (__bridge STYClient *)info;
@@ -181,3 +173,27 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
         theBlock(NULL);
         }
     }
+
+//static NSDictionary *DictionaryFromAddress(NSData *inAddress)
+//    {
+//    NSMutableDictionary *D = [NSMutableDictionary dictionary];
+//
+//    const struct sockaddr_in *theAddress = [inAddress bytes];
+//
+//    D[@"sin_len"] = @(theAddress->sin_len);
+//    D[@"sin_family"] = @(theAddress->sin_family);
+//    D[@"sin_port"] = @(ntohs(theAddress->sin_port));
+//
+//
+//    in_addr_t theIPV4Address = ntohl(theAddress->sin_addr.s_addr);
+//
+//    D[@"sin_addr"] = [NSString stringWithFormat:@"%d.%d.%d.%d",
+//        (theIPV4Address >> 24) & 0xFF,
+//        (theIPV4Address >> 16) & 0xFF,
+//        (theIPV4Address >> 8) & 0xFF,
+//        (theIPV4Address) & 0xFF];
+//
+//    return D;
+//    }
+
+@end
