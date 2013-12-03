@@ -88,6 +88,7 @@
     if (theResolvedFlag == NO)
         {
         NSLog(@"Could not resolve");
+        CFRelease(theHost);
         return;
         }
 
