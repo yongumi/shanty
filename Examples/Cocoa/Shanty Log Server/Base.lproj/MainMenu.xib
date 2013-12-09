@@ -650,15 +650,15 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRc-nT-bBV">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRc-nT-bBV">
                         <rect key="frame" x="-1" y="1" width="482" height="360"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="uwn-1Q-kHb">
+                        <clipView key="contentView" id="uwn-1Q-kHb">
                             <rect key="frame" x="1" y="17" width="480" height="342"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -727,6 +727,12 @@
                         </tableHeaderView>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="IRc-nT-bBV" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="-1" id="4Ll-hh-yMb"/>
+                    <constraint firstItem="IRc-nT-bBV" firstAttribute="top" secondItem="372" secondAttribute="top" constant="-1" id="lP8-bz-h6c"/>
+                    <constraint firstAttribute="trailing" secondItem="IRc-nT-bBV" secondAttribute="trailing" constant="-1" id="p87-cp-18Z"/>
+                    <constraint firstAttribute="bottom" secondItem="IRc-nT-bBV" secondAttribute="bottom" constant="1" id="pGB-bf-Mh0"/>
+                </constraints>
             </view>
         </window>
         <customObject id="494" customClass="STYAppDelegate">

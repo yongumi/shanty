@@ -39,7 +39,7 @@
     __weak typeof(self) weak_self = self;
 
     NSDictionary *theHandlers = @{
-        @"HELLO": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        @"hello": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ @"cmd": @"WELCOME" } metadata:NULL data:NULL];
             [inPeer sendMessage:theMessage replyBlock:NULL];
             },
