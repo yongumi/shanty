@@ -12,6 +12,11 @@ import select
 import errno
 from twisted.internet.protocol import Protocol, ClientFactory, Factory
 from sys import stdout
+import datetime
+import twbonjour
+from twisted.internet.endpoints import TCP4ServerEndpoint
+from twisted.internet import reactor
+from twisted.internet.endpoints import TCP4ClientEndpoint
 
 #import zlib
 #import bencode
@@ -21,7 +26,7 @@ import snappy # pip install --user python-snappy
 
 ########################################################################################################################
 
-FORMAT = '%(name)-6s | %(threadName)-10s | %(levelname)s | %(relativeCreated)5.0d | %(message)s'
+FORMAT = '%(name)-6s | %(threadName)-10s | %(levelname)-5s | %(relativeCreated)5.0d | %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 root_logger = logging.getLogger('')
 server_logger = logging.getLogger('server')
@@ -67,7 +72,8 @@ class MessageCoder(object):
     def message_from_stream(self, s):
         header_data = s.read(HEADER_SIZE)
         if len(header_data) != HEADER_SIZE:
-            raise ClosedError()
+            s.append(header_data)
+            return False
         control_data_size, metadata_size, data_size = struct.unpack(HEADER_FORMAT, header_data)
         control_data_data = s.read(control_data_size)
         if len(control_data_data) != control_data_size:
@@ -118,13 +124,40 @@ class Message(object):
 
 ########################################################################################################################
 
-class Messenger(object):
-    def __init__(self, peer):
-        self.peer = peer
+class ShantyProtocol(Protocol):
+    def __init__(self, mode):
+        self.mode = mode
+        self.messageCoder = MessageCoder()
+        self.logger = unknown_logger
+        self.buffer = IOBuffer()
         self.handlers = []
-        self.logger = client_logger
         self.last_incoming_message_id = None
         self.next_outgoing_message_id = 0
+
+    def connectionMade(self):
+        if self.mode == 'CLIENT':
+            self.sendHello()
+
+    def dataReceived(self, data):
+        self.buffer.append(data)
+        while True:
+            message = self.messageCoder.message_from_stream(self.buffer)
+            if not message:
+                break
+            self.logger.debug('Received: %s', message)
+            self.handle_message(message)
+
+
+    def sendMessage(self, message):
+        message = self.message_for_sending(message)
+        self.logger.debug('Sending: %s', message)
+        data = self.messageCoder.flatten_message(message)
+        self.transport.write(data)
+
+    def sendReply(self, message, in_reply_to):
+        message.control_data['in-reply-to'] = in_reply_to.control_data[MSGID]
+        self.sendMessage(message)
+
 
     def message_for_sending(self, message):
         control_data = dict(message.control_data)
@@ -149,7 +182,7 @@ class Messenger(object):
                 break
 
         if handler:
-            handler(self.peer, message)
+            handler(self, message)
         else:
             self.logger.warning('No handler for %s' % message)
 
@@ -169,14 +202,16 @@ class Messenger(object):
     def system_handlers(self):
         if not hasattr(self, '_system_handlers'):
             def handle_ping(peer, message):
-                peer.send(Message({ CMD: 'PONG', 'in-response-to': message.control_data[MSGID] }))
+                peer.sendReply(Message(command = 'ping.reply'), message)
 
             def handle_echo(peer, message):
-                peer.send(Message({ CMD: 'ECHO_RESPONSE', 'in-response-to': message.control_data[MSGID] }, message.metadata, message.data))
+                data = message.data
+                if message.metadata and 'reverse' in message.metadata and message.metadata['reverse']:
+                    data = data[::-1]
+                peer.sendReply(Message(command = 'echo.reply', metadata = message.metadata, data = data), message)
 
             def handle_hello(peer, message):
-                #self.logger.debug('HANDLE HELLO')
-                peer.send(Message({ CMD: 'HELLO_RESPONSE', 'in-response-to': message.control_data[MSGID] }, message.metadata, message.data))
+                peer.sendReply(Message(command = 'hello.reply'), message)
 
             def print_message(peer, message):
                 self.logger.info('%s' % message)
@@ -185,40 +220,28 @@ class Messenger(object):
                 pass
 
             self._system_handlers = [
-                ('PING', handle_ping),
-                ('ECHO', handle_echo),
-                ('HELLO', handle_hello),
-                ('HELLO_RESPONSE', nop),
+                ('hello', handle_hello),
+                ('hello.reply', print_message),
+                ('ping', handle_ping),
+                ('ping.reply', print_message),
+                ('echo', handle_echo),
+                ('echo.reply', print_message),
                 ]
         return self._system_handlers
 
-########################################################################################################################
-
-class ShantyProtocol(Protocol):
-    def __init__(self, mode):
-        self.mode = mode
-        self.messageCoder = MessageCoder()
-        self.logger = unknown_logger
-        self.buffer = IOBuffer()
-        self.messenger = Messenger(self)
-
-    def connectionMade(self):
-        if self.mode == 'CLIENT':
-            self.sendMessage((Message(command = 'HELLO')))
-
-    def dataReceived(self, data):
-        self.buffer.append(data)
-        message = self.messageCoder.message_from_stream(self.buffer)
-        self.logger.debug('Received: %s', message)
-        self.messenger.handle_message(message)
-
-    def sendMessage(self, message):
-        message = self.messenger.message_for_sending(message)
-        self.logger.debug('Sending: %s', message)
-        data = self.messageCoder.flatten_message(message)
-        self.transport.write(data)
-
-    send = sendMessage
+    def sendHello(self):
+        m = {
+            'host': {
+                'address': self.transport.getHost().host,
+                'port': self.transport.getHost().port,
+                'time': datetime.datetime.now().isoformat(),
+                },
+            'peer': {
+                'address': self.transport.getPeer().host,
+                'port': self.transport.getPeer().port,
+                }
+            }
+        self.sendMessage((Message(command = 'hello', metadata = m)))
 
 ########################################################################################################################
 
@@ -240,3 +263,26 @@ class ShantyServerFactory(Factory):
         protocol.logger = server_logger
         return protocol
 
+########################################################################################################################
+
+def serve(type, name, domain = None, port = 0):
+    endpoint = TCP4ServerEndpoint(reactor, 0)
+    d = endpoint.listen(ShantyServerFactory())
+    def my_endpoint(my_port):
+        host, port = my_port.socket.getsockname()
+        d = twbonjour.broadcast(reactor, type, port, name)
+        #d.addCallback(client)
+    d.addCallback(my_endpoint)
+    reactor.run()
+
+def client(type, name = None, domain = None, port = 0, message = None):
+    def did_connect(protocol):
+        protocol.sendMessage(message)
+        reactor.callLater(2, reactor.stop)
+
+    name, host, port = bonjour.browse_one(type = type)
+    factory = ShantyClientFactory()
+    endpoint = TCP4ClientEndpoint(reactor, host, port)
+    d = endpoint.connect(factory)
+    d.addCallback(did_connect)
+    reactor.run()
