@@ -18,6 +18,8 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 - (instancetype)initWithSocket:(CFSocketRef)inSocket;
 - (instancetype)initWithSocket:(CFSocketRef)inSocket messageHandlers:(NSDictionary *)inMessageHandlers;
 
+// TODO close handler...
+
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock;
 
 - (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;

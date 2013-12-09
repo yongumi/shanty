@@ -19,7 +19,7 @@
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
-@property (readwrite, nonatomic) NSMutableDictionary *handlersForResponses;
+@property (readwrite, nonatomic) NSMutableDictionary *handlersForReplies;
 @property (readwrite, nonatomic) NSMutableDictionary *handlersForCommands;
 @end
 
@@ -40,7 +40,7 @@
 
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
-        _handlersForResponses = [NSMutableDictionary dictionary];
+        _handlersForReplies = [NSMutableDictionary dictionary];
         _handlersForCommands = [NSMutableDictionary dictionary];
 
         _readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(_socket), 0, _queue);
@@ -55,12 +55,12 @@
         dispatch_resume(_readSource);
 
         __weak typeof(self) weak_self = self;
-        [self addCommand:@"HELLO" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        [self addCommand:@"hello" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 
             __strong typeof(weak_self) strong_self = weak_self;
 
             NSDictionary *theControlData = @{
-                @"cmd": @"HELLO_RESPONSE",
+                @"cmd": @"hello.reply",
                 @"in-reply-to": inMessage.controlData[@"msgid"],
                 };
 
@@ -70,7 +70,7 @@
             NSLog(@"%@", inMessage);
             return(YES);
             }];
-        [self addCommand:@"HELLO_RESPONSE" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        [self addCommand:@"hello.reply" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             NSLog(@"%@", inMessage);
             return(YES);
             }];
@@ -100,7 +100,7 @@
 
     if (inBlock != NULL)
         {
-        self.handlersForResponses[theControlData[@"msgid"]] = inBlock;
+        self.handlersForReplies[theControlData[@"msgid"]] = inBlock;
         }
 
     __block NSData *theBuffer = [theMessage buffer:NULL];
@@ -168,11 +168,11 @@
 
     self.lastIncomingMessageID = incoming_message_id;
 
-    STYMessageBlock theHandler = self.handlersForResponses[inMessage.controlData[@"in-response-to"]];
+    STYMessageBlock theHandler = self.handlersForReplies[inMessage.controlData[@"in-reply-to"]];
     if (theHandler)
         {
         BOOL theResult = theHandler(self, inMessage, outError);
-        [self.handlersForResponses removeObjectForKey:inMessage.controlData[@"in-response-to"]];
+        [self.handlersForReplies removeObjectForKey:inMessage.controlData[@"in-reply-to"]];
         return(theResult);
         }
 

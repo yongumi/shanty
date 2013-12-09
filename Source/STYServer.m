@@ -12,11 +12,13 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+#import "STYMessagingPeer.h"
 #import "NSNetService+STYUserInfo.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
 @interface STYServer () <NSNetServiceDelegate>
+@property (readwrite, nonatomic, copy) NSArray *peers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
@@ -39,6 +41,7 @@ static id gSharedInstance = NULL;
         _netServiceDomain = @"local.";
         _netServiceType = @"_schwatest._tcp.";
         _netServiceName = @"schwa-test";
+        _peers = @[];
         }
     return self;
     }
@@ -162,13 +165,18 @@ static id gSharedInstance = NULL;
 
 - (void)_acceptSocket:(CFSocketRef)inSocket address:(NSData *)inAddress
     {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-
     NSError *theError = NULL;
-    BOOL theResult = self.connectHandler(inSocket, inAddress, &theError);
-    if (theResult == NO)
+
+    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandlers:self.defaultMessageHandlers];
+    self.peers = [self.peers arrayByAddingObject:thePeer];
+
+    if (self.connectHandler)
         {
-        NSLog(@"connectHandler failed with: %@", theError);
+        BOOL theResult = self.connectHandler(inSocket, inAddress, &theError);
+        if (theResult == NO)
+            {
+            NSLog(@"connectHandler failed with: %@", theError);
+            }
         }
     }
 
