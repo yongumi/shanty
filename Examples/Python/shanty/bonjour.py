@@ -5,6 +5,34 @@ __author__ = 'schwa'
 import pybonjour
 import select
 
+class Advertiser(object):
+    def __init__(self, name, type, port):
+        self.name    = name
+        self.regtype = type
+        self.port    = port
+        self.registered = False
+
+    def register_callback(self, sdRef, flags, errorCode, name, regtype, domain):
+        if errorCode == pybonjour.kDNSServiceErr_NoError:
+            #print 'Registered service:'
+            #print '  name    =', name
+            #print '  regtype =', regtype
+            #print '  domain  =', domain
+            self.registered = True
+
+    def start(self):
+        self.sdRef = pybonjour.DNSServiceRegister(name = self.name, regtype = self.regtype, port = self.port, callBack = self.register_callback)
+        while not self.registered:
+            ready = select.select([self.sdRef], [], [])
+            if self.sdRef in ready[0]:
+                pybonjour.DNSServiceProcessResult(self.sdRef)
+
+    def stop(self):
+        self.sdRef.close()
+        self.registered = False
+
+
+
 class BonjourBrowser(object):
 
     def __init__(self, type, domain = None, timeout = None):
