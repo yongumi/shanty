@@ -10,6 +10,8 @@ import logging
 import bonjour
 import select
 import errno
+from twisted.internet.protocol import Protocol, ClientFactory, Factory
+from sys import stdout
 
 #import zlib
 #import bencode
@@ -24,6 +26,9 @@ logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 root_logger = logging.getLogger('')
 server_logger = logging.getLogger('server')
 client_logger = logging.getLogger('client')
+unknown_logger = logging.getLogger('unknown')
+
+########################################################################################################################
 
 HEADER_FORMAT = '!HHL'
 HEADER_SIZE = struct.calcsize(HEADER_FORMAT) # currently 8
@@ -113,57 +118,20 @@ class Message(object):
 
 ########################################################################################################################
 
-class Peer(object):
-    def __init__(self, mode, socket):
-        self.mode = mode
-        self.socket = socket
+class Messenger(object):
+    def __init__(self, peer):
+        self.peer = peer
+        self.handlers = []
+        self.logger = client_logger
         self.last_incoming_message_id = None
         self.next_outgoing_message_id = 0
-        self.handlers = []
-        self.messageCoder = MessageCoder()
-        self.logger = client_logger
-        self.buffer = IOBuffer()
 
-    def close(self):
-        self.logger.debug('Closing peer socket %s', self.socket)
-        self.socket.close()
-        self.buffer = None
-
-    def send(self, message):
+    def message_for_sending(self, message):
         control_data = dict(message.control_data)
         control_data[MSGID] = self.next_outgoing_message_id
         self.next_outgoing_message_id += 1
         message.control_data = control_data
-        self.logger.debug('Sending: %s', message)
-        data = self.messageCoder.flatten_message(message)
-        try:
-            self.socket.sendall(data)
-        except socket.error, e:
-            if e.args[0] == errno.EBADF:
-                self.logger.error('Bad file descriptor, probably in select.')
-            else:
-                raise
-
-    def recv(self):
-        try:
-            read_buffer = self.socket.recv(4096)
-        except socket.error, e:
-            print e.args
-            # ECONNRESET
-            if e.args[0] == errno.EBADF:
-                self.logger.error('Bad file descriptor, probably in select.')
-            else:
-                raise
-        if read_buffer:
-            #self.logger.debug('READ: %d' % len(read_buffer))
-            self.buffer.append(read_buffer)
-            #self.logger.debug(self.buffer)
-            message = self.messageCoder.message_from_stream(self.buffer)
-            self.logger.debug('Received: %s', message)
-            self.handle_message(message)
-            return True
-        else:
-            return False
+        return message
 
     def handle_message(self, message):
         incoming_message_id = message.control_data[MSGID]
@@ -181,7 +149,7 @@ class Peer(object):
                 break
 
         if handler:
-            handler(self, message)
+            handler(self.peer, message)
         else:
             self.logger.warning('No handler for %s' % message)
 
@@ -226,119 +194,49 @@ class Peer(object):
 
 ########################################################################################################################
 
-class Client(object):
-    def __init__(self, host, port):
-        self.logger = client_logger
+class ShantyProtocol(Protocol):
+    def __init__(self, mode):
+        self.mode = mode
+        self.messageCoder = MessageCoder()
+        self.logger = unknown_logger
+        self.buffer = IOBuffer()
+        self.messenger = Messenger(self)
 
-        self.host = host
-        self.port = port
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.host, self.port))
-        self.peer = Peer('CLIENT', self.socket)
-        self.peer.logger = self.logger
-        self.peer.send(Message(command = 'HELLO'))
-        self.peer.recv()
+    def connectionMade(self):
+        if self.mode == 'CLIENT':
+            self.sendMessage((Message(command = 'HELLO')))
 
-    def __del__(self):
-        self.peer.close()
+    def dataReceived(self, data):
+        self.buffer.append(data)
+        message = self.messageCoder.message_from_stream(self.buffer)
+        self.logger.debug('Received: %s', message)
+        self.messenger.handle_message(message)
 
+    def sendMessage(self, message):
+        message = self.messenger.message_for_sending(message)
+        self.logger.debug('Sending: %s', message)
+        data = self.messageCoder.flatten_message(message)
+        self.transport.write(data)
 
-########################################################################################################################
-
-class MyTCPHandler(SocketServer.BaseRequestHandler):
-
-    def setup(self):
-        self.logger = server_logger
-        self.peer = Peer('SERVER', self.request)
-        self.peer.logger = self.logger
-        self.server.peers.append(self.peer)
-
-    def handle(self):
-        try:
-            request_socket = self.peer.socket
-            request_socket.setblocking(False)
-
-            while self.server.running:
-                readers, writers, errors = select.select([request_socket], [], [request_socket], 600)
-#                self.logger.debug('%s %s %s', readers, writers, errors)
-                if request_socket in readers:
-                    self.peer.recv()
-                elif request_socket in errors:
-                    self.logger.error('Socket error!')
-                else:
-                    break
-        except select.error, e:
-            self.logger.debug('Running? %s' % self.server.running)
-            if e.args[0] == errno.EBADF:
-                self.logger.debug('Bad file descriptor, probably in select.')
-            else:
-                raise
-
-    def finish(self):
-        #self.logger.debug('Handler finish.')
-        del self.server.peers[self.server.peers.index(self.peer)]
-
-class Server(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
-    allow_reuse_address = True
-
-    def __init__(self, dnssd_type, dnssd_name, host = '', port = 0):
-        self.logger = server_logger
-        self.logger.debug('type:%s name:%s host:%s port:%s' % (dnssd_type, dnssd_name, host, port))
-        self.dnssd_type = dnssd_type
-        self.dnssd_name = dnssd_name
-        SocketServer.TCPServer.__init__(self, (host, port), MyTCPHandler)
-        self.peers = []
-
-    def server_bind(self):
-        SocketServer.TCPServer.server_bind(self)
-        name, port = self.socket.getsockname()
-        self.logger.debug('Server bound: %s %s', name, port)
-        self.advertiser = bonjour.Advertiser(type = self.dnssd_type, name = self.dnssd_name, port = port)
-        self.advertiser.start()
-
-    def serve_forever(self, poll_interval=0.5):
-        #self.logger.debug('Serving.')
-        self.running = True
-        try:
-           SocketServer.TCPServer.serve_forever(self, poll_interval)
-        finally:
-            self.running = False
-        server_logger.debug("serve_forever completed")
-
-    def shutdown(self):
-        SocketServer.TCPServer.shutdown(self)
-        for peer in self.peers:
-            peer.close()
-        self.advertiser.stop()
+    send = sendMessage
 
 ########################################################################################################################
 
-#HOST, PORT = "localhost", 6667
+class ShantyClientFactory(ClientFactory):
+    #def startedConnecting(self, connector):
+    #    print 'Started to connect.'
 
-#def client():
-#    client_logger.info(threading.current_thread())
-#    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#    sock.connect((HOST, PORT))
-#
-#    peer = Peer(sock)
-#    peer.send(Message(command = 'HELLO'))
-#    try:
-#        while True:
-#            peer.send(Message(command = 'PING'))
-#            message = peer.recv()
-#            if message:
-#                print 'CLIENT', message
-#            time.sleep(0.1)
-#    except ClosedError:
-#        client_logger.warn('Closed')
-#    finally:
-#        sock.close()
+    def buildProtocol(self, addr):
+        protocol = ShantyProtocol(mode = 'CLIENT')
+        protocol.logger = client_logger
+        return protocol
 
-#def server():
-#    server = Server(HOST, PORT)
-#    if False:
-#        threading.Thread(target = client).start()
-#    server.serve_forever()
+########################################################################################################################
 
-#def test():
-#    server()
+class ShantyServerFactory(Factory):
+    def buildProtocol(self, addr):
+        #print 'Connected.'
+        protocol = ShantyProtocol(mode = 'SERVER')
+        protocol.logger = server_logger
+        return protocol
+
