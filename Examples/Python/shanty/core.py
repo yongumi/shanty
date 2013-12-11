@@ -90,7 +90,7 @@ class MessageCoder(object):
 
         data = s.read(data_size)
         if len(data) != data_size:
-            raise Exception('data size mismatch')
+            raise Exception('data size mismatch (expected %s got %s' % (data_size, len(data)))
 
         message = Message(control_data = control_data, metadata = metadata, data = data)
         return message
@@ -124,6 +124,57 @@ class Message(object):
 
 ########################################################################################################################
 
+class MessageHandler(object):
+
+    def __init__(self):
+        self.handlers = []
+
+    def add_handler(self, condition, handler):
+        self.handlers.append((condition, handler))
+
+    def find_handler(self, message):
+        for condition, handler in self.handlers:
+            if isinstance(condition, str):
+                if message.control_data[CMD] == condition:
+                    return handler
+            elif condition(message):
+                return handler
+        return None
+
+########################################################################################################################
+
+def system_handler():
+    def handle_ping(peer, message):
+        peer.sendReply(Message(command = 'ping.reply'), message)
+
+    def handle_echo(peer, message):
+        data = message.data
+        if message.metadata and 'reverse' in message.metadata and message.metadata['reverse']:
+            data = data[::-1]
+        peer.sendReply(Message(command = 'echo.reply', metadata = message.metadata, data = data), message)
+
+    def handle_hello(peer, message):
+        peer.sendReply(Message(command = 'hello.reply'), message)
+
+    def print_message(peer, message):
+        peer.logger.info('%s' % message)
+
+    def nop(peer, message):
+        pass
+
+    handlers = [
+        ('hello', handle_hello),
+        ('hello.reply', print_message),
+        ('ping', handle_ping),
+        ('ping.reply', print_message),
+        ('echo', handle_echo),
+        ('echo.reply', print_message),
+        ]
+
+    return handlers
+
+########################################################################################################################
+
 class ShantyProtocol(Protocol):
     def __init__(self, mode):
         self.mode = mode
@@ -145,7 +196,24 @@ class ShantyProtocol(Protocol):
             if not message:
                 break
             self.logger.debug('Received: %s', message)
-            self.handle_message(message)
+            print 'XYZ'
+            self.handle_message(self, message)
+
+    def handle_message(self, peer, message):
+        incoming_message_id = message.control_data[MSGID]
+        next_incoming_msgid = self.last_incoming_message_id + 1 if self.last_incoming_message_id else 1
+        if self.last_incoming_message_id and incoming_message_id != next_incoming_msgid:
+            error = "Incoming message ids dont match (got %d expected %d)" % (incoming_message_id, next_incoming_msgid)
+            self.logger.error(error)
+#            raise Exception(error)
+        self.last_incoming_message_id = incoming_message_id
+
+        handler_function = self.handler.find_handler(message)
+
+        if handler_function:
+            handler_function(peer, message)
+        else:
+            self.logger.warning('No handler for %s' % message)
 
 
     def sendMessage(self, message):
@@ -158,76 +226,12 @@ class ShantyProtocol(Protocol):
         message.control_data['in-reply-to'] = in_reply_to.control_data[MSGID]
         self.sendMessage(message)
 
-
     def message_for_sending(self, message):
         control_data = dict(message.control_data)
         control_data[MSGID] = self.next_outgoing_message_id
         self.next_outgoing_message_id += 1
         message.control_data = control_data
         return message
-
-    def handle_message(self, message):
-        incoming_message_id = message.control_data[MSGID]
-        next_incoming_msgid = self.last_incoming_message_id + 1 if self.last_incoming_message_id else 1
-        if self.last_incoming_message_id and incoming_message_id != next_incoming_msgid:
-            error = "Incoming message ids dont match (got %d expected %d)" % (incoming_message_id, next_incoming_msgid)
-            self.logger.error(error)
-#            raise Exception(error)
-        self.last_incoming_message_id = incoming_message_id
-
-        handler = None
-        for handlers in [self.system_handlers, self.handlers]:
-            handler = self.find_handler(handlers, message)
-            if handler:
-                break
-
-        if handler:
-            handler(self, message)
-        else:
-            self.logger.warning('No handler for %s' % message)
-
-    def add_handler(self, condition, handler):
-        self.handlers.append((condition, handler))
-
-    def find_handler(self, handlers, message):
-        for condition, handler in handlers:
-            if isinstance(condition, str):
-                if message.control_data[CMD] == condition:
-                    return handler
-            elif condition(message):
-                return handler
-        return None
-
-    @property
-    def system_handlers(self):
-        if not hasattr(self, '_system_handlers'):
-            def handle_ping(peer, message):
-                peer.sendReply(Message(command = 'ping.reply'), message)
-
-            def handle_echo(peer, message):
-                data = message.data
-                if message.metadata and 'reverse' in message.metadata and message.metadata['reverse']:
-                    data = data[::-1]
-                peer.sendReply(Message(command = 'echo.reply', metadata = message.metadata, data = data), message)
-
-            def handle_hello(peer, message):
-                peer.sendReply(Message(command = 'hello.reply'), message)
-
-            def print_message(peer, message):
-                self.logger.info('%s' % message)
-
-            def nop(peer, message):
-                pass
-
-            self._system_handlers = [
-                ('hello', handle_hello),
-                ('hello.reply', print_message),
-                ('ping', handle_ping),
-                ('ping.reply', print_message),
-                ('echo', handle_echo),
-                ('echo.reply', print_message),
-                ]
-        return self._system_handlers
 
     def sendHello(self):
         m = {
@@ -249,18 +253,29 @@ class ShantyClientFactory(ClientFactory):
     #def startedConnecting(self, connector):
     #    print 'Started to connect.'
 
+    def __init__(self):
+        self.handler = MessageHandler()
+        self.handler.handlers = system_handler()
+
     def buildProtocol(self, addr):
         protocol = ShantyProtocol(mode = 'CLIENT')
         protocol.logger = client_logger
+        protocol.handler = self.handler
         return protocol
 
 ########################################################################################################################
 
 class ShantyServerFactory(Factory):
+
+    def __init__(self):
+        self.handler = MessageHandler()
+        self.handler.handlers = system_handler()
+
     def buildProtocol(self, addr):
         #print 'Connected.'
         protocol = ShantyProtocol(mode = 'SERVER')
         protocol.logger = server_logger
+        protocol.handler = self.handler
         return protocol
 
 ########################################################################################################################
