@@ -48,7 +48,6 @@
             JSValue *theResult = [theContext evaluateScript:theScript];
             NSLog(@"%@", theResult);
 
-
 //            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:<#(NSDictionary *)#> metadata:<#(NSDictionary *)#> data:<#(NSData *)#>
 //            [inPeer sendMessage:theResponse];
 

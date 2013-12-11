@@ -49,15 +49,12 @@ def main(argv = None):
                     open(path, 'w').write(message.data)
 
                 if not message.control_data['more-coming']:
-                    reactor.stop()
-
+                    #reactor.stop()
+                    pass
 
             name, host, port = bonjour.browse_one(type = type)
             factory = ShantyClientFactory()
             factory.handler.add_handler('snapshot.reply',handle_snapshot )
-
-
-
 
             endpoint = TCP4ClientEndpoint(reactor, host, port)
             d = endpoint.connect(factory)

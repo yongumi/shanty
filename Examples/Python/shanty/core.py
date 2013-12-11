@@ -45,19 +45,54 @@ class ClosedError(EOFError):
 
 ########################################################################################################################
 
-class IOBuffer(object):
+class MessageBuilder(object):
     def __init__(self):
-        self.buffer = ''
-    def append(self, buffer):
-        self.buffer += buffer
-    def read(self, length):
-        result = self.buffer[:length]
-        self.buffer = self.buffer[length:]
-        return result
-    def __repr__(self):
-        return 'IOBuffer(%d, [%s])' % (len(self.buffer), self.buffer)
+        self.data = ''
+        self.header = None
+        self.coder = MessageCoder()
+    def push_data(self, data):
+        self.data += data
+    def has_message(self):
+        if len(self.data) <= HEADER_SIZE:
+            return False
+#        print len(self.data), HEADER_SIZE
+        control_data_size, metadata_size, data_size = struct.unpack(HEADER_FORMAT, self.data[0:HEADER_SIZE])
+        size_needed = HEADER_SIZE + control_data_size + metadata_size + data_size
+        if len(self.data) < size_needed:
+            return False
+        return True
 
-########################################################################################################################
+    def read(self, length):
+        result = self.data[:length]
+        self.data = self.data[length:]
+        return result
+
+    def pop_message(self):
+        if len(self.data) < HEADER_SIZE:
+            raise EOFError()
+        data = self.read(HEADER_SIZE)
+        control_data_size, metadata_size, data_size = struct.unpack(HEADER_FORMAT, data)
+
+        control_data_data = self.read(control_data_size)
+        if len(control_data_data) != control_data_size:
+            raise EOFError()
+        control_data = self.coder.decode(control_data_data)
+
+        if metadata_size > 0:
+            metadata_data = self.read(metadata_size)
+            if len(metadata_data) != metadata_size:
+                raise EOFError()
+            metadata = self.coder.decode(metadata_data)
+        else:
+            metadata = None
+
+        data = self.read(data_size)
+        if len(data) != data_size:
+            raise Exception('data size mismatch (expected %s got %s' % (data_size, len(data)))
+
+        message = Message(control_data = control_data, metadata = metadata, data = data)
+        return message
+
 
 class MessageCoder(object):
 
@@ -180,23 +215,20 @@ class ShantyProtocol(Protocol):
         self.mode = mode
         self.messageCoder = MessageCoder()
         self.logger = unknown_logger
-        self.buffer = IOBuffer()
         self.handlers = []
         self.last_incoming_message_id = None
         self.next_outgoing_message_id = 0
+        self.messageBuilder = MessageBuilder()
 
     def connectionMade(self):
         if self.mode == 'CLIENT':
             self.sendHello()
 
     def dataReceived(self, data):
-        self.buffer.append(data)
-        while True:
-            message = self.messageCoder.message_from_stream(self.buffer)
-            if not message:
-                break
+        self.messageBuilder.push_data(data)
+        while self.messageBuilder.has_message():
+            message = self.messageBuilder.pop_message()
             self.logger.debug('Received: %s', message)
-            print 'XYZ'
             self.handle_message(self, message)
 
     def handle_message(self, peer, message):

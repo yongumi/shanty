@@ -32,8 +32,8 @@
     if ((self = [super init]) != NULL)
         {
         _socket = inSocket;
-        _queue = dispatch_get_main_queue();
-//        _queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
+//        _queue = dispatch_get_main_queue();
+        _queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
 
         _channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.socket), dispatch_get_main_queue(), ^(int error) {
             NSLog(@"TODO: Clean up");
@@ -81,14 +81,10 @@
         }
 
     __block NSData *theBuffer = [theMessage buffer:NULL];
-    dispatch_data_t theData = dispatch_data_create([theBuffer bytes], [theBuffer length], self.queue, ^{
-        theBuffer = NULL;
-        });
+    dispatch_data_t theData = dispatch_data_create([theBuffer bytes], [theBuffer length], self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
 
     dispatch_io_write(self.channel, 0, theData, self.queue, ^(bool done, dispatch_data_t data, int error) {
-        if (error) {
-            NSLog(@"ERROR? %d %@ %d", done, data, error);
-            }
+       // NSLog(@"ERROR? DONE: %d DATASIZE: %d ERROR: %d", done, data ? dispatch_data_get_size(data) : 0, error);
         });
     }
 

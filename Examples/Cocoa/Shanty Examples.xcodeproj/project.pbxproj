@@ -27,6 +27,7 @@
 		450FD6D0182ACB130022909D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6CE182ACB130022909D /* Main_iPad.storyboard */; };
 		450FD6D3182ACB130022909D /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6D2182ACB130022909D /* CViewController.m */; };
 		450FD6D5182ACB130022909D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6D4182ACB130022909D /* Images.xcassets */; };
+		451AAC801857F8CF00B09BFA /* Noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 451AAC7F1857F8CF00B09BFA /* Noise.png */; };
 		453E552D18298CA3006DA24B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453E552C18298CA3006DA24B /* CFNetwork.framework */; };
 		453E55321829B0A0006DA24B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453E55311829B0A0006DA24B /* JavaScriptCore.framework */; };
 		454FCD21182AD70200A06C8B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454FCD20182AD70200A06C8B /* Cocoa.framework */; };
@@ -158,6 +159,8 @@
 		450FD6D1182ACB130022909D /* CViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CViewController.h; sourceTree = "<group>"; };
 		450FD6D2182ACB130022909D /* CViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CViewController.m; sourceTree = "<group>"; };
 		450FD6D4182ACB130022909D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		451AAC7E1857F65D00B09BFA /* Shanty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shanty.h; sourceTree = "<group>"; };
+		451AAC7F1857F8CF00B09BFA /* Noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Noise.png; sourceTree = "<group>"; };
 		452EF848182815B400C67D8B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		453E552C18298CA3006DA24B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		453E55311829B0A0006DA24B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -265,6 +268,7 @@
 		450D6CD3182AC9B500D540B9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				451AAC7E1857F65D00B09BFA /* Shanty.h */,
 				450D6CD4182AC9B500D540B9 /* STYClient.h */,
 				450D6CD5182AC9B500D540B9 /* STYClient.m */,
 				450D6CD6182AC9B500D540B9 /* STYDataScanner+Message.h */,
@@ -349,6 +353,7 @@
 		450FD6BF182ACB130022909D /* Shanty iOS Example */ = {
 			isa = PBXGroup;
 			children = (
+				451AAC7F1857F8CF00B09BFA /* Noise.png */,
 				450FD6C8182ACB130022909D /* CAppDelegate.h */,
 				450FD6C9182ACB130022909D /* CAppDelegate.m */,
 				450FD6CB182ACB130022909D /* Main_iPhone.storyboard */,
@@ -607,6 +612,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451AAC801857F8CF00B09BFA /* Noise.png in Resources */,
 				450FD6D0182ACB130022909D /* Main_iPad.storyboard in Resources */,
 				450FD6D5182ACB130022909D /* Images.xcassets in Resources */,
 				450FD6CD182ACB130022909D /* Main_iPhone.storyboard in Resources */,

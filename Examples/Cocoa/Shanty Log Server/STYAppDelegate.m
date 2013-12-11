@@ -8,15 +8,11 @@
 
 #import "STYAppDelegate.h"
 
-#import "STYServer.h"
-#import "STYMessagingPeer.h"
-#import "STYMessage.h"
+#import "Shanty.h"
 
 @interface STYAppDelegate ()
 @property (readwrite, nonatomic) STYServer *server;
-@property (readwrite, nonatomic) NSMutableSet *servedPeers;
 @property (readwrite, nonatomic) NSMutableArray *events;
-
 @end
 
 #pragma mark -
@@ -32,37 +28,24 @@
 
 - (void)_startServer
     {
-    NSLog(@"Starting server");
     self.server = [[STYServer alloc] init];
-    self.servedPeers = [NSMutableSet set];
 
     __weak typeof(self) weak_self = self;
-
-    NSDictionary *theHandlers = @{
-        @"hello": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ @"cmd": @"WELCOME" } metadata:NULL data:NULL];
-            [inPeer sendMessage:theMessage replyBlock:NULL];
-            },
-
-        @"log": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            NSString *theLogMessage = [[NSString alloc] initWithData:inMessage.data encoding:NSUTF8StringEncoding];
-            NSLog(@"%@", theLogMessage);
-
-            NSDictionary *theEvent = @{ @"message": theLogMessage };
-            [self willChangeValueForKey:@"events"];
-            [self.events addObject:theEvent];
-            [self didChangeValueForKey:@"events"];
-            },
-        };
-
-    self.server.connectHandler = ^(CFSocketRef inSocket, NSData *inAddress, NSError **outError) {
-        __strong typeof(weak_self) strong_self = weak_self;
-        STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandlers:theHandlers];
-        [strong_self.servedPeers addObject:thePeer];
+    [self.server.messageHandler addCommand:@"log" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(weak_self) strong_self = weak_self;
+            if (strong_self) {
+                NSString *theLogMessage = [[NSString alloc] initWithData:inMessage.data encoding:NSUTF8StringEncoding];
+                NSDictionary *theEvent = @{ @"message": theLogMessage };
+                [strong_self willChangeValueForKey:@"events"];
+                [strong_self.events addObject:theEvent];
+                [strong_self didChangeValueForKey:@"events"];
+                }
+            });
         return(YES);
-        };
-    [self.server startListening:^(NSError *inError) {
         }];
+
+    [self.server startListening:NULL];
     }
 
 @end

@@ -42,7 +42,6 @@
 
 - (void)_addSystemHandlers
     {
-    __weak typeof(self) weak_self = self;
     [self addCommand:@"hello" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 
         NSDictionary *theControlData = @{
