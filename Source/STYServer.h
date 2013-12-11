@@ -10,6 +10,8 @@
 
 #import "STYCompletionBlocks.h"
 
+@class STYMessageHandler;
+
 typedef BOOL (^STYServerConnectBlock)(CFSocketRef inSocket, NSData *inAddress, NSError **outError);
 
 @interface STYServer : NSObject
@@ -21,7 +23,7 @@ typedef BOOL (^STYServerConnectBlock)(CFSocketRef inSocket, NSData *inAddress, N
 @property (readwrite, nonatomic, copy) NSString *netServiceName;
 @property (readwrite, nonatomic, strong) STYServerConnectBlock connectHandler;
 @property (readonly, nonatomic, copy) NSArray *peers;
-@property (readwrite, nonatomic, copy) NSDictionary *defaultMessageHandlers;
+@property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
 
 - (void)startListening:(STYCompletionBlock)inResultHandler;
 - (void)stopListening:(STYCompletionBlock)inResultHandler;

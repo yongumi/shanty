@@ -64,7 +64,7 @@ static STYLogging *gSharedInstance = NULL;
 
             [strong_self.client connect:^(NSError *error) {
                 NSLog(@"CONNECTED? %@", error);
-                strong_self.peer = [[STYMessagingPeer alloc] initWithSocket:strong_self.client.socket messageHandlers:NULL];
+                strong_self.peer = [[STYMessagingPeer alloc] initWithSocket:strong_self.client.socket];
 
                 }];
             }];

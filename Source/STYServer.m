@@ -14,6 +14,7 @@
 
 #import "STYMessagingPeer.h"
 #import "NSNetService+STYUserInfo.h"
+#import "STYMessageHandler.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
@@ -42,6 +43,7 @@ static id gSharedInstance = NULL;
         _netServiceType = @"_schwatest._tcp.";
         _netServiceName = @"schwa-test";
         _peers = @[];
+        _messageHandler = [[STYMessageHandler alloc] init];
         }
     return self;
     }
@@ -167,7 +169,7 @@ static id gSharedInstance = NULL;
     {
     NSError *theError = NULL;
 
-    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandlers:self.defaultMessageHandlers];
+    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandler:self.messageHandler];
     self.peers = [self.peers arrayByAddingObject:thePeer];
 
     if (self.connectHandler)

@@ -91,6 +91,13 @@
 		45EE0E3E18456C4B00DEE839 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E3D18456C4B00DEE839 /* Images.xcassets */; };
 		45EE0E4418456C4B00DEE839 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452EF848182815B400C67D8B /* XCTest.framework */; };
 		45EE0E4518456C4B00DEE839 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454FCD20182AD70200A06C8B /* Cocoa.framework */; };
+		45FCF1141857EB3200650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1151857EE3C00650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1161857EE3D00650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1171857EE3D00650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1181857EE3E00650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1191857EE3F00650FED /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1131857EB3200650FED /* STYMessageHandler.m */; };
+		45FCF1221857EFA100650FED /* STYDebugTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1211857EFA100650FED /* STYDebugTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +197,10 @@
 		45EE0E3B18456C4B00DEE839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		45EE0E3D18456C4B00DEE839 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45EE0E4318456C4B00DEE839 /* Shanty Log ServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shanty Log ServerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45FCF1121857EB3200650FED /* STYMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYMessageHandler.h; sourceTree = "<group>"; };
+		45FCF1131857EB3200650FED /* STYMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessageHandler.m; sourceTree = "<group>"; };
+		45FCF1201857EFA100650FED /* STYDebugTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYDebugTool.h; sourceTree = "<group>"; };
+		45FCF1211857EFA100650FED /* STYDebugTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYDebugTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +276,8 @@
 				450D6CDC182AC9B500D540B9 /* STYCompletionBlocks.h */,
 				450D6CDD182AC9B500D540B9 /* STYMessagingPeer.h */,
 				450D6CDE182AC9B500D540B9 /* STYMessagingPeer.m */,
+				45FCF1121857EB3200650FED /* STYMessageHandler.h */,
+				45FCF1131857EB3200650FED /* STYMessageHandler.m */,
 				450D6CDF182AC9B500D540B9 /* STYServer.h */,
 				450D6CE0182AC9B500D540B9 /* STYServer.m */,
 				450D6CE1182AC9B500D540B9 /* NSNetService+STYUserInfo.h */,
@@ -342,6 +355,8 @@
 				450FD6CE182ACB130022909D /* Main_iPad.storyboard */,
 				450FD6D1182ACB130022909D /* CViewController.h */,
 				450FD6D2182ACB130022909D /* CViewController.m */,
+				45FCF1201857EFA100650FED /* STYDebugTool.h */,
+				45FCF1211857EFA100650FED /* STYDebugTool.m */,
 				450FD6D4182ACB130022909D /* Images.xcassets */,
 				450FD6C0182ACB130022909D /* Supporting Files */,
 			);
@@ -649,6 +664,7 @@
 				45CDDB5E184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				450D6CE3182AC9B500D540B9 /* STYClient.m in Sources */,
 				450D6CEB182AC9B500D540B9 /* STYMessagingPeer.m in Sources */,
+				45FCF1141857EB3200650FED /* STYMessageHandler.m in Sources */,
 				450D6CEF182AC9B500D540B9 /* NSNetService+STYUserInfo.m in Sources */,
 				450FD6B3182ACAE80022909D /* CTest.m in Sources */,
 				45CDDB58184E681C00BB64D6 /* STYLogging.m in Sources */,
@@ -664,10 +680,12 @@
 			files = (
 				454FCD78182AD97A00A06C8B /* STYMessage.m in Sources */,
 				450FD6CA182ACB130022909D /* CAppDelegate.m in Sources */,
+				45FCF1221857EFA100650FED /* STYDebugTool.m in Sources */,
 				454FCD75182AD97A00A06C8B /* STYClient.m in Sources */,
 				454FCD7B182AD97A00A06C8B /* STYServer.m in Sources */,
 				45CDDB5F184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				450FD6C6182ACB130022909D /* main.m in Sources */,
+				45FCF1151857EE3C00650FED /* STYMessageHandler.m in Sources */,
 				454FCD7C182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */,
 				450FD6D3182ACB130022909D /* CViewController.m in Sources */,
 				454FCD7A182AD97A00A06C8B /* STYMessagingPeer.m in Sources */,
@@ -686,6 +704,7 @@
 				45CDDB60184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				454FCD6D182AD97A00A06C8B /* STYClient.m in Sources */,
 				454FCD72182AD97A00A06C8B /* STYMessagingPeer.m in Sources */,
+				45FCF1161857EE3D00650FED /* STYMessageHandler.m in Sources */,
 				454FCD2D182AD70200A06C8B /* main.m in Sources */,
 				454FCD34182AD70200A06C8B /* NIMAppDelegate.m in Sources */,
 				45CDDB5A184E681C00BB64D6 /* STYLogging.m in Sources */,
@@ -705,6 +724,7 @@
 				45A9C71D182ADC240044D09B /* STYServer.m in Sources */,
 				45A9C716182ADBE40044D09B /* Message_Tests.m in Sources */,
 				45A9C717182ADC240044D09B /* STYClient.m in Sources */,
+				45FCF1171857EE3D00650FED /* STYMessageHandler.m in Sources */,
 				45A9C71C182ADC240044D09B /* STYMessagingPeer.m in Sources */,
 				45CDDB5B184E681C00BB64D6 /* STYLogging.m in Sources */,
 				45A9C71A182ADC240044D09B /* STYMessage.m in Sources */,
@@ -721,6 +741,7 @@
 				45CDDB62184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				45B709921846889B00F0D982 /* STYClient.m in Sources */,
 				45EE0E3918456C4B00DEE839 /* STYAppDelegate.m in Sources */,
+				45FCF1181857EE3E00650FED /* STYMessageHandler.m in Sources */,
 				45B709981846889B00F0D982 /* NSNetService+STYUserInfo.m in Sources */,
 				45B709931846889B00F0D982 /* STYDataScanner+Message.m in Sources */,
 				45CDDB5C184E681C00BB64D6 /* STYLogging.m in Sources */,
@@ -736,6 +757,7 @@
 			files = (
 				45CDDB63184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				45CDDB5D184E681C00BB64D6 /* STYLogging.m in Sources */,
+				45FCF1191857EE3F00650FED /* STYMessageHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

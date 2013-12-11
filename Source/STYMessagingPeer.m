@@ -10,6 +10,7 @@
 
 #import "STYMessage.h"
 #import "STYDataScanner+Message.h"
+#import "STYMessageHandler.h"
 
 @interface STYMessagingPeer ()
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
@@ -19,8 +20,7 @@
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
-@property (readwrite, nonatomic) NSMutableDictionary *handlersForReplies;
-@property (readwrite, nonatomic) NSMutableDictionary *handlersForCommands;
+@property (readwrite, nonatomic) NSMutableDictionary *handlersForReplies; // TODO rename blocksForReplies
 @end
 
 #pragma mark -
@@ -33,19 +33,20 @@
         {
         _socket = inSocket;
         _queue = dispatch_get_main_queue();
+//        _queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
+
         _channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.socket), dispatch_get_main_queue(), ^(int error) {
-            NSLog(@"CLEANUP");
+            NSLog(@"TODO: Clean up");
             });
         dispatch_io_set_low_water(_channel, 1);
 
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
         _handlersForReplies = [NSMutableDictionary dictionary];
-        _handlersForCommands = [NSMutableDictionary dictionary];
 
         _readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(_socket), 0, _queue);
         dispatch_source_set_cancel_handler(_readSource, ^{
-            NSLog(@"CANCELED ************************");
+            NSLog(@"Read source canceled. Other side closed?");
             });
         dispatch_source_set_event_handler(_readSource, ^{
 //            NSLog(@"READ");
@@ -53,42 +54,18 @@
             });
 
         dispatch_resume(_readSource);
-
-        __weak typeof(self) weak_self = self;
-        [self addCommand:@"hello" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-
-            __strong typeof(weak_self) strong_self = weak_self;
-
-            NSDictionary *theControlData = @{
-                @"cmd": @"hello.reply",
-                @"in-reply-to": inMessage.controlData[@"msgid"],
-                };
-
-            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
-            [strong_self sendMessage:theResponse replyBlock:NULL];
-
-            NSLog(@"%@", inMessage);
-            return(YES);
-            }];
-        [self addCommand:@"hello.reply" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            NSLog(@"%@", inMessage);
-            return(YES);
-            }];
-
         }
     return self;
     }
 
-- (instancetype)initWithSocket:(CFSocketRef)inSocket messageHandlers:(NSDictionary *)inMessageHandlers;
+- (instancetype)initWithSocket:(CFSocketRef)inSocket messageHandler:(STYMessageHandler *)inMessageHandler
     {
     if ((self = [self initWithSocket:inSocket]) != NULL)
         {
-        [self.handlersForCommands addEntriesFromDictionary:inMessageHandlers];
+        _messageHandler = inMessageHandler;
         }
     return self;
     }
-
-
 
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
     {
@@ -109,7 +86,9 @@
         });
 
     dispatch_io_write(self.channel, 0, theData, self.queue, ^(bool done, dispatch_data_t data, int error) {
-//      NSLog(@"%d %@ %d", done, data, error);
+        if (error) {
+            NSLog(@"ERROR? %d %@ %d", done, data, error);
+            }
         });
     }
 
@@ -176,7 +155,7 @@
         return(theResult);
         }
 
-    theHandler = self.handlersForCommands[inMessage.controlData[@"cmd"]];
+    theHandler = [self.messageHandler handlerForMessage:inMessage];
     if (theHandler)
         {
         BOOL theResult = theHandler(self, inMessage, outError);
@@ -184,11 +163,6 @@
         }
 
     return(NO);
-    }
-
-- (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;
-    {
-    [self.handlersForCommands setObject:inBlock forKey:inCommand];
     }
 
 @end
