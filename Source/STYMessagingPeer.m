@@ -11,6 +11,7 @@
 #import "STYMessage.h"
 #import "STYDataScanner+Message.h"
 #import "STYMessageHandler.h"
+#import "STYAddress.h"
 
 @interface STYMessagingPeer ()
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
@@ -47,6 +48,12 @@
         _readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(_socket), 0, _queue);
         dispatch_source_set_cancel_handler(_readSource, ^{
             NSLog(@"Read source canceled. Other side closed?");
+
+            if ([self.delegate respondsToSelector:@selector(messagingPeerRemoteDidDisconnect:)])
+                {
+                [self.delegate messagingPeerRemoteDidDisconnect:self];
+                }
+
             });
         dispatch_source_set_event_handler(_readSource, ^{
 //            NSLog(@"READ");
@@ -65,6 +72,26 @@
         _messageHandler = inMessageHandler;
         }
     return self;
+    }
+
+- (STYAddress *)address
+    {
+    NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyAddress(self.socket);
+    STYAddress *theAddress = [[STYAddress alloc] initWithData:theAddressData];
+    return(theAddress);
+    }
+
+- (STYAddress *)peerAddress
+    {
+    NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyPeerAddress(self.socket);
+    STYAddress *theAddress = [[STYAddress alloc] initWithData:theAddressData];
+    return(theAddress);
+    }
+
+- (void)close
+    {
+    dispatch_io_close(self.channel, 0);
+    dispatch_source_cancel(self.readSource);
     }
 
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
@@ -126,11 +153,6 @@
         });
     }
 
-- (void)close
-    {
-    dispatch_io_close(self.channel, 0);
-    dispatch_source_cancel(self.readSource);
-    }
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {

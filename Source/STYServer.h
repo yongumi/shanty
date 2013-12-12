@@ -11,8 +11,8 @@
 #import "STYCompletionBlocks.h"
 
 @class STYMessageHandler;
-
-typedef BOOL (^STYServerConnectBlock)(CFSocketRef inSocket, NSData *inAddress, NSError **outError);
+@class STYMessagingPeer;
+@protocol STYServerDelegate;
 
 @interface STYServer : NSObject
 
@@ -21,11 +21,25 @@ typedef BOOL (^STYServerConnectBlock)(CFSocketRef inSocket, NSData *inAddress, N
 @property (readwrite, nonatomic, copy) NSString *netServiceDomain;
 @property (readwrite, nonatomic, copy) NSString *netServiceType;
 @property (readwrite, nonatomic, copy) NSString *netServiceName;
-@property (readwrite, nonatomic, strong) STYServerConnectBlock connectHandler;
-@property (readonly, nonatomic, copy) NSArray *peers;
+@property (readonly, nonatomic, copy) NSSet *peers;
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
+
+@property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
+
 
 - (void)startListening:(STYCompletionBlock)inResultHandler;
 - (void)stopListening:(STYCompletionBlock)inResultHandler;
+
+@end
+
+#pragma mark -
+
+@protocol STYServerDelegate <NSObject>
+
+@optional
+- (BOOL)server:(STYServer *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
+- (Class)server:(STYServer *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
+- (void)server:(STYServer *)inServer peerDidConnect:(STYMessagingPeer *)inPeer;
+- (void)server:(STYServer *)inServer peerDidDisconnect:(STYMessagingPeer *)inPeer;
 
 @end

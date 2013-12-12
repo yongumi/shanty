@@ -53,6 +53,11 @@
 		454FCD7C182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450D6CE2182AC9B500D540B9 /* NSNetService+STYUserInfo.m */; };
 		454FCD82182AD9BE00A06C8B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452EF848182815B400C67D8B /* XCTest.framework */; };
 		454FCD88182AD9BE00A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD86182AD9BE00A06C8B /* InfoPlist.strings */; };
+		455DEFD218593D7B00C885CC /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 455DEFD118593D7B00C885CC /* STYAddress.m */; };
+		455DEFD318593D7F00C885CC /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 455DEFD118593D7B00C885CC /* STYAddress.m */; };
+		455DEFD418593D7F00C885CC /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 455DEFD118593D7B00C885CC /* STYAddress.m */; };
+		455DEFD518593D8000C885CC /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 455DEFD118593D7B00C885CC /* STYAddress.m */; };
+		455DEFD618593D8000C885CC /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 455DEFD118593D7B00C885CC /* STYAddress.m */; };
 		4588AEE2182AF25300A08681 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4588AEE1182AF25300A08681 /* SceneKit.framework */; };
 		4588AEE4182AF31000A08681 /* Cube.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4588AEE3182AF31000A08681 /* Cube.dae */; };
 		45A9C716182ADBE40044D09B /* Message_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A9C715182ADBE40044D09B /* Message_Tests.m */; };
@@ -182,6 +187,8 @@
 		454FCD85182AD9BE00A06C8B /* Shanty Mac Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac Unit Tests-Info.plist"; sourceTree = "<group>"; };
 		454FCD87182AD9BE00A06C8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		454FCD8B182AD9BE00A06C8B /* Shanty Mac Unit Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac Unit Tests-Prefix.pch"; sourceTree = "<group>"; };
+		455DEFD018593D7B00C885CC /* STYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYAddress.h; sourceTree = "<group>"; };
+		455DEFD118593D7B00C885CC /* STYAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYAddress.m; sourceTree = "<group>"; };
 		4588AEE1182AF25300A08681 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		4588AEE3182AF31000A08681 /* Cube.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Cube.dae; sourceTree = "<group>"; };
 		45A9C715182ADBE40044D09B /* Message_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message_Tests.m; sourceTree = "<group>"; };
@@ -290,6 +297,8 @@
 				45CDDB55184E681C00BB64D6 /* STYLogging.m */,
 				45CDDB56184E681C00BB64D6 /* STYServiceDiscoverer.h */,
 				45CDDB57184E681C00BB64D6 /* STYServiceDiscoverer.m */,
+				455DEFD018593D7B00C885CC /* STYAddress.h */,
+				455DEFD118593D7B00C885CC /* STYAddress.m */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -676,6 +685,7 @@
 				45CDDB58184E681C00BB64D6 /* STYLogging.m in Sources */,
 				450D6CED182AC9B500D540B9 /* STYServer.m in Sources */,
 				450FD6B4182ACAE80022909D /* main.m in Sources */,
+				455DEFD218593D7B00C885CC /* STYAddress.m in Sources */,
 				450D6CE7182AC9B500D540B9 /* STYDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				454FCD78182AD97A00A06C8B /* STYMessage.m in Sources */,
+				455DEFD318593D7F00C885CC /* STYAddress.m in Sources */,
 				450FD6CA182ACB130022909D /* CAppDelegate.m in Sources */,
 				45FCF1221857EFA100650FED /* STYDebugTool.m in Sources */,
 				454FCD75182AD97A00A06C8B /* STYClient.m in Sources */,
@@ -716,6 +727,7 @@
 				45CDDB5A184E681C00BB64D6 /* STYLogging.m in Sources */,
 				454FCD73182AD97A00A06C8B /* STYServer.m in Sources */,
 				454FCD74182AD97A00A06C8B /* NSNetService+STYUserInfo.m in Sources */,
+				455DEFD418593D7F00C885CC /* STYAddress.m in Sources */,
 				454FCD6E182AD97A00A06C8B /* STYDataScanner+Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -725,6 +737,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45A9C718182ADC240044D09B /* STYDataScanner+Message.m in Sources */,
+				455DEFD518593D8000C885CC /* STYAddress.m in Sources */,
 				45A9C71E182ADC240044D09B /* NSNetService+STYUserInfo.m in Sources */,
 				45CDDB61184E681C00BB64D6 /* STYServiceDiscoverer.m in Sources */,
 				45A9C71D182ADC240044D09B /* STYServer.m in Sources */,
@@ -753,6 +766,7 @@
 				45CDDB5C184E681C00BB64D6 /* STYLogging.m in Sources */,
 				45B709971846889B00F0D982 /* STYServer.m in Sources */,
 				45B709941846889B00F0D982 /* STYDataScanner.m in Sources */,
+				455DEFD618593D8000C885CC /* STYAddress.m in Sources */,
 				45B709961846889B00F0D982 /* STYMessagingPeer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

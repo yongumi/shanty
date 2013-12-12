@@ -18,8 +18,8 @@
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
-@interface STYServer () <NSNetServiceDelegate>
-@property (readwrite, nonatomic, copy) NSArray *peers;
+@interface STYServer () <NSNetServiceDelegate, STYMessagingPeerDelegate>
+@property (readonly, nonatomic, copy) NSMutableSet *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
@@ -29,8 +29,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 #pragma mark -
 
 @implementation STYServer
-
-static id gSharedInstance = NULL;
 
 - (instancetype)init
     {
@@ -42,7 +40,7 @@ static id gSharedInstance = NULL;
         _netServiceDomain = @"local.";
         _netServiceType = @"_schwatest._tcp.";
         _netServiceName = @"schwa-test";
-        _peers = @[];
+        _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
         }
     return self;
@@ -54,6 +52,11 @@ static id gSharedInstance = NULL;
     }
 
 #pragma mark -
+
+- (NSSet *)peers
+    {
+    return(self.mutablePeers);
+    }
 
 - (CFRunLoopRef)runLoop
     {
@@ -167,18 +170,28 @@ static id gSharedInstance = NULL;
 
 - (void)_acceptSocket:(CFSocketRef)inSocket address:(NSData *)inAddress
     {
-    NSError *theError = NULL;
+    if ([self.delegate respondsToSelector:@selector(server:peerCanConnectWithSocket:)])
+        {
+        if ([self.delegate server:self peerCanConnectWithSocket:inSocket] == NO)
+            {
+            return;
+            }
+        }
+
+    Class theClass = [STYMessagingPeer class];
+    if ([self.delegate respondsToSelector:@selector(server:classForPeerWithSocket:)])
+        {
+        theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
+        }
 
     STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandler:self.messageHandler];
-    self.peers = [self.peers arrayByAddingObject:thePeer];
+    thePeer.delegate = self;
 
-    if (self.connectHandler)
+    [self.mutablePeers addObject:thePeer];
+
+    if ([self.delegate respondsToSelector:@selector(server:peerDidConnect:)])
         {
-        BOOL theResult = self.connectHandler(inSocket, inAddress, &theError);
-        if (theResult == NO)
-            {
-            NSLog(@"connectHandler failed with: %@", theError);
-            }
+        [self.delegate server:self peerDidConnect:thePeer];
         }
     }
 
@@ -204,6 +217,17 @@ static id gSharedInstance = NULL;
         }
     }
 
+#pragma mark -
+
+- (void)messagingPeerRemoteDidDisconnect:(STYMessagingPeer *)inPeer
+    {
+    [self.mutablePeers removeObject:inPeer];
+    if ([self.delegate respondsToSelector:@selector(server:peerDidDisconnect:)])
+        {
+        [self.delegate server:self peerDidDisconnect:inPeer];
+        }
+    }
+
 @end
 
 #pragma mark -
@@ -226,7 +250,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
             {
             thePeerAddress = [NSData dataWithBytes:theSocketName length:theSocketNameLength];
             }
-
 
         [theServer _acceptSocket:theSocket address:thePeerAddress];
         CFRelease(theSocket);

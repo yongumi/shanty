@@ -155,7 +155,7 @@ class Message(object):
         self.data = data if data else ''
 
     def __repr__(self):
-        return 'Message(%s, %s, %s)' % (self.control_data, self.metadata, self.data)
+        return 'Message(%s, %s, %s bytes \'%s\')' % (self.control_data, self.metadata, len(self.data), self.data if len(self.data) < 64 else self.data[:64])
 
 ########################################################################################################################
 
@@ -223,6 +223,9 @@ class ShantyProtocol(Protocol):
     def connectionMade(self):
         if self.mode == 'CLIENT':
             self.sendHello()
+
+    def connectionLost(self, reason):
+        pass
 
     def dataReceived(self, data):
         self.messageBuilder.push_data(data)
@@ -295,6 +298,12 @@ class ShantyClientFactory(ClientFactory):
         protocol.handler = self.handler
         return protocol
 
+    def startFactory(self):
+        pass
+
+    def stopFactory(self):
+        pass
+
 ########################################################################################################################
 
 class ShantyServerFactory(Factory):
@@ -303,6 +312,9 @@ class ShantyServerFactory(Factory):
         self.handler = MessageHandler()
         self.handler.handlers = system_handler()
 
+    def startedConnecting(self, connector):
+        print 'Started to connect.'
+
     def buildProtocol(self, addr):
         #print 'Connected.'
         protocol = ShantyProtocol(mode = 'SERVER')
@@ -310,26 +322,8 @@ class ShantyServerFactory(Factory):
         protocol.handler = self.handler
         return protocol
 
-########################################################################################################################
+    def clientConnectionLost(self, connector, reason):
+        print 'Lost connection.  Reason:', reason
 
-def serve(type, name, domain = None, port = 0):
-    endpoint = TCP4ServerEndpoint(reactor, 0)
-    d = endpoint.listen(ShantyServerFactory())
-    def my_endpoint(my_port):
-        host, port = my_port.socket.getsockname()
-        d = twbonjour.broadcast(reactor, type, port, name)
-        #d.addCallback(client)
-    d.addCallback(my_endpoint)
-    reactor.run()
-
-def client(type, name = None, domain = None, port = 0, message = None):
-    def did_connect(protocol):
-        protocol.sendMessage(message)
-        reactor.callLater(2, reactor.stop)
-
-    name, host, port = bonjour.browse_one(type = type)
-    factory = ShantyClientFactory()
-    endpoint = TCP4ClientEndpoint(reactor, host, port)
-    d = endpoint.connect(factory)
-    d.addCallback(did_connect)
-    reactor.run()
+    def clientConnectionFailed(self, connector, reason):
+        print 'Connection failed. Reason:', reason

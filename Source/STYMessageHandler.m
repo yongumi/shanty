@@ -11,7 +11,7 @@
 #import "STYMessage.h"
 
 @interface STYMessageHandler ()
-@property (readwrite, nonatomic) NSMutableDictionary *handlers;
+@property (readwrite, nonatomic) NSMutableArray *handlers;
 @end
 
 #pragma mark -
@@ -22,7 +22,7 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _handlers = [NSMutableDictionary dictionary];
+        _handlers = [NSMutableArray array];
 
         [self _addSystemHandlers];
         }
@@ -31,13 +31,22 @@
 
 - (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;
     {
-    [self.handlers setObject:inBlock forKey:inCommand];
+    [self.handlers insertObject:@[ inCommand ?: [NSNull null], inBlock ] atIndex:0];
     }
 
 - (STYMessageBlock)handlerForMessage:(STYMessage *)inMessage
     {
-    STYMessageBlock theHandler = self.handlers[inMessage.controlData[@"cmd"]];
-    return(theHandler);
+    for (NSArray *theHandler in self.handlers)
+        {
+        id theCommand = theHandler[0];
+        STYMessageBlock theBlock = theHandler[1];
+        if (theCommand == [NSNull null] || [inMessage.controlData[@"cmd"] isEqualToString:theCommand])
+            {
+            return(theBlock);
+            }
+        }
+
+    return(NULL);
     }
 
 - (void)_addSystemHandlers
