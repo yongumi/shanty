@@ -14,10 +14,10 @@
 #import "STYAddress.h"
 
 @interface STYMessagingPeer ()
-@property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
-@property (readonly, nonatomic) dispatch_queue_t queue;
-@property (readonly, nonatomic) dispatch_io_t channel;
-@property (readonly, nonatomic) dispatch_source_t readSource;
+@property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
+@property (readwrite, nonatomic) dispatch_queue_t queue;
+@property (readwrite, nonatomic) dispatch_io_t channel;
+@property (readwrite, nonatomic) dispatch_source_t readSource;
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
@@ -48,6 +48,7 @@
         _readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(_socket), 0, _queue);
         dispatch_source_set_cancel_handler(_readSource, ^{
             NSLog(@"Read source canceled. Other side closed?");
+            CFSocketInvalidate(self.socket);
 
             if ([self.delegate respondsToSelector:@selector(messagingPeerRemoteDidDisconnect:)])
                 {
@@ -90,8 +91,16 @@
 
 - (void)close
     {
-    dispatch_io_close(self.channel, 0);
-    dispatch_source_cancel(self.readSource);
+    if (self.channel != NULL)
+        {
+        dispatch_io_close(self.channel, 0);
+        self.channel = NULL;
+        }
+    if (self.readSource != NULL)
+        {
+        dispatch_source_cancel(self.readSource);
+        self.readSource = NULL;
+        }
     }
 
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
@@ -156,6 +165,8 @@
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
+    BOOL theResult = NO;
+
     NSInteger incoming_message_id = [inMessage.controlData[@"msgid"] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
@@ -168,19 +179,24 @@
     STYMessageBlock theHandler = self.handlersForReplies[inMessage.controlData[@"in-reply-to"]];
     if (theHandler)
         {
-        BOOL theResult = theHandler(self, inMessage, outError);
+        theResult = theHandler(self, inMessage, outError);
         [self.handlersForReplies removeObjectForKey:inMessage.controlData[@"in-reply-to"]];
-        return(theResult);
         }
 
     theHandler = [self.messageHandler handlerForMessage:inMessage];
     if (theHandler)
         {
-        BOOL theResult = theHandler(self, inMessage, outError);
-        return(theResult);
+        theResult = theHandler(self, inMessage, outError);
         }
 
-    return(NO);
+
+    if ([inMessage.controlData[@"close"] boolValue] == YES)
+        {
+        NSLog(@"Manual close");
+        [self close];
+        }
+
+    return(theResult);
     }
 
 @end
