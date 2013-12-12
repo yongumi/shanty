@@ -14,11 +14,16 @@ Options:
 __author__ = 'schwa'
 
 import docopt
-#from docopt_cmd import cmd
-import bonjour
-import shanty
-from shanty import *
 import os
+
+from twisted.internet import reactor
+from twisted.internet.endpoints import TCP4ServerEndpoint
+from twisted.internet.endpoints import TCP4ClientEndpoint
+
+import bonjour
+from shanty import *
+
+#from docopt_cmd import cmd
 
 #class Tool(object):
 #    def send(self):
@@ -28,9 +33,10 @@ def send(arguments):
 
     message = Message(command = arguments['<command>'], data = arguments['<data>'])
     def did_connect(protocol):
+        message.control_data['close'] = True
         protocol.sendMessage(message)
         if not arguments['--dump']:
-            reactor.callLater(2, reactor.stop)
+            reactor.callLater(30, reactor.stop)
 
     def handle_snapshot(peer, message):
         print 'Snapshot received'
@@ -49,7 +55,7 @@ def send(arguments):
 
 
     factory = ShantyClientFactory()
-    factory.handler.add_handler('snapshot.reply',handle_snapshot )
+    factory.handler.add_handler('snapshot.reply', handle_snapshot)
 
     endpoint = TCP4ClientEndpoint(reactor, host, port)
     d = endpoint.connect(factory)
@@ -82,9 +88,8 @@ def main(argv = None):
     elif arguments['serve']:
         serve(arguments)
 
-
 if __name__ == "__main__":
 #    argv = ['serve', '--dnssd-type=_shanty._tcp', '--dnssd-name=Shanty_test']
-    argv = ['send', '--dnssd-type=_stydebugtool._tcp', '--dump', 'snapshots']
+#    argv = ['send', '--dnssd-type=_stydebugtool._tcp', '--dump', 'snapshots']
 
-    main(argv)
+    main()

@@ -2,21 +2,12 @@
 
 __author__ = 'schwa'
 
-import SocketServer
 import struct
 import json
-import socket
 import logging
-import bonjour
-import select
-import errno
-from twisted.internet.protocol import Protocol, ClientFactory, Factory
-from sys import stdout
 import datetime
-import twbonjour
-from twisted.internet.endpoints import TCP4ServerEndpoint
-from twisted.internet import reactor
-from twisted.internet.endpoints import TCP4ClientEndpoint
+
+from twisted.internet.protocol import Protocol, ClientFactory, Factory
 
 #import zlib
 #import bencode
@@ -24,8 +15,11 @@ import snappy # pip install --user python-snappy
 
 #__all__ = ['Client', 'Message', 'Peer', 'MessageCoder']
 
+# TODO Put bonjour in here.
+
 ########################################################################################################################
 
+# TODO Use twisted logging with py logging framework
 FORMAT = '%(name)-6s | %(threadName)-10s | %(levelname)-5s | %(relativeCreated)5.0d | %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 root_logger = logging.getLogger('')
@@ -35,16 +29,34 @@ unknown_logger = logging.getLogger('unknown')
 
 ########################################################################################################################
 
+CTL_CMD = 'cmd'
+CTL_MSGID = 'msgid'
+CTL_IN_REPLY_TO = 'in-reply-to'
+CTL_MORE_COMING = 'more-coming'
+CTL_CLOSE = 'close'
+
+########################################################################################################################
+
+CMD_HELLO = 'hello'
+CMD_HELLO_REPLY = 'hello.reply'
+CMD_PING = 'ping'
+CMD_PING_REPLY = 'ping.reply'
+CMD_ECHO = 'echo'
+CMD_ECHO_REPLY = 'echo.reply'
+
+########################################################################################################################
+
 HEADER_FORMAT = '!HHL'
 HEADER_SIZE = struct.calcsize(HEADER_FORMAT) # currently 8
-CMD = 'cmd'
-MSGID = 'msgid'
+
+########################################################################################################################
 
 class ClosedError(EOFError):
     pass
 
 ########################################################################################################################
 
+# TODO work better with MessageCode
 class MessageBuilder(object):
     def __init__(self):
         self.data = ''
@@ -93,6 +105,7 @@ class MessageBuilder(object):
         message = Message(control_data = control_data, metadata = metadata, data = data)
         return message
 
+########################################################################################################################
 
 class MessageCoder(object):
 
@@ -148,9 +161,9 @@ class Message(object):
     def __init__(self, control_data = None, metadata = None, data = None, command = None, ):
         self.control_data = control_data if control_data else {}
         if command:
-            if CMD in self.control_data:
+            if CTL_CMD in self.control_data:
                 raise Exception('Command already set in data')
-            self.control_data[CMD] = command
+            self.control_data[CTL_CMD] = command
         self.metadata = metadata
         self.data = data if data else ''
 
@@ -170,7 +183,7 @@ class MessageHandler(object):
     def find_handler(self, message):
         for condition, handler in self.handlers:
             if isinstance(condition, str):
-                if message.control_data[CMD] == condition:
+                if message.control_data[CTL_CMD] == condition:
                     return handler
             elif condition(message):
                 return handler
@@ -219,13 +232,14 @@ class ShantyProtocol(Protocol):
         self.last_incoming_message_id = None
         self.next_outgoing_message_id = 0
         self.messageBuilder = MessageBuilder()
+        self.replyCallbacks = dict()
 
     def connectionMade(self):
         if self.mode == 'CLIENT':
             self.sendHello()
 
-    def connectionLost(self, reason):
-        pass
+    #def connectionLost(self, reason):
+    #    pass
 
     def dataReceived(self, data):
         self.messageBuilder.push_data(data)
@@ -235,35 +249,39 @@ class ShantyProtocol(Protocol):
             self.handle_message(self, message)
 
     def handle_message(self, peer, message):
-        incoming_message_id = message.control_data[MSGID]
+        incoming_message_id = message.control_data[CTL_MSGID]
         next_incoming_msgid = self.last_incoming_message_id + 1 if self.last_incoming_message_id else 1
         if self.last_incoming_message_id and incoming_message_id != next_incoming_msgid:
-            error = "Incoming message ids dont match (got %d expected %d)" % (incoming_message_id, next_incoming_msgid)
+            error = 'Incoming message ids don\'t match (got %d expected %d)' % (incoming_message_id, next_incoming_msgid)
             self.logger.error(error)
-#            raise Exception(error)
+            raise Exception(error)
         self.last_incoming_message_id = incoming_message_id
+
+        if CTL_IN_REPLY_TO in message.control_data:
+            in_reply_to = message.control_data[CTL_IN_REPLY_TO]
+            callback = self.replyCallbacks[in_reply_to]
+            callback(peer, message)
 
         handler_function = self.handler.find_handler(message)
 
         if handler_function:
             handler_function(peer, message)
-        else:
-            self.logger.warning('No handler for %s' % message)
 
-
-    def sendMessage(self, message):
+    def sendMessage(self, message, reply_callback = None):
         message = self.message_for_sending(message)
         self.logger.debug('Sending: %s', message)
         data = self.messageCoder.flatten_message(message)
         self.transport.write(data)
+        if reply_callback:
+            self.replyCallbacks[message.control_data[CTL_MSGID]] = reply_callback
 
     def sendReply(self, message, in_reply_to):
-        message.control_data['in-reply-to'] = in_reply_to.control_data[MSGID]
+        message.control_data[CTL_IN_REPLY_TO] = in_reply_to.control_data[CTL_MSGID]
         self.sendMessage(message)
 
     def message_for_sending(self, message):
         control_data = dict(message.control_data)
-        control_data[MSGID] = self.next_outgoing_message_id
+        control_data[CTL_MSGID] = self.next_outgoing_message_id
         self.next_outgoing_message_id += 1
         message.control_data = control_data
         return message
@@ -285,8 +303,6 @@ class ShantyProtocol(Protocol):
 ########################################################################################################################
 
 class ShantyClientFactory(ClientFactory):
-    #def startedConnecting(self, connector):
-    #    print 'Started to connect.'
 
     def __init__(self):
         self.handler = MessageHandler()
@@ -298,11 +314,11 @@ class ShantyClientFactory(ClientFactory):
         protocol.handler = self.handler
         return protocol
 
-    def startFactory(self):
-        pass
+    def clientConnectionFailed(self, connector, reason):
+        print 'clientConnectionFailed', connector, reason
 
-    def stopFactory(self):
-        pass
+    def clientConnectionLost(self, connector, reason):
+        print 'clientConnectionLost', connector, reason
 
 ########################################################################################################################
 
@@ -312,18 +328,23 @@ class ShantyServerFactory(Factory):
         self.handler = MessageHandler()
         self.handler.handlers = system_handler()
 
-    def startedConnecting(self, connector):
-        print 'Started to connect.'
-
     def buildProtocol(self, addr):
-        #print 'Connected.'
         protocol = ShantyProtocol(mode = 'SERVER')
         protocol.logger = server_logger
         protocol.handler = self.handler
         return protocol
 
-    def clientConnectionLost(self, connector, reason):
-        print 'Lost connection.  Reason:', reason
+#def clientConnectionLost(self, connector, reason):
+#    pass
 
-    def clientConnectionFailed(self, connector, reason):
-        print 'Connection failed. Reason:', reason
+#def clientConnectionFailed(self, connector, reason):
+#    pass
+
+#def startedConnecting(self, connector):
+#    print 'Started to connect.'
+
+#def startFactory(self):
+#    pass
+
+#def stopFactory(self):
+#    pass
