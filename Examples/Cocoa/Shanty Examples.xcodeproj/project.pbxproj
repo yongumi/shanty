@@ -586,10 +586,10 @@
 						DevelopmentTeam = 6E23EP94PG;
 					};
 					454FCD80182AD9BE00A06C8B = {
-						TestTargetID = 450FD6B8182ACB130022909D;
+						TestTargetID = 450FD6B8182ACB130022909D /* Shanty iOS Example */;
 					};
 					45EE0E4218456C4B00DEE839 = {
-						TestTargetID = 450FD6B8182ACB130022909D;
+						TestTargetID = 450FD6B8182ACB130022909D /* Shanty iOS Example */;
 					};
 				};
 			};

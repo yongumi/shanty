@@ -184,7 +184,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
         }
 
-    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithSocket:inSocket messageHandler:self.messageHandler];
+    STYMessagingPeer *thePeer = [[theClass alloc] initWithSocket:inSocket messageHandler:self.messageHandler];
     thePeer.delegate = self;
 
     [self.mutablePeers addObject:thePeer];
