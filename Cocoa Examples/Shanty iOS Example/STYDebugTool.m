@@ -8,10 +8,7 @@
 
 #import "STYDebugTool.h"
 
-#import "STYServer.h"
-#import "STYMessagingPeer.h"
-#import "STYMessage.h"
-#import "STYMessageHandler.h"
+#import <Shanty/Shanty.h>
 
 @interface STYDebugTool ()
 @property (readwrite, nonatomic) STYServer *server;

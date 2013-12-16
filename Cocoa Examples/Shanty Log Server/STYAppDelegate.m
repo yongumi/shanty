@@ -8,7 +8,7 @@
 
 #import "STYAppDelegate.h"
 
-#import "Shanty.h"
+#import <Shanty/Shanty.h>
 
 @interface STYAppDelegate () <STYServerDelegate>
 @property (readwrite, nonatomic) STYServer *server;

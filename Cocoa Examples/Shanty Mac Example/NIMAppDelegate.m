@@ -11,9 +11,7 @@
 #import <SceneKit/SceneKit.h>
 #import <GLKit/GLKit.h>
 
-#import "STYClient.h"
-#import "STYMessagingPeer.h"
-#import "STYMessage.h"
+#import <Shanty/Shanty.h>
 
 @interface NIMAppDelegate () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
@@ -85,8 +83,8 @@
 
         NSLog(@"CONNECTED");
 
-        NSDictionary *theMessageHandlers = @{
-            @"gyro_update": ^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        self.peer = [[STYMessagingPeer alloc] initWithSocket:self.client.socket];
+        [self.peer.messageHandler addCommand:@"gyro_update" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 //                NSLog(@"%@ %@", inPeer, inMessage);
 
                 self.lastMetadata = inMessage.metadata;
@@ -104,10 +102,8 @@
                 self.modelNode.transform = CATransform3DWithGLKMatrix4(theMatrix);
 
                 return(YES);
-                },
-            };
+                }];
 
-        self.peer = [[STYMessagingPeer alloc] initWithSocket:self.client.socket messageHandlers:theMessageHandlers];
         }];
     }
 

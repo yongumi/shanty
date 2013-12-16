@@ -1,4 +1,4 @@
-#import <Shanty/STYClient.h.
+#import <Shanty/STYClient.h>
 #import <Shanty/STYMessage.h>
 #import <Shanty/STYCompletionBlocks.h>
 #import <Shanty/STYMessagingPeer.h>
