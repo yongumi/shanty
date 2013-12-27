@@ -259,8 +259,9 @@ class ShantyProtocol(Protocol):
 
         if CTL_IN_REPLY_TO in message.control_data:
             in_reply_to = message.control_data[CTL_IN_REPLY_TO]
-            callback = self.replyCallbacks[in_reply_to]
-            callback(peer, message)
+            if in_reply_to in self.replyCallbacks:
+                callback = self.replyCallbacks[in_reply_to]
+                callback(peer, message)
 
         handler_function = self.handler.find_handler(message)
 

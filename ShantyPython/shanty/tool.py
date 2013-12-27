@@ -1,7 +1,7 @@
 """shanty.
 
 Usage:
-  shanty send --dnssd-type=<type> [--dump] <command> [<data>]
+  shanty send --dnssd-type=<type> [--dump] --command=<command> [--metadata=<metadata>] [--data=<data>]
   shanty serve --dnssd-type=<type> --dnssd-name=<name> [--port=<port>]
   shanty (-h | --help)
   shanty --version
@@ -31,12 +31,17 @@ from shanty import *
 
 def send(arguments):
 
-    message = Message(command = arguments['<command>'], data = arguments['<data>'])
+    command = arguments['--command']
+    metdata= json.loads(arguments['--metadata'])
+    data = arguments['--data']
+
+    message = Message(command = command, metadata = metdata, data = data)
+
     def did_connect(protocol):
-        message.control_data['close'] = True
+        #message.control_data['close'] = True
         protocol.sendMessage(message)
         if not arguments['--dump']:
-            reactor.callLater(30, reactor.stop)
+            reactor.callLater(1, reactor.stop)
 
     def handle_snapshot(peer, message):
         print 'Snapshot received'
