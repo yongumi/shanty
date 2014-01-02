@@ -8,10 +8,16 @@
 
 @import Foundation;
 
+#import "STYCompletionBlocks.h"
+
 @interface STYAddress : NSObject <NSCopying>
 
-@property (readonly, nonatomic, copy) NSData *data;
+@property (readonly, nonatomic, copy) NSArray *addresses;
 
-- (id)initWithData:(NSData *)inData;
+- (instancetype)initWithAddresses:(NSArray *)inAddresses;
+- (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
+- (instancetype)initWithNetService:(NSNetService *)inNetService;
+
+- (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;
 
 @end

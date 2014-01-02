@@ -1,3 +1,4 @@
+#import <Shanty/STYAddress.h>
 #import <Shanty/STYClient.h>
 #import <Shanty/STYMessage.h>
 #import <Shanty/STYCompletionBlocks.h>
