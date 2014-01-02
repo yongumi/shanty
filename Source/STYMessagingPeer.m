@@ -105,6 +105,10 @@
 
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
     {
+    NSParameterAssert(inMessage != NULL);
+    NSParameterAssert(self.channel != NULL);
+    NSParameterAssert(self.queue != NULL);
+
     NSMutableDictionary *theControlData = [inMessage.controlData mutableCopy];
     theControlData[@"msgid"] = @(self.nextOutgoingMessageID);
     self.nextOutgoingMessageID += 1;
