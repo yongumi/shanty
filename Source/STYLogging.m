@@ -44,7 +44,7 @@ static STYLogging *gSharedInstance = NULL;
     return(gSharedInstance);
     }
 
-- (id)init
+- (instancetype)init
     {
     if ((self = [super init]) != NULL)
         {

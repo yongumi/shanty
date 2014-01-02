@@ -18,7 +18,7 @@
 
 @implementation STYMessageHandler
 
-- (id)init
+- (instancetype)init
     {
     if ((self = [super init]) != NULL)
         {
