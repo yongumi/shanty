@@ -10,14 +10,15 @@
 
 #import "STYCompletionBlocks.h"
 
+@class STYAddress;
+
 @interface STYClient : NSObject
 
-@property (readonly, nonatomic) NSString *hostname;
-@property (readonly, nonatomic) unsigned short port;
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
 
+- (instancetype)initWithAddress:(STYAddress *)inAddress;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort;
-- (instancetype)initWithNetService:(NSNetService *)inService;
+
 - (void)connect:(STYCompletionBlock)inCompletionBlock;
 
 @end

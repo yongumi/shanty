@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class STYClient;
 
@@ -14,10 +14,14 @@
 
 @property (readonly, nonatomic, copy) NSString *type;
 @property (readonly, nonatomic, copy) NSString *domain;
+@property (readonly, nonatomic) NSSet *services;
+@property (readwrite, nonatomic, assign) BOOL attemptConnectionToFirstService;
+@property (readwrite, nonatomic, strong) void (^clientBlock)(STYClient *client, NSError *error);
 @property (readwrite, nonatomic, strong) BOOL (^serviceAcceptanceHandler)(NSNetService *service);
 
 - (instancetype)initWithType:(NSString *)inType domain:(NSString *)inDomain;
 
-- (void)start:(void (^)(STYClient *client, NSError *error))inHandler;
+- (void)start;
+- (void)start:(void (^)(STYClient *client, NSError *error))inHandler __attribute__((deprecated));
 
 @end

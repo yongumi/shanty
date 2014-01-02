@@ -11,9 +11,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#import "STYAddress.h"
+
 @interface STYClient ()
-@property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFHostRef host;
-@property (readwrite, nonatomic, strong) NSData *address;
+@property (readwrite, nonatomic, copy) STYAddress *address;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
 @end
@@ -24,99 +25,44 @@
 
 // TODO decide on the designated initializer.
 
+- (instancetype)initWithAddress:(STYAddress *)inAddress;
+    {
+    if ((self = [super init]) != NULL)
+        {
+        _address = inAddress;
+        }
+    return(self);
+    }
+
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort
     {
-    if ((self = [super init]) != NULL)
+    STYAddress *theAddress = [[STYAddress alloc] initWithHostname:inHostname port:inPort];
+    if ((self = [self initWithAddress:theAddress]) != NULL)
         {
-        _hostname = inHostname;
-        _port = inPort;
         }
     return self;
     }
 
-- (instancetype)initWithNetService:(NSNetService *)inService;
+- (void)connect:(STYCompletionBlock)inCompletionBlock
     {
-    if ((self = [super init]) != NULL)
-        {
-        // TODO We should resolve the service.
-        // TODO Let's hope [0] is the right address!!!
-        _address = inService.addresses[0];
-        }
-    return self;
-    }
-
-- (void)connect:(STYCompletionBlock)inCompletionBlock;
-    {
-    if (self.hostname.length == 0)
-        {
-        [self _connect:inCompletionBlock];
-        }
-    else
-        {
-        [self _resolve:^(NSError *error) {
+    [self.address resolveWithTimeout:60 handler:^(NSError *inError) {
+        if (inError == NULL)
+            {
             [self _connect:inCompletionBlock];
-            }];
-        }
-    }
-
-- (NSData *)address
-    {
-    if (_address == NULL)
-        {
-        // Create an IPV4 address...
-        struct sockaddr_in theAddress = {
-            .sin_len = sizeof(theAddress),
-            .sin_family = AF_INET, // IPV4 style address
-            .sin_port = htons(self.port),
-            .sin_addr = htonl(INADDR_ANY),
-            };
-        _address = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
-        }
-    return(_address);
-    }
-
-- (void)_resolve:(STYCompletionBlock)inCompletionBlock;
-    {
-    CFHostRef theHost = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)self.hostname);
-
-    CFStreamError theStreamError;
-    /*BOOL theResult = */CFHostStartInfoResolution(theHost, kCFHostAddresses, &theStreamError);
-
-    Boolean theResolvedFlag = NO;
-    NSArray *theAddresses = (__bridge NSArray *)CFHostGetAddressing(theHost, &theResolvedFlag);
-
-    if (theResolvedFlag == NO)
-        {
-        NSLog(@"Could not resolve");
-        CFRelease(theHost);
-        return;
-        }
-
-    // TODO this might not get the ipv4 address we want in this case...
-    self.address = theAddresses[0];
-
-    // Create an IPV4 address...
-    struct sockaddr_in theAddress;
-    memcpy(&theAddress, self.address.bytes, sizeof(theAddresses));
-    theAddress.sin_port = htons(self.port);
-
-    self.address = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
-
-    inCompletionBlock(NULL);
-
-    CFRelease(theHost);
+            }
+        }];
     }
 
 - (void)_connect:(STYCompletionBlock)inCompletionBlock;
     {
-    NSParameterAssert(self.address.length > 0);
+    NSParameterAssert(self.address.addresses != NULL);
 
     // Create the socket...
     CFSocketSignature theSocketSignature = {
         .protocolFamily = PF_INET, // IPV4 family
         .socketType = SOCK_STREAM, // Streaming type
         .protocol = IPPROTO_TCP, // TCP/IP protocol
-        .address = (__bridge_retained CFDataRef)self.address,
+        .address = (__bridge_retained CFDataRef)self.address.addresses[0], // TODO - why 0?
         };
 
 
@@ -174,6 +120,5 @@ static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataR
         theBlock(NULL);
         }
     }
-
 
 @end

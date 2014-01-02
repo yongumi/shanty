@@ -9,11 +9,11 @@
 #import "STYServiceDiscoverer.h"
 
 #import "STYClient.h"
+#import "STYAddress.h"
 
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
+@property (readonly, nonatomic, strong) NSMutableSet *mutableServices;
 @property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
-@property (readwrite, nonatomic) NSNetService *service;
-@property (readwrite, nonatomic, strong) void (^clientBlock)(STYClient *client, NSError *error);
 @end
 
 #pragma mark -
@@ -22,10 +22,13 @@
 
 - (instancetype)initWithType:(NSString *)inType domain:(NSString *)inDomain
     {
+    NSParameterAssert(inType.length > 0);
+
     if ((self = [super init]) != NULL)
         {
         _type = inType;
-        _domain = inDomain;
+        _domain = inDomain ?: @"";
+        _mutableServices = [NSMutableSet set];
         }
     return self;
     }
@@ -34,31 +37,36 @@
     {
     // TODO - guess type from CFBundleID
 
-    if ((self = [self initWithType:@"_schwatest._tcp." domain:@""]) != NULL)
+    if ((self = [self initWithType:@"_schwatest._tcp." domain:NULL]) != NULL)
         {
         }
     return self;
     }
 
-
-- (void)start:(void (^)(STYClient *client, NSError *error))inHandler
+- (void)start;
     {
-    NSParameterAssert(inHandler != NULL);
-
-    self.clientBlock = inHandler;
-
     self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
     self.serviceBrowser.delegate = self;
     [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
     }
 
+- (void)start:(void (^)(STYClient *client, NSError *error))inHandler
+    {
+    self.attemptConnectionToFirstService = YES;
+    self.clientBlock = inHandler;
+
+    [self start];
+    }
+
+- (NSSet *)services
+    {
+    return(self.mutableServices);
+    }
+
+#pragma mark -
+
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
     {
-    if (self.service)
-        {
-        return;
-        }
-
     if (self.serviceAcceptanceHandler)
         {
         if (self.serviceAcceptanceHandler(aNetService) == NO)
@@ -67,26 +75,23 @@
             }
         }
 
-    self.service.delegate = NULL;
-    [self.service stop];
-    self.service = NULL;
+    [self willChangeValueForKey:@"services"];
+    [self.mutableServices addObject:aNetService];
+    [self didChangeValueForKey:@"services"];
 
-    self.service = aNetService;
-    self.service.delegate = self;
-    [self.service resolveWithTimeout:60.0];
+    if (self.attemptConnectionToFirstService && self.services.count == 1 && self.clientBlock != NULL)
+        {
+        STYAddress *theAddress = [[STYAddress alloc] initWithNetService:aNetService];
+        STYClient *theClient = [[STYClient alloc] initWithAddress:theAddress];
+        self.clientBlock(theClient, NULL);
+        }
     }
 
-- (void)netServiceDidResolveAddress:(NSNetService *)sender
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
     {
-    NSLog(@"RESOLVE: %@ %ld", sender.hostName, (long)sender.port);
-
-    self.service.delegate = NULL;
-    [self.service stop];
-    self.service = NULL;
-
-    STYClient *theClient = [[STYClient alloc] initWithNetService:sender];
-    self.clientBlock(theClient, NULL);
+    [self willChangeValueForKey:@"services"];
+    [self.mutableServices removeObject:aNetService];
+    [self didChangeValueForKey:@"services"];
     }
-
 
 @end

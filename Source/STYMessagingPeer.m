@@ -78,14 +78,14 @@
 - (STYAddress *)address
     {
     NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyAddress(self.socket);
-    STYAddress *theAddress = [[STYAddress alloc] initWithData:theAddressData];
+    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
     return(theAddress);
     }
 
 - (STYAddress *)peerAddress
     {
     NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyPeerAddress(self.socket);
-    STYAddress *theAddress = [[STYAddress alloc] initWithData:theAddressData];
+    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
     return(theAddress);
     }
 
