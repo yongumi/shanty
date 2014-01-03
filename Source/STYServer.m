@@ -15,6 +15,7 @@
 #import "STYMessagingPeer.h"
 #import "NSNetService+STYUserInfo.h"
 #import "STYMessageHandler.h"
+#import "STYSocket.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
@@ -184,8 +185,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
         }
 
-    STYMessagingPeer *thePeer = [[theClass alloc] initWithType:kSTYMessengerTypeServer socket:inSocket messageHandler:self.messageHandler];
+    STYMessagingPeer *thePeer = [[theClass alloc] initWithMessageHandler:self.messageHandler];
     thePeer.delegate = self;
+
+    STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
+    [thePeer openWithMode:kSTYMessengerModeServer socket:theSocket];
 
     [self.mutablePeers addObject:thePeer];
 

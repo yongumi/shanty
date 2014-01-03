@@ -8,8 +8,13 @@
 
 @import Foundation;
 
-typedef enum { kSTYMessengerTypeClient, kSTYMessengerTypeServer } STYMessengerType;
+typedef enum {
+    kSTYMessengerModeUndefined,
+    kSTYMessengerModeClient,
+    kSTYMessengerModeServer
+    } STYMessengerMode;
 
+@class STYSocket;
 @class STYAddress;
 @class STYMessage;
 @class STYMessagingPeer;
@@ -20,18 +25,16 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 
 @interface STYMessagingPeer : NSObject
 
-@property (readonly, nonatomic) STYMessengerType type;
+@property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic, weak) id <STYMessagingPeerDelegate> delegate;
 @property (readwrite, nonatomic) id userInfo;
 
-- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket;
-- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket messageHandler:(STYMessageHandler *)inMessageHandler;
+- (instancetype)initWithMessageHandler:(STYMessageHandler *)inMessageHandler;
 
-- (STYAddress *)address;
-- (STYAddress *)peerAddress;
-
+- (void)openWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket;
 - (void)close;
+
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock;
 
 @end

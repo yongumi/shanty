@@ -13,12 +13,11 @@
 #import "STYMessageHandler.h"
 #import "STYAddress.h"
 #import "STYConstants.h"
+#import "STYSocket.h"
 
 @interface STYMessagingPeer ()
-@property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
-@property (readwrite, nonatomic) dispatch_queue_t queue;
-@property (readwrite, nonatomic) dispatch_io_t channel;
-@property (readwrite, nonatomic) dispatch_source_t readSource;
+@property (readwrite, nonatomic) STYMessengerMode mode;
+@property (readwrite, nonatomic) STYSocket *socket;
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
@@ -29,87 +28,36 @@
 
 @implementation STYMessagingPeer
 
-- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket
+- (instancetype)initWithMessageHandler:(STYMessageHandler *)inMessageHandler;
     {
     if ((self = [super init]) != NULL)
         {
-        _type = inType;
-        _socket = inSocket;
-//        _queue = dispatch_get_main_queue();
-        _queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
-
-        _channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.socket), dispatch_get_main_queue(), ^(int error) {
-            NSLog(@"TODO: Clean up");
-            });
-        dispatch_io_set_low_water(_channel, 1);
-
+        _messageHandler = inMessageHandler;
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
         _handlersForReplies = [NSMutableDictionary dictionary];
-
-        _readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(_socket), 0, _queue);
-        dispatch_source_set_cancel_handler(_readSource, ^{
-            NSLog(@"Read source canceled. Other side closed?");
-            CFSocketInvalidate(self.socket);
-
-            if ([self.delegate respondsToSelector:@selector(messagingPeerRemoteDidDisconnect:)])
-                {
-                [self.delegate messagingPeerRemoteDidDisconnect:self];
-                }
-
-            });
-        dispatch_source_set_event_handler(_readSource, ^{
-//            NSLog(@"READ");
-            [self read];
-            });
-
-        dispatch_resume(_readSource);
         }
     return self;
     }
 
-- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket messageHandler:(STYMessageHandler *)inMessageHandler
+- (void)openWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket;
     {
-    if ((self = [self initWithType:inType socket:inSocket]) != NULL)
-        {
-        _messageHandler = inMessageHandler;
-        }
-    return self;
-    }
+    self.mode = inMode;
+    self.socket = inSocket;
 
-- (STYAddress *)address
-    {
-    NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyAddress(self.socket);
-    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
-    return(theAddress);
-    }
-
-- (STYAddress *)peerAddress
-    {
-    NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyPeerAddress(self.socket);
-    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
-    return(theAddress);
+    [self.socket start:^{
+        [self _read];
+        }];
     }
 
 - (void)close
     {
-    if (self.channel != NULL)
-        {
-        dispatch_io_close(self.channel, 0);
-        self.channel = NULL;
-        }
-    if (self.readSource != NULL)
-        {
-        dispatch_source_cancel(self.readSource);
-        self.readSource = NULL;
-        }
+    [self.socket stop];
     }
 
 - (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock
     {
     NSParameterAssert(inMessage != NULL);
-    NSParameterAssert(self.channel != NULL);
-    NSParameterAssert(self.queue != NULL);
 
     NSMutableDictionary *theControlData = [inMessage.controlData mutableCopy];
     theControlData[kSTYMessageIDKey] = @(self.nextOutgoingMessageID);
@@ -122,20 +70,18 @@
         self.handlersForReplies[theControlData[kSTYMessageIDKey]] = inBlock;
         }
 
-    __block NSData *theBuffer = [theMessage buffer:NULL];
-    dispatch_data_t theData = dispatch_data_create([theBuffer bytes], [theBuffer length], self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
-
-    dispatch_io_write(self.channel, 0, theData, self.queue, ^(bool done, dispatch_data_t data, int error) {
-       // NSLog(@"ERROR? DONE: %d DATASIZE: %d ERROR: %d", done, data ? dispatch_data_get_size(data) : 0, error);
-        });
+    NSData *theBuffer = [theMessage buffer:NULL];
+    [self _sendData:theBuffer];
     }
 
-- (void)read
+#pragma mark -
+
+- (void)_read
     {
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
 
-    dispatch_io_read(self.channel, 0, SIZE_MAX, self.queue, ^(bool done, dispatch_data_t data, int error) {
+    dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
 
 //      NSLog(@"%d %@ %d", done, data, error);
 
@@ -168,6 +114,14 @@
         });
     }
 
+- (void)_sendData:(NSData *)inData
+    {
+    dispatch_data_t theData = dispatch_data_create([inData bytes], [inData length], self.socket.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
+
+    dispatch_io_write(self.socket.channel, 0, theData, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
+       // NSLog(@"ERROR? DONE: %d DATASIZE: %d ERROR: %d", done, data ? dispatch_data_get_size(data) : 0, error);
+        });
+    }
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {

@@ -8,7 +8,6 @@
 
 #import "STYLogging.h"
 
-#import "STYClient.h"
 #import "STYServiceDiscoverer.h"
 #import "STYMessagingPeer.h"
 #import "STYMessage.h"
@@ -16,7 +15,6 @@
 
 @interface STYLogging ()
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
-@property (readwrite, nonatomic) STYClient *client;
 @property (readwrite, nonatomic) STYMessagingPeer *peer;
 @end
 
@@ -51,23 +49,24 @@ static STYLogging *gSharedInstance = NULL;
         {
         // This is too much code just to connect.
         _discoverer = [[STYServiceDiscoverer alloc] init];
-        __weak typeof(self) weak_self = self;
-        [_discoverer start:^(STYClient *client, NSError *error) {
-
-            NSLog(@"Starting client");
-            __strong typeof(weak_self) strong_self = weak_self;
-            if (strong_self == NULL)
-                {
-                return;
-                }
-            strong_self.discoverer = NULL;
-            strong_self.client = client;
-
-            [strong_self.client connect:^(NSError *error) {
-                NSLog(@"CONNECTED? %@", error);
-                strong_self.peer = strong_self.client.peer;
-                }];
-            }];
+        #warning FIXME
+//        __weak typeof(self) weak_self = self;
+//        [_discoverer start:^(STYClient *client, NSError *error) {
+//
+//            NSLog(@"Starting client");
+//            __strong typeof(weak_self) strong_self = weak_self;
+//            if (strong_self == NULL)
+//                {
+//                return;
+//                }
+//            strong_self.discoverer = NULL;
+//            strong_self.client = client;
+//
+//            [strong_self.client connect:^(NSError *error) {
+//                NSLog(@"CONNECTED? %@", error);
+//                strong_self.peer = strong_self.client.peer;
+//                }];
+//            }];
         }
     return self;
     }

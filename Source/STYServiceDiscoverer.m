@@ -8,8 +8,9 @@
 
 #import "STYServiceDiscoverer.h"
 
-#import "STYClient.h"
 #import "STYAddress.h"
+#import "STYSocket.h"
+#import "STYMessagingPeer.h"
 
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (readonly, nonatomic, strong) NSMutableSet *mutableServices;
@@ -50,14 +51,6 @@
     [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
     }
 
-- (void)start:(void (^)(STYClient *client, NSError *error))inHandler
-    {
-    self.attemptConnectionToFirstService = YES;
-    self.clientBlock = inHandler;
-
-    [self start];
-    }
-
 - (NSSet *)services
     {
     return(self.mutableServices);
@@ -78,13 +71,6 @@
     [self willChangeValueForKey:@"services"];
     [self.mutableServices addObject:aNetService];
     [self didChangeValueForKey:@"services"];
-
-    if (self.attemptConnectionToFirstService && self.services.count == 1 && self.clientBlock != NULL)
-        {
-        STYAddress *theAddress = [[STYAddress alloc] initWithNetService:aNetService];
-        STYClient *theClient = [[STYClient alloc] initWithAddress:theAddress];
-        self.clientBlock(theClient, NULL);
-        }
     }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
