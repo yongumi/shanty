@@ -9,6 +9,7 @@
 #import "STYMessage.h"
 
 #import "STYDataScanner.h"
+#import "STYConstants.h"
 
 @interface STYMessage ()
 @end
@@ -24,6 +25,15 @@
         _controlData = inControlData;
         _metadata = inMetadata;
         _data = inData;
+        }
+    return self;
+    }
+
+- (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
+    {
+    NSDictionary *theControlData = @{ kSTYCommandKey: inCommand };
+    if ((self = [self initWithControlData:theControlData metadata:inMetadata data:inData]) != NULL)
+        {
         }
     return self;
     }

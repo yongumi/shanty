@@ -9,6 +9,7 @@
 #import "STYMessageHandler.h"
 
 #import "STYMessage.h"
+#import "STYConstants.h"
 
 @interface STYMessageHandler ()
 @property (readwrite, nonatomic) NSMutableArray *handlers;
@@ -40,7 +41,7 @@
         {
         id theCommand = theHandler[0];
         STYMessageBlock theBlock = theHandler[1];
-        if (theCommand == [NSNull null] || [inMessage.controlData[@"cmd"] isEqualToString:theCommand])
+        if (theCommand == [NSNull null] || [inMessage.controlData[kSTYCommandKey] isEqualToString:theCommand])
             {
             return(theBlock);
             }
@@ -51,11 +52,11 @@
 
 - (void)_addSystemHandlers
     {
-    [self addCommand:@"hello" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self addCommand:kSTYHelloCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
 
         NSDictionary *theControlData = @{
-            @"cmd": @"hello.reply",
-            @"in-reply-to": inMessage.controlData[@"msgid"],
+            kSTYCommandKey: kSTYHelloReplyCommand,
+            kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
             };
 
         STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
@@ -64,7 +65,7 @@
         NSLog(@"%@", inMessage);
         return(YES);
         }];
-    [self addCommand:@"hello.reply" handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self addCommand:kSTYHelloReplyCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         NSLog(@"%@", inMessage);
         return(YES);
         }];

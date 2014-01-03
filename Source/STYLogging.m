@@ -12,6 +12,7 @@
 #import "STYServiceDiscoverer.h"
 #import "STYMessagingPeer.h"
 #import "STYMessage.h"
+#import "STYConstants.h"
 
 @interface STYLogging ()
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
@@ -81,7 +82,7 @@ static STYLogging *gSharedInstance = NULL;
         }
     
     NSDictionary *theControlData = @{
-        @"cmd": @"log",
+        kSTYCommandKey: @"log",
         };
     NSData *theData = [inMessage dataUsingEncoding:NSUTF8StringEncoding];
     STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:theData];

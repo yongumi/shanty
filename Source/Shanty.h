@@ -1,5 +1,6 @@
 #import <Shanty/STYAddress.h>
 #import <Shanty/STYClient.h>
+#import <Shanty/STYConstants.h>
 #import <Shanty/STYMessage.h>
 #import <Shanty/STYCompletionBlocks.h>
 #import <Shanty/STYMessagingPeer.h>

@@ -33,6 +33,10 @@
 		4518E33E185F90D400B1B1D9 /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */; };
 		4518E33F185F90D400B1B1D9 /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEED185F85D7003DF921 /* STYServer.m */; };
 		4518E340185F90D400B1B1D9 /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
+		452C012C1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; };
+		452C012D1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		452C012E1876360900BF19DB /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
+		452C012F1876360900BF19DB /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		4538AEF0185F85D7003DF921 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */; };
 		4538AEF1185F85D7003DF921 /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEDC185F85D7003DF921 /* STYAddress.m */; };
 		4538AEF2185F85D7003DF921 /* STYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEDE185F85D7003DF921 /* STYClient.m */; };
@@ -97,6 +101,8 @@
 
 /* Begin PBXFileReference section */
 		4518E30C185F90BA00B1B1D9 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		452C012A1876360900BF19DB /* STYConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYConstants.h; sourceTree = "<group>"; };
+		452C012B1876360900BF19DB /* STYConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYConstants.m; sourceTree = "<group>"; };
 		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShanty.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNetService+STYUserInfo.h"; sourceTree = "<group>"; };
 		4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNetService+STYUserInfo.m"; sourceTree = "<group>"; };
@@ -198,6 +204,8 @@
 				4538AEED185F85D7003DF921 /* STYServer.m */,
 				4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */,
 				4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */,
+				452C012A1876360900BF19DB /* STYConstants.h */,
+				452C012B1876360900BF19DB /* STYConstants.m */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -252,12 +260,14 @@
 				4538AEFE185F88D2003DF921 /* STYAddress.h in Headers */,
 				4538AEFF185F88D2003DF921 /* STYClient.h in Headers */,
 				4538AF00185F88D2003DF921 /* STYCompletionBlocks.h in Headers */,
+				452C013218763FA500BF19DB /* STYSocket.h in Headers */,
 				4538AF01185F88D2003DF921 /* STYDataScanner+Message.h in Headers */,
 				4538AF02185F88D2003DF921 /* STYDataScanner.h in Headers */,
 				4538AF03185F88D2003DF921 /* STYLogging.h in Headers */,
 				4538AF04185F88D2003DF921 /* STYMessage.h in Headers */,
 				4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */,
 				4538AF06185F88D2003DF921 /* STYMessagingPeer.h in Headers */,
+				452C012C1876360900BF19DB /* STYConstants.h in Headers */,
 				4538AF07185F88D2003DF921 /* STYServer.h in Headers */,
 				4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */,
 			);
@@ -382,6 +392,7 @@
 				4518E339185F90D300B1B1D9 /* STYDataScanner+Message.m in Sources */,
 				4518E33D185F90D400B1B1D9 /* STYMessageHandler.m in Sources */,
 				4518E340185F90D400B1B1D9 /* STYServiceDiscoverer.m in Sources */,
+				452C013518763FA500BF19DB /* STYSocket.m in Sources */,
 				4518E338185F90D300B1B1D9 /* STYClient.m in Sources */,
 				4518E337185F90D300B1B1D9 /* STYAddress.m in Sources */,
 				4518E33F185F90D400B1B1D9 /* STYServer.m in Sources */,
@@ -397,6 +408,7 @@
 			files = (
 				4538AEF8185F85D7003DF921 /* STYMessagingPeer.m in Sources */,
 				4538AEF5185F85D7003DF921 /* STYLogging.m in Sources */,
+				452C012E1876360900BF19DB /* STYConstants.m in Sources */,
 				4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */,
 				4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */,
 				4538AEF0185F85D7003DF921 /* NSNetService+STYUserInfo.m in Sources */,

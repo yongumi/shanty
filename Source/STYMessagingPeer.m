@@ -12,6 +12,7 @@
 #import "STYDataScanner+Message.h"
 #import "STYMessageHandler.h"
 #import "STYAddress.h"
+#import "STYConstants.h"
 
 @interface STYMessagingPeer ()
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
@@ -28,10 +29,11 @@
 
 @implementation STYMessagingPeer
 
-- (instancetype)initWithSocket:(CFSocketRef)inSocket
+- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket
     {
     if ((self = [super init]) != NULL)
         {
+        _type = inType;
         _socket = inSocket;
 //        _queue = dispatch_get_main_queue();
         _queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
@@ -66,9 +68,9 @@
     return self;
     }
 
-- (instancetype)initWithSocket:(CFSocketRef)inSocket messageHandler:(STYMessageHandler *)inMessageHandler
+- (instancetype)initWithType:(STYMessengerType)inType socket:(CFSocketRef)inSocket messageHandler:(STYMessageHandler *)inMessageHandler
     {
-    if ((self = [self initWithSocket:inSocket]) != NULL)
+    if ((self = [self initWithType:inType socket:inSocket]) != NULL)
         {
         _messageHandler = inMessageHandler;
         }
@@ -110,14 +112,14 @@
     NSParameterAssert(self.queue != NULL);
 
     NSMutableDictionary *theControlData = [inMessage.controlData mutableCopy];
-    theControlData[@"msgid"] = @(self.nextOutgoingMessageID);
+    theControlData[kSTYMessageIDKey] = @(self.nextOutgoingMessageID);
     self.nextOutgoingMessageID += 1;
 
     STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:inMessage.metadata data:inMessage.data];
 
     if (inBlock != NULL)
         {
-        self.handlersForReplies[theControlData[@"msgid"]] = inBlock;
+        self.handlersForReplies[theControlData[kSTYMessageIDKey]] = inBlock;
         }
 
     __block NSData *theBuffer = [theMessage buffer:NULL];
@@ -171,7 +173,7 @@
     {
     BOOL theResult = NO;
 
-    NSInteger incoming_message_id = [inMessage.controlData[@"msgid"] integerValue];
+    NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
         NSLog(@"Error: message id mismatch.");
@@ -180,11 +182,11 @@
 
     self.lastIncomingMessageID = incoming_message_id;
 
-    STYMessageBlock theHandler = self.handlersForReplies[inMessage.controlData[@"in-reply-to"]];
+    STYMessageBlock theHandler = self.handlersForReplies[inMessage.controlData[kSTYInReplyToKey]];
     if (theHandler)
         {
         theResult = theHandler(self, inMessage, outError);
-        [self.handlersForReplies removeObjectForKey:inMessage.controlData[@"in-reply-to"]];
+        [self.handlersForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
         }
 
     theHandler = [self.messageHandler handlerForMessage:inMessage];

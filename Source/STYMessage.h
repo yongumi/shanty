@@ -18,6 +18,7 @@
 + (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError;
 
 - (instancetype)initWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
+- (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
 - (instancetype)initWithDataBuffer:(NSData *)inDataBuffer error:(NSError *__autoreleasing *)outError;
 
 - (NSData *)buffer:(NSError *__autoreleasing *)outError;
