@@ -12,10 +12,12 @@
 #include <netinet/in.h>
 
 #import "STYAddress.h"
+#import "STYMessagingPeer.h"
 
 @interface STYClient ()
 @property (readwrite, nonatomic, copy) STYAddress *address;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef socket;
+@property (readwrite, nonatomic, nonatomic) STYMessagingPeer *peer;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
 @end
 
@@ -34,15 +36,6 @@
     return(self);
     }
 
-- (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned short)inPort
-    {
-    STYAddress *theAddress = [[STYAddress alloc] initWithHostname:inHostname port:inPort];
-    if ((self = [self initWithAddress:theAddress]) != NULL)
-        {
-        }
-    return self;
-    }
-
 - (void)connect:(STYCompletionBlock)inCompletionBlock
     {
     [self.address resolveWithTimeout:60 handler:^(NSError *inError) {
@@ -53,7 +46,7 @@
         }];
     }
 
-- (void)_connect:(STYCompletionBlock)inCompletionBlock;
+- (void)_connect:(STYCompletionBlock)inCompletionBlock
     {
     NSParameterAssert(self.address.addresses != NULL);
 
@@ -76,6 +69,8 @@
             {
             CFRunLoopRemoveSource(theRunLoop, strong_self.runLoopSource, kCFRunLoopCommonModes);
             strong_self.runLoopSource = NULL;
+
+            strong_self.peer = [[STYMessagingPeer alloc] initWithType:kSTYMessengerTypeClient socket:strong_self.socket messageHandler:self.messageHandler];
 
             if (inCompletionBlock)
                 {
