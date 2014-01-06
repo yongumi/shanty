@@ -11,7 +11,7 @@ from twisted.internet.protocol import Protocol, ClientFactory, Factory
 
 #import zlib
 #import bencode
-import snappy # pip install --user python-snappy
+#import snappy # pip install --user python-snappy
 
 #__all__ = ['Client', 'Message', 'Peer', 'MessageCoder']
 
