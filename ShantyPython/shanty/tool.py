@@ -1,7 +1,7 @@
 """shanty.
 
 Usage:
-  shanty send --dnssd-type=<type> [--dump] --command=<command> [--metadata=<metadata>] [--data=<data>|--datafile=<path>]
+  shanty send --dnssd-type=<type> [--dump] --command=<command> [--metadata=<metadata>] [--data=<data>]
   shanty serve --dnssd-type=<type> --dnssd-name=<name> [--port=<port>]
   shanty (-h | --help)
   shanty --version
@@ -32,11 +32,8 @@ from shanty import *
 def send(arguments):
 
     command = arguments['--command']
-    metdata= json.loads(arguments['--metadata']) if arguments['--metadata'] else None
+    metdata= json.loads(arguments['--metadata'])
     data = arguments['--data']
-    if arguments['--datafile']:
-        data = file(arguments['--datafile']).read()
-
 
     message = Message(command = command, metadata = metdata, data = data)
 
