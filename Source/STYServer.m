@@ -8,6 +8,8 @@
 
 #import "STYServer.h"
 
+@import UIKit;
+
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -39,8 +41,17 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 //        _port = 6667;
 
         _netServiceDomain = @"local.";
-        _netServiceType = @"_schwatest._tcp.";
-        _netServiceName = @"schwa-test";
+
+
+        NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
+        _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
+        NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
+            [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
+            [[UIDevice currentDevice] name],
+            getpid()
+            ];
+
+        _netServiceName = theName;
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
         }
