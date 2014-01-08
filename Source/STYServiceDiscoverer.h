@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-@import Foundation;
-
+#import <Foundation/Foundation.h>
 @class STYMessagingPeer;
 
 @interface STYServiceDiscoverer : NSObject

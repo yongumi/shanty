@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 schwa.io. All rights reserved.
 //
 
-@import Foundation;
-
+#import <Foundation/Foundation.h>
 #import "STYCompletionBlocks.h"
 
 @class STYAddress;

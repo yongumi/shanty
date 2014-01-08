@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-@import Foundation;
-
+#import <Foundation/Foundation.h>
 typedef enum {
     kSTYMessengerModeUndefined,
     kSTYMessengerModeClient,

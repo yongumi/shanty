@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-@import Foundation;
-
+#import <Foundation/Foundation.h>
 #import "STYMessagingPeer.h"
 
 // Misnamed. This isn't a handler. It's a "message handler manager"
