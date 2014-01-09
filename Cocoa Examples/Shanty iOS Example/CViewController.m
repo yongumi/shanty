@@ -63,7 +63,7 @@
         for (STYMessagingPeer *thePeer in self.server.peers)
             {
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
-            [thePeer sendMessage:theMessage replyBlock:NULL];
+            [thePeer sendMessage:theMessage completion:NULL];
             }
         }];
 

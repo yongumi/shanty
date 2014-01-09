@@ -6,6 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		452EC706187E74F100795834 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				452EC70C187E74FE00795834 /* PBXTargetDependency */,
+				452EC70E187E74FE00795834 /* PBXTargetDependency */,
+				452EC710187E74FE00795834 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		450FD6C4182ACB130022909D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6C2182ACB130022909D /* InfoPlist.strings */; };
 		450FD6C6182ACB130022909D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6C5182ACB130022909D /* main.m */; };
@@ -16,7 +32,7 @@
 		450FD6D5182ACB130022909D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6D4182ACB130022909D /* Images.xcassets */; };
 		451AAC801857F8CF00B09BFA /* Noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 451AAC7F1857F8CF00B09BFA /* Noise.png */; };
 		454B1BF5185FA09B003FB0E7 /* libShanty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E34E185F914900B1B1D9 /* libShanty.a */; };
-		454B1BF8185FA0D2003FB0E7 /* Shanty_MacOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty_MacOSX.framework */; };
+		454B1BF8185FA0D2003FB0E7 /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
 		454FCD2B182AD70200A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD29182AD70200A06C8B /* InfoPlist.strings */; };
 		454FCD2D182AD70200A06C8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD2C182AD70200A06C8B /* main.m */; };
 		454FCD31182AD70200A06C8B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD2F182AD70200A06C8B /* Credits.rtf */; };
@@ -24,8 +40,8 @@
 		454FCD37182AD70200A06C8B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD35182AD70200A06C8B /* MainMenu.xib */; };
 		454FCD39182AD70200A06C8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD38182AD70200A06C8B /* Images.xcassets */; };
 		4588AEE4182AF31000A08681 /* Cube.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4588AEE3182AF31000A08681 /* Cube.dae */; };
-		45CADE8F185F9C3E00CEC1D7 /* Shanty_MacOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty_MacOSX.framework */; };
-		45E90C9E185F928F0060B938 /* Shanty_MacOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty_MacOSX.framework */; };
+		45CADE8F185F9C3E00CEC1D7 /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
+		45E90C9E185F928F0060B938 /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
 		45EE0E3018456C4B00DEE839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E2E18456C4B00DEE839 /* InfoPlist.strings */; };
 		45EE0E3218456C4B00DEE839 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EE0E3118456C4B00DEE839 /* main.m */; };
 		45EE0E3618456C4B00DEE839 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E3418456C4B00DEE839 /* Credits.rtf */; };
@@ -49,6 +65,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4518E30C185F90BA00B1B1D9;
 			remoteInfo = "Mac OS X Framework";
+		};
+		452EC70B187E74FE00795834 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 450FAE37182067F200772BA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 450FD6B8182ACB130022909D;
+			remoteInfo = "Shanty iOS Example";
+		};
+		452EC70D187E74FE00795834 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 450FAE37182067F200772BA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 454FCD1E182AD70200A06C8B;
+			remoteInfo = "Shanty Mac Example";
+		};
+		452EC70F187E74FE00795834 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 450FAE37182067F200772BA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45EE0E2818456C4B00DEE839;
+			remoteInfo = "Shanty Log Server";
 		};
 		454B1BF3185FA068003FB0E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -80,7 +117,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				45CADE8F185F9C3E00CEC1D7 /* Shanty_MacOSX.framework in CopyFiles */,
+				45CADE8F185F9C3E00CEC1D7 /* Shanty.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				454B1BF8185FA0D2003FB0E7 /* Shanty_MacOSX.framework in Frameworks */,
+				454B1BF8185FA0D2003FB0E7 /* Shanty.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45E90C9E185F928F0060B938 /* Shanty_MacOSX.framework in Frameworks */,
+				45E90C9E185F928F0060B938 /* Shanty.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				4518E34E185F914900B1B1D9 /* libShanty.a */,
-				4518E350185F914900B1B1D9 /* Shanty_MacOSX.framework */,
+				4518E350185F914900B1B1D9 /* Shanty.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -350,6 +387,7 @@
 			);
 			projectRoot = "";
 			targets = (
+				452EC706187E74F100795834 /* All */,
 				450FD6B8182ACB130022909D /* Shanty iOS Example */,
 				454FCD1E182AD70200A06C8B /* Shanty Mac Example */,
 				45EE0E2818456C4B00DEE839 /* Shanty Log Server */,
@@ -365,10 +403,10 @@
 			remoteRef = 4518E34D185F914900B1B1D9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4518E350185F914900B1B1D9 /* Shanty_MacOSX.framework */ = {
+		4518E350185F914900B1B1D9 /* Shanty.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Shanty_MacOSX.framework;
+			path = Shanty.framework;
 			remoteRef = 4518E34F185F914900B1B1D9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -445,6 +483,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		452EC70C187E74FE00795834 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 450FD6B8182ACB130022909D /* Shanty iOS Example */;
+			targetProxy = 452EC70B187E74FE00795834 /* PBXContainerItemProxy */;
+		};
+		452EC70E187E74FE00795834 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 454FCD1E182AD70200A06C8B /* Shanty Mac Example */;
+			targetProxy = 452EC70D187E74FE00795834 /* PBXContainerItemProxy */;
+		};
+		452EC710187E74FE00795834 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45EE0E2818456C4B00DEE839 /* Shanty Log Server */;
+			targetProxy = 452EC70F187E74FE00795834 /* PBXContainerItemProxy */;
+		};
 		454B1BF4185FA068003FB0E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Shanty;
@@ -628,6 +681,7 @@
 				);
 				INFOPLIST_FILE = "Shanty iOS Example/Shanty iOS Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -651,11 +705,26 @@
 				GCC_PREFIX_HEADER = "Shanty iOS Example/Shanty iOS Example-Prefix.pch";
 				INFOPLIST_FILE = "Shanty iOS Example/Shanty iOS Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		452EC707187E74F100795834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		452EC708187E74F100795834 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -741,6 +810,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				452EC707187E74F100795834 /* Debug */,
+				452EC708187E74F100795834 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		454FCD4B182AD70200A06C8B /* Build configuration list for PBXNativeTarget "Shanty Mac Example" */ = {
 			isa = XCConfigurationList;

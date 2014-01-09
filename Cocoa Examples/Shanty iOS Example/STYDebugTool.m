@@ -53,7 +53,7 @@ static STYDebugTool *gSharedInstance = NULL;
                     @"more-coming": @(1),
                     };
                 STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControl metadata:NULL data:image];
-                [inPeer sendMessage:theMessage replyBlock:NULL];
+                [inPeer sendMessage:theMessage completion:NULL];
                 }];
 
 
@@ -63,7 +63,7 @@ static STYDebugTool *gSharedInstance = NULL;
                 @"more-coming": @(0),
                 };
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControl metadata:NULL data:NULL];
-            [inPeer sendMessage:theMessage replyBlock:NULL];
+            [inPeer sendMessage:theMessage completion:NULL];
             });
 
 

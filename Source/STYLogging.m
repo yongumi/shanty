@@ -62,8 +62,6 @@ static STYLogging *gSharedInstance = NULL;
                 strong_self.peer = [[STYMessagingPeer alloc] initWithMessageHandler:NULL];
                 [strong_self.peer openWithMode:kSTYMessengerModeClient socket:theSocket completion:NULL];
                 }];
-
-
             }];
         }
     return self;
