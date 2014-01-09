@@ -10,7 +10,6 @@
 
 #import "STYAddress.h"
 #import "STYSocket.h"
-#import "STYMessagingPeer.h"
 
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (readonly, nonatomic, strong) NSMutableSet *mutableServices;
