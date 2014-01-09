@@ -20,5 +20,8 @@
 - (instancetype)initWithType:(NSString *)inType domain:(NSString *)inDomain;
 
 - (void)start;
+- (void)stop;
+
+- (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler;
 
 @end

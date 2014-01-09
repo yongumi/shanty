@@ -23,9 +23,7 @@
 @property (readwrite, nonatomic, copy) NSString *netServiceName;
 @property (readonly, nonatomic, copy) NSSet *peers;
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
-
 @property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
-
 
 - (void)startListening:(STYCompletionBlock)inResultHandler;
 - (void)stopListening:(STYCompletionBlock)inResultHandler;

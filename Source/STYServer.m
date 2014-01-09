@@ -41,17 +41,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         {
         _netServiceDomain = @"local.";
 
-#if TARGET_OS_IPHONE == 1
-        NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
-        _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
-        NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
-            [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
-            [[UIDevice currentDevice] name],
-            getpid()
-            ];
-        _netServiceName = theName;
-#endif
-
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
         }
@@ -64,6 +53,45 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     }
 
 #pragma mark -
+
+- (NSString *)netServiceType
+    {
+    if (_netServiceType == NULL)
+        {
+        if ([[NSBundle mainBundle] infoDictionary] != NULL)
+            {
+            NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
+            _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
+            }
+        NSLog(@"%@", _netServiceType);
+        }
+    return(_netServiceType);
+    }
+
+- (NSString *)netServiceName
+    {
+    if (_netServiceName == NULL)
+        {
+        if ([[NSBundle mainBundle] infoDictionary] != NULL)
+            {
+            NSString *theDeviceName = NULL;
+            #if TARGET_OS_IPHONE == 1
+                theDeviceName = [[UIDevice currentDevice] name];
+            #else
+                theDeviceName = [[NSHost currentHost] localizedName];
+            #endif
+
+            _netServiceName = [NSString stringWithFormat:@"%@ on %@ (%d)",
+                [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
+                theDeviceName,
+                getpid()
+                ];
+            NSLog(@"%@", _netServiceName);
+            }
+        }
+    return(_netServiceName);
+    }
+
 
 - (NSSet *)peers
     {

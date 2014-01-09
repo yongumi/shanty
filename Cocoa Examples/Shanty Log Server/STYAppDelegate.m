@@ -21,8 +21,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
     {
-    _peers = [NSMutableArray array];
-
+    self.peers = [NSMutableArray array];
     [self _startServer];
     }
 
@@ -58,7 +57,7 @@
         [self willChangeValueForKey:@"peers"];
         NSDictionary *theDictionary = @{
             @"peer": inPeer,
-            @"address": inPeer.peerAddress,
+            @"address": inPeer.socket.peerAddress,
             @"events": [NSMutableArray array],
             };
         [self.peers addObject:theDictionary];

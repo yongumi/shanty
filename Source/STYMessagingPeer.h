@@ -27,6 +27,7 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 @interface STYMessagingPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
+@property (readonly, nonatomic) STYSocket *socket;
 @property (readonly, nonatomic) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic) id userInfo;
 

@@ -12,8 +12,10 @@
 #import "STYSocket.h"
 
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
-@property (readonly, nonatomic, strong) NSMutableSet *mutableServices;
+@property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
 @property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
+@property (readwrite, nonatomic, copy) void (^discoverFirstServiceAndStopHandler)(NSNetService *service, NSError *error);
+@property (readwrite, nonatomic) BOOL running;
 @end
 
 #pragma mark -
@@ -28,26 +30,47 @@
         {
         _type = inType;
         _domain = inDomain ?: @"";
-        _mutableServices = [NSMutableSet set];
         }
     return self;
     }
 
-- (id)init
+- (void)dealloc
     {
-    // TODO - guess type from CFBundleID
+    [self stop];
+    }
 
-    if ((self = [self initWithType:@"_schwatest._tcp." domain:NULL]) != NULL)
+- (void)start
+    {
+    if (self.running == NO)
         {
+        self.mutableServices = [NSMutableSet set];
+
+        self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+        self.serviceBrowser.delegate = self;
+        [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
+
+        self.running = YES;
         }
-    return self;
     }
 
-- (void)start;
+- (void)stop
     {
-    self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
-    self.serviceBrowser.delegate = self;
-    [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
+    if (self.running == YES)
+        {
+        [self.serviceBrowser stop];
+        self.serviceBrowser.delegate = NULL;
+        self.serviceBrowser = NULL;
+
+        self.running = NO;
+        }
+    }
+
+- (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler
+    {
+    NSParameterAssert(self.running == NO);
+
+    self.discoverFirstServiceAndStopHandler = inHandler;
+    [self start];
     }
 
 - (NSSet *)services
@@ -59,12 +82,23 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
     {
+    if (self.running == NO)
+        {
+        return;
+        }
+
     if (self.serviceAcceptanceHandler)
         {
         if (self.serviceAcceptanceHandler(aNetService) == NO)
             {
             return;
             }
+        }
+
+    if (self.discoverFirstServiceAndStopHandler != NULL)
+        {
+        self.discoverFirstServiceAndStopHandler(aNetService, NULL);
+        [self stop];
         }
 
     [self willChangeValueForKey:@"services"];
@@ -74,6 +108,11 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
     {
+    if (self.running == NO)
+        {
+        return;
+        }
+
     [self willChangeValueForKey:@"services"];
     [self.mutableServices removeObject:aNetService];
     [self didChangeValueForKey:@"services"];
