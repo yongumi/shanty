@@ -41,6 +41,17 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         {
         _netServiceDomain = @"local.";
 
+#if TARGET_OS_IPHONE == 1
+        NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
+        _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
+        NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
+            [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
+            [[UIDevice currentDevice] name],
+            getpid()
+            ];
+        _netServiceName = theName;
+#endif
+
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
         }
