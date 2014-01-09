@@ -116,7 +116,6 @@
     return(theDictionary);
     }
 
-
 - (NSData *)buffer:(NSError *__autoreleasing *)outError
     {
     NSMutableData *theBuffer = [NSMutableData data];
@@ -142,7 +141,5 @@
 
     return(theBuffer);
     }
-
-
 
 @end

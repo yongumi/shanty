@@ -18,6 +18,7 @@
 @property (readonly, nonatomic) dispatch_queue_t queue;
 @property (readonly, nonatomic) dispatch_io_t channel;
 @property (readonly, nonatomic) dispatch_source_t readSource;
+@property (readwrite, nonatomic, copy) void (^readHandler)(void);
 
 - (instancetype)init;
 - (instancetype)initWithCFSocket:(CFSocketRef)inSocket;
@@ -25,10 +26,11 @@
 - (STYAddress *)address;
 - (STYAddress *)peerAddress;
 
-- (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletionBlock;
+// TODO make initWithAddress: and roll connect: into start, rename start. stop -> cancel
+- (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletion;
 
-// TODO Rename. Open? Close?
-- (void)start:(void (^)(void))readCallback;
-- (void)stop;
+// TODO Rename. Open? Close? It's not clear that you need to call start after connect (connect and cancel)
+- (void)start:(STYCompletionBlock)inCompletion;
+- (void)stop:(STYCompletionBlock)inCompletion;
 
 @end

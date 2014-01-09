@@ -59,17 +59,17 @@
     return(theAddress);
     }
 
-- (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletionBlock;
+- (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletion;
     {
     [inAddress resolveWithTimeout:60 handler:^(NSError *inError) {
         if (inError == NULL)
             {
-            [self _connect:inAddress completion:inCompletionBlock];
+            [self _connect:inAddress completion:inCompletion];
             }
         }];
     }
 
-- (void)start:(void (^)(void))readCallback
+- (void)start:(STYCompletionBlock)inCompletion
     {
     self.queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
 
@@ -83,21 +83,26 @@
         NSLog(@"Read source canceled. Other side closed?");
         CFSocketInvalidate(self.CFSocket);
 
+
+// TODO we're not communicating a close anywhere...
 //        if ([self.delegate respondsToSelector:@selector(messagingPeerRemoteDidDisconnect:)])
 //            {
 //            [self.delegate messagingPeerRemoteDidDisconnect:self];
 //            }
         });
 
-    if (readCallback)
-        {
-        dispatch_source_set_event_handler(self.readSource, readCallback);
-        }
+    NSParameterAssert(self.readHandler);
+    dispatch_source_set_event_handler(self.readSource, self.readHandler);
 
     dispatch_resume(self.readSource);
+
+    if (inCompletion)
+        {
+        inCompletion(NULL);
+        }
     }
 
-- (void)stop
+- (void)stop:(STYCompletionBlock)inCompletion
     {
     if (self.channel != NULL)
         {
@@ -109,10 +114,15 @@
         dispatch_source_cancel(self.readSource);
         self.readSource = NULL;
         }
+
+    if (inCompletion)
+        {
+        inCompletion(NULL);
+        }
     }
 
 
-- (void)_connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletionBlock;
+- (void)_connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletion;
     {
     NSParameterAssert(inAddress.addresses != NULL);
 
@@ -136,9 +146,9 @@
             CFRunLoopRemoveSource(theRunLoop, strong_self.runLoopSource, kCFRunLoopCommonModes);
             strong_self.runLoopSource = NULL;
 
-            if (inCompletionBlock)
+            if (inCompletion)
                 {
-                inCompletionBlock(inError);
+                inCompletion(inError);
                 }
             }
         };

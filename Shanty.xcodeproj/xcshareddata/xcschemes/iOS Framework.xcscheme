@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "45DA232B187E7BA700599FAC"
+               BuildableName = "Shanty Mac OS X Tests.xctest"
+               BlueprintName = "Shanty Mac OS X Tests"
+               ReferencedContainer = "container:Shanty.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

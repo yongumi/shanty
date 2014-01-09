@@ -45,20 +45,16 @@
     self.mode = inMode;
     self.socket = inSocket;
 
-    [self.socket start:^{
-        // TODO use completion block
-        [self _read:NULL];
-
-        if (inCompletion)
-            {
-            inCompletion(NULL);
-            }
-        }];
+    __weak typeof(self) weak_self = self;
+    self.socket.readHandler = ^{
+        [weak_self _read:NULL];
+        };
+    [self.socket start:inCompletion];
     }
 
 - (void)close:(STYCompletionBlock)inCompletion
     {
-    [self.socket stop];
+    [self.socket stop:inCompletion];
     }
 
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion
