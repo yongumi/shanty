@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "452EC706187E74F100795834"
                BuildableName = "All"
-               BlueprintName = "All"
+               BlueprintName = "All (Mac)"
                ReferencedContainer = "container:Shanty Examples.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

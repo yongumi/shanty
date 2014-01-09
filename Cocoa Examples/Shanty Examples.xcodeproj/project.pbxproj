@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		452EC706187E74F100795834 /* All */ = {
+		452EC706187E74F100795834 /* All (Mac) */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildConfigurationList = 452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All (Mac)" */;
 			buildPhases = (
 			);
 			dependencies = (
-				452EC70C187E74FE00795834 /* PBXTargetDependency */,
 				452EC70E187E74FE00795834 /* PBXTargetDependency */,
 				452EC710187E74FE00795834 /* PBXTargetDependency */,
 			);
-			name = All;
+			name = "All (Mac)";
 			productName = All;
 		};
 /* End PBXAggregateTarget section */
@@ -65,13 +64,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4518E30C185F90BA00B1B1D9;
 			remoteInfo = "Mac OS X Framework";
-		};
-		452EC70B187E74FE00795834 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 450FAE37182067F200772BA3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 450FD6B8182ACB130022909D;
-			remoteInfo = "Shanty iOS Example";
 		};
 		452EC70D187E74FE00795834 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -387,7 +379,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				452EC706187E74F100795834 /* All */,
+				452EC706187E74F100795834 /* All (Mac) */,
 				450FD6B8182ACB130022909D /* Shanty iOS Example */,
 				454FCD1E182AD70200A06C8B /* Shanty Mac Example */,
 				45EE0E2818456C4B00DEE839 /* Shanty Log Server */,
@@ -483,11 +475,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		452EC70C187E74FE00795834 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 450FD6B8182ACB130022909D /* Shanty iOS Example */;
-			targetProxy = 452EC70B187E74FE00795834 /* PBXContainerItemProxy */;
-		};
 		452EC70E187E74FE00795834 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 454FCD1E182AD70200A06C8B /* Shanty Mac Example */;
@@ -811,7 +798,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All" */ = {
+		452EC70A187E74F100795834 /* Build configuration list for PBXAggregateTarget "All (Mac)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				452EC707187E74F100795834 /* Debug */,
