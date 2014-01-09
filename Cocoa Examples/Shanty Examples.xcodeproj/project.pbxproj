@@ -100,6 +100,13 @@
 			remoteGlobalIDString = 4518E30B185F90BA00B1B1D9;
 			remoteInfo = "Mac OS X Framework";
 		};
+		45F74E64187F251900294D9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518E347185F914900B1B1D9 /* Shanty.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45DA232C187E7BA700599FAC;
+			remoteInfo = "Shanty Mac OS X Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -239,6 +246,7 @@
 			children = (
 				4518E34E185F914900B1B1D9 /* libShanty.a */,
 				4518E350185F914900B1B1D9 /* Shanty.framework */,
+				45F74E65187F251900294D9D /* Shanty Mac OS X Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -400,6 +408,13 @@
 			fileType = wrapper.framework;
 			path = Shanty.framework;
 			remoteRef = 4518E34F185F914900B1B1D9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45F74E65187F251900294D9D /* Shanty Mac OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Shanty Mac OS X Tests.xctest";
+			remoteRef = 45F74E64187F251900294D9D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -805,6 +820,7 @@
 				452EC708187E74F100795834 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		454FCD4B182AD70200A06C8B /* Build configuration list for PBXNativeTarget "Shanty Mac Example" */ = {
 			isa = XCConfigurationList;

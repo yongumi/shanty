@@ -61,6 +61,8 @@
 
 - (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletion;
     {
+    NSParameterAssert(inAddress != NULL);
+
     [inAddress resolveWithTimeout:60 handler:^(NSError *inError) {
         if (inError == NULL)
             {
@@ -71,7 +73,9 @@
 
 - (void)start:(STYCompletionBlock)inCompletion
     {
-    self.queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL);
+    NSParameterAssert(self.CFSocket != NULL);
+
+    self.queue = dispatch_queue_create("io.schwa.STYSocket", DISPATCH_QUEUE_SERIAL);
 
     self.channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.CFSocket), dispatch_get_main_queue(), ^(int error) {
         NSLog(@"TODO: Clean up");
@@ -146,10 +150,7 @@
             CFRunLoopRemoveSource(theRunLoop, strong_self.runLoopSource, kCFRunLoopCommonModes);
             strong_self.runLoopSource = NULL;
 
-            if (inCompletion)
-                {
-                inCompletion(inError);
-                }
+            [strong_self start:inCompletion];
             }
         };
 
