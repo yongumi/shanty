@@ -84,7 +84,7 @@ static STYLogging *gSharedInstance = NULL;
         };
     NSData *theData = [inMessage dataUsingEncoding:NSUTF8StringEncoding];
     STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:theData];
-    [self.peer sendMessage:theMessage replyBlock:NULL];
+    [self.peer sendMessage:theMessage completion:NULL];
     }
 
 @end

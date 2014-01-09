@@ -60,7 +60,7 @@
             };
 
         STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
-        [inPeer sendMessage:theResponse replyBlock:NULL];
+        [inPeer sendMessage:theResponse completion:NULL];
 
         NSLog(@"%@", inMessage);
         return(YES);

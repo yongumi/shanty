@@ -21,7 +21,7 @@
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
-@interface STYServer () <NSNetServiceDelegate, STYMessagingPeerDelegate>
+@interface STYServer () <NSNetServiceDelegate>
 @property (readonly, nonatomic, copy) NSMutableSet *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
@@ -197,10 +197,9 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         }
 
     STYMessagingPeer *thePeer = [[theClass alloc] initWithMessageHandler:self.messageHandler];
-    thePeer.delegate = self;
 
     STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
-    [thePeer openWithMode:kSTYMessengerModeServer socket:theSocket];
+    [thePeer openWithMode:kSTYMessengerModeServer socket:theSocket completion:NULL];
 
     [self.mutablePeers addObject:thePeer];
 
@@ -229,17 +228,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         {
         theBlock([NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL]);
         sender.sty_userInfo = NULL;
-        }
-    }
-
-#pragma mark -
-
-- (void)messagingPeerRemoteDidDisconnect:(STYMessagingPeer *)inPeer
-    {
-    [self.mutablePeers removeObject:inPeer];
-    if ([self.delegate respondsToSelector:@selector(server:peerDidDisconnect:)])
-        {
-        [self.delegate server:self peerDidDisconnect:inPeer];
         }
     }
 

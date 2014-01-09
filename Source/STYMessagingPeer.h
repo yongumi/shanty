@@ -8,6 +8,8 @@
 
 @import Foundation;
 
+#import "STYCompletionBlocks.h"
+
 typedef enum {
     kSTYMessengerModeUndefined,
     kSTYMessengerModeClient,
@@ -19,7 +21,6 @@ typedef enum {
 @class STYMessage;
 @class STYMessagingPeer;
 @class STYMessageHandler;
-@protocol STYMessagingPeerDelegate;
 
 typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError);
 
@@ -27,18 +28,14 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYMessageHandler *messageHandler;
-@property (readwrite, nonatomic, weak) id <STYMessagingPeerDelegate> delegate;
 @property (readwrite, nonatomic) id userInfo;
 
 - (instancetype)initWithMessageHandler:(STYMessageHandler *)inMessageHandler;
 
-- (void)openWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket;
-- (void)close;
+- (void)openWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket completion:(STYCompletionBlock)inCompletion;
+- (void)close:(STYCompletionBlock)inCompletion;
 
-- (void)sendMessage:(STYMessage *)inMessage replyBlock:(STYMessageBlock)inBlock;
+- (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
+- (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;
 
-@end
-
-@protocol STYMessagingPeerDelegate <NSObject>
-- (void)messagingPeerRemoteDidDisconnect:(STYMessagingPeer *)inPeer;
 @end
