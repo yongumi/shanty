@@ -1,3 +1,4 @@
-language: objective-c
 before_script: cd 'Cocoa Examples'
+language: objective-c
+xcode_project: 'Shanty Examples.xcodeproj'
 xcode_scheme: All
