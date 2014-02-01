@@ -22,7 +22,7 @@ Shanty also supports Bonjour DNS-SD based service discovery and publishing.
 
 Whatever you want.
 
-That said shanty isn't design to replace existing network protocols. It isn't going to the next SPDY. TODO
+That said shanty isn't design to replace existing network protocols. It isn't going to be the next SPDY. TODO
 
 ## How do I use Shanty?
 
