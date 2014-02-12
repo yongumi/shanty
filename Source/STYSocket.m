@@ -47,14 +47,26 @@
 
 - (STYAddress *)address
     {
+    NSParameterAssert(self.CFSocket != NULL);
+
     NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyAddress(self.CFSocket);
+    if (theAddressData == NULL)
+        {
+        return(NULL);
+        }
     STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
     return(theAddress);
     }
 
 - (STYAddress *)peerAddress
     {
+    NSParameterAssert(self.CFSocket != NULL);
+
     NSData *theAddressData = (__bridge_transfer NSData *)CFSocketCopyPeerAddress(self.CFSocket);
+    if (theAddressData == NULL)
+        {
+        return(NULL);
+        }
     STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
     return(theAddress);
     }

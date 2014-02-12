@@ -18,6 +18,7 @@
 @interface STYMessagingPeer ()
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, nonatomic) STYSocket *socket;
+@property (readwrite, nonatomic) STYAddress *peerAddress;
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
@@ -44,6 +45,7 @@
     {
     self.mode = inMode;
     self.socket = inSocket;
+    self.peerAddress = self.socket.peerAddress;
 
     __weak typeof(self) weak_self = self;
     self.socket.readHandler = ^{

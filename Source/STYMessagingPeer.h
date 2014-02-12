@@ -28,6 +28,7 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYSocket *socket;
+@property (readonly, nonatomic) STYAddress *peerAddress;
 @property (readonly, nonatomic) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic) id userInfo;
 

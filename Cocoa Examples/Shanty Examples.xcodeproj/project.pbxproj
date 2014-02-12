@@ -30,6 +30,8 @@
 		450FD6D3182ACB130022909D /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6D2182ACB130022909D /* CViewController.m */; };
 		450FD6D5182ACB130022909D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6D4182ACB130022909D /* Images.xcassets */; };
 		451AAC801857F8CF00B09BFA /* Noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 451AAC7F1857F8CF00B09BFA /* Noise.png */; };
+		452401F718AAF24900309356 /* NIMLoggingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452401F618AAF24900309356 /* NIMLoggingPeer.m */; };
+		452401FA18AAF25700309356 /* NIMLoggingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 452401F918AAF25700309356 /* NIMLoggingSession.m */; };
 		454B1BF5185FA09B003FB0E7 /* libShanty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E34E185F914900B1B1D9 /* libShanty.a */; };
 		454B1BF8185FA0D2003FB0E7 /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
 		454FCD2B182AD70200A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD29182AD70200A06C8B /* InfoPlist.strings */; };
@@ -44,7 +46,7 @@
 		45EE0E3018456C4B00DEE839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E2E18456C4B00DEE839 /* InfoPlist.strings */; };
 		45EE0E3218456C4B00DEE839 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EE0E3118456C4B00DEE839 /* main.m */; };
 		45EE0E3618456C4B00DEE839 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E3418456C4B00DEE839 /* Credits.rtf */; };
-		45EE0E3918456C4B00DEE839 /* STYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EE0E3818456C4B00DEE839 /* STYAppDelegate.m */; };
+		45EE0E3918456C4B00DEE839 /* NIMLogServerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EE0E3818456C4B00DEE839 /* NIMLogServerAppDelegate.m */; };
 		45EE0E3C18456C4B00DEE839 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E3A18456C4B00DEE839 /* MainMenu.xib */; };
 		45EE0E3E18456C4B00DEE839 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E3D18456C4B00DEE839 /* Images.xcassets */; };
 		45FCF1221857EFA100650FED /* STYDebugTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCF1211857EFA100650FED /* STYDebugTool.m */; };
@@ -137,6 +139,10 @@
 		450FD6D4182ACB130022909D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4518E347185F914900B1B1D9 /* Shanty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Shanty.xcodeproj; path = ../Shanty.xcodeproj; sourceTree = "<group>"; };
 		451AAC7F1857F8CF00B09BFA /* Noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Noise.png; sourceTree = "<group>"; };
+		452401F518AAF24900309356 /* NIMLoggingPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMLoggingPeer.h; sourceTree = "<group>"; };
+		452401F618AAF24900309356 /* NIMLoggingPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMLoggingPeer.m; sourceTree = "<group>"; };
+		452401F818AAF25700309356 /* NIMLoggingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMLoggingSession.h; sourceTree = "<group>"; };
+		452401F918AAF25700309356 /* NIMLoggingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMLoggingSession.m; sourceTree = "<group>"; };
 		454FCD1F182AD70200A06C8B /* Shanty Mac Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shanty Mac Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		454FCD28182AD70200A06C8B /* Shanty Mac Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac Example-Info.plist"; sourceTree = "<group>"; };
 		454FCD2A182AD70200A06C8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -154,8 +160,8 @@
 		45EE0E3118456C4B00DEE839 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45EE0E3318456C4B00DEE839 /* Shanty Log Server-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Log Server-Prefix.pch"; sourceTree = "<group>"; };
 		45EE0E3518456C4B00DEE839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		45EE0E3718456C4B00DEE839 /* STYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STYAppDelegate.h; sourceTree = "<group>"; };
-		45EE0E3818456C4B00DEE839 /* STYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STYAppDelegate.m; sourceTree = "<group>"; };
+		45EE0E3718456C4B00DEE839 /* NIMLogServerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMLogServerAppDelegate.h; sourceTree = "<group>"; };
+		45EE0E3818456C4B00DEE839 /* NIMLogServerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMLogServerAppDelegate.m; sourceTree = "<group>"; };
 		45EE0E3B18456C4B00DEE839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		45EE0E3D18456C4B00DEE839 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45FCF1201857EFA100650FED /* STYDebugTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYDebugTool.h; sourceTree = "<group>"; };
@@ -279,8 +285,12 @@
 		45EE0E2B18456C4B00DEE839 /* Shanty Log Server */ = {
 			isa = PBXGroup;
 			children = (
-				45EE0E3718456C4B00DEE839 /* STYAppDelegate.h */,
-				45EE0E3818456C4B00DEE839 /* STYAppDelegate.m */,
+				45EE0E3718456C4B00DEE839 /* NIMLogServerAppDelegate.h */,
+				45EE0E3818456C4B00DEE839 /* NIMLogServerAppDelegate.m */,
+				452401F518AAF24900309356 /* NIMLoggingPeer.h */,
+				452401F618AAF24900309356 /* NIMLoggingPeer.m */,
+				452401F818AAF25700309356 /* NIMLoggingSession.h */,
+				452401F918AAF25700309356 /* NIMLoggingSession.m */,
 				45EE0E3A18456C4B00DEE839 /* MainMenu.xib */,
 				45EE0E3D18456C4B00DEE839 /* Images.xcassets */,
 				45EE0E2C18456C4B00DEE839 /* Supporting Files */,
@@ -482,8 +492,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452401F718AAF24900309356 /* NIMLoggingPeer.m in Sources */,
+				452401FA18AAF25700309356 /* NIMLoggingSession.m in Sources */,
 				45EE0E3218456C4B00DEE839 /* main.m in Sources */,
-				45EE0E3918456C4B00DEE839 /* STYAppDelegate.m in Sources */,
+				45EE0E3918456C4B00DEE839 /* NIMLogServerAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

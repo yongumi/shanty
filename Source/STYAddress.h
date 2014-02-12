@@ -19,4 +19,7 @@
 
 - (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;
 
+// TODO: This is a quick hack and will be going away.
+- (NSString *)toString;
+
 @end

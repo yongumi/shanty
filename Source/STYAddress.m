@@ -70,7 +70,6 @@
         [theDescriptions addObject:[NSString stringWithFormat:@"%@", [self.netService description]]];
         }
 
-
     for (NSData *theAddress in self.addresses)
         {
         NSDictionary *theParts = DictionaryFromAddress(theAddress);
@@ -78,6 +77,15 @@
         }
     return([NSString stringWithFormat:@"%@ (%@)", [super description], [theDescriptions componentsJoinedByString:@", "]]);
     }
+
+- (NSString *)toString
+    {
+    // TODO HACK
+    // This only returns the first address and only works on IPV4
+    return(DictionaryFromAddress([self.addresses firstObject])[@"sin_addr"]);
+    }
+
+#pragma mark -
 
 - (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;
     {
