@@ -28,6 +28,7 @@
 - (void)_startServer
     {
     self.server = [[STYServer alloc] init];
+    self.server.netServiceType = @"_io-schwa-stylog._tcp";
     self.server.delegate = self;
 
 //    __weak typeof(self) weak_self = self;

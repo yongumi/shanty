@@ -3,3 +3,4 @@
 __author__ = 'schwa'
 
 from core import *
+import stybonjour
