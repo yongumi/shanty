@@ -132,7 +132,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 - (void)stopListening:(STYCompletionBlock)inResultHandler
     {
-    [self _stopPublishing:NULL];
+    [self _stopPublishing];
 
     if (self.runLoopSource != NULL)
         {
@@ -210,13 +210,14 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     [self.netService publishWithOptions:0];
     }
 
-- (void)_stopPublishing:(STYCompletionBlock)inResultHandler
+- (void)_stopPublishing
     {
-    NSParameterAssert(self.netService != NULL);
-
-    self.netService.delegate = NULL;
-    [self.netService stop];
-    self.netService = NULL;
+    if (self.netService != NULL)
+        {
+        self.netService.delegate = NULL;
+        [self.netService stop];
+        self.netService = NULL;
+        }
     }
 
 - (void)_acceptSocket:(CFSocketRef)inSocket address:(NSData *)inAddress
