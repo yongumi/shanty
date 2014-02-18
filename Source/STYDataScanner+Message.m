@@ -60,7 +60,8 @@
 
     if (outValue)
         {
-        STYMessage *theMessage = [[STYMessage alloc] initWithControlData:theControlDataObject metadata:theMetadataObject data:theData];
+        STYMutableMessage *theMessage = [[STYMutableMessage alloc] initWithControlData:theControlDataObject metadata:theMetadataObject data:theData];
+        theMessage.direction = kSTYMessageDirection_Incoming; // TODO this is a bit fake...
         *outValue = theMessage;
         }
 

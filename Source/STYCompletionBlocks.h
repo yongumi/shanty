@@ -7,5 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
+
 typedef void (^STYCompletionBlock)(NSError *error);
 typedef void (^STYResultBlock)(id result, NSError *error);

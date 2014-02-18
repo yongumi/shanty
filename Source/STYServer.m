@@ -20,10 +20,12 @@
 #import "NSNetService+STYUserInfo.h"
 #import "STYMessageHandler.h"
 #import "STYSocket.h"
+#import "STYAddress.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
 @interface STYServer () <NSNetServiceDelegate>
+//@property (readwrite, nonatomic, copy) STYAddress *address;
 @property (readonly, nonatomic, copy) NSMutableSet *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
@@ -35,25 +37,63 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 @implementation STYServer
 
++ (NSString *)defaultNetServiceDomain
+    {
+    return(@"local.");
+    }
+
++ (NSString *)defaultNetServiceType
+    {
+    NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
+    return([NSString stringWithFormat:@"_%@._tcp.", theType]);
+    }
+
++ (NSString *)defaultNetServiceName
+    {
+    NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
+        [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
+#if TARGET_OS_IPHONE == 1
+        [[UIDevice currentDevice] name],
+#else
+        @"<some Macintosh>",
+#endif
+        getpid()
+        ];
+    return(theName);
+    }
+
 - (instancetype)init
     {
     if ((self = [super init]) != NULL)
         {
-        _netServiceDomain = @"local.";
+        _address = [[STYAddress alloc] init];
 
-#if TARGET_OS_IPHONE == 1
-        NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
-        _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
-        NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
-            [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
-            [[UIDevice currentDevice] name],
-            getpid()
-            ];
-        _netServiceName = theName;
-#endif
+        _netServiceDomain = [[[self class] defaultNetServiceDomain] copy];
+        _netServiceType = [[[self class] defaultNetServiceType] copy];
+        _netServiceName = [[[self class] defaultNetServiceName] copy];
 
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
+        }
+    return self;
+    }
+
+- (instancetype)initWithNetServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName
+    {
+    if ((self = [self init]) != NULL)
+        {
+        if (inDomain != NULL)
+            {
+            _netServiceDomain = [inDomain copy];
+            }
+        if (inType != NULL)
+            {
+            _netServiceType = [inType copy];
+            }
+        if (inName != NULL)
+            {
+            _netServiceName = [inName copy];
+            }
         }
     return self;
     }
@@ -64,45 +104,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     }
 
 #pragma mark -
-
-- (NSString *)netServiceType
-    {
-    if (_netServiceType == NULL)
-        {
-        if ([[NSBundle mainBundle] infoDictionary] != NULL)
-            {
-            NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
-            _netServiceType = [NSString stringWithFormat:@"_%@._tcp.", theType];
-            }
-        NSLog(@"%@", _netServiceType);
-        }
-    return(_netServiceType);
-    }
-
-- (NSString *)netServiceName
-    {
-    if (_netServiceName == NULL)
-        {
-        if ([[NSBundle mainBundle] infoDictionary] != NULL)
-            {
-            NSString *theDeviceName = NULL;
-            #if TARGET_OS_IPHONE == 1
-                theDeviceName = [[UIDevice currentDevice] name];
-            #else
-                theDeviceName = [[NSHost currentHost] localizedName];
-            #endif
-
-            _netServiceName = [NSString stringWithFormat:@"%@ on %@ (%d)",
-                [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
-                theDeviceName,
-                getpid()
-                ];
-            NSLog(@"%@", _netServiceName);
-            }
-        }
-    return(_netServiceName);
-    }
-
 
 - (NSSet *)peers
     {
@@ -147,13 +148,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 - (void)_startListening:(STYCompletionBlock)inResultHandler
     {
-//getifaddrs
-
     // Create an IPV4 address...
     struct sockaddr_in theAddress = {
         .sin_len = sizeof(theAddress),
         .sin_family = AF_INET, // IPV4 style address
-        .sin_port = htons(self.port),
+        .sin_port = htons(self.address.port),
         .sin_addr = htonl(INADDR_ANY),
         };
 
@@ -182,9 +181,9 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     // Get the port...
     NSData *addr = (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket);
     memcpy(&theAddress, [addr bytes], [addr length]);
-    if (self.port == 0)
+    if (self.address.port == 0)
         {
-        self.port = ntohs(theAddress.sin_port);
+        self.address = [self.address addressBySettingPort:ntohs(theAddress.sin_port)];
         }
 
     // Shove it all into a runloop
@@ -195,7 +194,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
     if (inResultHandler)
         {
-        NSLog(@"Serving...");
         inResultHandler(NULL);
         }
     }
@@ -204,7 +202,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     {
     NSParameterAssert(self.netService == NULL);
 
-    self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.port];
+    self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.address.port];
     self.netService.sty_userInfo = [inResultHandler copy];
     self.netService.delegate = self;
     [self.netService publishWithOptions:0];
@@ -234,12 +232,15 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     if ([self.delegate respondsToSelector:@selector(server:classForPeerWithSocket:)])
         {
         theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
+        NSParameterAssert(theClass != NULL);
         }
 
-    STYMessagingPeer *thePeer = [[theClass alloc] initWithMessageHandler:self.messageHandler];
-
     STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
-    [thePeer openWithMode:kSTYMessengerModeServer socket:theSocket completion:NULL];
+
+    STYMessagingPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
+    thePeer.messageHandler = self.messageHandler;
+
+    [thePeer open:NULL];
 
     [self.mutablePeers addObject:thePeer];
 

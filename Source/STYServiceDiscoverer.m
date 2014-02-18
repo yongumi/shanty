@@ -10,6 +10,8 @@
 
 #import "STYAddress.h"
 #import "STYSocket.h"
+#import "STYMessagingPeer.h"
+#import "STYSocket.h"
 
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
@@ -28,8 +30,8 @@
 
     if ((self = [super init]) != NULL)
         {
-        _type = inType;
-        _domain = inDomain ?: @"";
+        _type = [inType copy];
+        _domain = [inDomain copy] ?: @"";
         }
     return self;
     }
@@ -116,6 +118,33 @@
     [self willChangeValueForKey:@"services"];
     [self.mutableServices removeObject:aNetService];
     [self didChangeValueForKey:@"services"];
+    }
+
+- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler
+    {
+    NSParameterAssert(inNetService);
+    NSParameterAssert(handler);
+
+    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
+    STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
+    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
+    if (inOpenPeer == YES)
+        {
+        [thePeer open:^(NSError *error) {
+            if (error == NULL)
+                {
+                handler(thePeer, NULL);
+                }
+            else
+                {
+                handler(NULL, error);
+                }
+            }];
+        }
+    else
+        {
+        handler(thePeer, NULL);
+        }
     }
 
 @end

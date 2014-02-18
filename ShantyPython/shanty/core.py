@@ -21,6 +21,7 @@ from twisted.internet.protocol import Protocol, ClientFactory, Factory
 
 # TODO Use twisted logging with py logging framework
 FORMAT = '%(name)-6s | %(threadName)-10s | %(levelname)-5s | %(relativeCreated)5.0d | %(message)s'
+#logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 root_logger = logging.getLogger('')
 server_logger = logging.getLogger('server')
@@ -267,6 +268,8 @@ class ShantyProtocol(Protocol):
 
         if handler_function:
             handler_function(peer, message)
+        else:
+            self.logger.warning('No message handler for %s' % message)
 
     def sendMessage(self, message, reply_callback = None):
         message = self.message_for_sending(message)

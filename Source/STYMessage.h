@@ -7,19 +7,53 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface STYMessage : NSObject
+
+typedef NS_ENUM(NSInteger, STYMessageDirection) {
+	kSTYMessageDirection_Unknown,
+	kSTYMessageDirection_Incoming,
+	kSTYMessageDirection_Outgoing,
+	};
+
+/// TODO should probably break this up into categories. Creating, parsing and utilities?
+@interface STYMessage : NSObject <NSCopying, NSMutableCopying>
 
 @property (readonly, nonatomic, copy) NSDictionary *controlData;
 @property (readonly, nonatomic, copy) NSDictionary *metadata;
 @property (readonly, nonatomic, copy) NSData *data;
+
+@property (readonly, nonatomic) STYMessageDirection direction;
 
 + (NSData *)encode:(NSDictionary *)inData error:(NSError *__autoreleasing *)outError;
 + (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError;
 
 - (instancetype)initWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
 - (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
-- (instancetype)initWithDataBuffer:(NSData *)inDataBuffer error:(NSError *__autoreleasing *)outError;
 
 - (NSData *)buffer:(NSError *__autoreleasing *)outError;
+
+- (instancetype)replyWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
+- (instancetype)replyWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
+
+// Convenience...
++ (NSDictionary *)controlDataWithCommand:(NSString *)inCommand replyTo:(STYMessage *)inMessage moreComing:(BOOL)inMoreComing extras:(NSDictionary *)inExtras;
+
+// Convenience property accessors
+@property (readonly, nonatomic, copy) NSString *command;
+@property (readonly, nonatomic) NSInteger messageID;
+
+@end
+
+#pragma mark -
+
+@interface STYMutableMessage : STYMessage
+
+@property (readwrite, nonatomic, copy) NSDictionary *controlData;
+@property (readwrite, nonatomic, copy) NSDictionary *metadata;
+@property (readwrite, nonatomic, copy) NSData *data;
+
+@property (readwrite, nonatomic) STYMessageDirection direction;
+
+@property (readwrite, nonatomic, copy) NSString *command;
+@property (readwrite, nonatomic) NSInteger messageID;
 
 @end

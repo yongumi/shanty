@@ -10,11 +10,11 @@
 
 #import "STYCompletionBlocks.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, STYMessengerMode) {
     kSTYMessengerModeUndefined,
     kSTYMessengerModeClient,
     kSTYMessengerModeServer
-    } STYMessengerMode;
+    };
 
 @class STYSocket;
 @class STYAddress;
@@ -28,14 +28,18 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYSocket *socket;
-@property (readonly, nonatomic) STYAddress *peerAddress;
-@property (readonly, nonatomic) STYMessageHandler *messageHandler;
+@property (readwrite, nonatomic) STYMessageHandler *messageHandler;
+@property (readonly, nonatomic, copy) NSString *name;
 @property (readwrite, nonatomic) id userInfo;
+@property (readwrite, nonatomic, copy) STYMessageBlock tap;
+@property (readonly, nonatomic) BOOL open;
 
-- (instancetype)initWithMessageHandler:(STYMessageHandler *)inMessageHandler;
+- (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
 
-- (void)openWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket completion:(STYCompletionBlock)inCompletion;
+- (void)open:(STYCompletionBlock)inCompletion;
 - (void)close:(STYCompletionBlock)inCompletion;
+
+//- (void)reopen:(STYCompletionBlock)inCompletion;
 
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;

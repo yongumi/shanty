@@ -12,6 +12,7 @@ extern NSString *const kSTYCommandKey; // = @"cmd";
 extern NSString *const kSTYMessageIDKey; // = @"msgid";
 extern NSString *const kSTYInReplyToKey; // = @"in-reply-to";
 extern NSString *const kSTYCloseKey; // = @"close";
+extern NSString *const kSTYMoreComing; // = @"more-coming";
 
 extern NSString *const kSTYHelloCommand; // = @"hello";
 extern NSString *const kSTYHelloReplyCommand; // = @"hello.reply";

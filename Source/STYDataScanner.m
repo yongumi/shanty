@@ -31,7 +31,7 @@
     {
     if ((self = [self init]) != NULL)
         {
-        _data = inData;
+        _data = [inData copy];
         _range = (NSRange){ .location = 0, .length = [_data length] };
         }
     return self;

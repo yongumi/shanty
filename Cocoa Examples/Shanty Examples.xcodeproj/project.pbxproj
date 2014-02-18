@@ -29,6 +29,8 @@
 		450FD6D0182ACB130022909D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6CE182ACB130022909D /* Main_iPad.storyboard */; };
 		450FD6D3182ACB130022909D /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450FD6D2182ACB130022909D /* CViewController.m */; };
 		450FD6D5182ACB130022909D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450FD6D4182ACB130022909D /* Images.xcassets */; };
+		4513072918B532AD005456D8 /* NIMShantyPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4513072718B532AD005456D8 /* NIMShantyPeerBrowserViewController.m */; };
+		4513072A18B532AD005456D8 /* NIMShantyPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4513072818B532AD005456D8 /* NIMShantyPeerBrowserViewController.xib */; };
 		451AAC801857F8CF00B09BFA /* Noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 451AAC7F1857F8CF00B09BFA /* Noise.png */; };
 		452401F718AAF24900309356 /* NIMLoggingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452401F618AAF24900309356 /* NIMLoggingPeer.m */; };
 		452401FA18AAF25700309356 /* NIMLoggingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 452401F918AAF25700309356 /* NIMLoggingSession.m */; };
@@ -37,10 +39,15 @@
 		454FCD2B182AD70200A06C8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD29182AD70200A06C8B /* InfoPlist.strings */; };
 		454FCD2D182AD70200A06C8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD2C182AD70200A06C8B /* main.m */; };
 		454FCD31182AD70200A06C8B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD2F182AD70200A06C8B /* Credits.rtf */; };
-		454FCD34182AD70200A06C8B /* NIMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD33182AD70200A06C8B /* NIMAppDelegate.m */; };
+		454FCD34182AD70200A06C8B /* NIMApplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454FCD33182AD70200A06C8B /* NIMApplicationController.m */; };
 		454FCD37182AD70200A06C8B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD35182AD70200A06C8B /* MainMenu.xib */; };
 		454FCD39182AD70200A06C8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454FCD38182AD70200A06C8B /* Images.xcassets */; };
-		4588AEE4182AF31000A08681 /* Cube.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4588AEE3182AF31000A08681 /* Cube.dae */; };
+		45646C3C18B4176F00CD08EC /* NIMMessagesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45646C3A18B4176F00CD08EC /* NIMMessagesWindowController.m */; };
+		45646C3D18B4176F00CD08EC /* NIMMessagesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45646C3B18B4176F00CD08EC /* NIMMessagesWindowController.xib */; };
+		458817D218B53C1C009FB15E /* NIMApplicationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458817D118B53C1C009FB15E /* NIMApplicationModel.m */; };
+		458817DB18B54EC4009FB15E /* NIMPeersWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458817D918B54EC4009FB15E /* NIMPeersWindowController.m */; };
+		458817DC18B54EC4009FB15E /* NIMPeersWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 458817DA18B54EC4009FB15E /* NIMPeersWindowController.xib */; };
+		458817DF18B54FBA009FB15E /* NSObject+KVOBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 458817DD18B54FBA009FB15E /* NSObject+KVOBlock.m */; };
 		45CADE8F185F9C3E00CEC1D7 /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
 		45E90C9E185F928F0060B938 /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E350185F914900B1B1D9 /* Shanty.framework */; };
 		45EE0E3018456C4B00DEE839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45EE0E2E18456C4B00DEE839 /* InfoPlist.strings */; };
@@ -137,6 +144,9 @@
 		450FD6D1182ACB130022909D /* CViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CViewController.h; sourceTree = "<group>"; };
 		450FD6D2182ACB130022909D /* CViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CViewController.m; sourceTree = "<group>"; };
 		450FD6D4182ACB130022909D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4513072618B532AD005456D8 /* NIMShantyPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMShantyPeerBrowserViewController.h; sourceTree = "<group>"; };
+		4513072718B532AD005456D8 /* NIMShantyPeerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMShantyPeerBrowserViewController.m; sourceTree = "<group>"; };
+		4513072818B532AD005456D8 /* NIMShantyPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NIMShantyPeerBrowserViewController.xib; sourceTree = "<group>"; };
 		4518E347185F914900B1B1D9 /* Shanty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Shanty.xcodeproj; path = ../Shanty.xcodeproj; sourceTree = "<group>"; };
 		451AAC7F1857F8CF00B09BFA /* Noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Noise.png; sourceTree = "<group>"; };
 		452401F518AAF24900309356 /* NIMLoggingPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMLoggingPeer.h; sourceTree = "<group>"; };
@@ -149,11 +159,20 @@
 		454FCD2C182AD70200A06C8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		454FCD2E182AD70200A06C8B /* Shanty Mac Example-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac Example-Prefix.pch"; sourceTree = "<group>"; };
 		454FCD30182AD70200A06C8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		454FCD32182AD70200A06C8B /* NIMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMAppDelegate.h; sourceTree = "<group>"; };
-		454FCD33182AD70200A06C8B /* NIMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMAppDelegate.m; sourceTree = "<group>"; };
+		454FCD32182AD70200A06C8B /* NIMApplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMApplicationController.h; sourceTree = "<group>"; };
+		454FCD33182AD70200A06C8B /* NIMApplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMApplicationController.m; sourceTree = "<group>"; };
 		454FCD36182AD70200A06C8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		454FCD38182AD70200A06C8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4588AEE3182AF31000A08681 /* Cube.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Cube.dae; sourceTree = "<group>"; };
+		45646C3918B4176F00CD08EC /* NIMMessagesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMMessagesWindowController.h; sourceTree = "<group>"; };
+		45646C3A18B4176F00CD08EC /* NIMMessagesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMMessagesWindowController.m; sourceTree = "<group>"; };
+		45646C3B18B4176F00CD08EC /* NIMMessagesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NIMMessagesWindowController.xib; sourceTree = "<group>"; };
+		458817D018B53C1C009FB15E /* NIMApplicationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMApplicationModel.h; sourceTree = "<group>"; };
+		458817D118B53C1C009FB15E /* NIMApplicationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMApplicationModel.m; sourceTree = "<group>"; };
+		458817D818B54EC4009FB15E /* NIMPeersWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMPeersWindowController.h; sourceTree = "<group>"; };
+		458817D918B54EC4009FB15E /* NIMPeersWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMPeersWindowController.m; sourceTree = "<group>"; };
+		458817DA18B54EC4009FB15E /* NIMPeersWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NIMPeersWindowController.xib; sourceTree = "<group>"; };
+		458817DD18B54FBA009FB15E /* NSObject+KVOBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVOBlock.m"; sourceTree = "<group>"; };
+		458817DE18B54FBA009FB15E /* NSObject+KVOBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVOBlock.h"; sourceTree = "<group>"; };
 		45EE0E2918456C4B00DEE839 /* Shanty Log Server.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shanty Log Server.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45EE0E2D18456C4B00DEE839 /* Shanty Log Server-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Log Server-Info.plist"; sourceTree = "<group>"; };
 		45EE0E2F18456C4B00DEE839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -260,10 +279,22 @@
 		454FCD26182AD70200A06C8B /* Shanty Mac Example */ = {
 			isa = PBXGroup;
 			children = (
-				454FCD32182AD70200A06C8B /* NIMAppDelegate.h */,
-				454FCD33182AD70200A06C8B /* NIMAppDelegate.m */,
+				454FCD32182AD70200A06C8B /* NIMApplicationController.h */,
+				454FCD33182AD70200A06C8B /* NIMApplicationController.m */,
+				458817D018B53C1C009FB15E /* NIMApplicationModel.h */,
+				458817D118B53C1C009FB15E /* NIMApplicationModel.m */,
 				454FCD35182AD70200A06C8B /* MainMenu.xib */,
-				4588AEE3182AF31000A08681 /* Cube.dae */,
+				45646C3918B4176F00CD08EC /* NIMMessagesWindowController.h */,
+				45646C3A18B4176F00CD08EC /* NIMMessagesWindowController.m */,
+				45646C3B18B4176F00CD08EC /* NIMMessagesWindowController.xib */,
+				458817D818B54EC4009FB15E /* NIMPeersWindowController.h */,
+				458817D918B54EC4009FB15E /* NIMPeersWindowController.m */,
+				458817DA18B54EC4009FB15E /* NIMPeersWindowController.xib */,
+				4513072618B532AD005456D8 /* NIMShantyPeerBrowserViewController.h */,
+				4513072718B532AD005456D8 /* NIMShantyPeerBrowserViewController.m */,
+				4513072818B532AD005456D8 /* NIMShantyPeerBrowserViewController.xib */,
+				458817DD18B54FBA009FB15E /* NSObject+KVOBlock.m */,
+				458817DE18B54FBA009FB15E /* NSObject+KVOBlock.h */,
 				454FCD38182AD70200A06C8B /* Images.xcassets */,
 				454FCD27182AD70200A06C8B /* Supporting Files */,
 			);
@@ -375,7 +406,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = NIM;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = schwa.io;
 			};
 			buildConfigurationList = 450FAE3A182067F200772BA3 /* Build configuration list for PBXProject "Shanty Examples" */;
@@ -446,11 +477,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4588AEE4182AF31000A08681 /* Cube.dae in Resources */,
 				454FCD2B182AD70200A06C8B /* InfoPlist.strings in Resources */,
 				454FCD39182AD70200A06C8B /* Images.xcassets in Resources */,
+				45646C3D18B4176F00CD08EC /* NIMMessagesWindowController.xib in Resources */,
 				454FCD31182AD70200A06C8B /* Credits.rtf in Resources */,
 				454FCD37182AD70200A06C8B /* MainMenu.xib in Resources */,
+				4513072A18B532AD005456D8 /* NIMShantyPeerBrowserViewController.xib in Resources */,
+				458817DC18B54EC4009FB15E /* NIMPeersWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,8 +516,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45646C3C18B4176F00CD08EC /* NIMMessagesWindowController.m in Sources */,
+				458817DF18B54FBA009FB15E /* NSObject+KVOBlock.m in Sources */,
+				458817DB18B54EC4009FB15E /* NIMPeersWindowController.m in Sources */,
+				4513072918B532AD005456D8 /* NIMShantyPeerBrowserViewController.m in Sources */,
 				454FCD2D182AD70200A06C8B /* main.m in Sources */,
-				454FCD34182AD70200A06C8B /* NIMAppDelegate.m in Sources */,
+				454FCD34182AD70200A06C8B /* NIMApplicationController.m in Sources */,
+				458817D218B53C1C009FB15E /* NIMApplicationModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +651,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -639,6 +678,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -651,6 +691,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -671,6 +712,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -678,7 +720,6 @@
 		450FD6E9182ACB130022909D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -706,7 +747,6 @@
 		450FD6EA182ACB130022909D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;

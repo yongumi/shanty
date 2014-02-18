@@ -7,17 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef enum {
+
+typedef NS_ENUM(NSInteger, EDataScannerMode) {
 	DataScannerMode_Binary,
 	DataScannerMode_Text,
-	} EDataScannerMode;
+	};
 
-typedef enum {
+typedef NS_ENUM(NSInteger, EDataScannerDataEndianness) {
 	DataScannerDataEndianness_Native,
 	DataScannerDataEndianness_Little,
 	DataScannerDataEndianness_Big,
 	DataScannerDataEndianness_Network = DataScannerDataEndianness_Big,
-	} EDataScannerDataEndianness;
+	};
 
 @interface STYDataScanner : NSObject
 
@@ -41,6 +42,5 @@ typedef enum {
 
 - (BOOL)scan_uint16:(uint16_t *)outValue error:(NSError *__autoreleasing *)outError;
 - (BOOL)scan_uint32:(uint32_t *)outValue error:(NSError *__autoreleasing *)outError;
-
 
 @end

@@ -20,8 +20,10 @@ from twisted.internet import reactor
 from twisted.internet.endpoints import TCP4ServerEndpoint
 from twisted.internet.endpoints import TCP4ClientEndpoint
 
-import bonjour
+import stybonjour as bonjour
 from shanty import *
+import sys
+import twbonjour
 
 #from docopt_cmd import cmd
 
@@ -97,7 +99,7 @@ def main(argv = None):
         serve(arguments)
 
 if __name__ == "__main__":
-#    argv = ['serve', '--dnssd-type=_shanty._tcp', '--dnssd-name=Shanty_test']
-#    argv = ['send', '--dnssd-type=_stydebugtool._tcp', '--dump', 'snapshots']
+#    sys.argv = ['shanty', 'serve', '--dnssd-type=_shanty._tcp', '--dnssd-name=Shanty_test']
+#    sys.argv = ['shanty', 'send', '--dnssd-type=_stydebugtool._tcp', '--command', 'Boo']
 
     main()

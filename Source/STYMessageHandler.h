@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "STYMessagingPeer.h"
 
 // Misnamed. This isn't a handler. It's a "message handler manager"
@@ -14,6 +15,6 @@
 
 - (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;
 
-- (STYMessageBlock)handlerForMessage:(STYMessage *)inMessage;
+- (NSArray *)handlersForMessage:(STYMessage *)inMessage;
 
 @end

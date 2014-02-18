@@ -11,25 +11,56 @@
 
 @class STYAddress;
 
+@protocol STYSocketDelegate;
+
+/**
+ *  A representation of a POSIX socket exposing dispatch io properties...
+ */
 @interface STYSocket : NSObject
 
+@property (readonly, nonatomic, copy) STYAddress *address;
+@property (readonly, nonatomic, copy) STYAddress *peerAddress;
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef CFSocket;
 @property (readonly, nonatomic) dispatch_queue_t queue;
 @property (readonly, nonatomic) dispatch_io_t channel;
 @property (readonly, nonatomic) dispatch_source_t readSource;
-@property (readwrite, nonatomic, copy) void (^readHandler)(void);
+@property (readonly, nonatomic) BOOL connected;
+@property (readonly, nonatomic) BOOL open;
 
-- (instancetype)init;
+@property (readwrite, atomic, weak) id <STYSocketDelegate> delegate;
+
+/**
+ *  Initializes the socket with an address.
+ *
+ *  The socket is not connected at this point.
+ */
+- (instancetype)initWithAddress:(STYAddress *)inAddress;
+
+/**
+ *  Initializes the socket with with a CFNetworking socket.
+ *
+ *  The socket is assumed to be connected at this point.
+ */
 - (instancetype)initWithCFSocket:(CFSocketRef)inSocket;
 
-- (STYAddress *)address;
-- (STYAddress *)peerAddress;
+/**
+ *  Opens the socket and prepares it for io. If the socket is not already connected it is connected first.
+ */
+- (void)open:(STYCompletionBlock)inCompletion;
 
-// TODO make initWithAddress: and roll connect: into start, rename start. stop -> cancel
-- (void)connect:(STYAddress *)inAddress completion:(STYCompletionBlock)inCompletion;
+- (void)close:(STYCompletionBlock)inCompletion;
 
-// TODO Rename. Open? Close? It's not clear that you need to call start after connect (connect and cancel)
-- (void)start:(STYCompletionBlock)inCompletion;
-- (void)stop:(STYCompletionBlock)inCompletion;
+//- (void)reopen:(STYCompletionBlock)inCompletion;
+
+
+@end
+
+#pragma mark -
+
+@protocol STYSocketDelegate <NSObject>
+@optional
+
+- (void)socketHasDataAvailable:(STYSocket *)inSocket;
+- (void)socketDidClose:(STYSocket *)inSocket;
 
 @end

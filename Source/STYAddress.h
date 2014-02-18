@@ -12,6 +12,7 @@
 @interface STYAddress : NSObject <NSCopying>
 
 @property (readonly, nonatomic, copy) NSArray *addresses;
+@property (readonly, nonatomic) int16_t port;
 
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
@@ -21,5 +22,7 @@
 
 // TODO: This is a quick hack and will be going away.
 - (NSString *)toString;
+
+- (instancetype)addressBySettingPort:(int16_t)inPort;
 
 @end

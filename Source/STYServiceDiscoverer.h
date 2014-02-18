@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class STYMessagingPeer;
+@class STYMessageHandler;
 
 @interface STYServiceDiscoverer : NSObject
 
@@ -22,5 +24,7 @@
 - (void)stop;
 
 - (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler;
+
+- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler;
 
 @end

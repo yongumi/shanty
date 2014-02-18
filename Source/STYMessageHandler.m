@@ -35,25 +35,26 @@
     [self.handlers insertObject:@[ inCommand ?: [NSNull null], inBlock ] atIndex:0];
     }
 
-- (STYMessageBlock)handlerForMessage:(STYMessage *)inMessage
+- (NSArray *)handlersForMessage:(STYMessage *)inMessage;
     {
+    NSMutableArray *theHandlers = [NSMutableArray array];
+
     for (NSArray *theHandler in self.handlers)
         {
         id theCommand = theHandler[0];
         STYMessageBlock theBlock = theHandler[1];
         if (theCommand == [NSNull null] || [inMessage.controlData[kSTYCommandKey] isEqualToString:theCommand])
             {
-            return(theBlock);
+            [theHandlers addObject:theBlock];
             }
         }
 
-    return(NULL);
+    return(theHandlers);
     }
 
 - (void)_addSystemHandlers
     {
     [self addCommand:kSTYHelloCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-
         NSDictionary *theControlData = @{
             kSTYCommandKey: kSTYHelloReplyCommand,
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
@@ -62,14 +63,12 @@
         STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
         [inPeer sendMessage:theResponse completion:NULL];
 
-        NSLog(@"%@", inMessage);
-        return(YES);
-        }];
-    [self addCommand:kSTYHelloReplyCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-        NSLog(@"%@", inMessage);
         return(YES);
         }];
 
+    [self addCommand:kSTYHelloReplyCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        return(YES);
+        }];
     }
 
 @end

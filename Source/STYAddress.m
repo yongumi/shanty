@@ -15,7 +15,7 @@
 @interface STYAddress () <NSNetServiceDelegate>
 @property (readwrite, nonatomic, copy) NSArray *addresses;
 @property (readwrite, nonatomic, copy) NSString *hostname;
-@property (readwrite, nonatomic, assign) unsigned short port;
+@property (readwrite, nonatomic) int16_t port;
 @property (readwrite, nonatomic, strong) NSNetService *netService;
 @property (readwrite, nonatomic, copy) void (^resolveHandler)(NSError *);
 @end
@@ -28,7 +28,7 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _addresses = inAddresses;
+        _addresses = [inAddresses copy];
         }
     return self;
     }
@@ -37,7 +37,7 @@
     {
     if ((self = [self initWithAddresses:NULL]) != NULL)
         {
-        _hostname = inHostname;
+        _hostname = [inHostname copy];
         _port = inPort;
         }
     return self;
@@ -82,7 +82,14 @@
     {
     // TODO HACK
     // This only returns the first address and only works on IPV4
-    return(DictionaryFromAddress([self.addresses firstObject])[@"sin_addr"]);
+    NSDictionary *theDictionary = DictionaryFromAddress([self.addresses firstObject]);
+    return([NSString stringWithFormat:@"%@:%@", theDictionary[@"sin_addr"], theDictionary[@"sin_port"]]);
+    }
+
+- (instancetype)addressBySettingPort:(int16_t)inPort;
+    {
+    STYAddress *theAddress = [[STYAddress alloc] initWithHostname:self.hostname port:inPort];
+    return(theAddress);
     }
 
 #pragma mark -

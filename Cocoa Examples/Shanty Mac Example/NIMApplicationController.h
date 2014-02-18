@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NIMAppDelegate : NSObject <NSApplicationDelegate>
+@interface NIMApplicationController : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
++ (instancetype)sharedInstance;
 
 @end
