@@ -66,12 +66,12 @@
 - (void)server:(STYServer *)inServer peerDidConnect:(STYMessagingPeer *)inPeer
     {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NIMLoggingPeer *theLoggingPeer = self.peersByAddress[inPeer.peerAddress.toString];
+        NIMLoggingPeer *theLoggingPeer = self.peersByAddress[inPeer.socket.peerAddress.toString];
         if (theLoggingPeer == NULL)
             {
             theLoggingPeer = [[NIMLoggingPeer alloc] initWithSTYPeer:inPeer];
             [self willChangeValueForKey:@"peers"];
-            self.peersByAddress[inPeer.peerAddress.toString] = theLoggingPeer;
+            self.peersByAddress[inPeer.socket.peerAddress.toString] = theLoggingPeer;
             [self didChangeValueForKey:@"peers"];
             }
         else

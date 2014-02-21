@@ -44,7 +44,7 @@
 
 - (NSString *)address
     {
-    return([self.STYPeer.peerAddress toString]);
+    return([self.STYPeer.socket.address toString]);
     }
 
 - (NIMLoggingSession *)currentSession;
