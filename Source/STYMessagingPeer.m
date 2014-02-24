@@ -223,7 +223,12 @@
     if (theHandler)
         {
         theResult = theHandler(self, inMessage, outError);
-        [self.handlersForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
+
+        if (inMessage.moreComing == NO)
+            {
+            [self.handlersForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
+            }
+
         if (theResult == YES)
             {
             return(theResult);;
