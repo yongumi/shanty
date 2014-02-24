@@ -74,6 +74,11 @@
 		45DA2347187E7C4700599FAC /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		45DA2349187E7C4700599FAC /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
+		45E51A2E18BBEC66008D59DA /* STYLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A2C18BBEC66008D59DA /* STYLogging.h */; };
+		45E51A2F18BBEC66008D59DA /* STYLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A2C18BBEC66008D59DA /* STYLogging.h */; };
+		45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */; };
+		45E51A3E18BBF16D008D59DA /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E51A3B18BBF16D008D59DA /* STYPeerBrowserViewController.m */; };
+		45E51A3F18BBF16D008D59DA /* NIMShantyPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E51A3C18BBF16D008D59DA /* NIMShantyPeerBrowserViewController.xib */; };
 		45E90C9F185F92DB0060B938 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA1185F92DB0060B938 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDB185F85D7003DF921 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA3185F92DB0060B938 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDF185F85D7003DF921 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,6 +154,11 @@
 		45DA2334187E7BA700599FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shanty_Mac_OS_X_Tests.m; sourceTree = "<group>"; };
 		45DA2338187E7BA700599FAC /* Shanty Mac OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
+		45E51A2C18BBEC66008D59DA /* STYLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYLogging.h; sourceTree = "<group>"; };
+		45E51A2D18BBEC66008D59DA /* STYLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYLogging.m; sourceTree = "<group>"; };
+		45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeerBrowserViewController.h; sourceTree = "<group>"; };
+		45E51A3B18BBF16D008D59DA /* STYPeerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYPeerBrowserViewController.m; sourceTree = "<group>"; };
+		45E51A3C18BBF16D008D59DA /* NIMShantyPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NIMShantyPeerBrowserViewController.xib; sourceTree = "<group>"; };
 		45E90CB3185F9B110060B938 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45E90CB4185F9B110060B938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45E90CB5185F9B110060B938 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -204,6 +214,8 @@
 		4538AEB3185F851A003DF921 /* Shanty */ = {
 			isa = PBXGroup;
 			children = (
+				45E51A3918BBF16D008D59DA /* UI */,
+				45E51A2A18BBEC66008D59DA /* Implementations */,
 				4538AED7185F85D7003DF921 /* Source */,
 			);
 			path = Shanty;
@@ -267,6 +279,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		45E51A2A18BBEC66008D59DA /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				45E51A2B18BBEC66008D59DA /* Logging */,
+			);
+			path = Implementations;
+			sourceTree = SOURCE_ROOT;
+		};
+		45E51A2B18BBEC66008D59DA /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				45E51A2C18BBEC66008D59DA /* STYLogging.h */,
+				45E51A2D18BBEC66008D59DA /* STYLogging.m */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		45E51A3918BBF16D008D59DA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */,
+				45E51A3B18BBF16D008D59DA /* STYPeerBrowserViewController.m */,
+				45E51A3C18BBF16D008D59DA /* NIMShantyPeerBrowserViewController.xib */,
+			);
+			path = UI;
+			sourceTree = SOURCE_ROOT;
+		};
 		45E90CB0185F9B110060B938 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +341,7 @@
 				45E90CA8185F92DB0060B938 /* STYMessageHandler.h in Headers */,
 				452C012D1876360900BF19DB /* STYConstants.h in Headers */,
 				45E90CA9185F92DB0060B938 /* STYMessagingPeer.h in Headers */,
+				45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */,
 				452C013318763FA500BF19DB /* STYSocket.h in Headers */,
 				45E90CAA185F92DB0060B938 /* STYServer.h in Headers */,
 				45E90CAB185F92DB0060B938 /* STYServiceDiscoverer.h in Headers */,
@@ -426,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45E90CB6185F9B230060B938 /* InfoPlist.strings in Resources */,
+				45E51A3F18BBF16D008D59DA /* NIMShantyPeerBrowserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +524,7 @@
 				452C013518763FA500BF19DB /* STYSocket.m in Sources */,
 				4518E337185F90D300B1B1D9 /* STYAddress.m in Sources */,
 				4518E33F185F90D400B1B1D9 /* STYServer.m in Sources */,
+				45E51A3E18BBF16D008D59DA /* STYPeerBrowserViewController.m in Sources */,
 				4518E33C185F90D400B1B1D9 /* STYMessage.m in Sources */,
 				4518E33A185F90D300B1B1D9 /* STYDataScanner.m in Sources */,
 			);
