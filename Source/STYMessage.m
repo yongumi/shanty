@@ -163,6 +163,11 @@
     return([self.controlData[kSTYMessageIDKey] integerValue]);
     }
 
+- (BOOL)moreComing
+    {
+    return([self.controlData[kSTYMoreComing] boolValue]);
+    }
+
 @end
 
 #pragma mark -

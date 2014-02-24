@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, STYMessageDirection) {
 // Convenience property accessors
 @property (readonly, nonatomic, copy) NSString *command;
 @property (readonly, nonatomic) NSInteger messageID;
+@property (readonly, nonatomic) BOOL moreComing;
 
 @end
 
