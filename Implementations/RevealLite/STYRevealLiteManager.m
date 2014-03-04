@@ -231,7 +231,6 @@ NSDictionary *NSDictionaryFromUIColor(UIColor *color)
         return(@{});
         }
     }
-#endif /* TARGET_OS_IPHONE */
 
 static void _Walk(id parent, id object, NSString *childKey, BOOL reversed, BOOL (^inBlock)(id parent, id child))
     {
@@ -252,7 +251,7 @@ static void _Walk(id parent, id object, NSString *childKey, BOOL reversed, BOOL 
         _Walk(object, theChild, childKey, reversed, inBlock);
         }
     }
-
+#endif /* TARGET_OS_IPHONE */
 
 - (void)fetch:(STYMessagingPeer *)inPeer toDirectory:(NSURL *)inURL completion:(void (^)(NSError *))completion
     {

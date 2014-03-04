@@ -9,7 +9,7 @@
 #import "STYServer.h"
 
 #if TARGET_OS_IPHONE == 1
-#import <UIKit/UIKit.h>;
+#import <UIKit/UIKit.h>
 #endif
 
 #include <sys/socket.h>

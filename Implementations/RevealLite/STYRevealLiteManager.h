@@ -16,7 +16,9 @@
 
 + (instancetype)sharedInstance;
 
+#if TARGET_OS_IPHONE
 - (void)start;
+#endif
 
 - (void)fetch:(STYMessagingPeer *)inPeer toDirectory:(NSURL *)inURL completion:(void (^)(NSError *))completion;
 
