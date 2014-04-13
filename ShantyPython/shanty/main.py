@@ -15,6 +15,8 @@ server_logger = logging.getLogger('server')
 client_logger = logging.getLogger('client')
 unknown_logger = logging.getLogger('unknown')
 
+########################################################################################################################
+
 CTL_CMD = 'cmd'
 CTL_MSGID = 'msgid'
 CTL_IN_REPLY_TO = 'in-reply-to'
@@ -30,5 +32,9 @@ CMD_PING_REPLY = 'ping.reply'
 CMD_ECHO = 'echo'
 CMD_ECHO_REPLY = 'echo.reply'
 
+########################################################################################################################
+
 MODE_CLIENT = 'CLIENT'
 MODE_SERVER = 'SERVER'
+
+########################################################################################################################

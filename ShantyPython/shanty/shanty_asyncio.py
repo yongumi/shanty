@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 __author__ = 'schwa'
-__all__ = ['ClosedError', 'ShantyProtocol']
+__all__ = ['ClosedError', 'ShantyProtocol', 'Server', 'Client']
 
 import datetime
 import asyncio
@@ -22,20 +22,18 @@ class ClosedError(EOFError):
 ########################################################################################################################
 
 class ShantyProtocol(asyncio.Protocol):
-    def __init__(self, mode):
-        self.mode = mode
+    def __init__(self):
         self.messageCoder = MessageCoder()
         self.logger = unknown_logger
-        self.handlers = []
         self.last_incoming_message_id = None
         self.next_outgoing_message_id = 0
         self.messageBuilder = MessageBuilder()
         self.replyCallbacks = dict()
+        self.handler = MessageHandler()
+        self.handler.handlers = system_handler()
 
     def connection_made(self, transport):
         self.transport = transport
-        if self.mode == 'CLIENT':
-            self.sendHello()
 
     def connection_lost(self, exc):
        pass
@@ -57,10 +55,8 @@ class ShantyProtocol(asyncio.Protocol):
         self.last_incoming_message_id = incoming_message_id
 
         if CTL_IN_REPLY_TO in message.control_data:
-            in_reply_to = message.control_data[CTL_IN_REPLY_TO]
-            if in_reply_to in self.replyCallbacks:
-                callback = self.replyCallbacks[in_reply_to]
-                callback(peer, message)
+            self.handle_reply(peer, message)
+            return
 
         handler_function = self.handler.find_handler(message)
 
@@ -69,8 +65,14 @@ class ShantyProtocol(asyncio.Protocol):
         else:
             self.logger.warning('No message handler for %s' % message)
 
+    def handle_reply(self, peer, message):
+        in_reply_to = message.control_data[CTL_IN_REPLY_TO]
+        if in_reply_to in self.replyCallbacks:
+            callback = self.replyCallbacks[in_reply_to]
+            callback(peer, message)
+
     def sendMessage(self, message, reply_callback = None):
-        message = self.message_for_sending(message)
+        message = self._message_for_sending(message)
         self.logger.debug('Sending: %s', message)
         data = self.messageCoder.flatten_message(message)
         self.transport.write(data)
@@ -80,13 +82,6 @@ class ShantyProtocol(asyncio.Protocol):
     def sendReply(self, message, in_reply_to):
         message.control_data[CTL_IN_REPLY_TO] = in_reply_to.control_data[CTL_MSGID]
         self.sendMessage(message)
-
-    def message_for_sending(self, message):
-        control_data = dict(message.control_data)
-        control_data[CTL_MSGID] = self.next_outgoing_message_id
-        self.next_outgoing_message_id += 1
-        message.control_data = control_data
-        return message
 
     def sendHello(self):
         m = {
@@ -102,35 +97,67 @@ class ShantyProtocol(asyncio.Protocol):
             }
         self.sendMessage((Message(command = 'hello', metadata = m)))
 
-########################################################################################################################
-
-# class ShantyServerFactory(Factory):
-#     def __init__(self):
-#         self.handler = MessageHandler()
-#         self.handler.handlers = system_handler()
-#
-#     def buildProtocol(self, addr):
-#         protocol = ShantyProtocol(mode = 'SERVER')
-#         protocol.logger = server_logger
-#         protocol.handler = self.handler
-#         return protocol
+    def _message_for_sending(self, message):
+        control_data = dict(message.control_data)
+        control_data[CTL_MSGID] = self.next_outgoing_message_id
+        self.next_outgoing_message_id += 1
+        message.control_data = control_data
+        return message
 
 ########################################################################################################################
 
-# class ShantyClientFactory(ClientFactory):
-#
-#     def __init__(self):
-#         self.handler = MessageHandler()
-#         self.handler.handlers = system_handler()
-#
-#     def buildProtocol(self, addr):
-#         protocol = ShantyProtocol(mode = 'CLIENT')
-#         protocol.logger = client_logger
-#         protocol.handler = self.handler
-#         return protocol
-#
-#     def clientConnectionFailed(self, connector, reason):
-#         print('clientConnectionFailed', connector, reason)
-#
-#     def clientConnectionLost(self, connector, reason):
-#         print('clientConnectionLost', connector, reason)
+class ServerProtocol(ShantyProtocol):
+    def __init__(self):
+        super(ServerProtocol, self).__init__()
+        self.logger = server_logger
+        print(self.handler.handlers)
+        self.handler.handlers.insert(0, ('hello', self.handle_hello))
+
+    def connection_lost(self, exc):
+        print('CONNECTION LOST')
+        print(asyncio.get_event_loop())
+
+    def handle_hello(self, peer, message):
+        print('HELLO!!!!')
+        self.sendReply(Message(command = 'hello.reply'), message)
+        print(asyncio.get_event_loop())
+        asyncio.get_event_loop().close()
+
+
+
+########################################################################################################################
+
+class ClientProtocol(ShantyProtocol):
+    def __init__(self):
+        super(ClientProtocol, self).__init__()
+        self.logger = client_logger
+
+    def connection_made(self, transport):
+        super(ClientProtocol, self).connection_made(transport)
+        self.sendHello()
+
+########################################################################################################################
+
+class Server(object):
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+
+    def open(self, loop):
+        coro = loop.create_server(ServerProtocol, self.host, self.port)
+        self.server = loop.run_until_complete(coro)
+        print(self.server)
+
+    def close(self):
+        self.server.close()
+
+class Client(object):
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+
+    def open(self, loop):
+        coro = loop.create_connection(ClientProtocol, self.host, self.port)
+        self.transport, self.protocol = loop.run_until_complete(coro)
+        print(self.transport)
+        print(self.protocol)
