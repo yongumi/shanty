@@ -2,5 +2,7 @@
 
 __author__ = 'schwa'
 
-from core import *
-import stybonjour
+from shanty_twisted_tool import *
+import twbonjour
+
+# TODO add more here to make this a viable package

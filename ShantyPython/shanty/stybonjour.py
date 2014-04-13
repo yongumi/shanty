@@ -1,6 +1,9 @@
-#!/usr/bin/env python
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import unicode_literals
 
 __author__ = 'schwa'
+__all__ = ['Advertiser', 'BonjourBrowser', 'browse_one']
 
 import pybonjour
 import select
@@ -30,8 +33,6 @@ class Advertiser(object):
     def stop(self):
         self.sdRef.close()
         self.registered = False
-
-
 
 class BonjourBrowser(object):
 

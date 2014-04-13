@@ -1,4 +1,9 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
 __author__ = 'schwa'
+__all__ = 'broadcast'
 
 import pybonjour
 from twisted.internet.defer import Deferred
@@ -18,7 +23,7 @@ class ServiceDescriptor(object):
         return self.sdref.fileno()
 
     def logPrefix(self):
-        return "bonjour"
+        return 'bonjour'
 
     def connectionLost(self, reason):
         self.sdref.close()

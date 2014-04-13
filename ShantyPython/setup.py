@@ -12,5 +12,5 @@ setup(name='shanty',
     packages=['shanty'],
 #    py_modules = ['shanty'],
     scripts=['scripts/shanty'],
-    install_requires=['twisted > 12.0', 'docopt >= 0.6', 'pybonjour >= 1.1'],
+    install_requires=['twisted > 12.0', 'docopt >= 0.6', 'pybonjour >= 1.1', 'six'],
     )
