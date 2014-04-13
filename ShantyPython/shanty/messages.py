@@ -55,7 +55,7 @@ class MessageHandler(object):
 # TODO work better with MessageCoder
 class MessageBuilder(object):
     def __init__(self):
-        self.data = ''
+        self.data = b''
         self.header = None
         self.coder = MessageCoder()
     def push_data(self, data):
@@ -107,8 +107,8 @@ class MessageCoder(object):
 
     def flatten_message(self, message):
         control_data_data = self.encode(message.control_data)
-        metadata_data = self.encode(message.metadata) if message.metadata else ''
-        data = message.data if message.data else ''
+        metadata_data = self.encode(message.metadata) if message.metadata else b''
+        data = message.data if message.data else b''
         format = HEADER_FORMAT + '%ss%ss%ss' % (len(control_data_data), len(metadata_data), len(data))
         flattened_message = struct.pack(format, len(control_data_data), len(metadata_data), len(data), control_data_data, metadata_data, data)
         return flattened_message
@@ -140,9 +140,10 @@ class MessageCoder(object):
         return message
 
     def encode(self, obj):
-        return json.dumps(obj)
+        return json.dumps(obj).encode('utf-8')
 
     def decode(self, data):
+        data = data.decode('utf-8')
         return json.loads(data)
 
     def compress(self, data):

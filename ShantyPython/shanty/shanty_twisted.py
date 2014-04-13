@@ -110,7 +110,7 @@ class ShantyServerFactory(Factory):
         self.handler.handlers = system_handler()
 
     def buildProtocol(self, addr):
-        protocol = ShantyProtocol(mode = 'SERVER')
+        protocol = ShantyProtocol(mode = MODE_CLIENT)
         protocol.logger = server_logger
         protocol.handler = self.handler
         return protocol
@@ -124,7 +124,7 @@ class ShantyClientFactory(ClientFactory):
         self.handler.handlers = system_handler()
 
     def buildProtocol(self, addr):
-        protocol = ShantyProtocol(mode = 'CLIENT')
+        protocol = ShantyProtocol(mode = MODE_CLIENT )
         protocol.logger = client_logger
         protocol.handler = self.handler
         return protocol

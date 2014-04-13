@@ -29,3 +29,6 @@ CMD_PING = 'ping'
 CMD_PING_REPLY = 'ping.reply'
 CMD_ECHO = 'echo'
 CMD_ECHO_REPLY = 'echo.reply'
+
+MODE_CLIENT = 'CLIENT'
+MODE_SERVER = 'SERVER'
