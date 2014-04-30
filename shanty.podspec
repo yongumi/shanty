@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "Shanty"
+  s.name         = "shanty"
   s.version      = "0.0.1"
   s.summary      = "A lightweight and simple Cocoa network protocol."
   s.homepage     = "https://github.com/schwa/shanty"
