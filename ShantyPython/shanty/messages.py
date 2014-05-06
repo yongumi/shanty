@@ -14,12 +14,12 @@ from shanty.main import *
 ########################################################################################################################
 
 HEADER_FORMAT = '!HHL'
-HEADER_SIZE = struct.calcsize(HEADER_FORMAT) # currently 8
+HEADER_SIZE = struct.calcsize(HEADER_FORMAT)  # currently 8
 
 ########################################################################################################################
 
 class Message(object):
-    def __init__(self, control_data = None, metadata = None, data = None, command = None, ):
+    def __init__(self, control_data=None, metadata=None, data=None, command=None, ):
         self.control_data = control_data if control_data else {}
         if command:
             if CTL_CMD in self.control_data:
@@ -29,12 +29,13 @@ class Message(object):
         self.data = data if data else ''
 
     def __repr__(self):
-        return 'Message(%s, %s, %s bytes \'%s\')' % (self.control_data, self.metadata, len(self.data), self.data if len(self.data) < 64 else self.data[:64])
+        return 'Message(%s, %s, %s bytes \'%s\')' % (
+        self.control_data, self.metadata, len(self.data), self.data if len(self.data) < 64 else self.data[:64])
+
 
 ########################################################################################################################
 
 class MessageHandler(object):
-
     def __init__(self):
         self.handlers = []
 
@@ -50,6 +51,7 @@ class MessageHandler(object):
                 return handler
         return None
 
+
 ########################################################################################################################
 
 # TODO work better with MessageCoder
@@ -58,12 +60,14 @@ class MessageBuilder(object):
         self.data = b''
         self.header = None
         self.coder = MessageCoder()
+
     def push_data(self, data):
         self.data += data
+
     def has_message(self):
         if len(self.data) <= HEADER_SIZE:
             return False
-#        print len(self.data), HEADER_SIZE
+        #        print len(self.data), HEADER_SIZE
         control_data_size, metadata_size, data_size = struct.unpack(HEADER_FORMAT, self.data[0:HEADER_SIZE])
         size_needed = HEADER_SIZE + control_data_size + metadata_size + data_size
         if len(self.data) < size_needed:
@@ -98,19 +102,20 @@ class MessageBuilder(object):
         if len(data) != data_size:
             raise Exception('data size mismatch (expected %s got %s' % (data_size, len(data)))
 
-        message = Message(control_data = control_data, metadata = metadata, data = data)
+        message = Message(control_data=control_data, metadata=metadata, data=data)
         return message
+
 
 ########################################################################################################################
 
 class MessageCoder(object):
-
     def flatten_message(self, message):
         control_data_data = self.encode(message.control_data)
         metadata_data = self.encode(message.metadata) if message.metadata else b''
         data = message.data if message.data else b''
         format = HEADER_FORMAT + '%ss%ss%ss' % (len(control_data_data), len(metadata_data), len(data))
-        flattened_message = struct.pack(format, len(control_data_data), len(metadata_data), len(data), control_data_data, metadata_data, data)
+        flattened_message = struct.pack(format, len(control_data_data), len(metadata_data), len(data),
+                                        control_data_data, metadata_data, data)
         return flattened_message
 
     def message_from_stream(self, s):
@@ -136,7 +141,7 @@ class MessageCoder(object):
         if len(data) != data_size:
             raise Exception('data size mismatch (expected %s got %s' % (data_size, len(data)))
 
-        message = Message(control_data = control_data, metadata = metadata, data = data)
+        message = Message(control_data=control_data, metadata=metadata, data=data)
         return message
 
     def encode(self, obj):

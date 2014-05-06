@@ -11,6 +11,10 @@ setup(name='shanty',
     url='http://schwa.io/',
     packages=['shanty'],
 #    py_modules = ['shanty'],
-    scripts=['scripts/shanty'],
-    install_requires=['twisted > 12.0', 'docopt >= 0.6', 'pybonjour >= 1.1', 'six'],
+#    scripts=['scripts/shanty'],
+    install_requires=['pybonjour >= 1.1', 'six', 'click', 'trollius'],
+    entry_points='''
+        [console_scripts]
+        shanty=shanty.tool:main
+        ''',
     )

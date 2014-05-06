@@ -7,18 +7,19 @@ __all__ = ['system_handler']
 
 from shanty.messages import *
 
+
 def system_handler():
     def handle_ping(peer, message):
-        peer.sendReply(Message(command = 'ping.reply'), message)
+        peer.sendReply(Message(command='ping.reply'), message)
 
     def handle_echo(peer, message):
         data = message.data
         if message.metadata and 'reverse' in message.metadata and message.metadata['reverse']:
             data = data[::-1]
-        peer.sendReply(Message(command = 'echo.reply', metadata = message.metadata, data = data), message)
+        peer.sendReply(Message(command='echo.reply', metadata=message.metadata, data=data), message)
 
     def handle_hello(peer, message):
-        peer.sendReply(Message(command = 'hello.reply'), message)
+        peer.sendReply(Message(command='hello.reply'), message)
 
     def print_message(peer, message):
         peer.logger.info('%s' % message)
@@ -33,6 +34,6 @@ def system_handler():
         ('ping.reply', print_message),
         ('echo', handle_echo),
         ('echo.reply', print_message),
-        ]
+    ]
 
     return handlers

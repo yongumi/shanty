@@ -3,16 +3,20 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 __author__ = 'schwa'
-__all__ = ['Advertiser', 'BonjourBrowser', 'browse_one']
+__all__ = ['Advertiser', 'Browser', 'Service']
 
 import pybonjour
 import select
+import collections
+
+Service = collections.namedtuple('Service', ['type', 'name', 'host', 'port'])
+
 
 class Advertiser(object):
     def __init__(self, name, type, port):
-        self.name    = name
+        self.name = name
         self.regtype = type
-        self.port    = port
+        self.port = port
         self.registered = False
 
     def register_callback(self, sdRef, flags, errorCode, name, regtype, domain):
@@ -24,7 +28,8 @@ class Advertiser(object):
             self.registered = True
 
     def start(self):
-        self.sdRef = pybonjour.DNSServiceRegister(name = self.name, regtype = self.regtype, port = self.port, callBack = self.register_callback)
+        self.sdRef = pybonjour.DNSServiceRegister(name=self.name, regtype=self.regtype, port=self.port,
+                                                  callBack=self.register_callback)
         while not self.registered:
             ready = select.select([self.sdRef], [], [])
             if self.sdRef in ready[0]:
@@ -34,12 +39,12 @@ class Advertiser(object):
         self.sdRef.close()
         self.registered = False
 
-class BonjourBrowser(object):
 
-    def __init__(self, type, domain = None, timeout = None):
+class Browser(object):
+    def __init__(self, type, domain=None, timeout=None):
         self.domain = domain if domain else ''
-        self.type  = type
-        self.timeout  = timeout if timeout else 5
+        self.type = type
+        self.timeout = timeout if timeout else 5
         self.resolved = []
 
     def resolve_callback(self, sdRef, flags, interfaceIndex, errorCode, fullname, hosttarget, port, txtRecord):
@@ -49,7 +54,7 @@ class BonjourBrowser(object):
             #print '  hosttarget =', hosttarget
             #print '  port       =', port
             #print '  txtRecorod =', txtRecord
-            self.resolved.append((fullname, hosttarget, port))
+            self.resolved.append(Service(self.type, fullname, hosttarget, port))
 
     def browse_callback(self, sdRef, flags, interfaceIndex, errorCode, serviceName, regtype, replyDomain):
         if errorCode != pybonjour.kDNSServiceErr_NoError:
@@ -60,7 +65,8 @@ class BonjourBrowser(object):
 
         #print 'Service added; resolving'
 
-        resolve_sdRef = pybonjour.DNSServiceResolve(0, interfaceIndex, serviceName, regtype, replyDomain, self.resolve_callback)
+        resolve_sdRef = pybonjour.DNSServiceResolve(0, interfaceIndex, serviceName, regtype, replyDomain,
+                                                    self.resolve_callback)
         try:
             while not self.resolved:
                 ready = select.select([resolve_sdRef], [], [], self.timeout)
@@ -69,13 +75,13 @@ class BonjourBrowser(object):
                     break
                 pybonjour.DNSServiceProcessResult(resolve_sdRef)
             else:
-#                self.resolved.pop()
+                #                self.resolved.pop()
                 pass
         finally:
             resolve_sdRef.close()
 
     def browse(self):
-        browse_sdRef = pybonjour.DNSServiceBrowse(domain = self.domain, regtype = self.type, callBack = self.browse_callback)
+        browse_sdRef = pybonjour.DNSServiceBrowse(domain=self.domain, regtype=self.type, callBack=self.browse_callback)
         try:
             while not self.resolved:
                 ready = select.select([browse_sdRef], [], [])
@@ -85,6 +91,7 @@ class BonjourBrowser(object):
             browse_sdRef.close()
         return self.resolved
 
-def browse_one(type, domain = None, timeout = None):
-    browser = BonjourBrowser(type = type, domain = domain, timeout = timeout)
-    return browser.browse()[0]
+    @staticmethod
+    def browse_one(type, domain=None, timeout=None):
+        browser = Browser(type=type, domain=domain, timeout=timeout)
+        return browser.browse()[0]

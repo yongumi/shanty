@@ -7,6 +7,7 @@ __all__ = ['ClosedError', 'ShantyProtocol', 'Server', 'Client']
 
 import datetime
 import asyncio
+from asyncio import From
 
 from shanty.messages import *
 from shanty.handlers import *
@@ -18,6 +19,7 @@ from shanty.main import *
 
 class ClosedError(EOFError):
     pass
+
 
 ########################################################################################################################
 
@@ -36,7 +38,7 @@ class ShantyProtocol(asyncio.Protocol):
         self.transport = transport
 
     def connection_lost(self, exc):
-       pass
+        pass
 
     def data_received(self, data):
         self.messageBuilder.push_data(data)
@@ -49,7 +51,8 @@ class ShantyProtocol(asyncio.Protocol):
         incoming_message_id = message.control_data[CTL_MSGID]
         next_incoming_msgid = self.last_incoming_message_id + 1 if self.last_incoming_message_id else 1
         if self.last_incoming_message_id and incoming_message_id != next_incoming_msgid:
-            error = 'Incoming message ids don\'t match (got %d expected %d)' % (incoming_message_id, next_incoming_msgid)
+            error = 'Incoming message ids don\'t match (got %d expected %d)' % (
+            incoming_message_id, next_incoming_msgid)
             self.logger.error(error)
             raise Exception(error)
         self.last_incoming_message_id = incoming_message_id
@@ -70,14 +73,15 @@ class ShantyProtocol(asyncio.Protocol):
         if in_reply_to in self.replyCallbacks:
             callback = self.replyCallbacks[in_reply_to]
             callback(peer, message)
+            del self.replyCallbacks[in_reply_to]
 
-    def sendMessage(self, message, reply_callback = None):
+    def sendMessage(self, message, reply_callback=None):
         message = self._message_for_sending(message)
+        if reply_callback:
+            self.replyCallbacks[message.control_data[CTL_MSGID]] = reply_callback
         self.logger.debug('Sending: %s', message)
         data = self.messageCoder.flatten_message(message)
         self.transport.write(data)
-        if reply_callback:
-            self.replyCallbacks[message.control_data[CTL_MSGID]] = reply_callback
 
     def sendReply(self, message, in_reply_to):
         message.control_data[CTL_IN_REPLY_TO] = in_reply_to.control_data[CTL_MSGID]
@@ -89,13 +93,13 @@ class ShantyProtocol(asyncio.Protocol):
                 'address': self.transport.get_extra_info('peername')[0],
                 'port': self.transport.get_extra_info('peername')[1],
                 'time': datetime.datetime.now().isoformat(),
-                },
+            },
             'peer': {
                 'address': self.transport.get_extra_info('sockname')[0],
                 'port': self.transport.get_extra_info('sockname')[1],
-                }
             }
-        self.sendMessage((Message(command = 'hello', metadata = m)))
+        }
+        self.sendMessage((Message(command='hello', metadata=m)))
 
     def _message_for_sending(self, message):
         control_data = dict(message.control_data)
@@ -104,25 +108,23 @@ class ShantyProtocol(asyncio.Protocol):
         message.control_data = control_data
         return message
 
+
 ########################################################################################################################
 
 class ServerProtocol(ShantyProtocol):
     def __init__(self):
         super(ServerProtocol, self).__init__()
         self.logger = server_logger
-        print(self.handler.handlers)
         self.handler.handlers.insert(0, ('hello', self.handle_hello))
 
     def connection_lost(self, exc):
-        print('CONNECTION LOST')
-        print(asyncio.get_event_loop())
+        # print('CONNECTION LOST')
+        # print(asyncio.get_event_loop())
+        pass
 
     def handle_hello(self, peer, message):
-        print('HELLO!!!!')
-        self.sendReply(Message(command = 'hello.reply'), message)
-        print(asyncio.get_event_loop())
+        self.sendReply(Message(command='hello.reply'), message)
         asyncio.get_event_loop().close()
-
 
 
 ########################################################################################################################
@@ -136,6 +138,7 @@ class ClientProtocol(ShantyProtocol):
         super(ClientProtocol, self).connection_made(transport)
         self.sendHello()
 
+
 ########################################################################################################################
 
 class Server(object):
@@ -146,18 +149,18 @@ class Server(object):
     def open(self, loop):
         coro = loop.create_server(ServerProtocol, self.host, self.port)
         self.server = loop.run_until_complete(coro)
-        print(self.server)
 
     def close(self):
         self.server.close()
+
 
 class Client(object):
     def __init__(self, host, port):
         self.host = host
         self.port = port
 
-    def open(self, loop):
+    @asyncio.coroutine
+    def open(self):
+        loop = asyncio.get_event_loop()
         coro = loop.create_connection(ClientProtocol, self.host, self.port)
-        self.transport, self.protocol = loop.run_until_complete(coro)
-        print(self.transport)
-        print(self.protocol)
+        self.transport, self.protocol = yield From(coro)
