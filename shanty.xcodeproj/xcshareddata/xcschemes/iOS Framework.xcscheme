@@ -17,7 +17,7 @@
                BlueprintIdentifier = "45E6A596185F8F2000F87958"
                BuildableName = "iOS Framework"
                BlueprintName = "iOS Framework"
-               ReferencedContainer = "container:Shanty.xcodeproj">
+               ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "45DA232B187E7BA700599FAC"
                BuildableName = "Shanty Mac OS X Tests.xctest"
                BlueprintName = "Shanty Mac OS X Tests"
-               ReferencedContainer = "container:Shanty.xcodeproj">
+               ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
