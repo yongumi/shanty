@@ -24,4 +24,5 @@
 
 @protocol STYPeerBrowserViewControllerDelegate <NSObject>
 - (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didConnectToPeer:(STYMessagingPeer *)inPeer;
+- (void)peerBrowserDidCancel:(STYPeerBrowserViewController *)inBrowserViewController;
 @end

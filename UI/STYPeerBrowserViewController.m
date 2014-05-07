@@ -52,4 +52,12 @@
         }];
     }
 
+- (IBAction)cancel:(id)sender
+    {
+    if ([self.delegate respondsToSelector:@selector(peerBrowserDidCancel:)])
+        {
+        [self.delegate peerBrowserDidCancel:self];
+        }
+    }
+
 @end
