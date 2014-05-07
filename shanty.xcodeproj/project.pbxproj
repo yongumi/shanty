@@ -76,7 +76,6 @@
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		45DA2349187E7C4700599FAC /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		45E51A3518BBEC9A008D59DA /* STYRevealLiteManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3318BBEC9A008D59DA /* STYRevealLiteManager.h */; };
-		45E51A3618BBEC9A008D59DA /* STYRevealLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E51A3418BBEC9A008D59DA /* STYRevealLiteManager.m */; };
 		45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E51A3E18BBF16D008D59DA /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E51A3B18BBF16D008D59DA /* STYPeerBrowserViewController.m */; };
 		45E51A4B18BBF9BE008D59DA /* STYRevealLiteManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3318BBEC9A008D59DA /* STYRevealLiteManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -456,7 +455,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -551,7 +550,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45E51A3618BBEC9A008D59DA /* STYRevealLiteManager.m in Sources */,
 				4538AEF8185F85D7003DF921 /* STYMessagingPeer.m in Sources */,
 				452C012E1876360900BF19DB /* STYConstants.m in Sources */,
 				4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */,
@@ -868,7 +866,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
