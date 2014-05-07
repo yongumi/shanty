@@ -37,6 +37,7 @@
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
         _handlersForReplies = [NSMutableDictionary dictionary];
+        _messageHandler = [[STYMessageHandler alloc] init];
         }
     return self;
     }
