@@ -19,11 +19,17 @@
 @property (readwrite, nonatomic, strong) BOOL (^serviceAcceptanceHandler)(NSNetService *service);
 
 - (instancetype)initWithType:(NSString *)inType domain:(NSString *)inDomain;
+- (instancetype)initWithType:(NSString *)inType;
 
 - (void)start;
 - (void)stop;
 
 - (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler;
+
+/**
+ *  Attempt to discover the a network service of type. This method is blocking.
+ */
+- (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError;
 
 - (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler;
 

@@ -36,6 +36,11 @@
     return self;
     }
 
+- (instancetype)initWithType:(NSString *)inType
+    {
+    return [self initWithType:inType domain:NULL];
+    }
+
 - (void)dealloc
     {
     [self stop];
@@ -80,6 +85,64 @@
     return(self.mutableServices);
     }
 
+- (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError
+    {
+    __block NSNetService *theNetService = NULL;
+    __block NSError *theError = NULL;
+    __block BOOL theFlag = YES;
+    [self discoverFirstServiceAndStop:^(NSNetService *service, NSError *error) {
+        theNetService = service;
+        theError = error;
+        theFlag = NO;
+        }];
+
+    NSDate *theStartDate = [NSDate date];
+
+    while (theFlag == YES)
+        {
+        if (inTimeout > 0.0 && [[NSDate date] timeIntervalSinceDate:theStartDate] >= inTimeout)
+            {
+            break;
+            }
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+        }
+
+    if (outError != NULL)
+        {
+        *outError = theError;
+        }
+    return theNetService;
+    }
+
+#pragma mark -
+
+- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler
+    {
+    NSParameterAssert(inNetService);
+    NSParameterAssert(handler);
+
+    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
+    STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
+    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
+    if (inOpenPeer == YES)
+        {
+        [thePeer open:^(NSError *error) {
+            if (error == NULL)
+                {
+                handler(thePeer, NULL);
+                }
+            else
+                {
+                handler(NULL, error);
+                }
+            }];
+        }
+    else
+        {
+        handler(thePeer, NULL);
+        }
+    }
+
 #pragma mark -
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
@@ -118,33 +181,6 @@
     [self willChangeValueForKey:@"services"];
     [self.mutableServices removeObject:aNetService];
     [self didChangeValueForKey:@"services"];
-    }
-
-- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler
-    {
-    NSParameterAssert(inNetService);
-    NSParameterAssert(handler);
-
-    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
-    STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
-    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
-    if (inOpenPeer == YES)
-        {
-        [thePeer open:^(NSError *error) {
-            if (error == NULL)
-                {
-                handler(thePeer, NULL);
-                }
-            else
-                {
-                handler(NULL, error);
-                }
-            }];
-        }
-    else
-        {
-        handler(thePeer, NULL);
-        }
     }
 
 @end
