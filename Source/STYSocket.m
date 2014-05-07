@@ -116,7 +116,10 @@
 
 - (void)close:(STYCompletionBlock)inCompletion
     {
-    NSParameterAssert(self.open == YES);
+    if (self.open == NO)
+        {
+        return;
+        }
 
     if ([self.delegate respondsToSelector:@selector(socketDidClose:)])
         {
@@ -138,6 +141,8 @@
         {
         inCompletion(NULL);
         }
+
+    self.open = NO;
     }
 
 - (void)_connect:(STYCompletionBlock)inCompletion

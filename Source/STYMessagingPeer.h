@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, STYMessengerMode) {
 
 typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError);
 
+@protocol STYMessagingPeerDelegate;
+
 @interface STYMessagingPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
@@ -33,6 +35,7 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 @property (readwrite, nonatomic) id userInfo;
 @property (readwrite, nonatomic, copy) STYMessageBlock tap;
 @property (readonly, nonatomic) BOOL open;
+@property (readwrite, nonatomic, weak) id <STYMessagingPeerDelegate> delegate;
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
 
@@ -44,4 +47,10 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;
 
+@end
+
+#pragma mark -
+
+@protocol STYMessagingPeerDelegate <NSObject>
+- (void)peerDidClose:(STYMessagingPeer *)inPeer;
 @end

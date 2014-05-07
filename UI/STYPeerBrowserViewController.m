@@ -37,14 +37,15 @@
     {
     NSNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
 
+    __weak typeof(self) weak_self = self;
     [self.discoverer connectToService:theSelectedService openPeer:NO completion:^(STYMessagingPeer *peer, NSError *error) {
+        __strong typeof(weak_self) strong_self = weak_self;
 
         [peer open:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-
-                if ([self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
+                if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
                     {
-                    [self.delegate peerBrowser:self didConnectToPeer:peer];
+                    [strong_self.delegate peerBrowser:strong_self didConnectToPeer:peer];
                     }
                 });
             }];

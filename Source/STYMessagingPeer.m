@@ -57,6 +57,11 @@
     return self;
     }
 
+- (void)dealloc
+    {
+    [self close:NULL];
+    }
+
 - (NSString *)description
     {
     return([NSString stringWithFormat:@"%@ (%d, %@, %@)", [super description], (int)self.mode, self.socket, self.name]);
@@ -67,7 +72,18 @@
     NSParameterAssert(self.socket != NULL);
     NSParameterAssert(self.open == NO);
 
+    __weak typeof(self) weak_self = self;
     [self.socket open:^(NSError *error) {
+        __strong typeof(weak_self) strong_self = weak_self;
+        if (strong_self == NULL)
+            {
+            if (inCompletion)
+                {
+                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                inCompletion(theError);
+                }
+            return;
+            }
 
         if (error)
             {
@@ -78,17 +94,17 @@
             return;
             }
 
-        if (self.socket.connected)
+        if (strong_self.socket.connected)
             {
-            self.peerAddress = self.socket.peerAddress;
+            strong_self.peerAddress = strong_self.socket.peerAddress;
             }
 
-        self.open = YES;
+        strong_self.open = YES;
 
-        if (self.mode == kSTYMessengerModeClient)
+        if (strong_self.mode == kSTYMessengerModeClient)
             {
             STYMessage *theMessage = [[STYMessage alloc] initWithCommand:kSTYHelloCommand metadata:NULL data:NULL];
-            [self sendMessage:theMessage completion:inCompletion];
+            [strong_self sendMessage:theMessage completion:inCompletion];
             }
         else
             {
@@ -102,6 +118,16 @@
 
 - (void)close:(STYCompletionBlock)inCompletion
     {
+    if (self.open == NO)
+        {
+        NSLog(@"Trying to close an already closed Peer");
+        #warning TODO - call inCompletion with error?
+        return;
+        }
+    if ([self.delegate respondsToSelector:@selector(peerDidClose:)])
+        {
+        [self.delegate peerDidClose:self];
+        }
     self.open = NO;
     [self.socket close:inCompletion];
     }
@@ -127,12 +153,25 @@
         }
 
     NSData *theBuffer = [theMessage buffer:NULL];
+
+    __weak typeof(self) weak_self = self;
     [self _sendData:theBuffer completion:^(NSError *error) {
+        __strong typeof(weak_self) strong_self = weak_self;
+        if (strong_self == NULL)
+            {
+            if (inCompletion)
+                {
+                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                inCompletion(theError);
+                }
+            return;
+            }
+
         if (error == NULL)
             {
-            if (self.tap)
+            if (strong_self.tap)
                 {
-                self.tap(self, inMessage, NULL);
+                strong_self.tap(strong_self, inMessage, NULL);
                 }
             }
 
@@ -150,7 +189,19 @@
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
 
+    __weak typeof(self) weak_self = self;
     dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
+
+        __strong typeof(weak_self) strong_self = weak_self;
+        if (strong_self == NULL)
+            {
+            if (inCompletion)
+                {
+                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                inCompletion(theError);
+                }
+            return;
+            }
 
         if (error)
             {
@@ -167,23 +218,23 @@
             // TODO handle error (via completion block)
             while ([theDataScanner scanMessage:&theMessage error:NULL] == YES)
                 {
-                if (self.tap)
+                if (strong_self.tap)
                     {
-                    self.tap(self, theMessage, NULL);
+                    strong_self.tap(strong_self, theMessage, NULL);
                     }
 
                 // TODO handle error (via completion block)
-                [self _handleMessage:theMessage error:NULL];
+                [strong_self _handleMessage:theMessage error:NULL];
                 }
             }
 
         if (done)
             {
-            self.data = [theDataScanner remainingData];
+            strong_self.data = [theDataScanner remainingData];
 
-            if (error == 0 && dispatch_data_get_size(data) == 0)
+            if (error == 0 && dispatch_data_get_size(data) == 0 && strong_self.open == YES)
                 {
-                [self close:NULL];
+                [strong_self close:NULL];
                 }
             }
         });
@@ -198,8 +249,6 @@
     dispatch_data_t theData = dispatch_data_create([inData bytes], [inData length], self.socket.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
 
     dispatch_io_write(self.socket.channel, 0, theData, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
-        // TODO use error in completion block
-//        NSLog(@"dispatch_io_write: %d %zu %d", done, data == NULL ? 0 : dispatch_data_get_size(data), error);
         if (inCompletion)
             {
             inCompletion(NULL);
@@ -272,7 +321,7 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
-    NSLog(@"socketDidClose:");
+//    NSLog(@"socketDidClose:");
     }
 
 
