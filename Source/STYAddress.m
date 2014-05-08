@@ -94,7 +94,7 @@
 
 #pragma mark -
 
-- (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;
+- (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler
     {
     if (self.netService != NULL)
         {
@@ -178,6 +178,7 @@
     if (self.resolveHandler != NULL)
         {
         self.resolveHandler(NULL);
+        self.resolveHandler = NULL;
         }
     }
 
@@ -187,6 +188,7 @@
         {
         NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL];
         self.resolveHandler(theError);
+        self.resolveHandler = NULL;
         }
     }
 
