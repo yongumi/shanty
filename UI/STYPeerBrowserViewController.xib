@@ -85,6 +85,7 @@
                                 </tableColumns>
                                 <connections>
                                     <binding destination="rKT-Ie-50B" name="content" keyPath="arrangedObjects" id="jD6-Nc-L1t"/>
+                                    <binding destination="rKT-Ie-50B" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="jD6-Nc-L1t" id="Rrz-o4-kIU"/>
                                 </connections>
                             </tableView>
                         </subviews>
