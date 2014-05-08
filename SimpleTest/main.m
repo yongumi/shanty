@@ -34,6 +34,7 @@ int main(int argc, const char * argv[])
             {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
             }
+        theDiscoverer = NULL;
 
         theFlag = NO;
 
@@ -47,8 +48,10 @@ int main(int argc, const char * argv[])
             {
             [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
             }
+
         }
 
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
 
 
     NSLog(@"DONE");

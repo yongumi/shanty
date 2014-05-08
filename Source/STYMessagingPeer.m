@@ -79,7 +79,7 @@
             {
             if (inCompletion)
                 {
-                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL];
                 inCompletion(theError);
                 }
             return;
@@ -94,25 +94,14 @@
             return;
             }
 
-        if (strong_self.socket.connected)
+        if (strong_self.socket.connected == YES)
             {
             strong_self.peerAddress = strong_self.socket.peerAddress;
             }
 
         strong_self.open = YES;
 
-        if (strong_self.mode == kSTYMessengerModeClient)
-            {
-            STYMessage *theMessage = [[STYMessage alloc] initWithCommand:kSTYHelloCommand metadata:NULL data:NULL];
-            [strong_self sendMessage:theMessage completion:inCompletion];
-            }
-        else
-            {
-            if (inCompletion)
-                {
-                inCompletion(NULL);
-                }
-            }
+        [strong_self _didOpen:inCompletion];
         }];
     }
 
@@ -184,6 +173,22 @@
 
 #pragma mark -
 
+- (void)_didOpen:(STYCompletionBlock)inCompletion
+    {
+    if (self.mode == kSTYMessengerModeClient)
+        {
+        STYMessage *theMessage = [[STYMessage alloc] initWithCommand:kSTYHelloCommand metadata:NULL data:NULL];
+        [self sendMessage:theMessage completion:inCompletion];
+        }
+    else
+        {
+        if (inCompletion)
+            {
+            inCompletion(NULL);
+            }
+        }
+    }
+
 - (void)_read:(STYCompletionBlock)inCompletion
     {
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
@@ -195,7 +200,7 @@
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self == NULL)
             {
-            if (inCompletion)
+            if (inCompletion != NULL)
                 {
                 NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
                 inCompletion(theError);
@@ -203,7 +208,7 @@
             return;
             }
 
-        if (error)
+        if (error != 0)
             {
             /// TODO handle error (via completion block)
             NSLog(@"Error: %d", error);

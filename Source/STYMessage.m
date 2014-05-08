@@ -8,7 +8,6 @@
 
 #import "STYMessage.h"
 
-//#import "STYDataScanner.h"
 #import "STYConstants.h"
 
 @interface STYMessage ()

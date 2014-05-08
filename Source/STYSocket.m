@@ -88,13 +88,15 @@
 
     if (self.connected == NO)
         {
+        __weak typeof(self) weak_self = self;
         [self.address resolveWithTimeout:60 handler:^(NSError *inError) {
             if (inError == NULL)
                 {
-                [self _connect:^(NSError *error) {
+                __strong typeof(weak_self) strong_self = weak_self;
+                [strong_self _connect:^(NSError *error) {
                     if (inError == NULL)
                         {
-                        [self _configure];
+                        [strong_self _configure];
                         if (inCompletion)
                             {
                             inCompletion(NULL);
