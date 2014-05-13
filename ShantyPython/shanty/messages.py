@@ -3,13 +3,29 @@ from __future__ import absolute_import
 #from __future__ import unicode_literals
 
 __author__ = 'schwa'
-__all__ = ['MessageBuilder', 'Message', 'MessageCoder', 'MessageHandler']
+#__all__ = ['MessageBuilder', 'Message', 'MessageCoder', 'MessageHandler']
 
 import struct
 import json
 import six
+import functools
 
-from shanty.main import *
+########################################################################################################################
+
+CTL_CMD = 'cmd'
+CTL_MSGID = 'msgid'
+CTL_IN_REPLY_TO = 'in-reply-to'
+CTL_MORE_COMING = 'more-coming'
+CTL_CLOSE = 'close'
+
+########################################################################################################################
+
+CMD_HELLO = 'hello'
+CMD_HELLO_REPLY = 'hello.reply'
+CMD_PING = 'ping'
+CMD_PING_REPLY = 'ping.reply'
+CMD_ECHO = 'echo'
+CMD_ECHO_REPLY = 'echo.reply'
 
 ########################################################################################################################
 
@@ -28,19 +44,35 @@ class Message(object):
         self.metadata = metadata
         self.data = data if data else ''
 
+    @property
+    def command(self):
+        return self.control_data['CTL_CMD']
+
     def __repr__(self):
         return 'Message(%s, %s, %s bytes \'%s\')' % (
         self.control_data, self.metadata, len(self.data), self.data if len(self.data) < 64 else self.data[:64])
 
-
 ########################################################################################################################
 
 class MessageHandler(object):
-    def __init__(self):
+    def __init__(self, name = None):
+        self.name = name
         self.handlers = []
+
+    def handler(self, name):
+        def actualDecorator(func):
+            self.handlers.append((name, func))
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+                return func(*args, **kwargs)
+            return wrapper
+        return actualDecorator
 
     def add_handler(self, condition, handler):
         self.handlers.append((condition, handler))
+
+    def add_handlers(self, handlers):
+        self.handlers += handlers
 
     def find_handler(self, message):
         for condition, handler in self.handlers:
@@ -67,7 +99,6 @@ class MessageBuilder(object):
     def has_message(self):
         if len(self.data) <= HEADER_SIZE:
             return False
-        #        print len(self.data), HEADER_SIZE
         control_data_size, metadata_size, data_size = struct.unpack(HEADER_FORMAT, self.data[0:HEADER_SIZE])
         size_needed = HEADER_SIZE + control_data_size + metadata_size + data_size
         if len(self.data) < size_needed:

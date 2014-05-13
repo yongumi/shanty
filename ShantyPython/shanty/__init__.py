@@ -4,8 +4,7 @@ __author__ = 'schwa'
 
 # TODO add more here to make this a viable package
 
-from handlers import *
-from main import *
 from messages import *
-from shanty_asyncio import *
+from handlers import *
+from core import *
 from bonjour import *

@@ -56,4 +56,4 @@ if __name__ == "__main__":
 #    argv = ['serve', '--dnssd-type=_shanty._tcp', '--dnssd-name=Shanty_test']
 #     print sys.argv
 #    sys.argv = [sys.argv[0], 'Hello world']
-    main()
+    shanty()
