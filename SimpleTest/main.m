@@ -16,7 +16,7 @@ int main(int argc, const char * argv[])
         {
         NSLog(@"1");
 
-        STYServiceDiscoverer *theDiscoverer = [[STYServiceDiscoverer alloc] initWithType:@"_io-schwa-prefstest._tcp"];
+        STYServiceDiscoverer *theDiscoverer = [[STYServiceDiscoverer alloc] initWithType:@"_io-schwa-prefstest._tcp."];
         NSNetService *theNetService = [theDiscoverer discoverFirstService:30.0 error:NULL];
 
         NSLog(@"%@", theNetService);
