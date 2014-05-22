@@ -12,11 +12,14 @@
 #include <netinet/in.h>
 
 #import "STYAddress.h"
+#import "STYLogger.h"
+#import "STYConstants.h"
 
 @interface STYSocket ()
 @property (readwrite, nonatomic, copy) STYAddress *address;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef CFSocket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
+@property (readwrite, nonatomic) int connectTimeout;
 
 @property (readwrite, nonatomic) BOOL connected;
 @property (readwrite, nonatomic) BOOL open;
@@ -28,6 +31,15 @@
 #pragma mark -
 
 @implementation STYSocket
+
+- (instancetype)init
+    {
+    if ((self = [super init]) != NULL)
+        {
+        _connectTimeout = 10;
+        }
+    return self;
+    }
 
 - (instancetype)initWithAddress:(STYAddress *)inAddress
     {
@@ -86,25 +98,11 @@
     {
     NSParameterAssert(self.open == NO);
 
+    STYLogDebug_(@"Socket open");
+
     if (self.connected == NO)
         {
-        __weak typeof(self) weak_self = self;
-        [self.address resolveWithTimeout:60 handler:^(NSError *inError) {
-            if (inError == NULL)
-                {
-                __strong typeof(weak_self) strong_self = weak_self;
-                [strong_self _connect:^(NSError *error) {
-                    if (inError == NULL)
-                        {
-                        [strong_self _configure];
-                        if (inCompletion)
-                            {
-                            inCompletion(NULL);
-                            }
-                        }
-                    }];
-                }
-            }];
+        [self _resolve:inCompletion];
         }
     else
         {
@@ -149,8 +147,7 @@
 
 - (void)_connect:(STYCompletionBlock)inCompletion
     {
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
-
+    STYLogDebug_(@"Socket _connect");
     NSParameterAssert(self.connected == NO);
     NSParameterAssert(self.address.addresses != NULL);
 
@@ -185,11 +182,15 @@
         .retain = CFRetain,
         .release = CFRelease,
         };
-    self.CFSocket = CFSocketCreateConnectedToSocketSignature(kCFAllocatorDefault, &theSocketSignature, kCFSocketConnectCallBack, MyCFSocketCallBack, &theSocketContext, -1);
+    self.CFSocket = CFSocketCreateConnectedToSocketSignature(kCFAllocatorDefault, &theSocketSignature, kCFSocketConnectCallBack, MyCFSocketCallBack, &theSocketContext, self.connectTimeout);
 
     if (self.CFSocket == NULL)
         {
-        NSLog(@"COULD NOT CREATE SOCKET: %d", errno);
+        NSError *theUnderlyingError = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:NULL];
+        NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:@{ NSLocalizedDescriptionKey: @"Could not create socket", NSUnderlyingErrorKey: theUnderlyingError }];
+        STYLogDebug_(@"Could not create socket and connect it");
+       
+        inCompletion(theError);
         return;
         }
 
@@ -198,10 +199,40 @@
     self.runLoopSource = theRunLoopSource;
     CFRelease(theRunLoopSource);
     }
+    
+- (void)_resolve:(STYCompletionBlock)inCompletion
+    {
+    __weak typeof(self) weak_self = self;
+    STYLogDebug_(@"Resolving: %@", self.address);
+    [self.address resolveWithTimeout:60 handler:^(NSError *inError) {
+        if (inError != NULL)
+            {
+            inCompletion(inError);
+            return;
+            }
+            
+        __strong typeof(weak_self) strong_self = weak_self;
+        [strong_self _connect:^(NSError *inError) {
+            if (inError != NULL)
+                {
+                inCompletion(inError);
+                return;
+                }
+            if (inError == NULL)
+                {
+                [strong_self _configure];
+                if (inCompletion)
+                    {
+                    inCompletion(NULL);
+                    }
+                }
+            }];
+        }];
+    }
 
 - (void)_configure
     {
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    STYLogDebug_(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 
     NSParameterAssert(self.connected == YES);
     NSParameterAssert(self.open == NO);
@@ -211,7 +242,7 @@
 
     self.channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.CFSocket), dispatch_get_main_queue(), ^(int error) {
         // TODO: Clean up
-        //NSLog(@"TODO: Clean up");
+        //STYLogDebug_(@"TODO: Clean up");
         });
     dispatch_io_set_low_water(self.channel, 1);
 
@@ -235,7 +266,7 @@
             }
         else
             {
-            NSLog(@"Socket received event but not delegate set up to receive it.");
+            STYLogDebug_(@"Socket received event but not delegate set up to receive it.");
             }
 
         });
@@ -252,11 +283,12 @@
 //
 //    Boolean theResolvedFlag = NO;
 //    NSArray *theAddresses = (__bridge NSArray *)CFHostGetAddressing(theClient.host, &theResolvedFlag);
-//    NSLog(@"***** %@", theAddresses);
+//    STYLogDebug_(@"***** %@", theAddresses);
 //    }
 
 static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info)
     {
+    STYLogDebug_(@"MyCFSocketCallBack: %d", type);
     if (type == kCFSocketConnectCallBack)
         {
         STYCompletionBlock theBlock = (__bridge STYCompletionBlock)info;

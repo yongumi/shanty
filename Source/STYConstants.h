@@ -17,3 +17,8 @@ extern NSString *const kSTYMoreComing; // = @"more-coming";
 extern NSString *const kSTYHelloCommand; // = @"hello";
 extern NSString *const kSTYHelloReplyCommand; // = @"hello.reply";
 
+extern NSString *const kSTYErrorDomain; // = @"io.schwa.shanty";
+
+typedef NS_ENUM(NSInteger, ESTYErrorCode) {
+	kSTYErrorCode_Unknown = -1,
+	};

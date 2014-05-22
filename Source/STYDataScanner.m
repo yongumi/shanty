@@ -8,6 +8,8 @@
 
 #import "STYDataScanner.h"
 
+#import "STYConstants.h"
+
 @interface STYDataScanner ()
 @property (readwrite, nonatomic, copy) NSData *data;
 @property (readwrite, nonatomic) NSMutableArray *rangeStack;
@@ -77,7 +79,7 @@
     {
     if (_range.length < inLength)
         {
-        [self _makeError:outError code:-1];
+        [self _makeError:outError code:kSTYErrorCode_Unknown];
         return(NO);
         }
 
@@ -117,7 +119,7 @@
     {
     if (_range.length < sizeof(*outValue))
         {
-        [self _makeError:outError code:-1];
+        [self _makeError:outError code:kSTYErrorCode_Unknown];
         return(NO);
         }
 
@@ -144,7 +146,7 @@
     {
     if (_range.length < sizeof(*outValue))
         {
-        [self _makeError:outError code:-1];
+        [self _makeError:outError code:kSTYErrorCode_Unknown];
         return(NO);
         }
 
@@ -181,7 +183,7 @@
         return(NO);
         }
 
-    NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:inCode userInfo:NULL];
+    NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:inCode userInfo:NULL];
     *outError = theError;
     return(YES);
     }

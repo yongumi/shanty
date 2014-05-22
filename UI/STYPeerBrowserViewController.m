@@ -35,6 +35,7 @@
 
 - (IBAction)connect:(id)sender
     {
+    STYLogDebug_(@"Browser starting connect…");
     NSNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
 
     __weak typeof(self) weak_self = self;
@@ -43,6 +44,16 @@
 
         [peer open:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                if (error != NULL)
+                    {
+                    STYLogDebug_(@"Could not connect");
+                    if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didfailToConnect:)])
+                        {
+                        [strong_self.delegate peerBrowser:strong_self didfailToConnect:error];
+                        }
+                    return;
+                    }
+
                 if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
                     {
                     [strong_self.delegate peerBrowser:strong_self didConnectToPeer:peer];

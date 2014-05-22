@@ -10,6 +10,9 @@
 
 #include <netinet/in.h>
 
+#import "STYLogger.h"
+#import "STYConstants.h"
+
 // TODO - hey what about that IPV6?
 
 @interface STYAddress () <NSNetServiceDelegate>
@@ -124,12 +127,12 @@
         NSArray *theResolvedAddresses = (__bridge NSArray *)CFHostGetAddressing(theHost, &theResolvedFlag);
         if (theResolvedFlag == NO)
             {
-            NSLog(@"Could not resolve");
+            STYLogDebug_(@"Could not resolve");
             CFRelease(theHost);
 
             if (inHandler != NULL)
                 {
-                NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL];
+                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 inHandler(theError);
                 }
             return;
@@ -186,7 +189,7 @@
     {
     if (self.resolveHandler != NULL)
         {
-        NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL];
+        NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
         self.resolveHandler(theError);
         self.resolveHandler = NULL;
         }

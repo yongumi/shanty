@@ -16,3 +16,5 @@ NSString *const kSTYMoreComing = @"more-coming";
 
 NSString *const kSTYHelloCommand = @"hello";
 NSString *const kSTYHelloReplyCommand = @"hello.reply";
+
+NSString *const kSTYErrorDomain = @"io.schwa.shanty";

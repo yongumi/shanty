@@ -7,6 +7,7 @@
 #import <Shanty/STYServer.h>
 #import <Shanty/STYServiceDiscoverer.h>
 #import <Shanty/STYSocket.h>
+#import <Shanty/STYLogger.h>
 
 #if TARGET_OS_IPHONE == 0
 #import <Shanty/STYPeerBrowserViewController.h>

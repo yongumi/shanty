@@ -21,6 +21,8 @@
 #import "STYMessageHandler.h"
 #import "STYSocket.h"
 #import "STYAddress.h"
+#import "STYLogger.h"
+#import "STYConstants.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
@@ -39,7 +41,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 + (NSString *)defaultNetServiceDomain
     {
-    return(@"local.");
+    return(@"");
     }
 
 + (NSString *)defaultNetServiceType
@@ -162,7 +164,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     self.IPV4Socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, TCPSocketListenerAcceptCallBack, &theSocketContext);
     if (self.IPV4Socket == NULL)
         {
-        NSLog(@"ERROR: Could not create socket %d", errno);
+        STYLogDebug_(@"ERROR: Could not create socket %d", errno);
         return;
         }
 
@@ -171,7 +173,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     int result = setsockopt(CFSocketGetNative(self.IPV4Socket), SOL_SOCKET, SO_REUSEADDR, (void *)&theReuseSocketFlag, sizeof(theReuseSocketFlag));
     if (result != 0)
         {
-        NSLog(@"ERROR: Could not setsockopt");
+        STYLogDebug_(@"ERROR: Could not setsockopt");
         return;
         }
 
@@ -179,10 +181,10 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     CFSocketSetAddress(self.IPV4Socket, (__bridge CFDataRef)[NSData dataWithBytes:&theAddress length:sizeof(theAddress)]);
 
     // Get the port...
-    NSData *addr = (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket);
-    memcpy(&theAddress, [addr bytes], [addr length]);
     if (self.address.port == 0)
         {
+        NSData *addr = (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket);
+        memcpy(&theAddress, [addr bytes], [addr length]);
         self.address = [self.address addressBySettingPort:ntohs(theAddress.sin_port)];
         }
 
@@ -267,7 +269,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
-        theBlock([NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL]);
+        theBlock([NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL]);
         sender.sty_userInfo = NULL;
         }
     }

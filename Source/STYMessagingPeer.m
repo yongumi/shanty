@@ -14,6 +14,7 @@
 #import "STYAddress.h"
 #import "STYConstants.h"
 #import "STYSocket.h"
+#import "STYLogger.h"
 
 @interface STYMessagingPeer () <STYSocketDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
@@ -72,6 +73,7 @@
     NSParameterAssert(self.socket != NULL);
     NSParameterAssert(self.open == NO);
 
+    STYLogDebug_(@"Opening socket…");
     __weak typeof(self) weak_self = self;
     [self.socket open:^(NSError *error) {
         __strong typeof(weak_self) strong_self = weak_self;
@@ -79,7 +81,7 @@
             {
             if (inCompletion)
                 {
-                NSError *theError = [NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL];
+                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 inCompletion(theError);
                 }
             return;
@@ -109,7 +111,7 @@
     {
     if (self.open == NO)
         {
-        NSLog(@"Trying to close an already closed Peer");
+        STYLogDebug_(@"Trying to close an already closed Peer");
         #warning TODO - call inCompletion with error?
         return;
         }
@@ -150,7 +152,7 @@
             {
             if (inCompletion)
                 {
-                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 inCompletion(theError);
                 }
             return;
@@ -202,7 +204,7 @@
             {
             if (inCompletion != NULL)
                 {
-                NSError *theError = [NSError errorWithDomain:@"TODO" code:-1 userInfo:NULL];
+                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 inCompletion(theError);
                 }
             return;
@@ -211,7 +213,7 @@
         if (error != 0)
             {
             /// TODO handle error (via completion block)
-            NSLog(@"Error: %d", error);
+            STYLogDebug_(@"Error: %d", error);
             return;
             }
 
@@ -268,7 +270,7 @@
     NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
-        NSLog(@"Error: message id mismatch.");
+        STYLogDebug_(@"Error: message id mismatch.");
         return(NO);
         }
 
@@ -293,7 +295,7 @@
     NSArray *theHandlers = [self.messageHandler handlersForMessage:inMessage];
     if (theHandlers.count == 0)
         {
-        NSLog(@"No handler for message: %@", inMessage.controlData);
+        STYLogDebug_(@"No handler for message: %@", inMessage.controlData);
         return(NO);
         }
 
@@ -308,7 +310,7 @@
 
     if ([inMessage.controlData[kSTYCloseKey] boolValue] == YES)
         {
-        NSLog(@"Manual close");
+        STYLogDebug_(@"Manual close");
 
         // TODO handle close
         [self close:NULL];
@@ -326,7 +328,7 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
-//    NSLog(@"socketDidClose:");
+//    STYLogDebug_(@"socketDidClose:");
     }
 
 
