@@ -18,7 +18,7 @@
 @interface STYAddress () <NSNetServiceDelegate>
 @property (readwrite, nonatomic, copy) NSArray *addresses;
 @property (readwrite, nonatomic, copy) NSString *hostname;
-@property (readwrite, nonatomic) int16_t port;
+@property (readwrite, nonatomic) uint16_t port;
 @property (readwrite, nonatomic, strong) NSNetService *netService;
 @property (readwrite, nonatomic, copy) void (^resolveHandler)(NSError *);
 @end
@@ -27,11 +27,22 @@
 
 @implementation STYAddress
 
-- (instancetype)initWithAddresses:(NSArray *)inAddresses
+- (instancetype)init
     {
     if ((self = [super init]) != NULL)
         {
+        }
+    return self;
+    }
+
+- (instancetype)initWithAddresses:(NSArray *)inAddresses
+    {
+    NSParameterAssert(inAddresses.count > 0);
+    
+    if ((self = [self init]) != NULL)
+        {
         _addresses = [inAddresses copy];
+        _port = [DictionaryFromAddress(_addresses[0])[@"sin_port"] unsignedShortValue];
         }
     return self;
     }
@@ -42,6 +53,21 @@
         {
         _hostname = [inHostname copy];
         _port = inPort;
+        }
+    return self;
+    }
+
+- (instancetype)initWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort
+    {
+    struct sockaddr_in theSockAddress = {
+        .sin_len = sizeof(theSockAddress),
+        .sin_family = AF_INET, // IPV4 style address
+        .sin_port = htons(inPort),
+        .sin_addr = htonl(inAddress),
+        };
+    
+    if ((self = [self initWithAddresses:@[ [NSData dataWithBytes:&theSockAddress length:sizeof(theSockAddress)] ]]) != NULL)
+        {
         }
     return self;
     }
@@ -66,18 +92,26 @@
 
     if (self.hostname != NULL)
         {
-        [theDescriptions addObject:[NSString stringWithFormat:@"%@:%d", self.hostname, self.port]];
+        [theDescriptions addObject:[NSString stringWithFormat:@"%@:%u", self.hostname, self.port]];
         }
-    else if (self.netService)
+    else if (self.netService != NULL)
         {
         [theDescriptions addObject:[NSString stringWithFormat:@"%@", [self.netService description]]];
         }
-
-    for (NSData *theAddress in self.addresses)
+    else if (self.addresses)
         {
-        NSDictionary *theParts = DictionaryFromAddress(theAddress);
-        [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
+        for (NSData *theAddress in self.addresses)
+            {
+            NSDictionary *theParts = DictionaryFromAddress(theAddress);
+            [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
+            }
         }
+    else
+        {
+        [theDescriptions addObject:[NSString stringWithFormat:@":%u", self.port]];
+        }
+    
+
     return([NSString stringWithFormat:@"%@ (%@)", [super description], [theDescriptions componentsJoinedByString:@", "]]);
     }
 
@@ -94,6 +128,7 @@
     STYAddress *theAddress = [[STYAddress alloc] initWithHostname:self.hostname port:inPort];
     return(theAddress);
     }
+
 
 #pragma mark -
 

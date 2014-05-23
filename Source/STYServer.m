@@ -17,62 +17,36 @@
 #include <unistd.h>
 
 #import "STYMessagingPeer.h"
-#import "NSNetService+STYUserInfo.h"
 #import "STYMessageHandler.h"
 #import "STYSocket.h"
 #import "STYAddress.h"
 #import "STYLogger.h"
 #import "STYConstants.h"
+#import "STYServicePublisher.h"
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
-@interface STYServer () <NSNetServiceDelegate>
-//@property (readwrite, nonatomic, copy) STYAddress *address;
+@interface STYServer ()
+@property (readwrite, nonatomic, copy) STYAddress *actualAddress;
 @property (readonly, nonatomic, copy) NSMutableSet *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
 @property (readwrite, nonatomic) NSNetService *netService;
+@property (readwrite, nonatomic) BOOL listening;
+@property (readwrite, nonatomic) dispatch_source_t source;
+@property (readwrite, nonatomic) STYServicePublisher *servicePublisher;
 @end
 
 #pragma mark -
 
 @implementation STYServer
 
-+ (NSString *)defaultNetServiceDomain
-    {
-    return(@"");
-    }
-
-+ (NSString *)defaultNetServiceType
-    {
-    NSString *theType = [[[[NSBundle mainBundle] bundleIdentifier] stringByReplacingOccurrencesOfString:@"." withString:@"-"] lowercaseString];
-    return([NSString stringWithFormat:@"_%@._tcp.", theType]);
-    }
-
-+ (NSString *)defaultNetServiceName
-    {
-    NSString *theName = [NSString stringWithFormat:@"%@ on %@ (%d)",
-        [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleNameKey],
-#if TARGET_OS_IPHONE == 1
-        [[UIDevice currentDevice] name],
-#else
-        @"<some Macintosh>",
-#endif
-        getpid()
-        ];
-    return(theName);
-    }
-
 - (instancetype)init
     {
     if ((self = [super init]) != NULL)
         {
-        _address = [[STYAddress alloc] init];
-
-        _netServiceDomain = [[[self class] defaultNetServiceDomain] copy];
-        _netServiceType = [[[self class] defaultNetServiceType] copy];
-        _netServiceName = [[[self class] defaultNetServiceName] copy];
+        _address = [[STYAddress alloc] initWithIPV4Address:INADDR_ANY port:0];
 
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
@@ -84,18 +58,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     {
     if ((self = [self init]) != NULL)
         {
-        if (inDomain != NULL)
-            {
-            _netServiceDomain = [inDomain copy];
-            }
-        if (inType != NULL)
-            {
-            _netServiceType = [inType copy];
-            }
-        if (inName != NULL)
-            {
-            _netServiceName = [inName copy];
-            }
+        _servicePublisher = [[STYServicePublisher alloc] initWithNetServiceDomain:inDomain type:inType name:inName port:0];
         }
     return self;
     }
@@ -106,6 +69,14 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     }
 
 #pragma mark -
+
+- (STYServicePublisher *)servicePublisher
+    {
+    if (_servicePublisher == NULL)
+        {
+        }
+    return _servicePublisher;
+    }
 
 - (NSSet *)peers
     {
@@ -125,38 +96,16 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 - (void)startListening:(STYCompletionBlock)inResultHandler
     {
-    [self _startListening:^(NSError *error) {
-        if (error == NULL)
-            {
-            [self _startPublishing:inResultHandler];
-            }
-        }];
-    }
-
-- (void)stopListening:(STYCompletionBlock)inResultHandler
-    {
-    [self _stopPublishing];
-
-    if (self.runLoopSource != NULL)
+    if (self.listening == YES)
         {
-        CFRunLoopRemoveSource(self.runLoop, self.runLoopSource, kCFRunLoopCommonModes);
-        self.runLoopSource = NULL;
+        if (inResultHandler != NULL)
+            {
+            inResultHandler(NULL);
+            }
+        return;
         }
-
-    self.IPV4Socket = NULL;
-    }
-
-#pragma mark -
-
-- (void)_startListening:(STYCompletionBlock)inResultHandler
-    {
-    // Create an IPV4 address...
-    struct sockaddr_in theAddress = {
-        .sin_len = sizeof(theAddress),
-        .sin_family = AF_INET, // IPV4 style address
-        .sin_port = htons(self.address.port),
-        .sin_addr = htonl(INADDR_ANY),
-        };
+        
+    STYLogDebug_(@"Start listening.");
 
     CFSocketContext theSocketContext = {
         .info = (__bridge void *)self
@@ -176,49 +125,57 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         STYLogDebug_(@"ERROR: Could not setsockopt");
         return;
         }
-
-    // Set the socket address...
-    CFSocketSetAddress(self.IPV4Socket, (__bridge CFDataRef)[NSData dataWithBytes:&theAddress length:sizeof(theAddress)]);
+    
+    NSData *theAddressData = [self.address.addresses firstObject];
+    NSParameterAssert(theAddressData != NULL);
+    CFSocketSetAddress(self.IPV4Socket, (__bridge CFDataRef)theAddressData);
 
     // Get the port...
     if (self.address.port == 0)
         {
-        NSData *addr = (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket);
-        memcpy(&theAddress, [addr bytes], [addr length]);
-        self.address = [self.address addressBySettingPort:ntohs(theAddress.sin_port)];
+        STYAddress *theServingAddress = [[STYAddress alloc] initWithAddresses:@[ (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket) ]];
+        self.actualAddress = theServingAddress;
         }
 
-    // Shove it all into a runloop
+    // Add the CFSocket to the runloop - this will be used to notify us of connections from clients...
     CFRunLoopSourceRef theRunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self.IPV4Socket, 0);
     CFRunLoopAddSource(self.runLoop, theRunLoopSource, kCFRunLoopCommonModes);
     self.runLoopSource = theRunLoopSource;
     CFRelease(theRunLoopSource);
 
-    if (inResultHandler)
-        {
-        inResultHandler(NULL);
-        }
+    STYLogDebug_(@"Listening on: %@", self.actualAddress);
+
+    self.servicePublisher.port = self.actualAddress.port;
+
+    [self.servicePublisher startPublishing:inResultHandler];
     }
 
-- (void)_startPublishing:(STYCompletionBlock)inResultHandler
+- (void)stopListening:(STYCompletionBlock)inResultHandler
     {
-    NSParameterAssert(self.netService == NULL);
-
-    self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.address.port];
-    self.netService.sty_userInfo = [inResultHandler copy];
-    self.netService.delegate = self;
-    [self.netService publishWithOptions:0];
-    }
-
-- (void)_stopPublishing
-    {
-    if (self.netService != NULL)
+    if (self.listening == NO)
         {
-        self.netService.delegate = NULL;
-        [self.netService stop];
-        self.netService = NULL;
+        if (inResultHandler != NULL)
+            {
+            inResultHandler(NULL);
+            }
+        return;
         }
+
+    STYLogDebug_(@"Stop listening.");
+
+    if (self.runLoopSource != NULL)
+        {
+        CFRunLoopRemoveSource(self.runLoop, self.runLoopSource, kCFRunLoopCommonModes);
+        self.runLoopSource = NULL;
+        }
+
+    self.IPV4Socket = NULL;
+
+    [self.servicePublisher stopPublishing:inResultHandler];
     }
+    
+
+#pragma mark -
 
 - (void)_acceptSocket:(CFSocketRef)inSocket address:(NSData *)inAddress
     {
@@ -253,26 +210,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     }
 
 #pragma mark -
-
-- (void)netServiceDidPublish:(NSNetService *)sender
-    {
-    STYCompletionBlock theBlock = sender.sty_userInfo;
-    if (theBlock)
-        {
-        theBlock(NULL);
-        sender.sty_userInfo = NULL;
-        }
-    }
-
-- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
-    {
-    STYCompletionBlock theBlock = sender.sty_userInfo;
-    if (theBlock)
-        {
-        theBlock([NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL]);
-        sender.sty_userInfo = NULL;
-        }
-    }
 
 @end
 

@@ -19,19 +19,15 @@
 @interface STYServer : NSObject
 
 @property (readwrite, nonatomic, copy) STYAddress *address;
-
-@property (readwrite, nonatomic, copy) NSString *netServiceDomain;
-@property (readwrite, nonatomic, copy) NSString *netServiceType;
-@property (readwrite, nonatomic, copy) NSString *netServiceName;
+@property (readonly, nonatomic, copy) STYAddress *actualAddress;
 
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
 
 @property (readonly, nonatomic, copy) NSSet *peers;
 
-+ (NSString *)defaultNetServiceDomain;
-+ (NSString *)defaultNetServiceType;
-+ (NSString *)defaultNetServiceName;
+@property (readonly, nonatomic) BOOL listening;
+@property (readonly, nonatomic) BOOL publishing;
 
 - (instancetype)init; // Designated initializer.
 - (instancetype)initWithNetServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName;
