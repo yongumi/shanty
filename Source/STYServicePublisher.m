@@ -64,7 +64,7 @@
 #if TARGET_OS_IPHONE == 1
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate::) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
 #else
 #endif
         }
