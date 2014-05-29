@@ -14,6 +14,7 @@
 @property (readonly, nonatomic, copy) NSArray *addresses;
 @property (readonly, nonatomic) uint16_t port;
 
+- (instancetype)init; // Designated initializer.
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
 - (instancetype)initWithNetService:(NSNetService *)inNetService;

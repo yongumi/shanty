@@ -49,7 +49,7 @@
 
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort
     {
-    if ((self = [self initWithAddresses:NULL]) != NULL)
+    if ((self = [self init]) != NULL)
         {
         _hostname = [inHostname copy];
         _port = inPort;
@@ -74,7 +74,7 @@
 
 - (instancetype)initWithNetService:(NSNetService *)inNetService;
     {
-    if ((self = [self initWithAddresses:NULL]) != NULL)
+    if ((self = [self init]) != NULL)
         {
         _netService = inNetService;
         }
