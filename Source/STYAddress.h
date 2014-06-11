@@ -15,6 +15,8 @@
 @property (readonly, nonatomic) uint16_t port;
 
 - (instancetype)init; // Designated initializer.
+- (instancetype)initWithAnyAddress:(unsigned int)inPort;
+- (instancetype)initWithLoopbackAddress:(unsigned int)inPort;
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
 - (instancetype)initWithNetService:(NSNetService *)inNetService;
