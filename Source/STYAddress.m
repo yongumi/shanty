@@ -35,6 +35,22 @@
     return self;
     }
 
+- (instancetype)initWithAnyAddress:(unsigned int)inPort
+    {
+    if ((self = [self initWithIPV4Address:INADDR_ANY port:inPort]) != NULL)
+        {
+        }
+    return self;
+    }
+
+- (instancetype)initWithLoopbackAddress:(unsigned int)inPort
+    {
+    if ((self = [self initWithIPV4Address:INADDR_LOOPBACK port:inPort]) != NULL)
+        {
+        }
+    return self;
+    }
+
 - (instancetype)initWithAddresses:(NSArray *)inAddresses
     {
     NSParameterAssert(inAddresses.count > 0);

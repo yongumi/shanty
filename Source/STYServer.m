@@ -42,11 +42,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 @implementation STYServer
 
-- (instancetype)init
+- (instancetype)initWithListeningAddress:(STYAddress *)inListeningAddress
     {
     if ((self = [super init]) != NULL)
         {
-        _address = [[STYAddress alloc] initWithIPV4Address:INADDR_ANY port:0];
+        _address = [inListeningAddress copy]; //[[STYAddress alloc] initWithIPV4Address:INADDR_ANY port:0];
 
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
@@ -54,9 +54,9 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     return self;
     }
 
-- (instancetype)initWithNetServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName
+- (instancetype)initWithListeningAddress:(STYAddress *)inListeningAddress netServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName
     {
-    if ((self = [self init]) != NULL)
+    if ((self = [self initWithListeningAddress:inListeningAddress]) != NULL)
         {
         _servicePublisher = [[STYServicePublisher alloc] initWithNetServiceDomain:inDomain type:inType name:inName port:0];
         }

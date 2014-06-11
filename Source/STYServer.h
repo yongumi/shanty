@@ -29,8 +29,8 @@
 @property (readonly, nonatomic) BOOL listening;
 @property (readonly, nonatomic) BOOL publishing;
 
-- (instancetype)init; // Designated initializer.
-- (instancetype)initWithNetServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName;
+- (instancetype)initWithListeningAddress:(STYAddress *)inListeningAddress; // Designated initializer.
+- (instancetype)initWithListeningAddress:(STYAddress *)inListeningAddress netServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName;
 
 - (void)startListening:(STYCompletionBlock)inResultHandler;
 - (void)stopListening:(STYCompletionBlock)inResultHandler;
