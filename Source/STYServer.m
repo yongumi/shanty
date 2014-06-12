@@ -32,7 +32,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
-@property (readwrite, nonatomic) NSNetService *netService;
 @property (readwrite, nonatomic) BOOL listening;
 @property (readwrite, nonatomic) dispatch_source_t source;
 @property (readwrite, nonatomic) STYServicePublisher *servicePublisher;
@@ -46,7 +45,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     {
     if ((self = [super init]) != NULL)
         {
-        _address = [inListeningAddress copy]; //[[STYAddress alloc] initWithIPV4Address:INADDR_ANY port:0];
+        _address = [inListeningAddress copy];
 
         _mutablePeers = [NSMutableSet set];
         _messageHandler = [[STYMessageHandler alloc] init];
