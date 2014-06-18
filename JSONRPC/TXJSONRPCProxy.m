@@ -10,6 +10,7 @@
 
 #import <objc/runtime.h>
 
+#import <Shanty/Shanty.h>
 #import "TXJSONRPCFunctionCall.h"
 #import "TXJSONRPCFunctionResult.h"
 #import "NSInvocation+JSONRPCExtensions.h"
@@ -63,6 +64,7 @@
 
     NSString *theIdentifier = [NSString stringWithFormat:@"%lu", (unsigned long)self.nextIdentifier++];
     TXJSONRPCFunctionCall *theCall = [[TXJSONRPCFunctionCall alloc] initWithIdentifier:theIdentifier methodName:theMethodName indexedParameters:theParameters];
+    STYLogDebug_(@"Calling %@", theCall);
 
     TXJSONRPCFunctionResult *theResult = [self.delegate JSONRPCProxy:self call:theCall];
     [invocation setReturnValueObject:theResult.result];

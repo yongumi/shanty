@@ -56,4 +56,9 @@
     return [NSJSONSerialization dataWithJSONObject:theDictionary options:0 error:outError];
     }
 
+- (NSString *)description
+    {
+    return([NSString stringWithFormat:@"%@ (%@:%@)", [super description], self.identifier, self.methodName]);
+    }
+
 @end

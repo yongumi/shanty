@@ -310,8 +310,6 @@
 
     if ([inMessage.controlData[kSTYCloseKey] boolValue] == YES)
         {
-        STYLogDebug_(@"Manual close");
-
         // TODO handle close
         [self close:NULL];
         }
