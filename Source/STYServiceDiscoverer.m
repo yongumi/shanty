@@ -131,8 +131,15 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
     {
     STYLogDebug_(@"%@ -- %@ %@", NSStringFromSelector(_cmd), aNetService, moreComing ? @"YES" : @"NO");
+    STYLogDebug_(@"%@ %@ %@", aNetService.name, aNetService.domain, aNetService.hostName);
     if (self.running == NO)
         {
+        return;
+        }
+
+    if ([aNetService.domain rangeOfString:@"members.btmm.icloud.com."].location != NSNotFound)
+        {
+        // TODO: For now as a work-around to prevent duplicate services. Back to My Mac is IPv6 only and right now shanty is IPv4 only (due to laziness)
         return;
         }
 
