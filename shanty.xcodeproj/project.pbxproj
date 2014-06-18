@@ -73,10 +73,6 @@
 		4580B00B192D45E600E1C6FE /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
 		4580B00C192D45E600E1C6FE /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
 		45BA660518BC0D3700EA2A5A /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA660418BC0D3700EA2A5A /* STYPeerBrowserViewController.xib */; };
-		45C73062191AD9CD006254B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C73061191AD9CD006254B2 /* Foundation.framework */; };
-		45C73065191AD9CD006254B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C73064191AD9CD006254B2 /* main.m */; };
-		45C73069191AD9CD006254B2 /* SimpleTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45C73068191AD9CD006254B2 /* SimpleTest.1 */; };
-		45C7306F191AD9E4006254B2 /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518E30C185F90BA00B1B1D9 /* Shanty.framework */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
 		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
@@ -107,13 +103,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		45C7306D191AD9DF006254B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4538AEA6185F851A003DF921 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4518E30B185F90BA00B1B1D9;
-			remoteInfo = "Mac OS X Framework";
-		};
 		45DA2339187E7BA700599FAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4538AEA6185F851A003DF921 /* Project object */;
@@ -139,16 +128,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45C7305E191AD9CD006254B2 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-				45C73069191AD9CD006254B2 /* SimpleTest.1 in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -186,11 +165,9 @@
 		4580B007192D45E600E1C6FE /* STYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYLogger.h; sourceTree = "<group>"; };
 		4580B008192D45E600E1C6FE /* STYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYLogger.m; sourceTree = "<group>"; };
 		45BA660418BC0D3700EA2A5A /* STYPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STYPeerBrowserViewController.xib; sourceTree = "<group>"; };
-		45C73060191AD9CD006254B2 /* SimpleTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
-		45C73068191AD9CD006254B2 /* SimpleTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SimpleTest.1; sourceTree = "<group>"; };
 		45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shanty Mac OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DA232E187E7BA700599FAC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45DA2332187E7BA700599FAC /* Shanty Mac OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac OS X Tests-Info.plist"; sourceTree = "<group>"; };
@@ -216,15 +193,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45C7305D191AD9CD006254B2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45C7306F191AD9E4006254B2 /* Shanty.framework in Frameworks */,
-				45C73062191AD9CD006254B2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +225,6 @@
 				4538AEAE185F851A003DF921 /* libShanty.a */,
 				4518E30C185F90BA00B1B1D9 /* Shanty.framework */,
 				45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */,
-				45C73060191AD9CD006254B2 /* SimpleTest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				45C73064191AD9CD006254B2 /* main.m */,
-				45C73068191AD9CD006254B2 /* SimpleTest.1 */,
 				45C73066191AD9CD006254B2 /* Supporting Files */,
 			);
 			path = SimpleTest;
@@ -472,24 +438,6 @@
 			productReference = 4538AEAE185F851A003DF921 /* libShanty.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		45C7305F191AD9CD006254B2 /* SimpleTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 45C7306A191AD9CD006254B2 /* Build configuration list for PBXNativeTarget "SimpleTest" */;
-			buildPhases = (
-				45C7305C191AD9CD006254B2 /* Sources */,
-				45C7305D191AD9CD006254B2 /* Frameworks */,
-				45C7305E191AD9CD006254B2 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				45C7306E191AD9DF006254B2 /* PBXTargetDependency */,
-			);
-			name = SimpleTest;
-			productName = SimpleTest;
-			productReference = 45C73060191AD9CD006254B2 /* SimpleTest */;
-			productType = "com.apple.product-type.tool";
-		};
 		45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45DA233D187E7BA700599FAC /* Build configuration list for PBXNativeTarget "Shanty Mac OS X Tests" */;
@@ -538,7 +486,6 @@
 				45E6A596185F8F2000F87958 /* iOS Framework */,
 				4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */,
 				45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */,
-				45C7305F191AD9CD006254B2 /* SimpleTest */,
 			);
 		};
 /* End PBXProject section */
@@ -637,14 +584,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45C7305C191AD9CD006254B2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45C73065191AD9CD006254B2 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		45DA2328187E7BA700599FAC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -667,11 +606,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45C7306E191AD9DF006254B2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */;
-			targetProxy = 45C7306D191AD9DF006254B2 /* PBXContainerItemProxy */;
-		};
 		45DA233A187E7BA700599FAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */;
@@ -883,36 +817,6 @@
 			};
 			name = Release;
 		};
-		45C7306B191AD9CD006254B2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimpleTest/SimpleTest-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		45C7306C191AD9CD006254B2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimpleTest/SimpleTest-Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		45DA233B187E7BA700599FAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1000,15 +904,6 @@
 			buildConfigurations = (
 				4538AED2185F851B003DF921 /* Debug */,
 				4538AED3185F851B003DF921 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45C7306A191AD9CD006254B2 /* Build configuration list for PBXNativeTarget "SimpleTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45C7306B191AD9CD006254B2 /* Debug */,
-				45C7306C191AD9CD006254B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
