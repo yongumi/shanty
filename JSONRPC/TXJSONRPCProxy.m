@@ -35,6 +35,12 @@
     return self;
     }
 
+- (NSString *)description
+    {
+    return([NSString stringWithFormat:@"<TXJSONRPCProxy: %p> (%@ %@)", self, NSStringFromProtocol(self.protocol), self.delegate]);
+    }
+   
+
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
     {
     struct objc_method_description theDescription = protocol_getMethodDescription(_protocol, aSelector, YES, YES);
@@ -64,7 +70,6 @@
 
     NSString *theIdentifier = [NSString stringWithFormat:@"%lu", (unsigned long)self.nextIdentifier++];
     TXJSONRPCFunctionCall *theCall = [[TXJSONRPCFunctionCall alloc] initWithIdentifier:theIdentifier methodName:theMethodName indexedParameters:theParameters];
-    STYLogDebug_(@"Calling %@", theCall);
 
     TXJSONRPCFunctionResult *theResult = [self.delegate JSONRPCProxy:self call:theCall];
     [invocation setReturnValueObject:theResult.result];
