@@ -71,6 +71,11 @@
     return self;
     }
 
+- (void)dealloc
+	{
+    [self close:nil];
+	}
+
 - (NSString *)description
     {
     return([NSString stringWithFormat:@"%@ (connected:%d, open:%d, address:%@, peerAddress:%@", [super description], self.connected, self.open, [self.address toString], [self.peerAddress toString]]);
@@ -128,7 +133,7 @@
 
     if (self.channel != NULL)
         {
-        dispatch_io_close(self.channel, 0);
+        dispatch_io_close(self.channel, DISPATCH_IO_STOP);
         self.channel = NULL;
         }
     if (self.readSource != NULL)
@@ -245,6 +250,7 @@
         });
     dispatch_io_set_low_water(self.channel, 1);
 
+    __weak typeof (self) weakSelf = self;
     self.readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(self.CFSocket), 0, self.queue);
     dispatch_source_set_cancel_handler(self.readSource, ^{
         [self close:NULL];
@@ -261,13 +267,12 @@
         id <STYSocketDelegate> theDelegate = self.delegate;
         if ([theDelegate respondsToSelector:@selector(socketHasDataAvailable:)])
             {
-            [theDelegate socketHasDataAvailable:self];
+            [theDelegate socketHasDataAvailable:weakSelf];
             }
         else
             {
             STYLogWarning_(@"Socket received event but no delegate set up to receive it.");
             }
-
         });
 
     dispatch_resume(self.readSource);

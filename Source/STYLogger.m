@@ -26,6 +26,7 @@ extern void STYLogDebug(NSDictionary *location, NSString *format, ...)
         start_time = current_time;
     });
 
+    //+ NSLog(@"%@", theString);
     NSString *theQueueName = QueueName();
 
     theString = [NSString stringWithFormat:@"%5.2f | %-21.21s | %-20.20s#%-4.4d | %@", current_time - start_time, [theQueueName UTF8String], [location[@"function"] UTF8String], [location[@"line"] intValue], theString];    
