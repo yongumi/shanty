@@ -33,6 +33,7 @@
 
 - (instancetype)init
     {
+    // STYLogDebug_(@"STYMessagingPeer init");
     if ((self = [super init]) != NULL)
         {
         _nextOutgoingMessageID = 0;
@@ -60,6 +61,7 @@
 
 - (void)dealloc
     {
+    // STYLogDebug_(@"STYMessagingPeer dealloc");
     [self close:NULL];
     }
 
@@ -150,6 +152,7 @@
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self == NULL)
             {
+            // STYLogDebug_(@"strong_self is NULL");
             if (inCompletion)
                 {
                 NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
@@ -160,10 +163,15 @@
 
         if (error == NULL)
             {
+                STYLogDebug_(@"no error: %@", strong_self.tap);
             if (strong_self.tap)
                 {
                 strong_self.tap(strong_self, inMessage, NULL);
                 }
+            }
+        else
+            {
+            // STYLogDebug_(@"error: %@", error);
             }
 
         if (inCompletion)
@@ -193,13 +201,21 @@
 
 - (void)_read:(STYCompletionBlock)inCompletion
     {
+    // STYLogDebug_(@"STYMessagingPeer _read: %@", self);
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
+    void* originalPointer = (__bridge void*)self;
+    void* originalSocket = (__bridge void*)self.socket;
 
     __weak typeof(self) weak_self = self;
-    dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
-
+    // STYLogDebug_(@"STYMessagingPeer OUTER STRONG SELF: %p (%p)", self, originalPointer);
+    // STYLogDebug_(@"STYMessagingPeer OUTER WEAK SELF: %p (%p)", weak_self, originalPointer);
+    dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error)
+        {
         __strong typeof(weak_self) strong_self = weak_self;
+        // STYLogDebug_(@"STYMessagingPeer INNER WEAK SELF: %p (%p)", weak_self, originalPointer);
+        // STYLogDebug_(@"STYMessagingPeer INNER STRONG SELF: %p (%p)", strong_self, originalPointer);
+        // STYLogDebug_(@"[STYMessagingPeer _read] original socket: %p", originalSocket);
         if (strong_self == NULL)
             {
             if (inCompletion != NULL)
@@ -213,12 +229,13 @@
         if (error != 0)
             {
             /// TODO handle error (via completion block)
-            STYLogDebug_(@"Error: %d", error);
+            // STYLogDebug_(@"[STYMessagingPeer _read].readBlock: Error: %d", error);
             return;
             }
 
         if (dispatch_data_get_size(data) > 0)
             {
+            // STYLogDebug_(@"[STYMessagingPeer _read].feedData");
             [theDataScanner feedData:(NSData *)data];
 
             STYMessage *theMessage = NULL;
@@ -231,16 +248,19 @@
                     }
 
                 // TODO handle error (via completion block)
+                // STYLogDebug_(@"[STYMessagingPeer _read]._handleMessage");
                 [strong_self _handleMessage:theMessage error:NULL];
                 }
             }
 
         if (done)
             {
+            // STYLogDebug_(@"Error: [STYMessagingPeer _read].done");
             strong_self.data = [theDataScanner remainingData];
 
             if (error == 0 && dispatch_data_get_size(data) == 0 && strong_self.open == YES)
                 {
+                // STYLogDebug_(@"Error: [STYMessagingPeer _read].done.close");
                 [strong_self close:NULL];
                 }
             }
@@ -256,6 +276,7 @@
     dispatch_data_t theData = dispatch_data_create([inData bytes], [inData length], self.socket.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
 
     dispatch_io_write(self.socket.channel, 0, theData, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
+        // STYLogDebug_(@"[STYMessagingPeer _sendData] write complete: %@, inCompletion: %@", error, inCompletion);
         if (inCompletion)
             {
             inCompletion(NULL);
@@ -270,7 +291,7 @@
     NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
-        STYLogDebug_(@"Error: message id mismatch.");
+        // STYLogDebug_(@"[STYMessagingPeer _handleMessage] Error: message id mismatch.");
         return(NO);
         }
 
@@ -326,7 +347,7 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
-//    STYLogDebug_(@"socketDidClose:");
+    // STYLogDebug_(@"socketDidClose:");
     }
 
 

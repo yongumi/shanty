@@ -71,6 +71,11 @@
     return self;
     }
 
+- (void)dealloc {
+    [self close:nil];
+    // STYLogDebug_(@"[STYSocket dealloc]");
+}
+
 - (NSString *)description
     {
     return([NSString stringWithFormat:@"%@ (connected:%d, open:%d, address:%@, peerAddress:%@", [super description], self.connected, self.open, [self.address toString], [self.peerAddress toString]]);
@@ -128,13 +133,17 @@
 
     if (self.channel != NULL)
         {
-        dispatch_io_close(self.channel, 0);
+        dispatch_io_close(self.channel, DISPATCH_IO_STOP);
         self.channel = NULL;
         }
     if (self.readSource != NULL)
         {
         dispatch_source_cancel(self.readSource);
         self.readSource = NULL;
+        }
+    if (self.queue != NULL)
+        {
+        self.queue = NULL;
         }
 
     if (inCompletion)
@@ -183,7 +192,7 @@
         .release = CFRelease,
         };
     self.CFSocket = CFSocketCreateConnectedToSocketSignature(kCFAllocatorDefault, &theSocketSignature, kCFSocketConnectCallBack, MyCFSocketCallBack, &theSocketContext, self.connectTimeout);
-
+        // STYLogDebug_(@"Native socket file descriptor: %d", CFSocketGetNative(self.CFSocket));
     if (self.CFSocket == NULL)
         {
         NSError *theUnderlyingError = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:NULL];
@@ -242,14 +251,16 @@
 
     self.channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.CFSocket), dispatch_get_main_queue(), ^(int error) {
         // TODO: Clean up
-        //STYLogDebug_(@"TODO: Clean up");
+        // STYLogDebug_(@"STYSocket dispatch_io cleanup_block: TODO: need to defer CFSocket teardown until this point");
         });
     dispatch_io_set_low_water(self.channel, 1);
 
+        __weak typeof (self) weakSelf = self;
     self.readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, CFSocketGetNative(self.CFSocket), 0, self.queue);
     dispatch_source_set_cancel_handler(self.readSource, ^{
-        [self close:NULL];
-        CFSocketInvalidate(self.CFSocket);
+        // STYLogDebug_(@"dispatch source cancel: weakSelf: %@ socket: %p (%d)", weakSelf, weakSelf.CFSocket, CFSocketGetNative(weakSelf.CFSocket));
+        [weakSelf close:NULL];
+        CFSocketInvalidate(weakSelf.CFSocket);
 
 // TODO we're not communicating a close anywhere...
 //        if ([self.delegate respondsToSelector:@selector(messagingPeerRemoteDidDisconnect:)])
@@ -259,10 +270,11 @@
         });
 
     dispatch_source_set_event_handler(self.readSource, ^ {
-        id <STYSocketDelegate> theDelegate = self.delegate;
+        // STYLogDebug_(@"STYSocket dispatch_source event handler: STYSocket: %@", weakSelf);
+        id <STYSocketDelegate> theDelegate = weakSelf.delegate;
         if ([theDelegate respondsToSelector:@selector(socketHasDataAvailable:)])
             {
-            [theDelegate socketHasDataAvailable:self];
+            [theDelegate socketHasDataAvailable:weakSelf];
             }
         else
             {
