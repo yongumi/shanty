@@ -5,7 +5,7 @@ import shlex
 import logging
 
 import click
-import asyncio
+import trollius as asyncio
 
 import shanty
 
