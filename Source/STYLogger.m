@@ -11,11 +11,6 @@
 static NSString *QueueName(void);
 //static NSString *QueueID(void);
 
-//__attribute__((constructor)) void test(void)
-//    {
-//    STYLogDebug_(@"STYLogger startup.");
-//    }
-
 extern void STYLogDebug(NSDictionary *location, NSString *format, ...)
     {
     va_list ap;

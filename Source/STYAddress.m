@@ -178,7 +178,7 @@
         NSArray *theResolvedAddresses = (__bridge NSArray *)CFHostGetAddressing(theHost, &theResolvedFlag);
         if (theResolvedFlag == NO)
             {
-            STYLogDebug_(@"Could not resolve");
+            STYLogError_(@"Could not resolve");
             CFRelease(theHost);
 
             if (inHandler != NULL)

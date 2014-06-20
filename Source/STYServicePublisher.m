@@ -114,8 +114,6 @@
     NSParameterAssert(self.netServiceName.length > 0);
     NSParameterAssert(self.port != 0);
 
-    STYLogDebug_(@"Start publishing (domain:\'%@\', type:\'%@\', name:\'%@\' port:%u).", self.netServiceDomain, self.netServiceType, self.netServiceName, self.port);
-
     self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.port];
     self.netService.sty_userInfo = [inResultHandler copy];
     self.netService.delegate = self;
@@ -137,8 +135,6 @@
 
     NSParameterAssert(self.netService != NULL);
 
-    STYLogDebug_(@"Stop publishing.");
-
     self.netService.sty_userInfo = inResultHandler;
     [self.netService stop];
 
@@ -149,8 +145,6 @@
 
 - (void)netServiceDidPublish:(NSNetService *)sender
     {
-    STYLogDebug_(@"%@", NSStringFromSelector(_cmd));
-
     STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
@@ -161,8 +155,6 @@
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
     {
-    STYLogDebug_(@"%@", NSStringFromSelector(_cmd));
-
     STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
@@ -173,8 +165,6 @@
     
 - (void)netServiceDidStop:(NSNetService *)sender
     {
-    STYLogDebug_(@"%@", NSStringFromSelector(_cmd));
-    
     self.netService.delegate = NULL;
     self.netService = NULL;
 
@@ -195,7 +185,6 @@
 
 //UIBackgroundTaskIdentifier theIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:(NSString *)taskName expirationHandler:(void(^)(void))handler NS_AVAILABLE_IOS(7_0);
         
-        STYLogDebug_(@"Entering background. Stopping publishing.");
         self.resumeOnForegrounding = YES;
         
         [self stopPublishing:NULL];
@@ -206,14 +195,12 @@
     {
     if (self.resumeOnForegrounding == YES)
         {
-        STYLogDebug_(@"Entering foreground from background. Restarting publishing.");
         [self startPublishing:NULL];
         }
     }
 
 - (void)applicationWillTerminate:(NSNotification *)inNotification
     {
-    STYLogDebug_(@"Terminating. Stopping publishing.");
     [self stopPublishing:NULL];
     }
 

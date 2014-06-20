@@ -188,7 +188,7 @@
         {
         NSError *theUnderlyingError = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:NULL];
         NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:@{ NSLocalizedDescriptionKey: @"Could not create socket", NSUnderlyingErrorKey: theUnderlyingError }];
-        STYLogDebug_(@"Could not create socket and connect it");
+        STYLogError_(@"Could not create socket and connect it");
        
         inCompletion(theError);
         return;
@@ -242,7 +242,6 @@
 
     self.channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.CFSocket), dispatch_get_main_queue(), ^(int error) {
         // TODO: Clean up
-        //STYLogDebug_(@"TODO: Clean up");
         });
     dispatch_io_set_low_water(self.channel, 1);
 
@@ -266,7 +265,7 @@
             }
         else
             {
-            STYLogDebug_(@"Socket received event but not delegate set up to receive it.");
+            STYLogWarning_(@"Socket received event but no delegate set up to receive it.");
             }
 
         });

@@ -8,12 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    LogLevel_Debug,
+    LogLevel_Warning,
+    LogLevel_Error,
+} STYLogLevel;
+
 #define LOCATION_ @{@"file": @(__FILE__), @"function": @(__PRETTY_FUNCTION__), @"line": @(__LINE__)}
 
 #if 1
-#define STYLogDebug_(...) STYLogDebug(LOCATION_, __VA_ARGS__)
+#define STYLogDebug_(...) STYLog(LogLevel_Debug, LOCATION_, __VA_ARGS__)
+#define STYLogWarning_(...) STYLog(LogLevel_Warning, LOCATION_, __VA_ARGS__)
+#define STYLogError_(...) STYLog(LogLevel_Error, LOCATION_, __VA_ARGS__)
 #else
 #define STYLogDebug_(...)
+#define STYLogWarning_(...)
+#define STYLogError_(...)
 #endif
     
-extern void STYLogDebug(NSDictionary *location, NSString *format, ...);
+extern void STYLog(STYLogLevel level, NSDictionary *location, NSString *format, ...);

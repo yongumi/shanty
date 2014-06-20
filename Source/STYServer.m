@@ -104,15 +104,13 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         return;
         }
         
-    STYLogDebug_(@"Start listening.");
-
     CFSocketContext theSocketContext = {
         .info = (__bridge void *)self
         };
     self.IPV4Socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, TCPSocketListenerAcceptCallBack, &theSocketContext);
     if (self.IPV4Socket == NULL)
         {
-        STYLogDebug_(@"ERROR: Could not create socket %d", errno);
+        STYLogError_(@"Could not create socket %d", errno);
         return;
         }
 
@@ -121,7 +119,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     int result = setsockopt(CFSocketGetNative(self.IPV4Socket), SOL_SOCKET, SO_REUSEADDR, (void *)&theReuseSocketFlag, sizeof(theReuseSocketFlag));
     if (result != 0)
         {
-        STYLogDebug_(@"ERROR: Could not setsockopt");
+        STYLogError_(@"Could not setsockopt %d", errno);
         return;
         }
     
@@ -159,8 +157,6 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
             }
         return;
         }
-
-    STYLogDebug_(@"Stop listening.");
 
     if (self.runLoopSource != NULL)
         {

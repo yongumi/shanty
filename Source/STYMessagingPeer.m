@@ -73,7 +73,6 @@
     NSParameterAssert(self.socket != NULL);
     NSParameterAssert(self.open == NO);
 
-    STYLogDebug_(@"Opening socket…");
     __weak typeof(self) weak_self = self;
     [self.socket open:^(NSError *error) {
         __strong typeof(weak_self) strong_self = weak_self;
@@ -111,7 +110,7 @@
     {
     if (self.open == NO)
         {
-        STYLogDebug_(@"Trying to close an already closed Peer");
+        STYLogWarning_(@"Trying to close an already closed Peer");
         #warning TODO - call inCompletion with error?
         return;
         }
@@ -213,7 +212,7 @@
         if (error != 0)
             {
             /// TODO handle error (via completion block)
-            STYLogDebug_(@"Error: %d", error);
+            STYLogError_(@"dispatch_io_read: %d", error);
             return;
             }
 
@@ -270,7 +269,7 @@
     NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
-        STYLogDebug_(@"Error: message id mismatch.");
+        STYLogError_(@"Message id mismatch.");
         return(NO);
         }
 
@@ -295,7 +294,7 @@
     NSArray *theHandlers = [self.messageHandler handlersForMessage:inMessage];
     if (theHandlers.count == 0)
         {
-        STYLogDebug_(@"No handler for message: %@", inMessage.controlData);
+        STYLogWarning_(@"No handler for message: %@", inMessage.controlData);
         return(NO);
         }
 
@@ -326,8 +325,6 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
-//    STYLogDebug_(@"socketDidClose:");
     }
-
 
 @end

@@ -158,30 +158,9 @@
     [self.mutableServices addObject:aNetService];
     [self didChangeValueForKey:@"services"];
     }
-
-- (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)aNetServiceBrowser
-    {
-//    STYLogDebug_(@"%@", NSStringFromSelector(_cmd));
-    }
-    
-- (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)aNetServiceBrowser
-    {
-//    STYLogDebug_(@"%@", NSStringFromSelector(_cmd));
-    }
-    
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didNotSearch:(NSDictionary *)errorDict
-    {
-//    STYLogDebug_(@"%@ -- %@", NSStringFromSelector(_cmd), errorDict);
-    }
-    
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
-    {
-//    STYLogDebug_(@"%@ -- %@ %@", NSStringFromSelector(_cmd), domainString, moreComing ? @"YES" : @"NO");
-    }
-    
+   
 - (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError
     {
-//    STYLogDebug_(@"Service discoverer discovering first service");
     __block NSNetService *theNetService = NULL;
     __block NSError *theError = NULL;
     __block BOOL theFlag = YES;
@@ -209,15 +188,8 @@
     return theNetService;
     }
    
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveDomain:(NSString *)domainString moreComing:(BOOL)moreComing
-    {
-//    STYLogDebug_(@"%@ %@ %@", NSStringFromSelector(_cmd), domainString, moreComing ? @"YES" : @"NO");
-    }
-    
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
     {
-//    STYLogDebug_(@"%@ -- %@ %@", NSStringFromSelector(_cmd), aNetService, moreComing ? @"YES" : @"NO");
-
     if (self.running == NO)
         {
         return;
