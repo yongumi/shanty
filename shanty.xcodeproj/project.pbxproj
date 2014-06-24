@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		45E6A596185F8F2000F87958 /* iOS Framework */ = {
+		45E6A596185F8F2000F87958 /* Shanty iOS Framework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "iOS Framework" */;
+			buildConfigurationList = 45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Framework" */;
 			buildPhases = (
 				45E6A59C185F8F4300F87958 /* ShellScript */,
 			);
 			dependencies = (
 				45E6A59B185F8F2A00F87958 /* PBXTargetDependency */,
 			);
-			name = "iOS Framework";
+			name = "Shanty iOS Framework";
 			productName = "iOS Framework";
 		};
 /* End PBXAggregateTarget section */
@@ -401,9 +401,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */ = {
+		4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4518E334185F90BA00B1B1D9 /* Build configuration list for PBXNativeTarget "Mac OS X Framework" */;
+			buildConfigurationList = 4518E334185F90BA00B1B1D9 /* Build configuration list for PBXNativeTarget "Shanty OSX Framework" */;
 			buildPhases = (
 				4518E307185F90BA00B1B1D9 /* Sources */,
 				4518E308185F90BA00B1B1D9 /* Frameworks */,
@@ -414,7 +414,7 @@
 			);
 			dependencies = (
 			);
-			name = "Mac OS X Framework";
+			name = "Shanty OSX Framework";
 			productName = "Mac OS X Framework";
 			productReference = 4518E30C185F90BA00B1B1D9 /* Shanty.framework */;
 			productType = "com.apple.product-type.framework";
@@ -483,8 +483,8 @@
 			projectRoot = "";
 			targets = (
 				4538AEAD185F851A003DF921 /* Shanty */,
-				45E6A596185F8F2000F87958 /* iOS Framework */,
-				4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */,
+				45E6A596185F8F2000F87958 /* Shanty iOS Framework */,
+				4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */,
 				45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */,
 			);
 		};
@@ -608,7 +608,7 @@
 /* Begin PBXTargetDependency section */
 		45DA233A187E7BA700599FAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4518E30B185F90BA00B1B1D9 /* Mac OS X Framework */;
+			target = 4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */;
 			targetProxy = 45DA2339187E7BA700599FAC /* PBXContainerItemProxy */;
 		};
 		45E6A59B185F8F2A00F87958 /* PBXTargetDependency */ = {
@@ -881,7 +881,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4518E334185F90BA00B1B1D9 /* Build configuration list for PBXNativeTarget "Mac OS X Framework" */ = {
+		4518E334185F90BA00B1B1D9 /* Build configuration list for PBXNativeTarget "Shanty OSX Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4518E330185F90BA00B1B1D9 /* Debug */,
@@ -917,7 +917,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "iOS Framework" */ = {
+		45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45E6A597185F8F2000F87958 /* Debug */,
