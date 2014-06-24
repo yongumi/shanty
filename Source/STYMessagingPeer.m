@@ -194,8 +194,8 @@
     {
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
-    void* originalPointer = (__bridge void*)self;
-    void* originalSocket = (__bridge void*)self.socket;
+    // void* originalPointer = (__bridge void*)self;
+    // void* originalSocket = (__bridge void*)self.socket;
 
     __weak typeof(self) weak_self = self;
     dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
