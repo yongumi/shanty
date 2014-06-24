@@ -204,8 +204,8 @@
     // STYLogDebug_(@"STYMessagingPeer _read: %@", self);
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
-    void* originalPointer = (__bridge void*)self;
-    void* originalSocket = (__bridge void*)self.socket;
+    // void* originalPointer = (__bridge void*)self;
+    // void* originalSocket = (__bridge void*)self.socket;
 
     __weak typeof(self) weak_self = self;
     // STYLogDebug_(@"STYMessagingPeer OUTER STRONG SELF: %p (%p)", self, originalPointer);
