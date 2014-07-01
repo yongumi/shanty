@@ -97,6 +97,13 @@
     return self;
     }
 
+- (void)dealloc
+{
+    if (_netService.delegate == self)
+        _netService.delegate = nil;
+}
+
+
 - (id)copyWithZone:(NSZone *)zone;
     {
     return(self);
