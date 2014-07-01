@@ -8,11 +8,22 @@
 
 #import "STYLogger.h"
 
+static bool gSTYLoggingEnabled = false;
+
+bool STYLoggingEnabled()                { return gSTYLoggingEnabled;    }
+void STYSetLoggingEnabled(bool enabled) { gSTYLoggingEnabled = enabled; }
+
+
 static NSString *QueueName(void);
 //static NSString *QueueID(void);
 
 extern void STYLogDebug(NSDictionary *location, NSString *format, ...)
     {
+    if (!gSTYLoggingEnabled)
+        {
+        return;
+        }
+        
     va_list ap;
     va_start(ap, format);
     NSString *theString = [[NSString alloc] initWithFormat:format arguments:ap];

@@ -26,4 +26,6 @@ typedef enum {
 #define STYLogError_(...)
 #endif
     
+extern bool STYLoggingEnabled();
+extern void STYSetLoggingEnabled(bool enabled);
 extern void STYLog(STYLogLevel level, NSDictionary *location, NSString *format, ...);
