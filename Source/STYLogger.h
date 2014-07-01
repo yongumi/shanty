@@ -16,4 +16,6 @@
 #define STYLogDebug_(...)
 #endif
     
+extern bool STYLoggingEnabled();
+extern void STYSetLoggingEnabled(bool enabled);
 extern void STYLogDebug(NSDictionary *location, NSString *format, ...);
