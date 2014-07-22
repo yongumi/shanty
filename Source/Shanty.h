@@ -1,13 +1,18 @@
+#import <Shanty/NSNetService+STYUserInfo.h>
 #import <Shanty/STYAddress.h>
-#import <Shanty/STYConstants.h>
-#import <Shanty/STYMessage.h>
 #import <Shanty/STYCompletionBlocks.h>
-#import <Shanty/STYMessagingPeer.h>
+#import <Shanty/STYConstants.h>
+#import <Shanty/STYDataScanner+Message.h>
+#import <Shanty/STYDataScanner.h>
+#import <Shanty/STYDebug.h>
+#import <Shanty/STYLogger.h>
+#import <Shanty/STYMessage.h>
 #import <Shanty/STYMessageHandler.h>
+#import <Shanty/STYMessagingPeer.h>
 #import <Shanty/STYServer.h>
 #import <Shanty/STYServiceDiscoverer.h>
+#import <Shanty/STYServicePublisher.h>
 #import <Shanty/STYSocket.h>
-#import <Shanty/STYLogger.h>
 
 #if TARGET_OS_IPHONE == 0
 #import <Shanty/STYPeerBrowserViewController.h>

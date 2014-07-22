@@ -59,11 +59,11 @@
 		4538AF07185F88D2003DF921 /* STYServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; };
-		453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; };
+		453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF7192FF04500743852 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8EF4192FF04500743852 /* STYServicePublisher.m */; };
 		453D8EF8192FF04500743852 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8EF4192FF04500743852 /* STYServicePublisher.m */; };
 		453D8F021930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; };
-		453D8F031930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; };
+		453D8F031930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8F041930155800743852 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
 		453D8F051930155800743852 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
 		454B1BEF185F9D21003FB0E7 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -360,16 +360,16 @@
 				45E90CA1185F92DB0060B938 /* STYAddress.h in Headers */,
 				45E90CA3185F92DB0060B938 /* STYCompletionBlocks.h in Headers */,
 				45E90CA4185F92DB0060B938 /* STYDataScanner+Message.h in Headers */,
-				453D8F031930155800743852 /* STYDebug.h in Headers */,
 				45E90CA5185F92DB0060B938 /* STYDataScanner.h in Headers */,
 				45E90CA7185F92DB0060B938 /* STYMessage.h in Headers */,
 				45E90CA8185F92DB0060B938 /* STYMessageHandler.h in Headers */,
 				452C012D1876360900BF19DB /* STYConstants.h in Headers */,
 				45E90CA9185F92DB0060B938 /* STYMessagingPeer.h in Headers */,
-				453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */,
 				452C013318763FA500BF19DB /* STYSocket.h in Headers */,
 				45E90CAA185F92DB0060B938 /* STYServer.h in Headers */,
 				45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */,
+				453D8F031930155800743852 /* STYDebug.h in Headers */,
+				453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */,
 				4580B00A192D45E600E1C6FE /* STYLogger.h in Headers */,
 				45E90CAB185F92DB0060B938 /* STYServiceDiscoverer.h in Headers */,
 			);
@@ -470,7 +470,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -642,6 +642,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -670,6 +671,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -890,7 +892,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
