@@ -17,7 +17,7 @@ void STYSetLoggingEnabled(bool enabled) { gSTYLoggingEnabled = enabled; }
 static NSString *QueueName(void);
 //static NSString *QueueID(void);
 
-extern void STYLogDebug(NSDictionary *location, NSString *format, ...)
+extern void STYLog(STYLogLevel level, NSDictionary *location, NSString *format, ...)
     {
     if (!gSTYLoggingEnabled)
         {
