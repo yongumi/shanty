@@ -58,6 +58,10 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     if ((self = [self initWithListeningAddress:inListeningAddress]) != NULL)
         {
         _servicePublisher = [[STYServicePublisher alloc] initWithNetServiceDomain:inDomain type:inType name:inName port:0];
+        if (self.address.isLoopback == YES)
+            {
+            _servicePublisher.localhostOnly = YES;
+            }
         }
     return self;
     }

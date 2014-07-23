@@ -18,7 +18,7 @@
 
 @interface STYServer : NSObject
 
-@property (readwrite, nonatomic, copy) STYAddress *address;
+@property (readonly, nonatomic, copy) STYAddress *address;
 @property (readonly, nonatomic, copy) STYAddress *actualAddress;
 
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;

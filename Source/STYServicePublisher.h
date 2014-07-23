@@ -14,8 +14,10 @@
 
 @property (readwrite, nonatomic, copy) NSString *netServiceDomain;
 @property (readwrite, nonatomic, copy) NSString *netServiceType;
+@property (readwrite, nonatomic, copy) NSArray *netServiceSubtypes;
 @property (readwrite, nonatomic, copy) NSString *netServiceName;
 @property (readwrite, nonatomic) uint16_t port;
+@property (readwrite, nonatomic) BOOL localhostOnly;
 
 @property (readonly, nonatomic) BOOL publishing;
 
@@ -23,11 +25,10 @@
 + (NSString *)defaultNetServiceType;
 + (NSString *)defaultNetServiceName;
 
-- (instancetype)initWithPort:(uint16_t)inPort; // Designated initializer.
 - (instancetype)initWithNetServiceDomain:(NSString *)inDomain type:(NSString *)inType name:(NSString *)inName port:(uint16_t)inPort;
+- (instancetype)initWithPort:(uint16_t)inPort;
 
 - (void)startPublishing:(STYCompletionBlock)inResultHandler;
 - (void)stopPublishing:(STYCompletionBlock)inResultHandler;
-
 
 @end

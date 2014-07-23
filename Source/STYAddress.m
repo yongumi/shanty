@@ -98,11 +98,12 @@
     }
 
 - (void)dealloc
-{
+    {
     if (_netService.delegate == self)
+        {
         _netService.delegate = nil;
-}
-
+        }
+    }
 
 - (id)copyWithZone:(NSZone *)zone;
     {
@@ -218,6 +219,25 @@
         }
     }
 
+#pragma mark -
+
+- (BOOL)isLoopback
+    {
+    return self.addresses.count == 1 && [self.addresses[0] isEqual:[self _addressDataWithIPV4Address:INADDR_LOOPBACK port:self.port]];
+    }
+
+- (NSData *)_addressDataWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort
+    {
+    struct sockaddr_in theSockAddress = {
+        .sin_len = sizeof(theSockAddress),
+        .sin_family = AF_INET, // IPV4 style address
+        .sin_port = htons(inPort),
+        .sin_addr = htonl(inAddress),
+        };
+    
+    return [NSData dataWithBytes:&theSockAddress length:sizeof(theSockAddress)];
+    }
+
 - (NSData *)_addressData:(NSData *)inAddressData withPort:(unsigned int)inPort
     {
     struct sockaddr_in theAddress;
@@ -230,8 +250,6 @@
     NSData *theAddressData = [NSData dataWithBytes:&theAddress length:sizeof(theAddress)];
     return(theAddressData);
     }
-
-#pragma mark -
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
     {
