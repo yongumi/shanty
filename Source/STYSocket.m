@@ -22,6 +22,7 @@
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
 @property (readwrite, nonatomic) int connectTimeout;
 
+
 @property (readwrite, nonatomic) BOOL connected;
 @property (readwrite, nonatomic) BOOL open;
 @property (readwrite, nonatomic) dispatch_queue_t queue;
@@ -150,6 +151,25 @@
 
     self.open = NO;
     }
+
+- (void)read:(dispatch_io_handler_t)inHandler
+    {
+    NSParameterAssert(inHandler != NULL);
+    dispatch_io_read(self.channel, 0, SIZE_MAX, self.queue, inHandler);
+    }
+
+- (void)write:(dispatch_data_t)inData completion:(STYCompletionBlock)inCompletion
+    {
+    NSParameterAssert(inCompletion != NULL);
+    dispatch_io_write(self.channel, 0, inData, self.queue, ^(bool done, dispatch_data_t data, int error) {
+        if (inCompletion)
+        {
+            inCompletion(NULL);
+        }
+        });
+    }
+
+#pragma mark -
 
 - (void)_connect:(STYCompletionBlock)inCompletion
     {

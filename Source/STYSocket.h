@@ -22,8 +22,6 @@
 @property (readonly, nonatomic, copy) STYAddress *peerAddress;
 @property (readonly, nonatomic, strong) __attribute__((NSObject)) CFSocketRef CFSocket;
 @property (readonly, nonatomic) dispatch_queue_t queue;
-@property (readonly, nonatomic) dispatch_io_t channel;
-@property (readonly, nonatomic) dispatch_source_t readSource;
 @property (readonly, nonatomic) BOOL connected;
 @property (readonly, nonatomic) BOOL open;
 
@@ -52,6 +50,8 @@
 
 //- (void)reopen:(STYCompletionBlock)inCompletion;
 
+- (void)read:(dispatch_io_handler_t)inHandler;
+- (void)write:(dispatch_data_t)inData completion:(STYCompletionBlock)inCompletion;
 
 @end
 

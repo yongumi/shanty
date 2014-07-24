@@ -235,7 +235,7 @@
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
 
     __weak typeof(self) weak_self = self;
-    dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
+    [self.socket read:^(bool done, dispatch_data_t data, int error) {
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self == NULL)
             {
@@ -288,23 +288,18 @@
                 [strong_self close:NULL];
                 }
             }
-        });
+        }];
     }
 
 - (void)_sendData:(NSData *)inData completion:(STYCompletionBlock)inCompletion
     {
     NSParameterAssert(inData);
     NSParameterAssert(self.socket.queue);
-    NSParameterAssert(self.socket.channel);
+    NSParameterAssert(self.socket);
+
 
     dispatch_data_t theData = dispatch_data_create([inData bytes], [inData length], self.socket.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
-
-    dispatch_io_write(self.socket.channel, 0, theData, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
-        if (inCompletion)
-            {
-            inCompletion(NULL);
-            }
-        });
+    [self.socket write:theData completion:inCompletion];
     }
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
