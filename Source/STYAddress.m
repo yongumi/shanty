@@ -16,7 +16,7 @@
 // TODO - hey what about that IPV6?
 
 @interface STYAddress () <NSNetServiceDelegate>
-@property (readwrite, nonatomic, copy) NSArray *addresses;
+@property (readwrite, nonatomic, copy) NSData *addressData;
 @property (readwrite, nonatomic, copy) NSString *hostname;
 @property (readwrite, nonatomic) uint16_t port;
 @property (readwrite, nonatomic, strong) NSNetService *netService;
@@ -51,14 +51,12 @@
     return self;
     }
 
-- (instancetype)initWithAddresses:(NSArray *)inAddresses
+- (instancetype)initWithAddressData:(NSData *)inAddressData
     {
-    NSParameterAssert(inAddresses.count > 0);
-    
     if ((self = [self init]) != NULL)
         {
-        _addresses = [inAddresses copy];
-        _port = [DictionaryFromAddress(_addresses[0])[@"sin_port"] unsignedShortValue];
+        _addressData = [inAddressData copy];
+        _port = [DictionaryFromAddress(_addressData)[@"sin_port"] unsignedShortValue];
         }
     return self;
     }
@@ -82,7 +80,7 @@
         .sin_addr = htonl(inAddress),
         };
     
-    if ((self = [self initWithAddresses:@[ [NSData dataWithBytes:&theSockAddress length:sizeof(theSockAddress)] ]]) != NULL)
+    if ((self = [self initWithAddressData:[NSData dataWithBytes:&theSockAddress length:sizeof(theSockAddress)]]) != NULL)
         {
         }
     return self;
@@ -122,13 +120,10 @@
         {
         [theDescriptions addObject:[NSString stringWithFormat:@"%@", [self.netService description]]];
         }
-    else if (self.addresses)
+    else if (self.addressData)
         {
-        for (NSData *theAddress in self.addresses)
-            {
-            NSDictionary *theParts = DictionaryFromAddress(theAddress);
-            [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
-            }
+        NSDictionary *theParts = DictionaryFromAddress(self.addressData);
+        [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
         }
     else
         {
@@ -143,7 +138,7 @@
     {
     // TODO HACK
     // This only returns the first address and only works on IPV4
-    NSDictionary *theDictionary = DictionaryFromAddress([self.addresses firstObject]);
+    NSDictionary *theDictionary = DictionaryFromAddress(self.addressData);
     return([NSString stringWithFormat:@"%@:%@", theDictionary[@"sin_addr"], theDictionary[@"sin_port"]]);
     }
 

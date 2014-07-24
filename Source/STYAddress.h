@@ -11,13 +11,13 @@
 
 @interface STYAddress : NSObject <NSCopying>
 
-@property (readonly, nonatomic, copy) NSArray *addresses;
+@property (readonly, nonatomic, copy) NSData *addressData;
 @property (readonly, nonatomic) uint16_t port;
 
 - (instancetype)init; // Designated initializer.
 - (instancetype)initWithAnyAddress:(unsigned int)inPort;
 - (instancetype)initWithLoopbackAddress:(unsigned int)inPort;
-- (instancetype)initWithAddresses:(NSArray *)inAddresses;
+- (instancetype)initWithAddressData:(NSData *)inAddressData;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
 - (instancetype)initWithNetService:(NSNetService *)inNetService;
 - (instancetype)initWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort;
