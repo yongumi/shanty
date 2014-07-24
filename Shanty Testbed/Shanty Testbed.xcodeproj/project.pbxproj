@@ -12,6 +12,7 @@
 		4571C8D6197EF9080076C0D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4571C8D5197EF9080076C0D5 /* Images.xcassets */; };
 		4581B3A0198060B800B227E3 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4581B39F198060B800B227E3 /* Application.xib */; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
+		45E49518198184E1001D8588 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E49517198184E1001D8588 /* ServerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		4571C8D5197EF9080076C0D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4581B39F198060B800B227E3 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shanty.xcodeproj; path = ../shanty.xcodeproj; sourceTree = "<group>"; };
+		45E49517198184E1001D8588 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				4571C8D3197EF9080076C0D5 /* AppDelegate.swift */,
+				45E49517198184E1001D8588 /* ServerViewController.swift */,
 				4571C8D5197EF9080076C0D5 /* Images.xcassets */,
 				4571C8CD197EF9080076C0D5 /* Supporting Files */,
 				4581B39F198060B800B227E3 /* Application.xib */,
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E49518198184E1001D8588 /* ServerViewController.swift in Sources */,
 				4571C8D4197EF9080076C0D5 /* AppDelegate.swift in Sources */,
 				4571C8D0197EF9080076C0D5 /* main.swift in Sources */,
 			);
