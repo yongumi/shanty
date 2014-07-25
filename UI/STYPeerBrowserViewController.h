@@ -18,6 +18,11 @@
 @property (readwrite, nonatomic, copy) NSString *netServiceType;
 @property (readwrite, nonatomic, weak) id <STYPeerBrowserViewControllerDelegate> delegate;
 
+- (instancetype)init;
+
+- (IBAction)connect:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 @end
 
 #pragma mark -
