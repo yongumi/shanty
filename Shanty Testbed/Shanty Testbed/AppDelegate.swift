@@ -10,9 +10,13 @@ import Cocoa
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-                            
+        
+    var mainWindowController : MainWindowController!
 
     func applicationDidFinishLaunching(aNotification: NSNotification?) {
+        self.mainWindowController = MainWindowController(windowNibName: "MainWindowController")
+        self.mainWindowController.window.makeKeyAndOrderFront(nil)
+    
     }
 
     func applicationWillTerminate(aNotification: NSNotification?) {

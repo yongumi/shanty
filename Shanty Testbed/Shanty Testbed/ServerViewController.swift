@@ -20,28 +20,34 @@ class ServerViewController: NSViewController {
 
     var server : STYServer!
 
-    init(coder: NSCoder?) {
-        self.useLoopback = true
+    @IBOutlet var startButton : NSButton?
+    @IBOutlet var stopButton : NSButton?
 
-        super.init(coder: coder)
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        self.useLoopback = true
+        self.type = "_styexample._tcp"
+
+        super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
     }
 
-    @IBAction func connect(sender:AnyObject?) {
-        //        Shanty.STYSetLoggingEnabled(true)
-        //        self.publisher = Shanty.STYServicePublisher(port:1234)
-        //        self.publisher.netServiceType = "_test._tcp"
-        //        self.publisher.localhostOnly = true
-        //        self.publisher.netServiceSubtypes = ["_foo"]
-        //        self.publisher.startPublishing() { error in println(error) }
+    @IBAction func serve(sender:AnyObject?) {
 
         var port_ : UInt32 = 0
         if self.port != nil {
-            port_ = UInt32(self.port!.unsignedIntegerValue())
+            port_ = UInt32(self.port!.unsignedIntegerValue)
         }
 
         let address = self.useLoopback ? STYAddress(loopbackAddress: port_) : STYAddress(anyAddress: port_)
-        println(address)
         self.server = STYServer(listeningAddress:address, netServiceDomain:self.domain, type:self.type, name:self.name)
-        self.server.startListening() { error in println(error) }
+        self.server.startListening() {
+            error in
+//            println(error)
+//            println(self.server.actualAddress)
+            }
+    }
+
+    @IBAction func stop(sender:AnyObject?) {
+        self.server.stopListening(nil)
+        self.server = nil
     }
 }

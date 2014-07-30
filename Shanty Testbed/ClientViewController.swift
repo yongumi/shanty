@@ -10,7 +10,17 @@ import Cocoa
 
 import Shanty
 
-class ClientViewController: NSViewController {
+class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelegate {
+
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        self.type = "_styexample._tcp"
+        self.browserViewController = STYPeerBrowserViewController()
+        self.browserViewController.netServiceType = self.type
+
+        super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
+
+        self.browserViewController.delegate = self
+    }
 
     @IBOutlet var hostingView : NSView!
     var type : String! {
@@ -20,16 +30,28 @@ class ClientViewController: NSViewController {
     }
     var browserViewController : STYPeerBrowserViewController!
 
-    init(coder: NSCoder?) {
-
-        self.browserViewController = STYPeerBrowserViewController()
-        self.browserViewController.netServiceType = "_http._tcp"
-
-        super.init(coder: coder)
-    }
-
     override func awakeFromNib() {
-        self.hostingView.addSubview(self.browserViewController.view())
+    
+        let hostedView = self.browserViewController.view
+        hostedView.translatesAutoresizingMaskIntoConstraints = false
+        self.hostingView.addSubview(hostedView)
+        
+        let views : [NSObject : AnyObject] = [
+            "view": hostedView,
+            "host": self.hostingView,
+            ]
+        
+        self.hostingView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[view]-(0)-|", options:NSLayoutFormatOptions(0), metrics:nil, views:views))
+        self.hostingView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[view]-(0)-|", options:NSLayoutFormatOptions(0), metrics:nil, views:views))
+    }
+    
+    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didConnectToPeer inPeer: STYMessagingPeer!) {
+    }
+    
+    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didfailToConnect inError: NSError!) {
+    }
+    
+    func peerBrowserDidCancel(inBrowserViewController: STYPeerBrowserViewController!) {
     }
     
 }
