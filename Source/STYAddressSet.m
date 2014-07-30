@@ -12,6 +12,8 @@
 @property (readwrite, nonatomic, copy) NSArray *addresses;
 @end
 
+#pragma mark -
+
 @implementation STYAddressSet
 
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
@@ -29,14 +31,30 @@
     return [self initWithAddresses:@[ inAddress ]];
     }
 
-- (NSArray *)allIPV4Addreses
+- (STYAddressSet *)allIPV4Addreses
     {
     return self.addresses.firstObject;
     }
 
-- (NSArray *)allIPV6Addreses
+- (STYAddressSet *)allIPV6Addreses
     {
     return self.addresses.firstObject;
     }
+
+@end
+
+#pragma mark -
+
+@implementation STYAddressSet (NSNetService)
+
+- (instancetype)initWithNetService:(NSNetService *)inNetService
+    {
+    if ((self = [self init]) != NULL)
+        {
+        }
+    return self;
+    }
+
+
 
 @end

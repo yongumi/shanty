@@ -102,7 +102,7 @@
     NSParameterAssert(inNetService);
     NSParameterAssert(handler);
 
-    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
+    STYAddressSet *theAddress = [[STYAddressSet alloc] initWithNetService:inNetService];
     STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
     STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
     if (inOpenPeer == YES)

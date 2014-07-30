@@ -13,6 +13,8 @@
 #import <Shanty/STYServiceDiscoverer.h>
 #import <Shanty/STYServicePublisher.h>
 #import <Shanty/STYSocket.h>
+#import <Shanty/STYResolveable.h>
+#import <Shanty/STYAddressSet.h>
 
 #if TARGET_OS_IPHONE == 0
 #import <Shanty/STYPeerBrowserViewController.h>

@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STYCompletionBlocks.h"
 
-@interface STYAddress : NSObject <NSCopying>
+#import "STYResolveable.h"
+
+@interface STYAddress : NSObject <NSCopying, STYResolveable>
 
 @property (readonly, nonatomic, copy) NSData *addressData;
 @property (readonly, nonatomic) uint16_t port;
@@ -19,7 +20,6 @@
 - (instancetype)initWithLoopbackAddress:(unsigned int)inPort;
 - (instancetype)initWithAddressData:(NSData *)inAddressData;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort;
-- (instancetype)initWithNetService:(NSNetService *)inNetService;
 - (instancetype)initWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort;
 
 - (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;

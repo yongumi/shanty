@@ -62,7 +62,7 @@
         {
         return(NULL);
         }
-    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
+    STYAddress *theAddress = [[STYAddress alloc] initWithAddressData:theAddressData];
 
     if ((self = [self initWithAddress:theAddress]) != NULL)
         {
@@ -96,7 +96,7 @@
         {
         return(NULL);
         }
-    STYAddress *theAddress = [[STYAddress alloc] initWithAddresses:@[ theAddressData ]];
+    STYAddress *theAddress = [[STYAddress alloc] initWithAddressData:theAddressData];
     return(theAddress);
     }
 
@@ -155,39 +155,39 @@
     {
     STYLogDebug_(@"Socket _connect");
     NSParameterAssert(self.connected == NO);
-    NSParameterAssert(self.address.addresses != NULL);
+    NSParameterAssert(self.address != NULL);
 
     
     NSMutableArray *ipv4Addresses = [NSMutableArray new];
     NSMutableArray *ipv6Addresses = [NSMutableArray new];
         
-    for (NSData* addressData in self.address.addresses)
-    {
-        if (addressData.length == sizeof(struct sockaddr_in))
-        {
-            [ipv4Addresses addObject:addressData];
-        }
-        else if (addressData.length == sizeof(struct sockaddr_in6))
-        {
-            [ipv6Addresses addObject:addressData];
-        }
-        
-        bool logAddresses = false;
-        if (logAddresses)
-        {
-            char addressStringBuffer[INET6_ADDRSTRLEN];
-            memset(addressStringBuffer, 0, INET6_ADDRSTRLEN);
-
-            const char *addressString = nil;
-            if (addressData.length == sizeof(struct sockaddr_in)) {
-                addressString = inet_ntop(AF_INET, (struct sockaddr_in*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
-            }
-            else if (addressData.length == sizeof(struct sockaddr_in6)) {
-                addressString = inet_ntop(AF_INET6, (struct sockaddr_in6*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
-            }
-            STYLogDebug_(@"address: %s addressData: %@", addressString, addressData);
-        }
-    }
+//    for (NSData* addressData in self.address.addresses)
+//    {
+//        if (addressData.length == sizeof(struct sockaddr_in))
+//        {
+//            [ipv4Addresses addObject:addressData];
+//        }
+//        else if (addressData.length == sizeof(struct sockaddr_in6))
+//        {
+//            [ipv6Addresses addObject:addressData];
+//        }
+//        
+//        bool logAddresses = false;
+//        if (logAddresses)
+//        {
+//            char addressStringBuffer[INET6_ADDRSTRLEN];
+//            memset(addressStringBuffer, 0, INET6_ADDRSTRLEN);
+//
+//            const char *addressString = nil;
+//            if (addressData.length == sizeof(struct sockaddr_in)) {
+//                addressString = inet_ntop(AF_INET, (struct sockaddr_in*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
+//            }
+//            else if (addressData.length == sizeof(struct sockaddr_in6)) {
+//                addressString = inet_ntop(AF_INET6, (struct sockaddr_in6*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
+//            }
+//            STYLogDebug_(@"address: %s addressData: %@", addressString, addressData);
+//        }
+//    }
 
     // TODO: currently using the first ipv4 address found, need to think about other cases more.
     NSData* ipv4AddressData = ipv4Addresses.count == 0 ? 0 : ipv4Addresses[0];

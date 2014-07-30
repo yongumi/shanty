@@ -121,16 +121,10 @@
         [theDescriptions addObject:[NSString stringWithFormat:@"%@", [self.netService description]]];
         }
     
-    if (self.addresses)
+    NSDictionary *theParts = DictionaryFromAddress(self.addressData);
+    if (theParts != NULL)
         {
-        for (NSData *theAddress in self.addresses)
-            {
-            NSDictionary *theParts = DictionaryFromAddress(theAddress);
-            if (theParts != NULL)
-                {
-                [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
-                }
-            }
+        [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
         }
     else
         {

@@ -8,14 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+#import "STYResolveable.h"
+
 @class STYAddress;
 
-@interface STYAddressSet : NSObject
+@interface STYAddressSet : NSObject <NSCopying, STYResolveable>
 
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
 - (instancetype)initWithAddress:(STYAddress *)inAddress;
 
-- (NSArray *)allIPV4Addreses;
-- (NSArray *)allIPV6Addreses;
+- (STYAddressSet *)allIPV4Addreses;
+- (STYAddressSet *)allIPV6Addreses;
 
+@end
+
+
+@interface STYAddressSet (NSNetService)
+- (instancetype)initWithNetService:(NSNetService *)inNetService;
 @end

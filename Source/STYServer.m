@@ -130,14 +130,14 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         return;
         }
     
-    NSData *theAddressData = [self.address.addresses firstObject];
+    NSData *theAddressData = self.address.addressData;
     NSParameterAssert(theAddressData != NULL);
     CFSocketSetAddress(self.IPV4Socket, (__bridge CFDataRef)theAddressData);
 
     // Get the port...
     if (self.address.port == 0)
         {
-        STYAddress *theServingAddress = [[STYAddress alloc] initWithAddresses:@[ (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket) ]];
+        STYAddress *theServingAddress = [[STYAddress alloc] initWithAddressData:(__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket)];
         self.actualAddress = theServingAddress;
         }
 
