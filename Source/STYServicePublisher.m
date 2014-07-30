@@ -180,16 +180,18 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
         return;
         }
 
-    NSParameterAssert(self.netService != NULL);
-
     if (self.localhostOnly == YES)
         {
-        DNSServiceRefDeallocate(_DNSService);
+        NSParameterAssert(self.DNSService != NULL);
+
+        DNSServiceRefDeallocate(self.DNSService);
         _DNSService = NULL;
         self.publishing = NO;
         }
     else
         {
+        NSParameterAssert(self.netService != NULL);
+
         self.netService.sty_userInfo = inResultHandler;
         [self.netService stop];
         self.publishing = NO;

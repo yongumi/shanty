@@ -107,6 +107,9 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
             }
         return;
         }
+    
+    // TODO - what about errors?
+    self.listening = YES;
         
     CFSocketContext theSocketContext = {
         .info = (__bridge void *)self
@@ -161,6 +164,8 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
             }
         return;
         }
+
+    self.listening = NO;
 
     if (self.runLoopSource != NULL)
         {

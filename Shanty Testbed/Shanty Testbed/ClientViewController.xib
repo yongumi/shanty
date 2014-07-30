@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ClientViewController" customModule="Shanty_Testbed" customModuleProvider="target">
+            <connections>
+                <outlet property="hostingView" destination="1QA-Ci-09C" id="KeR-Mo-mcb"/>
+                <outlet property="view" destination="c22-O7-iKe" id="vgI-4z-Ny5"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TXx-wU-TcX">
+                    <rect key="frame" x="18" y="232" width="34" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type" id="oGa-Ry-rd4">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VGA-pA-c6O">
+                    <rect key="frame" x="58" y="230" width="96" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="96" id="PfH-bb-6Zw"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EYb-ll-6ED">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="type" id="obm-RH-a7L"/>
+                    </connections>
+                </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1QA-Ci-09C">
+                    <rect key="frame" x="20" y="20" width="440" height="202"/>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="1QA-Ci-09C" firstAttribute="top" secondItem="VGA-pA-c6O" secondAttribute="bottom" constant="8" symbolic="YES" id="00u-S9-3Jk"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="baseline" secondItem="TXx-wU-TcX" secondAttribute="baseline" id="X5H-WO-5TY"/>
+                <constraint firstItem="TXx-wU-TcX" firstAttribute="leading" secondItem="1QA-Ci-09C" secondAttribute="leading" id="bhj-GF-3Jd"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="dBN-xB-4Cf"/>
+                <constraint firstAttribute="trailing" secondItem="1QA-Ci-09C" secondAttribute="trailing" constant="20" symbolic="YES" id="gGG-Wn-QLz"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="leading" secondItem="TXx-wU-TcX" secondAttribute="trailing" constant="8" symbolic="YES" id="qYT-zI-0cg"/>
+                <constraint firstItem="TXx-wU-TcX" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="uLC-aD-8jK"/>
+                <constraint firstAttribute="bottom" secondItem="1QA-Ci-09C" secondAttribute="bottom" constant="20" symbolic="YES" id="uco-oM-fxO"/>
+            </constraints>
+            <point key="canvasLocation" x="259" y="244"/>
+        </customView>
+    </objects>
+</document>

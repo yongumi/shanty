@@ -17,7 +17,7 @@
 
 @implementation STYPeerBrowserViewController
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleForClass:[self class]]];
     if (self) {
@@ -31,6 +31,23 @@
 
     self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
     [self.discoverer start];
+    }
+
+- (void)setNetServiceType:(NSString *)inNetServiceType
+    {
+    if (_netServiceType != inNetServiceType)
+        {
+        self.discoverer = NULL;
+
+        _netServiceType = inNetServiceType;
+        //
+        // FIXME: Update on 10.10
+        if (/*self.isViewLoaded && */ _netServiceType != NULL)
+            {
+            self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
+            [self.discoverer start];
+            }
+        }
     }
 
 - (IBAction)connect:(id)sender
@@ -59,7 +76,6 @@
                     }
                 });
             }];
-
         }];
     }
 
