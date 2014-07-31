@@ -26,9 +26,13 @@
 
 - (BOOL)isLoopback;
 
+- (NSArray *)IPV4Addresses;
+- (NSArray *)IPV6Addresses;
+
 // TODO: This is a quick hack and will be going away.
 - (NSString *)toString;
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;
+
 
 @end

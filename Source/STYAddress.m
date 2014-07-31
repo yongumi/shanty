@@ -230,6 +230,40 @@
     return self.addresses.count == 1 && [self.addresses[0] isEqual:[self _addressDataWithIPV4Address:INADDR_LOOPBACK port:self.port]];
     }
 
+- (NSArray *)IPV4Addresses
+    {
+    NSMutableArray *IPV4Addresses = [NSMutableArray array];
+    for (NSData *addressData in self.addresses)
+        {
+        if (addressData.length == sizeof(struct sockaddr_in))
+            {
+            const struct sockaddr_in *theSockAddress = addressData.bytes;
+            if (theSockAddress->sin_family == AF_INET)
+                {
+                [IPV4Addresses addObject:addressData];
+                }
+            }
+        }
+    return(IPV4Addresses);
+    }
+
+- (NSArray *)IPV6Addresses
+    {
+    NSMutableArray *IPV6Addresses = [NSMutableArray array];
+    for (NSData *addressData in self.addresses)
+        {
+        if (addressData.length == sizeof(struct sockaddr_in6))
+            {
+            const struct sockaddr_in6 *theSockAddress = addressData.bytes;
+            if (theSockAddress->sin6_family == AF_INET6)
+                {
+                [IPV6Addresses addObject:addressData];
+                }
+            }
+        }
+    return(IPV6Addresses);
+    }
+
 - (NSData *)_addressDataWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort
     {
     struct sockaddr_in theSockAddress = {

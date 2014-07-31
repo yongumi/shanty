@@ -157,49 +157,25 @@
     NSParameterAssert(self.connected == NO);
     NSParameterAssert(self.address.addresses != NULL);
 
-    
-    NSMutableArray *ipv4Addresses = [NSMutableArray new];
-    NSMutableArray *ipv6Addresses = [NSMutableArray new];
-        
-    for (NSData* addressData in self.address.addresses)
-    {
-        if (addressData.length == sizeof(struct sockaddr_in))
-        {
-            [ipv4Addresses addObject:addressData];
-        }
-        else if (addressData.length == sizeof(struct sockaddr_in6))
-        {
-            [ipv6Addresses addObject:addressData];
-        }
-        
-        bool logAddresses = false;
-        if (logAddresses)
-        {
-            char addressStringBuffer[INET6_ADDRSTRLEN];
-            memset(addressStringBuffer, 0, INET6_ADDRSTRLEN);
 
-            const char *addressString = nil;
-            if (addressData.length == sizeof(struct sockaddr_in)) {
-                addressString = inet_ntop(AF_INET, (struct sockaddr_in*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
-            }
-            else if (addressData.length == sizeof(struct sockaddr_in6)) {
-                addressString = inet_ntop(AF_INET6, (struct sockaddr_in6*)[addressData bytes], addressStringBuffer, sizeof(addressStringBuffer));
-            }
-            STYLogDebug_(@"address: %s addressData: %@", addressString, addressData);
-        }
-    }
-
-    // TODO: currently using the first ipv4 address found, need to think about other cases more.
-    NSData* ipv4AddressData = ipv4Addresses.count == 0 ? 0 : ipv4Addresses[0];
-    NSParameterAssert(ipv4AddressData != NULL);
-
-    // Create the socket...
-    CFSocketSignature theSocketSignature = {
-        .protocolFamily = PF_INET, // IPV4 family
+    CFSocketSignature theSocketSignature = (CFSocketSignature){
         .socketType = SOCK_STREAM, // Streaming type
         .protocol = IPPROTO_TCP, // TCP/IP protocol
-        .address = (__bridge_retained CFDataRef)ipv4AddressData,
-        };
+    };
+
+// TODO: Attempt to open IPV6 socket. Unfortunately no idea why this doesn't work with CFSocketCreateConnectedToSocketSignature
+//    if (self.address.IPV6Addresses.count > 0 && NO)
+//        {
+//        theSocketSignature.protocolFamily = PF_INET6; // IPV4 family
+//        NSData *theAddress = self.address.IPV6Addresses.firstObject;
+//        theSocketSignature.address = (__bridge_retained CFDataRef)theAddress;
+//        }
+//    else
+        {
+        theSocketSignature.protocolFamily = PF_INET; // IPV4 family
+        NSData *theAddress = self.address.IPV4Addresses.firstObject;
+        theSocketSignature.address = (__bridge_retained CFDataRef)theAddress;
+        }
 
     CFRunLoopRef theRunLoop = CFRunLoopGetCurrent();
 
