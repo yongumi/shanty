@@ -14,6 +14,8 @@
 #import "STYSocket.h"
 #import "STYLogger.h"
 
+// TODO - service discoverer should NOT create the peer. All references to peers should be removed from this code.
+
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
 @property (readwrite, nonatomic) NSNetServiceBrowser *domainBrowser;
@@ -105,11 +107,19 @@
     STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
     STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
     STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
+    if ([self.delegate respondsToSelector:@selector(serviceDiscoverer:didCreatePeer:)])
+        {
+        [self.delegate serviceDiscoverer:self didCreatePeer:thePeer];
+        }
     if (inOpenPeer == YES)
         {
         [thePeer open:^(NSError *error) {
             if (error == NULL)
                 {
+                if ([self.delegate respondsToSelector:@selector(serviceDiscoverer:didOpenPeer:)])
+                    {
+                    [self.delegate serviceDiscoverer:self didOpenPeer:thePeer];
+                    }
                 handler(thePeer, NULL);
                 }
             else
@@ -137,14 +147,6 @@
         {
         // TODO: For now as a work-around to prevent duplicate services. Back to My Mac is IPv6 only and right now shanty is IPv4 only (due to laziness)
         return;
-        }
-
-    if (self.serviceAcceptanceHandler)
-        {
-        if (self.serviceAcceptanceHandler(aNetService) == NO)
-            {
-            return;
-            }
         }
 
     if (self.discoverFirstServiceAndStopHandler != NULL)

@@ -10,7 +10,7 @@
 
 #import <Shanty/Shanty.h>
 
-@interface STYPeerBrowserViewController ()
+@interface STYPeerBrowserViewController () <STYServiceDiscovererDelegate>
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
 @property (readwrite, nonatomic, assign) IBOutlet NSArrayController *servicesArrayController;
 @end
@@ -30,6 +30,7 @@
     [super loadView];
 
     self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
+    self.discoverer.delegate = self;
     [self.discoverer start];
     }
 
@@ -45,6 +46,7 @@
         if (/*self.isViewLoaded && */ _netServiceType != NULL)
             {
             self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
+            self.discoverer.delegate = self;
             [self.discoverer start];
             }
         }
@@ -55,6 +57,7 @@
     NSNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
 
     __weak typeof(self) weak_self = self;
+    
     [self.discoverer connectToService:theSelectedService openPeer:NO completion:^(STYMessagingPeer *peer, NSError *error) {
         __strong typeof(weak_self) strong_self = weak_self;
 
@@ -86,5 +89,22 @@
         [self.delegate peerBrowserDidCancel:self];
         }
     }
+
+- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didCreatePeer:(STYMessagingPeer *)inPeer
+    {
+    if ([self.delegate respondsToSelector:@selector(peerBrowser:willConnectToPeer:)])
+        {
+        [self.delegate peerBrowser:self willConnectToPeer:inPeer];
+        }
+    }
+    
+- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didOpenPeer:(STYMessagingPeer *)inPeer
+    {
+    if ([self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
+        {
+        [self.delegate peerBrowser:self didConnectToPeer:inPeer];
+        }
+    }
+
 
 @end

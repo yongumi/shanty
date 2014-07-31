@@ -159,6 +159,7 @@
 
         if (error == NULL)
             {
+            NSParameterAssert(strong_self.tap != NULL);
             if (strong_self.tap)
                 {
                 strong_self.tap(strong_self, inMessage, NULL);
@@ -178,7 +179,7 @@
     {
     if (self.mode == kSTYMessengerModeClient)
         {
-        STYMessage *theMessage = [[STYMessage alloc] initWithCommand:kSTYHelloCommand metadata:NULL data:NULL];
+        STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
         [self sendMessage:theMessage completion:inCompletion];
         }
     else

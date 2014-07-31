@@ -21,23 +21,75 @@
 
 @implementation STYMessage
 
++ (NSData *)encode:(NSDictionary *)inData error:(NSError *__autoreleasing *)outError
+    {
+    if (inData == NULL)
+        {
+        return(NULL);
+        }
+    NSData *theData = [NSJSONSerialization dataWithJSONObject:inData options:0 error:outError];
+    return(theData);
+    }
+
++ (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError
+    {
+    NSDictionary *theDictionary = [NSJSONSerialization JSONObjectWithData:inData options:0 error:outError];
+    // TODO zip...
+    return(theDictionary);
+    }
+    
++ (NSDictionary *)defaultControlData
+    {
+    return @{
+        @"created": @([[NSDate date] timeIntervalSince1970]),
+#if DEBUG == 1
+        @"UUID": [[NSUUID UUID] UUIDString],
+#endif
+        };
+    }
+
++ (NSDictionary *)controlDataWithCommand:(NSString *)inCommand replyTo:(STYMessage *)inMessage moreComing:(BOOL)inMoreComing extras:(NSDictionary *)inExtras
+    {
+    NSMutableDictionary *theControlData = [NSMutableDictionary dictionary];
+
+    if (inCommand != NULL)
+        {
+        theControlData[kSTYCommandKey] = inCommand;
+        }
+
+    if (inMessage != NULL)
+        {
+        theControlData[kSTYInReplyToKey] = inMessage.controlData[kSTYMessageIDKey];
+        }
+
+    theControlData[kSTYMoreComing] = @(inMoreComing);
+
+    if (inExtras.count > 0)
+        {
+        [theControlData addEntriesFromDictionary:inExtras];
+        }
+
+    return(theControlData);
+    }
+
+
 - (instancetype)initWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData
     {
     if ((self = [super init]) != NULL)
         {
         _direction = kSTYMessageDirection_Outgoing; // TODO - guessing direction is probably bad
-        _controlData = [inControlData copy];
+
+        NSMutableDictionary *theControlData = [[self.class defaultControlData] mutableCopy];
+        if (inControlData)
+            {
+            [theControlData addEntriesFromDictionary:inControlData];
+            }
+
+        _controlData = [theControlData copy];
         _metadata = [inMetadata copy];
         _data = [inData copy];
-        }
-    return self;
-    }
-
-- (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
-    {
-    NSDictionary *theControlData = @{ kSTYCommandKey: inCommand };
-    if ((self = [self initWithControlData:theControlData metadata:inMetadata data:inData]) != NULL)
-        {
+        
+        NSLog(@"%@", self);
         }
     return self;
     }
@@ -71,24 +123,6 @@
 
 #pragma mark -
 
-+ (NSData *)encode:(NSDictionary *)inData error:(NSError *__autoreleasing *)outError
-    {
-    if (inData == NULL)
-        {
-        return(NULL);
-        }
-    NSData *theData = [NSJSONSerialization dataWithJSONObject:inData options:0 error:outError];
-    // TODO zip...
-    return(theData);
-    }
-
-+ (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError
-    {
-    NSDictionary *theDictionary = [NSJSONSerialization JSONObjectWithData:inData options:0 error:outError];
-    // TODO zip...
-    return(theDictionary);
-    }
-
 - (NSData *)buffer:(NSError *__autoreleasing *)outError
     {
     NSMutableData *theBuffer = [NSMutableData data];
@@ -121,35 +155,6 @@
     theControlData[kSTYInReplyToKey] = self.controlData[kSTYMessageIDKey];
     [theControlData addEntriesFromDictionary:inControlData];
     return([[[self class] alloc] initWithControlData:theControlData metadata:inMetadata data:inData]);
-    }
-
-- (instancetype)replyWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData
-    {
-    return([self replyWithControlData:@{ kSTYCommandKey: inCommand } metadata:inMetadata data:inData]);
-    }
-
-+ (NSDictionary *)controlDataWithCommand:(NSString *)inCommand replyTo:(STYMessage *)inMessage moreComing:(BOOL)inMoreComing extras:(NSDictionary *)inExtras
-    {
-    NSMutableDictionary *theControlData = [NSMutableDictionary dictionary];
-
-    if (inCommand != NULL)
-        {
-        theControlData[kSTYCommandKey] = inCommand;
-        }
-
-    if (inMessage != NULL)
-        {
-        theControlData[kSTYInReplyToKey] = inMessage.controlData[kSTYMessageIDKey];
-        }
-
-    theControlData[kSTYMoreComing] = @(inMoreComing);
-
-    if (inExtras.count > 0)
-        {
-        [theControlData addEntriesFromDictionary:inExtras];
-        }
-
-    return(theControlData);
     }
 
 - (NSString *)command

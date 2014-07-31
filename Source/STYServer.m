@@ -28,7 +28,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 @interface STYServer ()
 @property (readwrite, nonatomic, copy) STYAddress *actualAddress;
-@property (readonly, nonatomic, copy) NSMutableSet *mutablePeers;
+@property (readonly, nonatomic, copy) NSMutableArray *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopRef runLoop;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
@@ -47,7 +47,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         {
         _address = [inListeningAddress copy];
 
-        _mutablePeers = [NSMutableSet set];
+        _mutablePeers = [NSMutableArray array];
         _messageHandler = [[STYMessageHandler alloc] init];
         }
     return self;
@@ -73,15 +73,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 #pragma mark -
 
-- (STYServicePublisher *)servicePublisher
-    {
-    if (_servicePublisher == NULL)
-        {
-        }
-    return _servicePublisher;
-    }
-
-- (NSSet *)peers
+- (NSArray *)peers
     {
     return(self.mutablePeers);
     }
@@ -203,9 +195,17 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     STYMessagingPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
     thePeer.messageHandler = self.messageHandler;
 
+    if ([self.delegate respondsToSelector:@selector(server:peerWillConnect:)])
+        {
+        [self.delegate server:self peerWillConnect:thePeer];
+        }
+
     [thePeer open:NULL];
 
+    NSParameterAssert([NSThread isMainThread]);
+    [self willChangeValueForKey:@"peers"];
     [self.mutablePeers addObject:thePeer];
+    [self didChangeValueForKey:@"peers"];
 
     if ([self.delegate respondsToSelector:@selector(server:peerDidConnect:)])
         {

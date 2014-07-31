@@ -26,16 +26,16 @@ typedef NS_ENUM(NSInteger, STYMessageDirection) {
 + (NSData *)encode:(NSDictionary *)inData error:(NSError *__autoreleasing *)outError;
 + (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError;
 
++ (NSDictionary *)defaultControlData;
++ (NSDictionary *)controlDataWithCommand:(NSString *)inCommand replyTo:(STYMessage *)inMessage moreComing:(BOOL)inMoreComing extras:(NSDictionary *)inExtras;
+
 - (instancetype)initWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
-- (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
+//- (instancetype)initWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
 
 - (NSData *)buffer:(NSError *__autoreleasing *)outError;
 
 - (instancetype)replyWithControlData:(NSDictionary *)inControlData metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
-- (instancetype)replyWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
-
-// Convenience...
-+ (NSDictionary *)controlDataWithCommand:(NSString *)inCommand replyTo:(STYMessage *)inMessage moreComing:(BOOL)inMoreComing extras:(NSDictionary *)inExtras;
+//- (instancetype)replyWithCommand:(NSString *)inCommand metadata:(NSDictionary *)inMetadata data:(NSData *)inData;
 
 // Convenience property accessors
 @property (readonly, nonatomic, copy) NSString *command;

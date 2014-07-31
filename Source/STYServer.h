@@ -26,7 +26,7 @@
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
 
-@property (readonly, nonatomic, copy) NSSet *peers;
+@property (readonly, nonatomic, copy) NSArray *peers;
 
 @property (readonly, nonatomic) BOOL listening;
 @property (readonly, nonatomic) BOOL publishing;
@@ -46,6 +46,7 @@
 @optional
 - (BOOL)server:(STYServer *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
 - (Class)server:(STYServer *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
+- (void)server:(STYServer *)inServer peerWillConnect:(STYMessagingPeer *)inPeer;
 - (void)server:(STYServer *)inServer peerDidConnect:(STYMessagingPeer *)inPeer;
 - (void)server:(STYServer *)inServer peerDidDisconnect:(STYMessagingPeer *)inPeer;
 
