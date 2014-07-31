@@ -7,13 +7,14 @@
 //
 
 import Cocoa
-
+import Shanty
 
 class AppDelegate: NSObject, NSApplicationDelegate {
         
     var mainWindowController : MainWindowController!
 
     func applicationDidFinishLaunching(aNotification: NSNotification?) {
+        STYSetLoggingEnabled(true)
         self.mainWindowController = MainWindowController(windowNibName: "MainWindowController")
         self.mainWindowController.window.makeKeyAndOrderFront(nil)
     

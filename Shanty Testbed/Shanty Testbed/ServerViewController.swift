@@ -37,8 +37,8 @@ class ServerViewController: NSViewController {
             port_ = UInt32(self.port!.unsignedIntegerValue)
         }
 
-        let address = self.useLoopback ? STYAddress(loopbackAddress: port_) : STYAddress(anyAddress: port_)
-        self.server = STYServer(listeningAddress:address, netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server = STYServer(listeningAddress:STYAddress(anyAddress: port_), netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server.publishOnLocalhostOnly = self.useLoopback
         self.server.startListening() {
             error in
 //            println(error)
