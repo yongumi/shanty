@@ -230,7 +230,7 @@
         {
         NSError *theUnderlyingError = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:NULL];
         NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:@{ NSLocalizedDescriptionKey: @"Could not create socket", NSUnderlyingErrorKey: theUnderlyingError }];
-        STYLogError_(@"Could not create socket and connect it");
+        STYLogError_(@"Could not create socket and connect it: %@", theUnderlyingError);
        
         inCompletion(theError);
         return;
