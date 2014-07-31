@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,7 +17,7 @@
                BlueprintIdentifier = "45E6A596185F8F2000F87958"
                BuildableName = "Shanty iOS Framework"
                BlueprintName = "Shanty iOS Framework"
-               ReferencedContainer = "container:Shanty.xcodeproj">
+               ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45E6A596185F8F2000F87958"
+            BuildableName = "Shanty iOS Framework"
+            BlueprintName = "Shanty iOS Framework"
+            ReferencedContainer = "container:shanty.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

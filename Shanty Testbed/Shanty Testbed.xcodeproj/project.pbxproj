@@ -16,6 +16,7 @@
 		4571C8D6197EF9080076C0D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4571C8D5197EF9080076C0D5 /* Images.xcassets */; };
 		4581B3A0198060B800B227E3 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4581B39F198060B800B227E3 /* Application.xib */; };
 		45CD31291982DFCB00EB6551 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD31281982DFCB00EB6551 /* ClientViewController.swift */; };
+		45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
 		45E49518198184E1001D8588 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E49517198184E1001D8588 /* ServerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,19 @@
 			remoteInfo = "Shanty Mac OS X Tests";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		45D6E9891989703600FF6AFE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4518065D19881B6F0083CC28 /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
@@ -142,6 +156,7 @@
 				4571C8C6197EF9070076C0D5 /* Sources */,
 				4571C8C7197EF9070076C0D5 /* Frameworks */,
 				4571C8C8197EF9070076C0D5 /* Resources */,
+				45D6E9891989703600FF6AFE /* CopyFiles */,
 			);
 			buildRules = (
 			);

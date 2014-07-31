@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,7 +17,7 @@
                BlueprintIdentifier = "4518E30B185F90BA00B1B1D9"
                BuildableName = "Shanty.framework"
                BlueprintName = "Shanty OSX Framework"
-               ReferencedContainer = "container:Shanty.xcodeproj">
+               ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "45DA232B187E7BA700599FAC"
                BuildableName = "Shanty Mac OS X Tests.xctest"
                BlueprintName = "Shanty Mac OS X Tests"
-               ReferencedContainer = "container:Shanty.xcodeproj">
+               ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -49,6 +49,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4518E30B185F90BA00B1B1D9"
+            BuildableName = "Shanty.framework"
+            BlueprintName = "Shanty OSX Framework"
+            ReferencedContainer = "container:shanty.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
