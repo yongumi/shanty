@@ -21,6 +21,8 @@
 @property (readonly, nonatomic, copy) STYAddress *address;
 @property (readonly, nonatomic, copy) STYAddress *actualAddress;
 
+@property (readwrite, nonatomic) BOOL publishOnLocalhostOnly;
+
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
 @property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
 
