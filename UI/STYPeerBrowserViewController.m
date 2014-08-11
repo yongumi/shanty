@@ -10,7 +10,7 @@
 
 #import <Shanty/Shanty.h>
 
-@interface STYPeerBrowserViewController () <STYServiceDiscovererDelegate>
+@interface STYPeerBrowserViewController ()
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
 @property (readwrite, nonatomic, assign) IBOutlet NSArrayController *servicesArrayController;
 @end
@@ -30,7 +30,6 @@
     [super loadView];
 
     self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
-    self.discoverer.delegate = self;
     [self.discoverer start];
     }
 
@@ -46,7 +45,6 @@
         if (/*self.isViewLoaded && */ _netServiceType != NULL)
             {
             self.discoverer = [[STYServiceDiscoverer alloc] initWithType:self.netServiceType domain:self.netServiceDomain];
-            self.discoverer.delegate = self;
             [self.discoverer start];
             }
         }
@@ -58,27 +56,30 @@
 
     __weak typeof(self) weak_self = self;
     
-    [self.discoverer connectToService:theSelectedService openPeer:NO completion:^(STYMessagingPeer *peer, NSError *error) {
-        __strong typeof(weak_self) strong_self = weak_self;
+    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:theSelectedService];
+    STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
+    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
+    [self.delegate peerBrowser:self willConnectToPeer:thePeer];
+    
+    __strong typeof(weak_self) strong_self = weak_self;
 
-        [peer open:^(NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error != NULL)
+    [thePeer open:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error != NULL)
+                {
+                STYLogError_(@"Could not connect");
+                if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didfailToConnect:)])
                     {
-                    STYLogError_(@"Could not connect");
-                    if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didfailToConnect:)])
-                        {
-                        [strong_self.delegate peerBrowser:strong_self didfailToConnect:error];
-                        }
-                    return;
+                    [strong_self.delegate peerBrowser:strong_self didfailToConnect:error];
                     }
+                return;
+                }
 
-                if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
-                    {
-                    [strong_self.delegate peerBrowser:strong_self didConnectToPeer:peer];
-                    }
-                });
-            }];
+            if ([strong_self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
+                {
+                [strong_self.delegate peerBrowser:strong_self didConnectToPeer:thePeer];
+                }
+            });
         }];
     }
 
@@ -89,22 +90,5 @@
         [self.delegate peerBrowserDidCancel:self];
         }
     }
-
-- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didCreatePeer:(STYMessagingPeer *)inPeer
-    {
-    if ([self.delegate respondsToSelector:@selector(peerBrowser:willConnectToPeer:)])
-        {
-        [self.delegate peerBrowser:self willConnectToPeer:inPeer];
-        }
-    }
-    
-- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didOpenPeer:(STYMessagingPeer *)inPeer
-    {
-    if ([self.delegate respondsToSelector:@selector(peerBrowser:didConnectToPeer:)])
-        {
-        [self.delegate peerBrowser:self didConnectToPeer:inPeer];
-        }
-    }
-
 
 @end

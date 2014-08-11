@@ -10,7 +10,6 @@
 
 #import "STYAddress.h"
 #import "STYSocket.h"
-#import "STYMessagingPeer.h"
 #import "STYSocket.h"
 #import "STYLogger.h"
 
@@ -95,43 +94,6 @@
 - (NSSet *)services
     {
     return(self.mutableServices);
-    }
-
-#pragma mark -
-
-- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler
-    {
-    NSParameterAssert(inNetService);
-    NSParameterAssert(handler);
-
-    STYAddress *theAddress = [[STYAddress alloc] initWithNetService:inNetService];
-    STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
-    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:inNetService.name];
-    if ([self.delegate respondsToSelector:@selector(serviceDiscoverer:didCreatePeer:)])
-        {
-        [self.delegate serviceDiscoverer:self didCreatePeer:thePeer];
-        }
-    if (inOpenPeer == YES)
-        {
-        [thePeer open:^(NSError *error) {
-            if (error == NULL)
-                {
-                if ([self.delegate respondsToSelector:@selector(serviceDiscoverer:didOpenPeer:)])
-                    {
-                    [self.delegate serviceDiscoverer:self didOpenPeer:thePeer];
-                    }
-                handler(thePeer, NULL);
-                }
-            else
-                {
-                handler(NULL, error);
-                }
-            }];
-        }
-    else
-        {
-        handler(thePeer, NULL);
-        }
     }
 
 #pragma mark -

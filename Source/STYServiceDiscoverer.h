@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class STYMessagingPeer;
-@class STYMessageHandler;
-
 @protocol STYServiceDiscovererDelegate;
 
 @interface STYServiceDiscoverer : NSObject
@@ -18,7 +15,6 @@
 @property (readonly, nonatomic, copy) NSString *type;
 @property (readonly, nonatomic, copy) NSString *domain;
 @property (readonly, nonatomic) NSSet *services;
-@property (readwrite, nonatomic, weak) id <STYServiceDiscovererDelegate> delegate;
 
 - (instancetype)initWithType:(NSString *)inType domain:(NSString *)inDomain;
 - (instancetype)initWithType:(NSString *)inType;
@@ -33,14 +29,4 @@
  */
 - (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError;
 
-- (void)connectToService:(NSNetService *)inNetService openPeer:(BOOL)inOpenPeer completion:(void (^)(STYMessagingPeer *peer, NSError *error))handler;
-
-@end
-
-#pragma mark -
-
-@protocol STYServiceDiscovererDelegate <NSObject>
-@optional
-- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didCreatePeer:(STYMessagingPeer *)inPeer;
-- (void)serviceDiscoverer:(STYServiceDiscoverer *)inDiscoverer didOpenPeer:(STYMessagingPeer *)inPeer;
 @end
