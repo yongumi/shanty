@@ -16,7 +16,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#import "STYMessagingPeer.h"
+#import "STYPeer.h"
 #import "STYMessageHandler.h"
 #import "STYSocket.h"
 #import "STYAddress.h"
@@ -183,7 +183,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
             }
         }
 
-    Class theClass = [STYMessagingPeer class];
+    Class theClass = [STYPeer class];
     if ([self.delegate respondsToSelector:@selector(server:classForPeerWithSocket:)])
         {
         theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
@@ -192,7 +192,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
     STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
 
-    STYMessagingPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
+    STYPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
     thePeer.messageHandler = self.messageHandler;
 
     if ([self.delegate respondsToSelector:@selector(server:peerWillConnect:)])

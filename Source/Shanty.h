@@ -8,7 +8,7 @@
 #import <Shanty/STYLogger.h>
 #import <Shanty/STYMessage.h>
 #import <Shanty/STYMessageHandler.h>
-#import <Shanty/STYMessagingPeer.h>
+#import <Shanty/STYPeer.h>
 #import <Shanty/STYServer.h>
 #import <Shanty/STYServiceDiscoverer.h>
 #import <Shanty/STYServicePublisher.h>

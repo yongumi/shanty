@@ -22,9 +22,9 @@ int main(int argc, const char * argv[])
         NSLog(@"%@", theNetService);
 
         __block BOOL theFlag = NO;
-        __block STYMessagingPeer *thePeer = NULL;
+        __block STYPeer *thePeer = NULL;
 
-        [theDiscoverer connectToService:theNetService openPeer:YES completion:^(STYMessagingPeer *peer, NSError *error) {
+        [theDiscoverer connectToService:theNetService openPeer:YES completion:^(STYPeer *peer, NSError *error) {
             NSLog(@"CONNECTED");
             thePeer = peer;
             theFlag = YES;

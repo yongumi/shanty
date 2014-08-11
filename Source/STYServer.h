@@ -11,7 +11,7 @@
 #import "STYCompletionBlocks.h"
 
 @class STYMessageHandler;
-@class STYMessagingPeer;
+@class STYPeer;
 @class STYAddress;
 
 @protocol STYServerDelegate;
@@ -46,8 +46,8 @@
 @optional
 - (BOOL)server:(STYServer *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
 - (Class)server:(STYServer *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
-- (void)server:(STYServer *)inServer peerWillConnect:(STYMessagingPeer *)inPeer;
-- (void)server:(STYServer *)inServer peerDidConnect:(STYMessagingPeer *)inPeer;
-- (void)server:(STYServer *)inServer peerDidDisconnect:(STYMessagingPeer *)inPeer;
+- (void)server:(STYServer *)inServer peerWillConnect:(STYPeer *)inPeer;
+- (void)server:(STYServer *)inServer peerDidConnect:(STYPeer *)inPeer;
+- (void)server:(STYServer *)inServer peerDidDisconnect:(STYPeer *)inPeer;
 
 @end

@@ -1,12 +1,12 @@
 //
-//  STYMessagingPeer.m
+//  STYPeer.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "STYMessagingPeer.h"
+#import "STYPeer.h"
 
 #import "STYMessage.h"
 #import "STYDataScanner+Message.h"
@@ -16,7 +16,7 @@
 #import "STYSocket.h"
 #import "STYLogger.h"
 
-@interface STYMessagingPeer () <STYSocketDelegate>
+@interface STYPeer () <STYSocketDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, nonatomic) STYSocket *socket;
 @property (readwrite, nonatomic) STYAddress *peerAddress;
@@ -29,7 +29,7 @@
 
 #pragma mark -
 
-@implementation STYMessagingPeer
+@implementation STYPeer
 
 - (instancetype)init
     {

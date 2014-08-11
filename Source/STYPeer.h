@@ -1,5 +1,5 @@
 //
-//  STYMessagingPeer.h
+//  STYPeer.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/4/13.
@@ -19,14 +19,14 @@ typedef NS_ENUM(NSInteger, STYMessengerMode) {
 @class STYSocket;
 @class STYAddress;
 @class STYMessage;
-@class STYMessagingPeer;
+@class STYPeer;
 @class STYMessageHandler;
 
-typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError);
+typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError **outError);
 
-@protocol STYMessagingPeerDelegate;
+@protocol STYPeerDelegate;
 
-@interface STYMessagingPeer : NSObject
+@interface STYPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYSocket *socket;
@@ -35,7 +35,7 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 @property (readwrite, nonatomic) id userInfo;
 @property (readwrite, nonatomic, copy) STYMessageBlock tap;
 @property (readonly, nonatomic) BOOL open;
-@property (readwrite, nonatomic, weak) id <STYMessagingPeerDelegate> delegate;
+@property (readwrite, nonatomic, weak) id <STYPeerDelegate> delegate;
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
 
@@ -51,6 +51,6 @@ typedef BOOL (^STYMessageBlock)(STYMessagingPeer *inPeer, STYMessage *inMessage,
 
 #pragma mark -
 
-@protocol STYMessagingPeerDelegate <NSObject>
-- (void)peerDidClose:(STYMessagingPeer *)inPeer;
+@protocol STYPeerDelegate <NSObject>
+- (void)peerDidClose:(STYPeer *)inPeer;
 @end

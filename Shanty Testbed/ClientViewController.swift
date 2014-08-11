@@ -54,7 +54,9 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.hostingView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[view]-(0)-|", options:NSLayoutFormatOptions(0), metrics:nil, views:views))
     }
 
-    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, willConnectToPeer inPeer: STYMessagingPeer!) {
+    // MARK: Delegate methods
+
+    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, willConnectToPeer inPeer: STYPeer!) {
         inPeer.tap = {
             (peer, message, error) in
 

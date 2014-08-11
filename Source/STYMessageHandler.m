@@ -54,7 +54,7 @@
 
 - (void)_addSystemHandlers
     {
-    [self addCommand:kSTYHelloCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self addCommand:kSTYHelloCommand handler:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         NSDictionary *theControlData = @{
             kSTYCommandKey: kSTYHelloReplyCommand,
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
@@ -66,7 +66,7 @@
         return(YES);
         }];
 
-    [self addCommand:kSTYHelloReplyCommand handler:^(STYMessagingPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self addCommand:kSTYHelloReplyCommand handler:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         return(YES);
         }];
     }

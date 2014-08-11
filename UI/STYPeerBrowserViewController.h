@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class STYMessagingPeer;
+@class STYPeer;
 
 @protocol STYPeerBrowserViewControllerDelegate;
 
@@ -29,8 +29,8 @@
 
 @protocol STYPeerBrowserViewControllerDelegate <NSObject>
 @optional
-- (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController willConnectToPeer:(STYMessagingPeer *)inPeer;
-- (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didConnectToPeer:(STYMessagingPeer *)inPeer;
+- (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController willConnectToPeer:(STYPeer *)inPeer;
+- (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didConnectToPeer:(STYPeer *)inPeer;
 - (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didfailToConnect:(NSError *)inError;
 - (void)peerBrowserDidCancel:(STYPeerBrowserViewController *)inBrowserViewController;
 @end

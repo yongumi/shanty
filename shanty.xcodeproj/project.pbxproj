@@ -28,7 +28,7 @@
 		4518E33A185F90D300B1B1D9 /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE3185F85D7003DF921 /* STYDataScanner.m */; };
 		4518E33C185F90D400B1B1D9 /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE7185F85D7003DF921 /* STYMessage.m */; };
 		4518E33D185F90D400B1B1D9 /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE9185F85D7003DF921 /* STYMessageHandler.m */; };
-		4518E33E185F90D400B1B1D9 /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */; };
+		4518E33E185F90D400B1B1D9 /* STYPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYPeer.m */; };
 		4518E33F185F90D400B1B1D9 /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEED185F85D7003DF921 /* STYServer.m */; };
 		4518E340185F90D400B1B1D9 /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
 		452C012C1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,7 +45,7 @@
 		4538AEF4185F85D7003DF921 /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE3185F85D7003DF921 /* STYDataScanner.m */; };
 		4538AEF6185F85D7003DF921 /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE7185F85D7003DF921 /* STYMessage.m */; };
 		4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE9185F85D7003DF921 /* STYMessageHandler.m */; };
-		4538AEF8185F85D7003DF921 /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */; };
+		4538AEF8185F85D7003DF921 /* STYPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYPeer.m */; };
 		4538AEF9185F85D7003DF921 /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEED185F85D7003DF921 /* STYServer.m */; };
 		4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
 		4538AEFC185F88D2003DF921 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,7 +55,7 @@
 		4538AF02185F88D2003DF921 /* STYDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE2185F85D7003DF921 /* STYDataScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF04185F88D2003DF921 /* STYMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE6185F85D7003DF921 /* STYMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE8185F85D7003DF921 /* STYMessageHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF06185F88D2003DF921 /* STYMessagingPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYMessagingPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4538AF06185F88D2003DF921 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF07185F88D2003DF921 /* STYServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; };
@@ -82,7 +82,7 @@
 		45DA2341187E7C4700599FAC /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE3185F85D7003DF921 /* STYDataScanner.m */; };
 		45DA2343187E7C4700599FAC /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE7185F85D7003DF921 /* STYMessage.m */; };
 		45DA2344187E7C4700599FAC /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE9185F85D7003DF921 /* STYMessageHandler.m */; };
-		45DA2345187E7C4700599FAC /* STYMessagingPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */; };
+		45DA2345187E7C4700599FAC /* STYPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYPeer.m */; };
 		45DA2346187E7C4700599FAC /* STYServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEED185F85D7003DF921 /* STYServer.m */; };
 		45DA2347187E7C4700599FAC /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
@@ -96,7 +96,7 @@
 		45E90CA5185F92DB0060B938 /* STYDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE2185F85D7003DF921 /* STYDataScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA7185F92DB0060B938 /* STYMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE6185F85D7003DF921 /* STYMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA8185F92DB0060B938 /* STYMessageHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE8185F85D7003DF921 /* STYMessageHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E90CA9185F92DB0060B938 /* STYMessagingPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYMessagingPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45E90CA9185F92DB0060B938 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CAA185F92DB0060B938 /* STYServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CAB185F92DB0060B938 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CB6185F9B230060B938 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45E90CB2185F9B110060B938 /* InfoPlist.strings */; };
@@ -151,8 +151,8 @@
 		4538AEE7185F85D7003DF921 /* STYMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessage.m; sourceTree = "<group>"; };
 		4538AEE8185F85D7003DF921 /* STYMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYMessageHandler.h; sourceTree = "<group>"; };
 		4538AEE9185F85D7003DF921 /* STYMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessageHandler.m; sourceTree = "<group>"; };
-		4538AEEA185F85D7003DF921 /* STYMessagingPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYMessagingPeer.h; sourceTree = "<group>"; };
-		4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYMessagingPeer.m; sourceTree = "<group>"; };
+		4538AEEA185F85D7003DF921 /* STYPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeer.h; sourceTree = "<group>"; };
+		4538AEEB185F85D7003DF921 /* STYPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYPeer.m; sourceTree = "<group>"; };
 		4538AEEC185F85D7003DF921 /* STYServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYServer.h; sourceTree = "<group>"; };
 		4538AEED185F85D7003DF921 /* STYServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYServer.m; sourceTree = "<group>"; };
 		4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYServiceDiscoverer.h; sourceTree = "<group>"; };
@@ -255,8 +255,8 @@
 				4538AEE7185F85D7003DF921 /* STYMessage.m */,
 				4538AEE8185F85D7003DF921 /* STYMessageHandler.h */,
 				4538AEE9185F85D7003DF921 /* STYMessageHandler.m */,
-				4538AEEA185F85D7003DF921 /* STYMessagingPeer.h */,
-				4538AEEB185F85D7003DF921 /* STYMessagingPeer.m */,
+				4538AEEA185F85D7003DF921 /* STYPeer.h */,
+				4538AEEB185F85D7003DF921 /* STYPeer.m */,
 				4538AEEC185F85D7003DF921 /* STYServer.h */,
 				4538AEED185F85D7003DF921 /* STYServer.m */,
 				4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */,
@@ -364,7 +364,7 @@
 				45E90CA7185F92DB0060B938 /* STYMessage.h in Headers */,
 				45E90CA8185F92DB0060B938 /* STYMessageHandler.h in Headers */,
 				452C012D1876360900BF19DB /* STYConstants.h in Headers */,
-				45E90CA9185F92DB0060B938 /* STYMessagingPeer.h in Headers */,
+				45E90CA9185F92DB0060B938 /* STYPeer.h in Headers */,
 				452C013318763FA500BF19DB /* STYSocket.h in Headers */,
 				45E90CAA185F92DB0060B938 /* STYServer.h in Headers */,
 				45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */,
@@ -388,7 +388,7 @@
 				4538AF04185F88D2003DF921 /* STYMessage.h in Headers */,
 				453D8F021930155800743852 /* STYDebug.h in Headers */,
 				4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */,
-				4538AF06185F88D2003DF921 /* STYMessagingPeer.h in Headers */,
+				4538AF06185F88D2003DF921 /* STYPeer.h in Headers */,
 				452C012C1876360900BF19DB /* STYConstants.h in Headers */,
 				4538AF07185F88D2003DF921 /* STYServer.h in Headers */,
 				452C013218763FA500BF19DB /* STYSocket.h in Headers */,
@@ -546,7 +546,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4518E336185F90D300B1B1D9 /* NSNetService+STYUserInfo.m in Sources */,
-				4518E33E185F90D400B1B1D9 /* STYMessagingPeer.m in Sources */,
+				4518E33E185F90D400B1B1D9 /* STYPeer.m in Sources */,
 				452C012F1876360900BF19DB /* STYConstants.m in Sources */,
 				4580B00C192D45E600E1C6FE /* STYLogger.m in Sources */,
 				4518E339185F90D300B1B1D9 /* STYDataScanner+Message.m in Sources */,
@@ -567,7 +567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4538AEF8185F85D7003DF921 /* STYMessagingPeer.m in Sources */,
+				4538AEF8185F85D7003DF921 /* STYPeer.m in Sources */,
 				452C012E1876360900BF19DB /* STYConstants.m in Sources */,
 				4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */,
 				4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */,
@@ -588,7 +588,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45DA2345187E7C4700599FAC /* STYMessagingPeer.m in Sources */,
+				45DA2345187E7C4700599FAC /* STYPeer.m in Sources */,
 				45DA2348187E7C4700599FAC /* STYConstants.m in Sources */,
 				45DA2347187E7C4700599FAC /* STYServiceDiscoverer.m in Sources */,
 				45DA2344187E7C4700599FAC /* STYMessageHandler.m in Sources */,

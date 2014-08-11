@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "STYMessagingPeer.h"
+#import "STYPeer.h"
 
 // Misnamed. This isn't a handler. It's a "message handler manager"
 @interface STYMessageHandler : NSObject

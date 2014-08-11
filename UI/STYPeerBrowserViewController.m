@@ -58,7 +58,7 @@
     
     STYAddress *theAddress = [[STYAddress alloc] initWithNetService:theSelectedService];
     STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
-    STYMessagingPeer *thePeer = [[STYMessagingPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
+    STYPeer *thePeer = [[STYPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
     [self.delegate peerBrowser:self willConnectToPeer:thePeer];
     
     __strong typeof(weak_self) strong_self = weak_self;
