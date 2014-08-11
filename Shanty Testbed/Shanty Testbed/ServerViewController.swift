@@ -50,9 +50,6 @@ class ServerViewController: NSViewController, STYServerDelegate {
         self.server.publishOnLocalhostOnly = self.useLoopback
         self.server.startListening() {
             error in
-            println(error)
-            println(self.server.actualAddress)
-            println(self.server.listening)
             }
     }
 
