@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="STYPeerBrowserViewController">
@@ -17,27 +17,13 @@
             <rect key="frame" x="0.0" y="0.0" width="324" height="285"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hGI-Yh-AJD">
-                    <rect key="frame" x="127" y="242" width="71" height="24"/>
-                    <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="KDh-uC-CyU">
-                        <font key="font" metaFont="system"/>
-                        <segments>
-                            <segment image="NSListViewTemplate" width="32" enabled="NO" selected="YES">
-                                <nil key="label"/>
-                            </segment>
-                            <segment image="NSIconViewTemplate" width="32" tag="1">
-                                <nil key="label"/>
-                            </segment>
-                        </segments>
-                    </segmentedCell>
-                </segmentedControl>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WL-cF-7du">
-                    <rect key="frame" x="0.0" y="55" width="324" height="173"/>
+                    <rect key="frame" x="0.0" y="55" width="324" height="230"/>
                     <clipView key="contentView" id="lFW-wM-Fxj">
                         <rect key="frame" x="1" y="17" width="322" height="155"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="cmJ-sD-mEL" viewBased="YES" id="Uac-45-C75">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="Uac-45-C75">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,13 +80,28 @@
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="AWL-Dh-Aff">
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="cmJ-sD-mEL">
-                        <rect key="frame" x="0.0" y="0.0" width="322" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </tableHeaderView>
                 </scrollView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nq0-Il-UnL">
+                    <rect key="frame" x="136" y="13" width="82" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="iAp-gO-f7d"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3rL-nO-g4O">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancel:" target="-2" id="xj6-2A-1uN"/>
+                    </connections>
+                </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1sb-pE-08m">
                     <rect key="frame" x="218" y="13" width="92" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="vzk-r5-5vU"/>
+                    </constraints>
                     <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="unk-2J-diq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -113,31 +114,16 @@ DQ
                         <binding destination="rKT-Ie-50B" name="enabled" keyPath="selection.@count" id="RL1-jL-baK"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nq0-Il-UnL">
-                    <rect key="frame" x="14" y="13" width="82" height="32"/>
-                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3rL-nO-g4O">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                    </buttonCell>
-                    <connections>
-                        <action selector="cancel:" target="-2" id="xj6-2A-1uN"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
-                <constraint firstItem="0WL-cF-7du" firstAttribute="top" secondItem="hGI-Yh-AJD" secondAttribute="bottom" constant="16" id="Vxs-FK-52c"/>
-                <constraint firstAttribute="trailing" secondItem="0WL-cF-7du" secondAttribute="trailing" id="cvV-jJ-sMl"/>
-                <constraint firstItem="nq0-Il-UnL" firstAttribute="baseline" secondItem="1sb-pE-08m" secondAttribute="baseline" id="dt1-BO-C0l"/>
-                <constraint firstItem="nq0-Il-UnL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="eKQ-ez-7H2"/>
-                <constraint firstItem="nq0-Il-UnL" firstAttribute="top" secondItem="0WL-cF-7du" secondAttribute="bottom" constant="14" id="gWD-kc-NFT"/>
-                <constraint firstAttribute="bottom" secondItem="nq0-Il-UnL" secondAttribute="bottom" constant="20" symbolic="YES" id="gi1-48-tW9"/>
-                <constraint firstItem="0WL-cF-7du" firstAttribute="centerX" secondItem="hGI-Yh-AJD" secondAttribute="centerX" id="iW1-Ym-yVT"/>
-                <constraint firstItem="hGI-Yh-AJD" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="iZL-gW-AUg"/>
-                <constraint firstItem="0WL-cF-7du" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="vw8-6a-pY1"/>
-                <constraint firstAttribute="trailing" secondItem="1sb-pE-08m" secondAttribute="trailing" constant="20" symbolic="YES" id="xHD-Ci-wHn"/>
+                <constraint firstItem="1sb-pE-08m" firstAttribute="leading" secondItem="nq0-Il-UnL" secondAttribute="trailing" constant="12" symbolic="YES" id="0Du-Mb-ouF"/>
+                <constraint firstItem="nq0-Il-UnL" firstAttribute="top" secondItem="0WL-cF-7du" secondAttribute="bottom" constant="14" id="DUg-ae-Kbe"/>
+                <constraint firstAttribute="trailing" secondItem="1sb-pE-08m" secondAttribute="trailing" constant="20" symbolic="YES" id="MCu-uA-3IB"/>
+                <constraint firstItem="1sb-pE-08m" firstAttribute="baseline" secondItem="nq0-Il-UnL" secondAttribute="baseline" id="OgH-ah-bbb"/>
+                <constraint firstItem="0WL-cF-7du" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="ac1-Ly-uRZ"/>
+                <constraint firstAttribute="trailing" secondItem="0WL-cF-7du" secondAttribute="trailing" id="fcM-hl-D8F"/>
+                <constraint firstAttribute="bottom" secondItem="nq0-Il-UnL" secondAttribute="bottom" constant="20" symbolic="YES" id="hCL-Xw-JQS"/>
+                <constraint firstItem="0WL-cF-7du" firstAttribute="top" secondItem="1" secondAttribute="top" id="kYg-6U-dTf"/>
             </constraints>
             <point key="canvasLocation" x="457" y="301.5"/>
         </customView>
@@ -147,8 +133,4 @@ Gw
             </connections>
         </arrayController>
     </objects>
-    <resources>
-        <image name="NSIconViewTemplate" width="11" height="10"/>
-        <image name="NSListViewTemplate" width="11" height="10"/>
-    </resources>
 </document>
