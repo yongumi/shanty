@@ -10,7 +10,7 @@ import Cocoa
 
 import Shanty
 
-class ServerViewController: NSViewController {
+class ServerViewController: NSViewController, STYServerDelegate {
     var useLoopback : Bool
     var domain : String?
     var type : String?
@@ -23,12 +23,20 @@ class ServerViewController: NSViewController {
     @IBOutlet var startButton : NSButton?
     @IBOutlet var stopButton : NSButton?
 
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         self.useLoopback = true
         self.type = "_styexample._tcp"
 
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
     }
+    
+    required init(coder: NSCoder!) {
+        self.useLoopback = true
+        self.type = "_styexample._tcp"
+
+        super.init(coder:coder)
+    }
+
 
     @IBAction func serve(sender:AnyObject?) {
 
@@ -38,6 +46,7 @@ class ServerViewController: NSViewController {
         }
 
         self.server = STYServer(listeningAddress:STYAddress(anyAddress: port_), netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server.delegate = self
         self.server.publishOnLocalhostOnly = self.useLoopback
         self.server.startListening() {
             error in
@@ -50,4 +59,20 @@ class ServerViewController: NSViewController {
         self.server.stopListening(nil)
         self.server = nil
     }
+
+    func server(inServer: STYServer!, peerWillConnect inPeer: STYMessagingPeer!) {
+        inPeer.tap = {
+            (peer, message, error) in
+
+            dispatch_async(dispatch_get_main_queue()) {
+                messagesViewController.addMessage(message)
+            }
+
+            return true
+        }
+    }
+
+//    - (void)server:(STYServer *)inServer peerWillConnect:(STYMessagingPeer *)inPeer;
+
+
 }

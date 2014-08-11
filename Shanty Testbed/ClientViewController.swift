@@ -12,7 +12,15 @@ import Shanty
 
 class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelegate {
 
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    var browserViewController : STYPeerBrowserViewController!
+    @IBOutlet var hostingView : NSView!
+    var type : String! {
+        didSet {
+            self.browserViewController.netServiceType = type
+        }
+    }
+
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         self.type = "_styexample._tcp"
         self.browserViewController = STYPeerBrowserViewController()
         self.browserViewController.netServiceType = self.type
@@ -22,16 +30,17 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.browserViewController.delegate = self
     }
 
-    @IBOutlet var hostingView : NSView!
-    var type : String! {
-        didSet {
-            self.browserViewController.netServiceType = type
-        }
+    required init(coder: NSCoder!) {
+        self.type = "_styexample._tcp"
+        self.browserViewController = STYPeerBrowserViewController()
+        self.browserViewController.netServiceType = self.type
+
+        super.init(coder:coder)
+
+        self.browserViewController.delegate = self
     }
-    var browserViewController : STYPeerBrowserViewController!
 
     override func awakeFromNib() {
-    
         let hostedView = self.browserViewController.view
         hostedView.translatesAutoresizingMaskIntoConstraints = false
         self.hostingView.addSubview(hostedView)
@@ -44,8 +53,17 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.hostingView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[view]-(0)-|", options:NSLayoutFormatOptions(0), metrics:nil, views:views))
         self.hostingView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[view]-(0)-|", options:NSLayoutFormatOptions(0), metrics:nil, views:views))
     }
-    
-    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didConnectToPeer inPeer: STYMessagingPeer!) {
+
+    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, willConnectToPeer inPeer: STYMessagingPeer!) {
+        inPeer.tap = {
+            (peer, message, error) in
+
+            dispatch_async(dispatch_get_main_queue()) {
+                messagesViewController.addMessage(message)
+            }
+
+            return true
+        }
     }
     
     func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didfailToConnect inError: NSError!) {

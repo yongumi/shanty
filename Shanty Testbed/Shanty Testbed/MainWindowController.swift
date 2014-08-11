@@ -14,6 +14,7 @@ class MainWindowController: NSWindowController {
 
     var serverViewController : ServerViewController?
     var clientViewController : ClientViewController?
+    var messagesViewController : MessagesViewController?
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -29,7 +30,13 @@ class MainWindowController: NSWindowController {
         clientItem.label = "Client"
         clientItem.view = self.clientViewController!.view
         self.tabView!.addTabViewItem(clientItem)
-   
+
+        self.messagesViewController = MessagesViewController(nibName:"MessagesViewController", bundle:nil)
+        let messagesItem = NSTabViewItem(identifier: "Messages")
+        messagesItem.label = "Messages"
+        messagesItem.view = self.messagesViewController!.view
+        self.tabView!.addTabViewItem(messagesItem)
+
     }
-    
+
 }
