@@ -159,7 +159,6 @@
 
         if (error == NULL)
             {
-            NSParameterAssert(strong_self.tap != NULL);
             if (strong_self.tap)
                 {
                 strong_self.tap(strong_self, inMessage, NULL);
