@@ -18,7 +18,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
     var host : String?
     var port : NSNumber?
 
-    var server : STYServer!
+    dynamic var server : STYServer!
 
     @IBOutlet var startButton : NSButton?
     @IBOutlet var stopButton : NSButton?
@@ -50,8 +50,9 @@ class ServerViewController: NSViewController, STYServerDelegate {
         self.server.publishOnLocalhostOnly = self.useLoopback
         self.server.startListening() {
             error in
-//            println(error)
-//            println(self.server.actualAddress)
+            println(error)
+            println(self.server.actualAddress)
+            println(self.server.listening)
             }
     }
 
@@ -60,7 +61,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
         self.server = nil
     }
 
-    func server(inServer: STYServer!, peerWillConnect inPeer: STYMessagingPeer!) {
+    func server(inServer: STYServer!, peerWillConnect inPeer: STYPeer!) {
         inPeer.tap = {
             (peer, message, error) in
 
@@ -72,7 +73,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
         }
     }
 
-//    - (void)server:(STYServer *)inServer peerWillConnect:(STYMessagingPeer *)inPeer;
+//    - (void)server:(STYServer *)inServer peerWillConnect:(STYPeer *)inPeer;
 
 
 }
