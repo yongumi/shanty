@@ -161,7 +161,7 @@
             {
             if (strong_self.tap)
                 {
-                strong_self.tap(strong_self, inMessage, NULL);
+                strong_self.tap(strong_self, theMessage, NULL);
                 }
             }
 

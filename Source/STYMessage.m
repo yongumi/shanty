@@ -88,8 +88,6 @@
         _controlData = [theControlData copy];
         _metadata = [inMetadata copy];
         _data = [inData copy];
-        
-        NSLog(@"%@", self);
         }
     return self;
     }
