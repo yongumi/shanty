@@ -13,8 +13,6 @@
 #import "STYSocket.h"
 #import "STYLogger.h"
 
-// TODO - service discoverer should NOT create the peer. All references to peers should be removed from this code.
-
 @interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
 @property (readwrite, nonatomic) NSNetServiceBrowser *domainBrowser;
