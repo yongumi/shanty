@@ -21,6 +21,7 @@
 		45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
 		45E49518198184E1001D8588 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E49517198184E1001D8588 /* ServerViewController.swift */; };
+		45ED490A1999826700D59C94 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED49091999826700D59C94 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		45CD31281982DFCB00EB6551 /* ClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClientViewController.swift; path = ../ClientViewController.swift; sourceTree = "<group>"; };
 		45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shanty.xcodeproj; path = ../shanty.xcodeproj; sourceTree = "<group>"; };
 		45E49517198184E1001D8588 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
+		45ED49091999826700D59C94 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				451806671988450D0083CC28 /* ClientViewController.xib */,
 				4563C291198B03F5007BCB49 /* MessagesViewController.swift */,
 				4563C292198B03F5007BCB49 /* MessagesViewController.xib */,
+				45ED49091999826700D59C94 /* Utilities.swift */,
 				4571C8D5197EF9080076C0D5 /* Images.xcassets */,
 				4571C8CD197EF9080076C0D5 /* Supporting Files */,
 				4581B39F198060B800B227E3 /* Application.xib */,
@@ -259,6 +262,7 @@
 			files = (
 				4563C293198B03F5007BCB49 /* MessagesViewController.swift in Sources */,
 				45E49518198184E1001D8588 /* ServerViewController.swift in Sources */,
+				45ED490A1999826700D59C94 /* Utilities.swift in Sources */,
 				4571C8D4197EF9080076C0D5 /* AppDelegate.swift in Sources */,
 				4571C8D0197EF9080076C0D5 /* main.swift in Sources */,
 				45CD31291982DFCB00EB6551 /* ClientViewController.swift in Sources */,

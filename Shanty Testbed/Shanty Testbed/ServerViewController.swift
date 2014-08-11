@@ -39,7 +39,6 @@ class ServerViewController: NSViewController, STYServerDelegate {
 
 
     @IBAction func serve(sender:AnyObject?) {
-
         var port_ : UInt32 = 0
         if self.port != nil {
             port_ = UInt32(self.port!.unsignedIntegerValue)
@@ -50,7 +49,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
         self.server.publishOnLocalhostOnly = self.useLoopback
         self.server.startListening() {
             error in
-            }
+        }
     }
 
     @IBAction func stop(sender:AnyObject?) {

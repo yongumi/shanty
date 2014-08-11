@@ -18,6 +18,27 @@ class MessagesViewController: NSViewController {
     @IBOutlet var messagesArrayController : NSArrayController?
     @IBOutlet var messageArrayController : NSObjectController?
 
+    override class func load() {
+        BlockValueTransformer.register("MessageDirectionValueTransformer") { 
+            value in
+            
+            if let value = value as? NSNumber {
+            
+                let direction: STYMessageDirection = STYMessageDirection.fromRaw(value.integerValue)!
+                switch direction {
+                    case .Unknown:
+                        return "Unknown"
+                    case .Incoming:
+                        return "Incoming"
+                    case .Outgoing:
+                        return "Outgoing"
+                }
+            } else {
+                return nil
+            }
+        }
+    }
+
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         messagesViewController = self

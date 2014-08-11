@@ -17,19 +17,19 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXx-wU-TcX">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TXx-wU-TcX">
                     <rect key="frame" x="18" y="232" width="34" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="gGs-mQ-kRI"/>
+                    </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type" id="oGa-Ry-rd4">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGA-pA-c6O">
-                    <rect key="frame" x="58" y="230" width="96" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="96" id="PfH-bb-6Zw"/>
-                    </constraints>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VGA-pA-c6O">
+                    <rect key="frame" x="58" y="230" width="402" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EYb-ll-6ED">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -44,14 +44,15 @@
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="1QA-Ci-09C" firstAttribute="top" secondItem="VGA-pA-c6O" secondAttribute="bottom" constant="8" symbolic="YES" id="00u-S9-3Jk"/>
-                <constraint firstItem="VGA-pA-c6O" firstAttribute="baseline" secondItem="TXx-wU-TcX" secondAttribute="baseline" id="X5H-WO-5TY"/>
-                <constraint firstItem="TXx-wU-TcX" firstAttribute="leading" secondItem="1QA-Ci-09C" secondAttribute="leading" id="bhj-GF-3Jd"/>
-                <constraint firstItem="VGA-pA-c6O" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="dBN-xB-4Cf"/>
-                <constraint firstAttribute="trailing" secondItem="1QA-Ci-09C" secondAttribute="trailing" constant="20" symbolic="YES" id="gGG-Wn-QLz"/>
-                <constraint firstItem="VGA-pA-c6O" firstAttribute="leading" secondItem="TXx-wU-TcX" secondAttribute="trailing" constant="8" symbolic="YES" id="qYT-zI-0cg"/>
-                <constraint firstItem="TXx-wU-TcX" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="uLC-aD-8jK"/>
-                <constraint firstAttribute="bottom" secondItem="1QA-Ci-09C" secondAttribute="bottom" constant="20" symbolic="YES" id="uco-oM-fxO"/>
+                <constraint firstAttribute="trailing" secondItem="VGA-pA-c6O" secondAttribute="trailing" constant="20" symbolic="YES" id="1Yi-nZ-oLZ"/>
+                <constraint firstAttribute="bottom" secondItem="1QA-Ci-09C" secondAttribute="bottom" constant="20" symbolic="YES" id="902-Tm-sxI"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="trailing" secondItem="1QA-Ci-09C" secondAttribute="trailing" id="9z2-l7-LCB"/>
+                <constraint firstItem="1QA-Ci-09C" firstAttribute="top" secondItem="VGA-pA-c6O" secondAttribute="bottom" constant="8" symbolic="YES" id="DqM-1p-dAC"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="baseline" secondItem="TXx-wU-TcX" secondAttribute="baseline" id="J2X-Sh-Qq7"/>
+                <constraint firstItem="1QA-Ci-09C" firstAttribute="leading" secondItem="TXx-wU-TcX" secondAttribute="leading" id="kCz-o2-b42"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="tms-bs-wu4"/>
+                <constraint firstItem="TXx-wU-TcX" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="wnb-8Q-TPg"/>
+                <constraint firstItem="VGA-pA-c6O" firstAttribute="leading" secondItem="TXx-wU-TcX" secondAttribute="trailing" constant="8" symbolic="YES" id="xeR-YK-FHJ"/>
             </constraints>
             <point key="canvasLocation" x="259" y="244"/>
         </customView>
