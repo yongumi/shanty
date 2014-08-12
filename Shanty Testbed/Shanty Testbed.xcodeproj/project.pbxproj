@@ -11,12 +11,16 @@
 		45180665198825590083CC28 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45180663198825590083CC28 /* MainWindowController.swift */; };
 		45180666198825590083CC28 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45180664198825590083CC28 /* MainWindowController.xib */; };
 		451806681988450D0083CC28 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451806671988450D0083CC28 /* ClientViewController.xib */; };
+		452D5FBE19A6C011009B6DBE /* SendMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452D5FBD19A6C011009B6DBE /* SendMessageViewController.swift */; };
+		45319A1719A6AF49005A0F48 /* PeersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45319A1619A6AF49005A0F48 /* PeersViewController.storyboard */; };
 		4563C293198B03F5007BCB49 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4563C291198B03F5007BCB49 /* MessagesViewController.swift */; };
 		4563C294198B03F5007BCB49 /* MessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4563C292198B03F5007BCB49 /* MessagesViewController.xib */; };
 		4571C8D0197EF9080076C0D5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571C8CF197EF9080076C0D5 /* main.swift */; };
 		4571C8D4197EF9080076C0D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571C8D3197EF9080076C0D5 /* AppDelegate.swift */; };
 		4571C8D6197EF9080076C0D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4571C8D5197EF9080076C0D5 /* Images.xcassets */; };
 		4581B3A0198060B800B227E3 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4581B39F198060B800B227E3 /* Application.xib */; };
+		45BC27BB19A68F3300B65A4E /* PeersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BC27B919A68F3300B65A4E /* PeersViewController.swift */; };
+		45C854C619A2B9FB00AE8AE3 /* GlobalWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C854C519A2B9FB00AE8AE3 /* GlobalWindowManager.swift */; };
 		45CD31291982DFCB00EB6551 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD31281982DFCB00EB6551 /* ClientViewController.swift */; };
 		45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
@@ -73,6 +77,8 @@
 		45180663198825590083CC28 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		45180664198825590083CC28 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		451806671988450D0083CC28 /* ClientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClientViewController.xib; sourceTree = "<group>"; };
+		452D5FBD19A6C011009B6DBE /* SendMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMessageViewController.swift; sourceTree = "<group>"; };
+		45319A1619A6AF49005A0F48 /* PeersViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PeersViewController.storyboard; sourceTree = "<group>"; };
 		4563C291198B03F5007BCB49 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		4563C292198B03F5007BCB49 /* MessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesViewController.xib; sourceTree = "<group>"; };
 		4571C8CA197EF9070076C0D5 /* Shanty Testbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shanty Testbed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +87,8 @@
 		4571C8D3197EF9080076C0D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4571C8D5197EF9080076C0D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4581B39F198060B800B227E3 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
+		45BC27B919A68F3300B65A4E /* PeersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeersViewController.swift; sourceTree = "<group>"; };
+		45C854C519A2B9FB00AE8AE3 /* GlobalWindowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalWindowManager.swift; sourceTree = "<group>"; };
 		45CD31281982DFCB00EB6551 /* ClientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClientViewController.swift; path = ../ClientViewController.swift; sourceTree = "<group>"; };
 		45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shanty.xcodeproj; path = ../shanty.xcodeproj; sourceTree = "<group>"; };
 		45E49517198184E1001D8588 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +136,10 @@
 				451806671988450D0083CC28 /* ClientViewController.xib */,
 				4563C291198B03F5007BCB49 /* MessagesViewController.swift */,
 				4563C292198B03F5007BCB49 /* MessagesViewController.xib */,
+				45BC27B919A68F3300B65A4E /* PeersViewController.swift */,
+				45319A1619A6AF49005A0F48 /* PeersViewController.storyboard */,
+				45C854C519A2B9FB00AE8AE3 /* GlobalWindowManager.swift */,
+				452D5FBD19A6C011009B6DBE /* SendMessageViewController.swift */,
 				45ED49091999826700D59C94 /* Utilities.swift */,
 				4571C8D5197EF9080076C0D5 /* Images.xcassets */,
 				4571C8CD197EF9080076C0D5 /* Supporting Files */,
@@ -247,6 +259,7 @@
 				4563C294198B03F5007BCB49 /* MessagesViewController.xib in Resources */,
 				451806681988450D0083CC28 /* ClientViewController.xib in Resources */,
 				4518065E19881B6F0083CC28 /* ServerViewController.xib in Resources */,
+				45319A1719A6AF49005A0F48 /* PeersViewController.storyboard in Resources */,
 				4581B3A0198060B800B227E3 /* Application.xib in Resources */,
 				45180666198825590083CC28 /* MainWindowController.xib in Resources */,
 				4571C8D6197EF9080076C0D5 /* Images.xcassets in Resources */,
@@ -260,11 +273,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C854C619A2B9FB00AE8AE3 /* GlobalWindowManager.swift in Sources */,
 				4563C293198B03F5007BCB49 /* MessagesViewController.swift in Sources */,
 				45E49518198184E1001D8588 /* ServerViewController.swift in Sources */,
 				45ED490A1999826700D59C94 /* Utilities.swift in Sources */,
 				4571C8D4197EF9080076C0D5 /* AppDelegate.swift in Sources */,
 				4571C8D0197EF9080076C0D5 /* main.swift in Sources */,
+				452D5FBE19A6C011009B6DBE /* SendMessageViewController.swift in Sources */,
+				45BC27BB19A68F3300B65A4E /* PeersViewController.swift in Sources */,
 				45CD31291982DFCB00EB6551 /* ClientViewController.swift in Sources */,
 				45180665198825590083CC28 /* MainWindowController.swift in Sources */,
 			);

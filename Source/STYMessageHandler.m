@@ -12,7 +12,7 @@
 #import "STYConstants.h"
 
 @interface STYMessageHandler ()
-@property (readwrite, nonatomic) NSMutableArray *handlers;
+@property (readwrite, nonatomic) NSMutableArray *blocks;
 @end
 
 #pragma mark -
@@ -23,52 +23,31 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _handlers = [NSMutableArray array];
-
-        [self _addSystemHandlers];
+        _blocks = [NSMutableArray array];
         }
     return self;
     }
 
-- (void)addCommand:(NSString *)inCommand handler:(STYMessageBlock)inBlock;
+- (void)addCommand:(NSString *)inCommand block:(STYMessageBlock)inBlock;
     {
-    [self.handlers insertObject:@[ inCommand ?: [NSNull null], inBlock ] atIndex:0];
+    [self.blocks insertObject:@[ inCommand ?: [NSNull null], inBlock ] atIndex:0];
     }
 
-- (NSArray *)handlersForMessage:(STYMessage *)inMessage;
+- (NSArray *)blocksForMessage:(STYMessage *)inMessage;
     {
-    NSMutableArray *theHandlers = [NSMutableArray array];
+    NSMutableArray *theBlocks = [NSMutableArray array];
 
-    for (NSArray *theHandler in self.handlers)
+    for (NSArray *theRecord in self.blocks)
         {
-        id theCommand = theHandler[0];
-        STYMessageBlock theBlock = theHandler[1];
+        id theCommand = theRecord[0];
+        STYMessageBlock theBlock = theRecord[1];
         if (theCommand == [NSNull null] || [inMessage.controlData[kSTYCommandKey] isEqualToString:theCommand])
             {
-            [theHandlers addObject:theBlock];
+            [theBlocks addObject:theBlock];
             }
         }
 
-    return(theHandlers);
-    }
-
-- (void)_addSystemHandlers
-    {
-    [self addCommand:kSTYHelloCommand handler:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-        NSDictionary *theControlData = @{
-            kSTYCommandKey: kSTYHelloReplyCommand,
-            kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
-            };
-
-        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
-        [inPeer sendMessage:theResponse completion:NULL];
-
-        return(YES);
-        }];
-
-    [self addCommand:kSTYHelloReplyCommand handler:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-        return(YES);
-        }];
+    return(theBlocks);
     }
 
 @end

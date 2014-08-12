@@ -18,13 +18,14 @@
 
 @interface STYPeer () <STYSocketDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
+@property (readwrite, nonatomic) STYPeerState state;
 @property (readwrite, nonatomic) STYSocket *socket;
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYAddress *peerAddress;
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
 @property (readwrite, nonatomic) NSMutableDictionary *handlersForReplies; // TODO rename blocksForReplies
-@property (readwrite, nonatomic) BOOL open;
 @end
 
 #pragma mark -
@@ -38,7 +39,7 @@
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
         _handlersForReplies = [NSMutableDictionary dictionary];
-        _messageHandler = [[STYMessageHandler alloc] init];
+        _UUID = [NSUUID UUID];
         }
     return self;
     }
@@ -54,6 +55,25 @@
         _socket = inSocket;
         _socket.delegate = self;
         _name = [inName copy];
+        _systemHandler = [[STYMessageHandler alloc] init];
+
+        __weak typeof(self) weak_self = self;
+
+        // TODO: Technically we only need this if the peer is a server.
+        [_systemHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+            __strong typeof(self) strong_self = weak_self;
+            NSDictionary *theControlData = @{
+                kSTYCommandKey: kSTYHelloReplyCommand,
+                kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
+                };
+
+            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
+            [inPeer sendMessage:theResponse completion:NULL];
+
+            strong_self.state = kSTYPeerStateReady;
+
+            return(YES);
+            }];
         }
     return self;
     }
@@ -65,13 +85,15 @@
 
 - (NSString *)description
     {
-    return([NSString stringWithFormat:@"%@ (%d, %@, %@)", [super description], (int)self.mode, self.socket, self.name]);
+    return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
     }
 
 - (void)open:(STYCompletionBlock)inCompletion
     {
     NSParameterAssert(self.socket != NULL);
-    NSParameterAssert(self.open == NO);
+    NSParameterAssert(self.state == kSTYPeerStateUndefined);
+
+    self.state = kSTYPeerStateOpening;
 
     __weak typeof(self) weak_self = self;
     [self.socket open:^(NSError *error) {
@@ -100,17 +122,15 @@
             strong_self.peerAddress = strong_self.socket.peerAddress;
             }
 
-        strong_self.open = YES;
-
         [strong_self _didOpen:inCompletion];
         }];
     }
 
 - (void)close:(STYCompletionBlock)inCompletion
     {
-    if (self.open == NO)
+    if (self.state == kSTYPeerStateClosed)
         {
-        STYLogWarning_(@"Trying to close an already closed Peer");
+        STYLogWarning_(@"%@: Trying to close an already closed Peer", self);
         #warning TODO - call inCompletion with error?
         return;
         }
@@ -118,7 +138,9 @@
         {
         [self.delegate peerDidClose:self];
         }
-    self.open = NO;
+
+    self.state = kSTYPeerStateClosed;
+
     [self.socket close:inCompletion];
     }
 
@@ -176,10 +198,19 @@
 
 - (void)_didOpen:(STYCompletionBlock)inCompletion
     {
+    NSParameterAssert(self.state == kSTYPeerStateOpening);
+    self.state = kSTYPeerStateHandshaking;
+
     if (self.mode == kSTYMessengerModeClient)
         {
         STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
-        [self sendMessage:theMessage completion:inCompletion];
+
+        STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+            self.state = kSTYPeerStateReady;
+            return YES;
+            };
+
+        [self sendMessage:theMessage replyHandler:theReplyHandler completion:inCompletion];
         }
     else
         {
@@ -194,8 +225,6 @@
     {
     STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
     theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
-    // void* originalPointer = (__bridge void*)self;
-    // void* originalSocket = (__bridge void*)self.socket;
 
     __weak typeof(self) weak_self = self;
     dispatch_io_read(self.socket.channel, 0, SIZE_MAX, self.socket.queue, ^(bool done, dispatch_data_t data, int error) {
@@ -213,7 +242,7 @@
         if (error != 0)
             {
             /// TODO handle error (via completion block)
-            STYLogError_(@"dispatch_io_read: %d", error);
+            STYLogError_(@"%@: dispatch_io_read: %d", self, error);
             return;
             }
 
@@ -239,7 +268,7 @@
             {
             strong_self.data = [theDataScanner remainingData];
 
-            if (error == 0 && dispatch_data_get_size(data) == 0 && strong_self.open == YES)
+            if (error == 0 && dispatch_data_get_size(data) == 0)
                 {
                 [strong_self close:NULL];
                 }
@@ -265,47 +294,63 @@
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
-    BOOL theResult = NO;
+    BOOL theHandledFlag = NO;
 
     NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
     if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
         {
-        STYLogError_(@"Message id mismatch.");
+        STYLogError_(@"%@: Message id mismatch.", self);
         return(NO);
         }
 
     self.lastIncomingMessageID = incoming_message_id;
 
-    STYMessageBlock theHandler = self.handlersForReplies[inMessage.controlData[kSTYInReplyToKey]];
-    if (theHandler)
+    STYMessageBlock theBlock = self.handlersForReplies[inMessage.controlData[kSTYInReplyToKey]];
+    if (theBlock)
         {
-        theResult = theHandler(self, inMessage, outError);
-
+        theHandledFlag = theBlock(self, inMessage, outError);
         if (inMessage.moreComing == NO)
             {
             [self.handlersForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
             }
+        }
 
-        if (theResult == YES)
+    if (theHandledFlag == NO)
+        {
+        NSMutableArray *theHandlers = [NSMutableArray arrayWithObjects:self.systemHandler, NULL];
+
+        if (self.messageHandler == NULL)
             {
-            return(theResult);;
+            STYLogWarning_(@"%@: No handlers", self);
+            }
+        else
+            {
+            [theHandlers addObject:self.messageHandler];
+            }
+
+
+        for (STYMessageHandler *theHandler in theHandlers)
+            {
+            NSArray *theBlocks = [theHandler blocksForMessage:inMessage];
+            for (theBlock in theBlocks)
+                {
+                theHandledFlag = theBlock(self, inMessage, outError);
+                if (theHandledFlag == YES)
+                    {
+                    break;
+                    }
+                }
+
+            if (theHandledFlag == YES)
+                {
+                break;
+                }
             }
         }
 
-    NSArray *theHandlers = [self.messageHandler handlersForMessage:inMessage];
-    if (theHandlers.count == 0)
+    if (theHandledFlag == NO)
         {
-        STYLogWarning_(@"No handler for message: %@", inMessage.controlData);
-        return(NO);
-        }
-
-    for (theHandler in theHandlers)
-        {
-        theResult = theHandler(self, inMessage, outError);
-        if (theResult == YES)
-            {
-            break;
-            }
+        STYLogWarning_(@"%@: No handler for message: %@", self, inMessage.controlData);
         }
 
     if ([inMessage.controlData[kSTYCloseKey] boolValue] == YES)
@@ -314,7 +359,7 @@
         [self close:NULL];
         }
 
-    return(theResult);
+    return(theHandledFlag);
     }
 
 #pragma mark -

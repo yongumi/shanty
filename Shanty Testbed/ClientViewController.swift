@@ -26,6 +26,7 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.browserViewController.netServiceType = self.type
 
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
+        self.title = "Client"
 
         self.browserViewController.delegate = self
     }
@@ -36,6 +37,7 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.browserViewController.netServiceType = self.type
 
         super.init(coder:coder)
+        self.title = "Client"
 
         self.browserViewController.delegate = self
     }
@@ -61,17 +63,15 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
             (peer, message, error) in
 
             dispatch_async(dispatch_get_main_queue()) {
-                messagesViewController.addMessage(message)
+                messagesViewController.addMessage(peer, message:message)
             }
 
             return true
         }
     }
     
-    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didfailToConnect inError: NSError!) {
+    func peerBrowser(inBrowserViewController: STYPeerBrowserViewController!, didCreatePeer inPeer: STYPeer!) {
+        peersViewController.addPeer(inPeer)
     }
-    
-    func peerBrowserDidCancel(inBrowserViewController: STYPeerBrowserViewController!) {
-    }
-    
+
 }

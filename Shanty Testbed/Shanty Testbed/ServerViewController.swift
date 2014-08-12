@@ -11,12 +11,13 @@ import Cocoa
 import Shanty
 
 class ServerViewController: NSViewController, STYServerDelegate {
-    var useLoopback : Bool
+    var useLoopback : Bool = true
     var domain : String?
-    var type : String?
+    var type : String = "_styexample._tcp"
     var name : String?
     var host : String?
     var port : NSNumber?
+    var code : String = STYServer.randomCode()
 
     dynamic var server : STYServer!
 
@@ -24,19 +25,18 @@ class ServerViewController: NSViewController, STYServerDelegate {
     @IBOutlet var stopButton : NSButton?
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-        self.useLoopback = true
-        self.type = "_styexample._tcp"
-
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
+        self._setup()
     }
     
     required init(coder: NSCoder!) {
-        self.useLoopback = true
-        self.type = "_styexample._tcp"
-
         super.init(coder:coder)
+        self._setup()
     }
 
+    internal func _setup() {
+        self.title = "Server"
+    }
 
     @IBAction func serve(sender:AnyObject?) {
         var port_ : UInt32 = 0
@@ -62,14 +62,14 @@ class ServerViewController: NSViewController, STYServerDelegate {
             (peer, message, error) in
 
             dispatch_async(dispatch_get_main_queue()) {
-                messagesViewController.addMessage(message)
+                messagesViewController.addMessage(inPeer, message:message)
             }
 
             return true
         }
     }
 
-//    - (void)server:(STYServer *)inServer peerWillConnect:(STYPeer *)inPeer;
-
-
+    func server(inServer: STYServer!, didCreatePeer inPeer: STYPeer!) {
+        peersViewController.addPeer(inPeer)
+    }
 }

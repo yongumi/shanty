@@ -29,6 +29,7 @@
 
 @protocol STYPeerBrowserViewControllerDelegate <NSObject>
 @optional
+- (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didCreatePeer:(STYPeer *)inPeer;
 - (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController willConnectToPeer:(STYPeer *)inPeer;
 - (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didConnectToPeer:(STYPeer *)inPeer;
 - (void)peerBrowser:(STYPeerBrowserViewController *)inBrowserViewController didfailToConnect:(NSError *)inError;

@@ -10,20 +10,29 @@ import Cocoa
 
 import Shanty
 
+class Record : NSObject {
+    var peer : STYPeer?
+    var message : STYMessage
+    init(peer:STYPeer, message:STYMessage) {
+        self.peer = peer
+        self.message = message
+        super.init()
+    }
+}
+
 class MessagesViewController: NSViewController {
 
-    var messages : NSMutableArray = []
-    var selectedIndexes : NSMutableIndexSet?
+    dynamic var messages : [Record] = []
+    dynamic var selectionIndexes : NSIndexSet?
 
-    @IBOutlet var messagesArrayController : NSArrayController?
-    @IBOutlet var messageArrayController : NSObjectController?
+    @IBOutlet var messagesArrayController : NSArrayController!
+    @IBOutlet var selectedObjectController : NSObjectController!
 
     override class func load() {
         BlockValueTransformer.register("MessageDirectionValueTransformer") { 
             value in
             
             if let value = value as? NSNumber {
-            
                 let direction: STYMessageDirection = STYMessageDirection.fromRaw(value.integerValue)!
                 switch direction {
                     case .Unknown:
@@ -41,11 +50,13 @@ class MessagesViewController: NSViewController {
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.title = "Messages"
         messagesViewController = self
     }
 
     required init(coder: NSCoder!) {
         super.init(coder:coder)
+        self.title = "Messages"
         messagesViewController = self
     }
 
@@ -53,12 +64,9 @@ class MessagesViewController: NSViewController {
         super.viewDidLoad()
     }
 
-    func addMessage(message:STYMessage) {
-        self.willChangeValueForKey("messages")
-        messages.addObject(message)
-        self.didChangeValueForKey("messages")
+    func addMessage(peer:STYPeer, message:STYMessage) {
+        messages.append(Record(peer:peer, message:message))
     }
-    
 }
 
 var messagesViewController : MessagesViewController!

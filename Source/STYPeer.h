@@ -16,6 +16,17 @@ typedef NS_ENUM(NSInteger, STYMessengerMode) {
     kSTYMessengerModeServer
     };
 
+typedef NS_ENUM(NSInteger, STYPeerState) {
+    kSTYPeerStateUndefined,
+    kSTYPeerStateOpening,
+    kSTYPeerStateHandshaking,
+//    kSTYPeerStateChallengeResponse,
+    kSTYPeerStateReady,
+    kSTYPeerStateClosing,
+    kSTYPeerStateClosed,
+    kSTYPeerStateError,
+};
+
 @class STYSocket;
 @class STYAddress;
 @class STYMessage;
@@ -29,12 +40,13 @@ typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError 
 @interface STYPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
+@property (readonly, nonatomic) STYPeerState state;
 @property (readonly, nonatomic) STYSocket *socket;
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @property (readonly, nonatomic, copy) NSString *name;
+@property (readonly, nonatomic, copy) NSUUID *UUID;
 @property (readwrite, nonatomic) id userInfo;
 @property (readwrite, nonatomic, copy) STYMessageBlock tap;
-@property (readonly, nonatomic) BOOL open;
 @property (readwrite, nonatomic, weak) id <STYPeerDelegate> delegate;
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;

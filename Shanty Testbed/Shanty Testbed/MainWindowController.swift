@@ -12,9 +12,10 @@ class MainWindowController: NSWindowController {
 
     @IBOutlet var tabView : NSTabView?
 
-    var serverViewController : ServerViewController?
-    var clientViewController : ClientViewController?
-    var messagesViewController : MessagesViewController?
+    var serverViewController : ServerViewController!
+    var clientViewController : ClientViewController!
+    var messagesViewController : MessagesViewController!
+    var peersViewController : PeersViewController!
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -37,6 +38,17 @@ class MainWindowController: NSWindowController {
         messagesItem.view = self.messagesViewController!.view
         self.tabView!.addTabViewItem(messagesItem)
 
+        let storyboard = NSStoryboard(name:"PeersViewController", bundle:NSBundle(forClass: PeersViewController.self))
+        self.peersViewController = storyboard.instantiateInitialController() as PeersViewController
+        self.addViewController(self.peersViewController)
+    }
+
+    func addViewController(viewController:NSViewController) {
+
+        let item = NSTabViewItem(identifier: self.peersViewController.title)
+        item.label = self.peersViewController.title
+        item.view = self.peersViewController!.view
+        self.tabView!.addTabViewItem(item)
     }
 
 }

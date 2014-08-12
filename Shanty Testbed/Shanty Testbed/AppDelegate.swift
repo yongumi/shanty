@@ -18,6 +18,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.mainWindowController = MainWindowController(windowNibName: "MainWindowController")
         self.mainWindowController.window.makeKeyAndOrderFront(nil)
     
+
+//        self.serverViewController = ServerViewController(nibName:"ServerViewController", bundle:nil)
+//        GlobalWindowManager_shareInstance.addViewController(self.serverViewController)
+//
+//        self.clientViewController = ClientViewController(nibName:"ClientViewController", bundle:nil)
+//        GlobalWindowManager_shareInstance.addViewController(self.clientViewController)
+//
+//        self.messagesViewController = MessagesViewController(nibName:"MessagesViewController", bundle:nil)
+//        GlobalWindowManager_shareInstance.addViewController(self.messagesViewController)
+
+
     }
 
     func applicationWillTerminate(aNotification: NSNotification?) {

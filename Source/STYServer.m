@@ -41,6 +41,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 @implementation STYServer
 
++ (NSString *)randomCode
+    {
+    return [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(10), arc4random_uniform(10), arc4random_uniform(10), arc4random_uniform(10)];
+    }
+
 - (instancetype)initWithListeningAddress:(STYAddress *)inListeningAddress
     {
     if ((self = [super init]) != NULL)
@@ -193,6 +198,12 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
 
     STYPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
+    if ([self.delegate respondsToSelector:@selector(server:didCreatePeer:)])
+        {
+        [self.delegate server:self didCreatePeer:thePeer];
+        }
+
+
     thePeer.messageHandler = self.messageHandler;
 
     if ([self.delegate respondsToSelector:@selector(server:peerWillConnect:)])

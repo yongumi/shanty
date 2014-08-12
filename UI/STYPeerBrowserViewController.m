@@ -59,6 +59,12 @@
     STYAddress *theAddress = [[STYAddress alloc] initWithNetService:theSelectedService];
     STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
     STYPeer *thePeer = [[STYPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
+    if ([self.delegate respondsToSelector:@selector(peerBrowser:didCreatePeer:)])
+        {
+        [self.delegate peerBrowser:self didCreatePeer:thePeer];
+        }
+
+
     [self.delegate peerBrowser:self willConnectToPeer:thePeer];
     
     __strong typeof(weak_self) strong_self = weak_self;
