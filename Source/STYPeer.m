@@ -57,32 +57,7 @@
         _socket = inSocket;
         _socket.delegate = self;
         _name = [inName copy];
-        _systemHandler = [[STYMessageHandler alloc] init];
-
-        __weak typeof(self) weak_self = self;
-
-        // TODO: Technically we only need this if the peer is a server.
-        [_systemHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            __strong typeof(self) strong_self = weak_self;
-            if (strong_self == NULL)
-                {
-                STYLogWarning_(@"Self has been deallocated before block called.");
-                return NO;
-                }
-            
-            NSDictionary *theControlData = @{
-                kSTYCommandKey: kSTYHelloReplyCommand,
-                kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
-                };
-
-            STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
-            [inPeer sendMessage:theResponse completion:NULL];
-
-            NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
-            strong_self.state = kSTYPeerStateReady;
-
-            return(YES);
-            }];
+        _systemHandler = [self _makeSystemHandler];
         }
     return self;
     }
@@ -166,7 +141,20 @@
             strong_self.peerAddress = strong_self.socket.peerAddress;
             }
 
-        [strong_self _didOpen:inCompletion];
+        NSParameterAssert(strong_self.state == kSTYPeerStateOpening);
+        strong_self.state = kSTYPeerStateHandshaking;
+
+        if (strong_self.mode == kSTYMessengerModeClient)
+            {
+            [strong_self _performHandShake:inCompletion];
+            }
+        else
+            {
+            if (inCompletion)
+                {
+                inCompletion(NULL);
+                }
+            }
         }];
     }
 
@@ -239,42 +227,6 @@
         }];
     }
 
-#pragma mark -
-
-- (void)_didOpen:(STYCompletionBlock)inCompletion
-    {
-    NSParameterAssert(self.state == kSTYPeerStateOpening);
-    self.state = kSTYPeerStateHandshaking;
-
-    if (self.mode == kSTYMessengerModeClient)
-        {
-        STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
-
-        // TODO retaining self
-        __weak typeof(self) weak_self = self;
-        STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            __strong typeof(self) strong_self = weak_self;
-            if (strong_self == NULL)
-                {
-                STYLogWarning_(@"Self has been deallocated before block called.");
-                return NO;
-                }
-            NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
-            strong_self.state = kSTYPeerStateReady;
-            return YES;
-            };
-
-        [self sendMessage:theMessage replyHandler:theReplyHandler completion:inCompletion];
-        }
-    else
-        {
-        if (inCompletion)
-            {
-            inCompletion(NULL);
-            }
-        }
-    }
-    
 #pragma mark -
 
 - (void)_read:(STYCompletionBlock)inCompletion
@@ -391,7 +343,6 @@
             [theHandlers addObject:self.messageHandler];
             }
 
-
         for (STYMessageHandler *theHandler in theHandlers)
             {
             NSArray *theBlocks = [theHandler blocksForMessage:inMessage];
@@ -423,6 +374,67 @@
         }
 
     return(theHandledFlag);
+    }
+
+#pragma mark -
+
+- (STYMessageHandler *)_makeSystemHandler
+    {
+    STYMessageHandler *theHandler = [[STYMessageHandler alloc] init];
+
+    __weak typeof(self) weak_self = self;
+
+    // TODO: Technically we only need this if the peer is a server.
+    [theHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        __strong typeof(self) strong_self = weak_self;
+        if (strong_self == NULL)
+            {
+            STYLogWarning_(@"Self has been deallocated before block called.");
+            return NO;
+            }
+        
+        NSDictionary *theControlData = @{
+            kSTYCommandKey: kSTYHelloReplyCommand,
+            kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
+            };
+
+        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
+        [inPeer sendMessage:theResponse completion:NULL];
+
+        NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
+        strong_self.state = kSTYPeerStateReady;
+
+        return(YES);
+        }];
+        
+    return theHandler;
+    }
+
+- (void)_performHandShake:(STYCompletionBlock)inCompletion
+    {
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
+
+    // TODO retaining self
+    __weak typeof(self) weak_self = self;
+    STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+        __strong typeof(self) strong_self = weak_self;
+        if (strong_self == NULL)
+            {
+            STYLogWarning_(@"Self has been deallocated before block called.");
+            return NO;
+            }
+        
+        if (inCompletion != NULL)
+            {
+            inCompletion(NULL);
+            }
+            
+        NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
+        strong_self.state = kSTYPeerStateReady;
+        return YES;
+        };
+
+    [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
 #pragma mark -
