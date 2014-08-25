@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
     kSTYPeerStateHandshaking,
 //    kSTYPeerStateChallengeResponse,
     kSTYPeerStateReady,
-    kSTYPeerStateClosing,
+//    kSTYPeerStateClosing,
     kSTYPeerStateClosed,
     kSTYPeerStateError,
 };
@@ -42,6 +42,7 @@ typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYPeerState state;
 @property (readonly, nonatomic) STYSocket *socket;
+@property (readonly, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @property (readonly, nonatomic, copy) NSString *name;
 @property (readonly, nonatomic, copy) NSUUID *UUID;
@@ -64,5 +65,10 @@ typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError 
 #pragma mark -
 
 @protocol STYPeerDelegate <NSObject>
+@optional
+- (void)peerWillChangeState:(STYPeer *)inPeer oldState:(STYPeerState)inOldState newState:(STYPeerState)inNewState;
+- (void)peerDidChangeState:(STYPeer *)inPeer oldState:(STYPeerState)inOldState newState:(STYPeerState)inNewState;
+
+// TODO: Will be deprecated.
 - (void)peerDidClose:(STYPeer *)inPeer;
 @end

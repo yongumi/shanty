@@ -70,6 +70,7 @@
             STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
             [inPeer sendMessage:theResponse completion:NULL];
 
+            NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
             strong_self.state = kSTYPeerStateReady;
 
             return(YES);
@@ -88,11 +89,31 @@
     return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
     }
 
+- (void)setState:(STYPeerState)state
+    {
+    if (_state == state)
+        {
+        return;
+        }
+        
+    if ([self.delegate respondsToSelector:@selector(peerWillChangeState:oldState:newState:)] == YES)
+        {
+        [self.delegate peerWillChangeState:self oldState:_state newState:state];
+        }
+        
+    _state = state;
+
+    if ([self.delegate respondsToSelector:@selector(peerDidChangeState:oldState:newState:)] == YES)
+        {
+        [self.delegate peerDidChangeState:self oldState:_state newState:state];
+        }
+    }
+
 - (void)open:(STYCompletionBlock)inCompletion
     {
     NSParameterAssert(self.socket != NULL);
-    NSParameterAssert(self.state == kSTYPeerStateUndefined);
 
+    NSParameterAssert(self.state == kSTYPeerStateUndefined);
     self.state = kSTYPeerStateOpening;
 
     __weak typeof(self) weak_self = self;
@@ -139,6 +160,7 @@
         [self.delegate peerDidClose:self];
         }
 
+    NSParameterAssert(self.state == kSTYPeerStateReady);
     self.state = kSTYPeerStateClosed;
 
     [self.socket close:inCompletion];
@@ -205,7 +227,9 @@
         {
         STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
 
+        // TODO retaining self
         STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+            NSParameterAssert(self.state == kSTYPeerStateHandshaking);
             self.state = kSTYPeerStateReady;
             return YES;
             };
