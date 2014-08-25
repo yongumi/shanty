@@ -276,10 +276,17 @@
             return;
             }
 
-        if (error != 0)
+        if (error == ECANCELED)
+            {
+            return;
+            }
+        else if (error != 0)
             {
             /// TODO handle error (via completion block)
-            STYLogError_(@"%@: dispatch_io_read: %d", self, error);
+            
+            NSError *thePOSIXError = [NSError errorWithDomain:NSPOSIXErrorDomain code:error userInfo:NULL];
+            
+            STYLogError_(@"%@: dispatch_io_read: %@", self, thePOSIXError);
             return;
             }
 

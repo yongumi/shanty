@@ -82,6 +82,7 @@ class PeersViewController: NSViewController {
     
     @IBAction func closePeer(sender:NSMenuItem!) {
         let peer = self.peers[self.tableView.selectedRow]
+        println("Closing: \(peer)")
         peer.close(nil)
     }
 
