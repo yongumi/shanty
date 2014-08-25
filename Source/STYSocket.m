@@ -305,11 +305,14 @@
 
 static void MyCFSocketCallBack(CFSocketRef s, CFSocketCallBackType type, CFDataRef address, const void *data, void *info)
     {
-    STYLogDebug_(@"MyCFSocketCallBack: %d", type);
     if (type == kCFSocketConnectCallBack)
         {
         STYCompletionBlock theBlock = (__bridge STYCompletionBlock)info;
         theBlock(NULL);
+        }
+    else
+        {
+        STYLogWarning_(@"Unhandled MyCFSocketCallBack: %d", type);
         }
     }
 
