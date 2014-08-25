@@ -312,7 +312,7 @@
             {
             strong_self.data = [theDataScanner remainingData];
 
-            if (error == 0 && dispatch_data_get_size(data) == 0)
+            if (error == 0 && dispatch_data_get_size(data) == 0 && self.state != kSTYPeerStateClosed)
                 {
                 [strong_self close:NULL];
                 }
