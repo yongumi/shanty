@@ -62,6 +62,12 @@
         // TODO: Technically we only need this if the peer is a server.
         [_systemHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
             __strong typeof(self) strong_self = weak_self;
+            if (strong_self == NULL)
+                {
+                STYLogWarning_(@"Self has been deallocated before block called.");
+                return NO;
+                }
+            
             NSDictionary *theControlData = @{
                 kSTYCommandKey: kSTYHelloReplyCommand,
                 kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
@@ -228,9 +234,16 @@
         STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
 
         // TODO retaining self
+        __weak typeof(self) weak_self = self;
         STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-            NSParameterAssert(self.state == kSTYPeerStateHandshaking);
-            self.state = kSTYPeerStateReady;
+            __strong typeof(self) strong_self = weak_self;
+            if (strong_self == NULL)
+                {
+                STYLogWarning_(@"Self has been deallocated before block called.");
+                return NO;
+                }
+            NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
+            strong_self.state = kSTYPeerStateReady;
             return YES;
             };
 
