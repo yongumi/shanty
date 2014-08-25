@@ -18,12 +18,12 @@
 
 @interface STYPeer () <STYSocketDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
-@property (readwrite, nonatomic) STYPeerState state;
+@property (readwrite, atomic) STYPeerState state;
 @property (readwrite, nonatomic) STYSocket *socket;
 @property (readwrite, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYAddress *peerAddress;
-@property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
-@property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
+@property (readwrite, atomic) NSInteger nextOutgoingMessageID;
+@property (readwrite, atomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
@@ -31,6 +31,8 @@
 #pragma mark -
 
 @implementation STYPeer
+
+@synthesize state = _state;
 
 - (instancetype)init
     {
@@ -95,25 +97,40 @@
     return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
     }
 
-- (void)setState:(STYPeerState)state
+- (STYPeerState)state
     {
-    if (_state == state)
+    @synchronized(self)
         {
-        return;
-        }
-        
-    if ([self.delegate respondsToSelector:@selector(peerWillChangeState:oldState:newState:)] == YES)
-        {
-        [self.delegate peerWillChangeState:self oldState:_state newState:state];
-        }
-        
-    _state = state;
-
-    if ([self.delegate respondsToSelector:@selector(peerDidChangeState:oldState:newState:)] == YES)
-        {
-        [self.delegate peerDidChangeState:self oldState:_state newState:state];
+        return _state;
         }
     }
+
+- (void)setState:(STYPeerState)state
+    {
+    @synchronized(self)
+        {
+        STYLogDebug_(@"STATE CHANGE: %d -> %d", _state, state);
+
+        if (_state == state)
+            {
+            return;
+            }
+            
+        if ([self.delegate respondsToSelector:@selector(peerWillChangeState:oldState:newState:)] == YES)
+            {
+            [self.delegate peerWillChangeState:self oldState:_state newState:state];
+            }
+            
+        _state = state;
+
+        if ([self.delegate respondsToSelector:@selector(peerDidChangeState:oldState:newState:)] == YES)
+            {
+            [self.delegate peerDidChangeState:self oldState:_state newState:state];
+            }
+        }
+    }
+
+#pragma mark -
 
 - (void)open:(STYCompletionBlock)inCompletion
     {
@@ -257,6 +274,8 @@
             }
         }
     }
+    
+#pragma mark -
 
 - (void)_read:(STYCompletionBlock)inCompletion
     {

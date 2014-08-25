@@ -40,7 +40,7 @@ typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError 
 @interface STYPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
-@property (readonly, nonatomic) STYPeerState state;
+@property (readonly, atomic) STYPeerState state;
 @property (readonly, nonatomic) STYSocket *socket;
 @property (readonly, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
