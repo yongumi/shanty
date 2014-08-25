@@ -25,7 +25,7 @@
 @property (readwrite, nonatomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, nonatomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
-@property (readwrite, nonatomic) NSMutableDictionary *handlersForReplies; // TODO rename blocksForReplies
+@property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
 
 #pragma mark -
@@ -38,7 +38,7 @@
         {
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
-        _handlersForReplies = [NSMutableDictionary dictionary];
+        _blocksForReplies = [NSMutableDictionary dictionary];
         _UUID = [NSUUID UUID];
         }
     return self;
@@ -161,7 +161,7 @@
 
     if (inReplyHandler != NULL)
         {
-        self.handlersForReplies[theMessage.controlData[kSTYMessageIDKey]] = inReplyHandler;
+        self.blocksForReplies[theMessage.controlData[kSTYMessageIDKey]] = inReplyHandler;
         }
 
     NSData *theBuffer = [theMessage buffer:NULL];
@@ -305,13 +305,13 @@
 
     self.lastIncomingMessageID = incoming_message_id;
 
-    STYMessageBlock theBlock = self.handlersForReplies[inMessage.controlData[kSTYInReplyToKey]];
+    STYMessageBlock theBlock = self.blocksForReplies[inMessage.controlData[kSTYInReplyToKey]];
     if (theBlock)
         {
         theHandledFlag = theBlock(self, inMessage, outError);
         if (inMessage.moreComing == NO)
             {
-            [self.handlersForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
+            [self.blocksForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
             }
         }
 
