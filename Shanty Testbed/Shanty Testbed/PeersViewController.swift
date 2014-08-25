@@ -79,6 +79,11 @@ class PeersViewController: NSViewController {
     func addPeer(peer:STYPeer) {
         self.peers.append(peer)
     }
+    
+    @IBAction func closePeer(sender:NSMenuItem!) {
+        let peer = self.peers[self.tableView.selectedRow]
+        peer.close(nil)
+    }
 
     override func prepareForSegue(segue: NSStoryboardSegue!, sender: AnyObject!) {
         let peer = self.peers[self.tableView.selectedRow]

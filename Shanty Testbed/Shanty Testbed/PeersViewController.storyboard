@@ -246,7 +246,7 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Ckk-Kl-XXK">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Ckk-Kl-XXK">
                                     <rect key="frame" x="1" y="83.817088961601257" width="163" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -273,16 +273,22 @@
                 </arrayController>
                 <menu id="0OD-ga-DVC">
                     <items>
-                        <menuItem title="Send Message…" id="PTO-Zh-M8L">
+                        <menuItem title="Send Message…" id="O2P-i5-rwm">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <segue destination="jZG-u4-boo" kind="sheet" id="cc5-Di-yg3"/>
+                                <segue destination="jZG-u4-boo" kind="sheet" id="FNt-uX-XC7"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Close Peer" id="PTO-Zh-M8L">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="closePeer:" target="7CL-rf-7xc" id="ZRN-Gq-rlI"/>
                             </connections>
                         </menuItem>
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="259" y="94.5"/>
+            <point key="canvasLocation" x="581" y="44.5"/>
         </scene>
         <!--Send Message View Controller-->
         <scene sceneID="As9-dE-DhU">
@@ -346,7 +352,7 @@ Gw
                 </viewController>
                 <customObject id="tcy-kh-hfQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1579" y="466"/>
+            <point key="canvasLocation" x="581" y="524"/>
         </scene>
     </scenes>
 </document>
