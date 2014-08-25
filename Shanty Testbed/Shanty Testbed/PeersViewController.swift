@@ -45,6 +45,8 @@ class PeersViewController: NSViewController {
                         return "Opening"
                     case .Handshaking:
                         return "Handshaking"
+                    case .ChallengeResponse:
+                        return "ChallengeResponse"
                     case .Ready:
                         return "Ready"
 //                    case .Closing:

@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
     kSTYPeerStateUndefined,
     kSTYPeerStateOpening,
     kSTYPeerStateHandshaking,
-//    kSTYPeerStateChallengeResponse,
+    kSTYPeerStateChallengeResponse,
     kSTYPeerStateReady,
 //    kSTYPeerStateClosing,
     kSTYPeerStateClosed,

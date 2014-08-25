@@ -378,6 +378,22 @@
 
 #pragma mark -
 
+- (NSDictionary *)_makeHelloMetadata
+    {
+    NSMutableDictionary *theMetadata = [NSMutableDictionary dictionary];
+    
+    if (self.name.length > 0)
+        {
+        theMetadata[@"name"] = self.name;
+        }
+        
+    theMetadata[@"address"] = [self.socket.address toString];
+    theMetadata[@"peerAddress"] = [self.socket.peerAddress toString];
+    
+    return theMetadata;
+    }
+
+
 - (STYMessageHandler *)_makeSystemHandler
     {
     STYMessageHandler *theHandler = [[STYMessageHandler alloc] init];
@@ -398,7 +414,7 @@
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
             };
 
-        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:NULL data:NULL];
+        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:[self _makeHelloMetadata] data:NULL];
         [inPeer sendMessage:theResponse completion:NULL];
 
         NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
@@ -412,7 +428,9 @@
 
 - (void)_performHandShake:(STYCompletionBlock)inCompletion
     {
-    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:NULL data:NULL];
+    NSParameterAssert(self.mode == kSTYMessengerModeClient);
+    
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self _makeHelloMetadata] data:NULL];
 
     // TODO retaining self
     __weak typeof(self) weak_self = self;
@@ -437,6 +455,10 @@
     [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
+- (void)_performChallengRepsonse
+    {
+    }
+
 #pragma mark -
 
 - (void)socketHasDataAvailable:(STYSocket *)inSocket
@@ -446,6 +468,7 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
+    //STYLogDebug_(@"socketDidClose called but we're not doing much with it!");
     }
 
 @end
