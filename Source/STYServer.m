@@ -137,6 +137,10 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
         STYAddress *theServingAddress = [[STYAddress alloc] initWithAddresses:@[ (__bridge_transfer NSData *)CFSocketCopyAddress(self.IPV4Socket) ]];
         self.actualAddress = theServingAddress;
         }
+    else
+        {
+        self.actualAddress = self.address;
+        }
 
     // Add the CFSocket to the runloop - this will be used to notify us of connections from clients...
     CFRunLoopSourceRef theRunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self.IPV4Socket, 0);
