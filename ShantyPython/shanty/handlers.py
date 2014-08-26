@@ -7,7 +7,6 @@ __all__ = ['system_handler']
 
 from shanty.messages import *
 
-
 def system_handler():
     def handle_ping(peer, message):
         peer.sendReply(Message(command='ping.reply'), message)
@@ -19,6 +18,7 @@ def system_handler():
         peer.sendReply(Message(command='echo.reply', metadata=message.metadata, data=data), message)
 
     def handle_hello(peer, message):
+        print('Hello!')
         peer.sendReply(Message(command='hello.reply'), message)
 
     def print_message(peer, message):

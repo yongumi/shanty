@@ -6,8 +6,8 @@ __author__ = 'schwa'
 __all__ = ['ClosedError', 'ShantyProtocol', 'Server', 'Client']
 
 import datetime
-import asyncio
-from asyncio import From
+import trollius as asyncio
+from trollius import From
 
 from shanty.messages import *
 from shanty.handlers import *
@@ -19,7 +19,6 @@ from shanty.main import *
 
 class ClosedError(EOFError):
     pass
-
 
 ########################################################################################################################
 
@@ -41,6 +40,7 @@ class ShantyProtocol(asyncio.Protocol):
         pass
 
     def data_received(self, data):
+        print(len(data))
         self.messageBuilder.push_data(data)
         while self.messageBuilder.has_message():
             message = self.messageBuilder.pop_message()
@@ -76,6 +76,7 @@ class ShantyProtocol(asyncio.Protocol):
             del self.replyCallbacks[in_reply_to]
 
     def sendMessage(self, message, reply_callback=None):
+        print("Sending message")
         message = self._message_for_sending(message)
         if reply_callback:
             self.replyCallbacks[message.control_data[CTL_MSGID]] = reply_callback
@@ -108,7 +109,6 @@ class ShantyProtocol(asyncio.Protocol):
         message.control_data = control_data
         return message
 
-
 ########################################################################################################################
 
 class ServerProtocol(ShantyProtocol):
@@ -126,7 +126,6 @@ class ServerProtocol(ShantyProtocol):
         self.sendReply(Message(command='hello.reply'), message)
         asyncio.get_event_loop().close()
 
-
 ########################################################################################################################
 
 class ClientProtocol(ShantyProtocol):
@@ -138,7 +137,6 @@ class ClientProtocol(ShantyProtocol):
         super(ClientProtocol, self).connection_made(transport)
         self.sendHello()
 
-
 ########################################################################################################################
 
 class Server(object):
@@ -146,21 +144,30 @@ class Server(object):
         self.host = host
         self.port = port
 
-    def open(self, loop):
+    def open(self, loop = None):
+        if not loop:
+            loop = asyncio.get_event_loop()
+        print(loop)
         coro = loop.create_server(ServerProtocol, self.host, self.port)
+        print(coro)
         self.server = loop.run_until_complete(coro)
+        print('serving on {}'.format(self.server.sockets[0].getsockname()))
+        print(self.server)
 
     def close(self):
         self.server.close()
+        self.server = None
 
+########################################################################################################################
 
 class Client(object):
     def __init__(self, host, port):
+        print(host, port)
         self.host = host
         self.port = port
 
-    @asyncio.coroutine
-    def open(self):
-        loop = asyncio.get_event_loop()
+    def open(self, loop = None):
+        if not loop:
+            loop = asyncio.get_event_loop()
         coro = loop.create_connection(ClientProtocol, self.host, self.port)
-        self.transport, self.protocol = yield From(coro)
+        self.transport, self.protocol = transport, protocol = loop.run_until_complete(coro)
