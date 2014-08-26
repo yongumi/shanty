@@ -13,18 +13,16 @@
 #import "STYMessageHandler.h"
 #import "STYAddress.h"
 #import "STYConstants.h"
-#import "STYSocket.h"
 #import "STYLogger.h"
+#import "STYTransport.h"
+#import "STYSocket.h"
 
-@interface STYPeer () <STYSocketDelegate>
+@interface STYPeer () <STYTransportDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, atomic) STYPeerState state;
-@property (readwrite, nonatomic) STYSocket *socket;
+@property (readwrite, nonatomic) STYTransport *transport;
 @property (readwrite, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYAddress *peerAddress;
-@property (readwrite, atomic) NSInteger nextOutgoingMessageID;
-@property (readwrite, atomic) NSInteger lastIncomingMessageID;
-@property (readwrite, nonatomic) NSData *data;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
 
@@ -38,8 +36,6 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _nextOutgoingMessageID = 0;
-        _lastIncomingMessageID = -1;
         _blocksForReplies = [NSMutableDictionary dictionary];
         _UUID = [NSUUID UUID];
         }
@@ -54,8 +50,9 @@
         NSParameterAssert(inSocket != NULL);
 
         _mode = inMode;
-        _socket = inSocket;
-        _socket.delegate = self;
+        
+        _transport = [[STYTransport alloc] initWithPeer:self socket:inSocket];
+        _transport.delegate = self;
         _name = [inName copy];
         _systemHandler = [self _makeSystemHandler];
         }
@@ -67,10 +64,10 @@
     [self close:NULL];
     }
 
-- (NSString *)description
-    {
-    return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
-    }
+//- (NSString *)description
+//    {
+//    return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
+//    }
 
 - (STYPeerState)state
     {
@@ -109,13 +106,11 @@
 
 - (void)open:(STYCompletionBlock)inCompletion
     {
-    NSParameterAssert(self.socket != NULL);
-
     NSParameterAssert(self.state == kSTYPeerStateUndefined);
     self.state = kSTYPeerStateOpening;
 
     __weak typeof(self) weak_self = self;
-    [self.socket open:^(NSError *error) {
+    [self.transport open:^(NSError *error) {
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self == NULL)
             {
@@ -136,9 +131,9 @@
             return;
             }
 
-        if (strong_self.socket.connected == YES)
+        if (strong_self.transport.socket.connected == YES)
             {
-            strong_self.peerAddress = strong_self.socket.peerAddress;
+            strong_self.peerAddress = strong_self.transport.socket.peerAddress;
             }
 
         NSParameterAssert(strong_self.state == kSTYPeerStateOpening);
@@ -174,7 +169,7 @@
     NSParameterAssert(self.state == kSTYPeerStateReady);
     self.state = kSTYPeerStateClosed;
 
-    [self.socket close:inCompletion];
+    [self.transport close:inCompletion];
     }
 
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion
@@ -188,132 +183,22 @@
     {
     NSParameterAssert(inMessage != NULL);
 
-    // TODO - copying the message is weird. Be much nicer to mutate it.
-    STYMutableMessage *theMessage = [inMessage mutableCopy];
-    theMessage.messageID = self.nextOutgoingMessageID++;
+    STYMessage *theMessage = [self.transport messageForSending:inMessage];
 
     if (inReplyHandler != NULL)
         {
         self.blocksForReplies[theMessage.controlData[kSTYMessageIDKey]] = inReplyHandler;
         }
 
-    NSData *theBuffer = [theMessage buffer:NULL];
 
-    __weak typeof(self) weak_self = self;
-    [self _sendData:theBuffer completion:^(NSError *error) {
-        __strong typeof(weak_self) strong_self = weak_self;
-        if (strong_self == NULL)
-            {
-            if (inCompletion)
-                {
-                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
-                inCompletion(theError);
-                }
-            return;
-            }
-
-        if (error == NULL)
-            {
-            if (strong_self.tap)
-                {
-                strong_self.tap(strong_self, theMessage, NULL);
-                }
-            }
-
-        if (inCompletion)
-            {
-            inCompletion(error);
-            }
-        }];
+    [self.transport sendMessage:theMessage replyHandler:inReplyHandler completion:inCompletion];
     }
 
 #pragma mark -
 
-- (void)_read:(STYCompletionBlock)inCompletion
-    {
-    STYDataScanner *theDataScanner = [[STYDataScanner alloc] initWithData:self.data];
-    theDataScanner.dataEndianness = DataScannerDataEndianness_Network;
-
-    __weak typeof(self) weak_self = self;
-    [self.socket read:^(bool done, dispatch_data_t data, int error) {
-        __strong typeof(weak_self) strong_self = weak_self;
-        if (strong_self == NULL)
-            {
-            if (inCompletion != NULL)
-                {
-                NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
-                inCompletion(theError);
-                }
-            return;
-            }
-
-        if (error == ECANCELED)
-            {
-            return;
-            }
-        else if (error != 0)
-            {
-            /// TODO handle error (via completion block)
-            
-            NSError *thePOSIXError = [NSError errorWithDomain:NSPOSIXErrorDomain code:error userInfo:NULL];
-            
-            STYLogError_(@"%@: dispatch_io_read: %@", self, thePOSIXError);
-            return;
-            }
-
-        if (dispatch_data_get_size(data) > 0)
-            {
-            [theDataScanner feedData:(NSData *)data];
-
-            STYMessage *theMessage = NULL;
-            // TODO handle error (via completion block)
-            while ([theDataScanner scanMessage:&theMessage error:NULL] == YES)
-                {
-                if (strong_self.tap)
-                    {
-                    strong_self.tap(strong_self, theMessage, NULL);
-                    }
-
-                // TODO handle error (via completion block)
-                [strong_self _handleMessage:theMessage error:NULL];
-                }
-            }
-
-        if (done)
-            {
-            strong_self.data = [theDataScanner remainingData];
-
-            if (error == 0 && dispatch_data_get_size(data) == 0 && self.state != kSTYPeerStateClosed)
-                {
-                [strong_self close:NULL];
-                }
-            }
-        }];
-    }
-
-- (void)_sendData:(NSData *)inData completion:(STYCompletionBlock)inCompletion
-    {
-    NSParameterAssert(inData);
-    NSParameterAssert(self.socket.queue);
-    NSParameterAssert(self.socket);
-
-
-    dispatch_data_t theData = dispatch_data_create([inData bytes], [inData length], self.socket.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
-    [self.socket write:theData completion:inCompletion];
-    }
-
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
     BOOL theHandledFlag = NO;
-
-    NSInteger incoming_message_id = [inMessage.controlData[kSTYMessageIDKey] integerValue];
-    if (self.lastIncomingMessageID != -1 && incoming_message_id != self.lastIncomingMessageID + 1)
-        {
-        STYLogError_(@"%@: Message id mismatch.", self);
-        return(NO);
-        }
-
-    self.lastIncomingMessageID = incoming_message_id;
 
     STYMessageBlock theBlock = self.blocksForReplies[inMessage.controlData[kSTYInReplyToKey]];
     if (theBlock)
@@ -373,7 +258,7 @@
 
 #pragma mark -
 
-- (NSDictionary *)_makeHelloMetadata
+- (NSDictionary *)_makeHelloMetadata:(NSDictionary *)inExtras
     {
     NSMutableDictionary *theMetadata = [NSMutableDictionary dictionary];
     
@@ -382,8 +267,13 @@
         theMetadata[@"name"] = self.name;
         }
         
-    theMetadata[@"address"] = [self.socket.address toString];
-    theMetadata[@"peerAddress"] = [self.socket.peerAddress toString];
+    theMetadata[@"address"] = [self.transport.socket.address toString];
+    theMetadata[@"peerAddress"] = [self.transport.socket.peerAddress toString];
+    
+    if (inExtras != NULL)
+        {
+        [theMetadata addEntriesFromDictionary:inExtras];
+        }
     
     return theMetadata;
     }
@@ -409,7 +299,9 @@
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
             };
 
-        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:[self _makeHelloMetadata] data:NULL];
+        NSDictionary *theMetadata = [self _makeHelloMetadata:@{ @"requiresChallenge": @(YES) }];
+
+        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
         [inPeer sendMessage:theResponse completion:NULL];
 
         NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
@@ -425,7 +317,7 @@
     {
     NSParameterAssert(self.mode == kSTYMessengerModeClient);
     
-    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self _makeHelloMetadata] data:NULL];
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self _makeHelloMetadata:NULL] data:NULL];
 
     // TODO retaining self
     __weak typeof(self) weak_self = self;
@@ -436,6 +328,14 @@
             STYLogWarning_(@"Self has been deallocated before block called.");
             return NO;
             }
+            
+//        if ([inMessage.metadata[@"requiresChallenge"] boolValue] == YES)
+//            {
+//            NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
+//            strong_self.state = kSTYPeerStateChallengeResponse;
+//            
+//            [self _performChallengeRepsonse];
+//            }
         
         if (inCompletion != NULL)
             {
@@ -450,20 +350,14 @@
     [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
-- (void)_performChallengRepsonse
+- (void)_performChallengeRepsonse
     {
     }
 
-#pragma mark -
-
-- (void)socketHasDataAvailable:(STYSocket *)inSocket
+- (void)transport:(STYTransport *)inTransport didReceiveMessage:(STYMessage *)inMessage;
     {
-    [self _read:NULL];
-    }
-
-- (void)socketDidClose:(STYSocket *)inSocket;
-    {
-    //STYLogDebug_(@"socketDidClose called but we're not doing much with it!");
+    [self _handleMessage:inMessage error:NULL];
+    
     }
 
 @end

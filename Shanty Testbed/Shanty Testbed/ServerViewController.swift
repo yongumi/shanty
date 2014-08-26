@@ -54,7 +54,7 @@ class ServerViewController: NSViewController, STYListenerDelegate {
     }
 
     func listener(inListener: STYListener!, peerWillConnect inPeer: STYPeer!) {
-        inPeer.tap = {
+        inPeer.transport.tap = {
             (peer, message, error) in
 
             dispatch_async(dispatch_get_main_queue()) {

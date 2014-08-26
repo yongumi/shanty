@@ -10,6 +10,7 @@
 
 #import "STYCompletionBlocks.h"
 
+// TODO: Rename
 typedef NS_ENUM(NSInteger, STYMessengerMode) {
     kSTYMessengerModeUndefined,
     kSTYMessengerModeClient,
@@ -27,27 +28,25 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
     kSTYPeerStateError,
 };
 
+@class STYTransport;
 @class STYSocket;
 @class STYAddress;
 @class STYMessage;
 @class STYPeer;
 @class STYMessageHandler;
 
-typedef BOOL (^STYMessageBlock)(STYPeer *inPeer, STYMessage *inMessage, NSError **outError);
-
 @protocol STYPeerDelegate;
 
 @interface STYPeer : NSObject
 
 @property (readonly, nonatomic) STYMessengerMode mode;
+@property (readonly, nonatomic) STYTransport *transport;
 @property (readonly, atomic) STYPeerState state;
-@property (readonly, nonatomic) STYSocket *socket;
 @property (readonly, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @property (readonly, nonatomic, copy) NSString *name;
 @property (readonly, nonatomic, copy) NSUUID *UUID;
 @property (readwrite, nonatomic) id userInfo;
-@property (readwrite, nonatomic, copy) STYMessageBlock tap;
 @property (readwrite, nonatomic, weak) id <STYPeerDelegate> delegate;
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
