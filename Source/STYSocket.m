@@ -261,6 +261,8 @@
     self.channel = dispatch_io_create(DISPATCH_IO_STREAM, CFSocketGetNative(self.CFSocket), dispatch_get_main_queue(), ^(int error) {
         // TODO: Clean up
         });
+    
+    // TODO: Low water mark of 1 might be silly
     dispatch_io_set_low_water(self.channel, 1);
 
     __weak typeof (self) weakSelf = self;
