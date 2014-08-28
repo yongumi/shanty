@@ -47,7 +47,6 @@
 
 @optional
 - (BOOL)listener:(STYListener *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
-- (Class)listener:(STYListener *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
 - (void)listener:(STYListener *)inServer didCreatePeer:(STYPeer *)inPeer;
 - (void)listener:(STYListener *)inServer peerWillConnect:(STYPeer *)inPeer;
 - (void)listener:(STYListener *)inServer peerDidConnect:(STYPeer *)inPeer;

@@ -67,7 +67,7 @@
     
     STYAddress *theAddress = [[STYAddress alloc] initWithNetService:theSelectedService];
     STYSocket *theSocket = [[STYSocket alloc] initWithAddress:theAddress];
-    STYPeer *thePeer = [[STYPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
+    STYPeer *thePeer = [[STYClientPeer alloc] initWithMode:kSTYMessengerModeClient socket:theSocket name:theSelectedService.name];
     if ([self.delegate respondsToSelector:@selector(peerBrowser:didCreatePeer:)])
         {
         [self.delegate peerBrowser:self didCreatePeer:thePeer];

@@ -19,9 +19,9 @@
 
 @interface STYPeer () <STYTransportDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
-@property (readwrite, atomic) STYPeerState state;
+//@property (readwrite, atomic) STYPeerState state;
 @property (readwrite, nonatomic) STYTransport *transport;
-@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
+//@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) STYAddress *peerAddress;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
@@ -54,7 +54,6 @@
         _transport = [[STYTransport alloc] initWithPeer:self socket:inSocket];
         _transport.delegate = self;
         _name = [inName copy];
-        _systemHandler = [self _makeSystemHandler];
         }
     return self;
     }
@@ -141,7 +140,7 @@
 
         if (strong_self.mode == kSTYMessengerModeClient)
             {
-            [strong_self _performHandShake:inCompletion];
+            [strong_self _clientPerformHandShake:inCompletion];
             }
         else
             {
@@ -258,7 +257,7 @@
 
 #pragma mark -
 
-- (NSDictionary *)_makeHelloMetadata:(NSDictionary *)inExtras
+- (NSDictionary *)makeHelloMetadata:(NSDictionary *)inExtras
     {
     NSMutableDictionary *theMetadata = [NSMutableDictionary dictionary];
     
@@ -279,47 +278,12 @@
     }
 
 
-- (STYMessageHandler *)_makeSystemHandler
-    {
-    STYMessageHandler *theHandler = [[STYMessageHandler alloc] init];
-
-    __weak typeof(self) weak_self = self;
-
-    // TODO: Technically we only need this if the peer is a server.
-    [theHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
-        __strong typeof(self) strong_self = weak_self;
-        if (strong_self == NULL)
-            {
-            STYLogWarning_(@"Self has been deallocated before block called.");
-            return NO;
-            }
-        
-        NSDictionary *theControlData = @{
-            kSTYCommandKey: kSTYHelloReplyCommand,
-            kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
-            };
-
-        NSDictionary *theMetadata = [self _makeHelloMetadata:@{ @"requiresChallenge": @(YES) }];
-
-        STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
-        [inPeer sendMessage:theResponse completion:NULL];
-
-        NSCParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
-        strong_self.state = kSTYPeerStateReady;
-
-        return(YES);
-        }];
-        
-    return theHandler;
-    }
-
-- (void)_performHandShake:(STYCompletionBlock)inCompletion
+- (void)_clientPerformHandShake:(STYCompletionBlock)inCompletion
     {
     NSParameterAssert(self.mode == kSTYMessengerModeClient);
     
-    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self _makeHelloMetadata:NULL] data:NULL];
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self makeHelloMetadata:NULL] data:NULL];
 
-    // TODO retaining self
     __weak typeof(self) weak_self = self;
     STYMessageBlock theReplyHandler = ^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;

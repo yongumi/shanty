@@ -41,8 +41,8 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYTransport *transport;
-@property (readonly, atomic) STYPeerState state;
-@property (readonly, nonatomic) STYMessageHandler *systemHandler;
+@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @property (readonly, nonatomic, copy) NSString *name;
 @property (readonly, nonatomic, copy) NSUUID *UUID;
@@ -58,6 +58,8 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;
+
+- (NSDictionary *)makeHelloMetadata:(NSDictionary *)inExtras;
 
 @end
 
