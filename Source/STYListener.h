@@ -1,5 +1,5 @@
 //
-//  STYServer.h
+//  STYListener.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 10/29/13.
@@ -14,9 +14,9 @@
 @class STYPeer;
 @class STYAddress;
 
-@protocol STYServerDelegate;
+@protocol STYListenerDelegate;
 
-@interface STYServer : NSObject
+@interface STYListener : NSObject
 
 @property (readonly, nonatomic, copy) STYAddress *address;
 @property (readonly, nonatomic, copy) STYAddress *actualAddress;
@@ -24,7 +24,7 @@
 @property (readwrite, nonatomic) BOOL publishOnLocalhostOnly;
 
 @property (readwrite, nonatomic, copy) STYMessageHandler *messageHandler;
-@property (readwrite, nonatomic, weak) id <STYServerDelegate> delegate;
+@property (readwrite, nonatomic, weak) id <STYListenerDelegate> delegate;
 
 @property (readonly, nonatomic, copy) NSArray *peers;
 
@@ -43,14 +43,14 @@
 
 #pragma mark -
 
-@protocol STYServerDelegate <NSObject>
+@protocol STYListenerDelegate <NSObject>
 
 @optional
-- (BOOL)server:(STYServer *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
-- (Class)server:(STYServer *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
-- (void)server:(STYServer *)inServer didCreatePeer:(STYPeer *)inPeer;
-- (void)server:(STYServer *)inServer peerWillConnect:(STYPeer *)inPeer;
-- (void)server:(STYServer *)inServer peerDidConnect:(STYPeer *)inPeer;
-- (void)server:(STYServer *)inServer peerDidDisconnect:(STYPeer *)inPeer;
+- (BOOL)listener:(STYListener *)inServer peerCanConnectWithSocket:(CFSocketRef)inSocket;
+- (Class)listener:(STYListener *)inServer classForPeerWithSocket:(CFSocketRef)inSocket;
+- (void)listener:(STYListener *)inServer didCreatePeer:(STYPeer *)inPeer;
+- (void)listener:(STYListener *)inServer peerWillConnect:(STYPeer *)inPeer;
+- (void)listener:(STYListener *)inServer peerDidConnect:(STYPeer *)inPeer;
+- (void)listener:(STYListener *)inServer peerDidDisconnect:(STYPeer *)inPeer;
 
 @end

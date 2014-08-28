@@ -1,12 +1,12 @@
 //
-//  STYServer.m
+//  STYListener.m
 //  Shanty
 //
 //  Created by Jonathan Wight on 10/29/13.
 //  Copyright (c) 2013 schwa.io. All rights reserved.
 //
 
-#import "STYServer.h"
+#import "STYListener.h"
 
 #if TARGET_OS_IPHONE == 1
 #import <UIKit/UIKit.h>
@@ -26,7 +26,7 @@
 
 static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBackType inCallbackType, CFDataRef inAddress, const void *inData, void *ioInfo);
 
-@interface STYServer ()
+@interface STYListener ()
 @property (readwrite, nonatomic, copy) STYAddress *actualAddress;
 @property (readonly, nonatomic, copy) NSMutableArray *mutablePeers;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef IPV4Socket;
@@ -39,7 +39,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 #pragma mark -
 
-@implementation STYServer
+@implementation STYListener
 
 + (NSString *)randomCode
     {
@@ -193,35 +193,35 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 
 - (void)_acceptSocket:(CFSocketRef)inSocket address:(NSData *)inAddress
     {
-    if ([self.delegate respondsToSelector:@selector(server:peerCanConnectWithSocket:)])
+    if ([self.delegate respondsToSelector:@selector(listener:peerCanConnectWithSocket:)])
         {
-        if ([self.delegate server:self peerCanConnectWithSocket:inSocket] == NO)
+        if ([self.delegate listener:self peerCanConnectWithSocket:inSocket] == NO)
             {
             return;
             }
         }
 
     Class theClass = [STYPeer class];
-    if ([self.delegate respondsToSelector:@selector(server:classForPeerWithSocket:)])
+    if ([self.delegate respondsToSelector:@selector(listener:classForPeerWithSocket:)])
         {
-        theClass = [self.delegate server:self classForPeerWithSocket:inSocket];
+        theClass = [self.delegate listener:self classForPeerWithSocket:inSocket];
         NSParameterAssert(theClass != NULL);
         }
 
     STYSocket *theSocket = [[STYSocket alloc] initWithCFSocket:inSocket];
 
     STYPeer *thePeer = [[theClass alloc] initWithMode:kSTYMessengerModeServer socket:theSocket name:NULL];
-    if ([self.delegate respondsToSelector:@selector(server:didCreatePeer:)])
+    if ([self.delegate respondsToSelector:@selector(listener:didCreatePeer:)])
         {
-        [self.delegate server:self didCreatePeer:thePeer];
+        [self.delegate listener:self didCreatePeer:thePeer];
         }
 
 
     thePeer.messageHandler = self.messageHandler;
 
-    if ([self.delegate respondsToSelector:@selector(server:peerWillConnect:)])
+    if ([self.delegate respondsToSelector:@selector(listener:peerWillConnect:)])
         {
-        [self.delegate server:self peerWillConnect:thePeer];
+        [self.delegate listener:self peerWillConnect:thePeer];
         }
 
     [thePeer open:NULL];
@@ -231,9 +231,9 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     [self.mutablePeers addObject:thePeer];
     [self didChangeValueForKey:@"peers"];
 
-    if ([self.delegate respondsToSelector:@selector(server:peerDidConnect:)])
+    if ([self.delegate respondsToSelector:@selector(listener:peerDidConnect:)])
         {
-        [self.delegate server:self peerDidConnect:thePeer];
+        [self.delegate listener:self peerDidConnect:thePeer];
         }
     }
 
@@ -247,7 +247,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     {
     #pragma unused (inSocket, inAddress)
 
-    STYServer *theServer = (__bridge STYServer *)ioInfo;
+    STYListener *theServer = (__bridge STYListener *)ioInfo;
     if (inCallbackType == kCFSocketAcceptCallBack)
         {
         CFSocketNativeHandle theNativeSocketHandle = *(CFSocketNativeHandle *)inData;

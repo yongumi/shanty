@@ -10,16 +10,16 @@ import Cocoa
 
 import Shanty
 
-class ServerViewController: NSViewController, STYServerDelegate {
+class ServerViewController: NSViewController, STYListenerDelegate {
     dynamic var domain : String?
     dynamic var type : String = "_styexample._tcp"
     dynamic var name : String?
     dynamic var host : String?
     dynamic var port : UInt16 = 0
-    dynamic var code : String = STYServer.randomCode()
+    dynamic var code : String = STYListener.randomCode()
     dynamic var loopback : Bool = true
 
-    dynamic var server : STYServer!
+    dynamic var server : STYListener!
 
     @IBOutlet var startButton : NSButton?
     @IBOutlet var stopButton : NSButton?
@@ -39,7 +39,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
     }
 
     @IBAction func serve(sender:AnyObject?) {
-        self.server = STYServer(listeningAddress:STYAddress(anyAddress:port), netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server = STYListener(listeningAddress:STYAddress(anyAddress:port), netServiceDomain:self.domain, type:self.type, name:self.name)
         self.server.delegate = self
         println("Using localhost? \(loopback)")
         self.server.publishOnLocalhostOnly = self.loopback
@@ -53,7 +53,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
         self.server = nil
     }
 
-    func server(inServer: STYServer!, peerWillConnect inPeer: STYPeer!) {
+    func listener(inListener: STYListener!, peerWillConnect inPeer: STYPeer!) {
         inPeer.tap = {
             (peer, message, error) in
 
@@ -65,7 +65,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
         }
     }
 
-    func server(inServer: STYServer!, didCreatePeer inPeer: STYPeer!) {
+    func listener(inListener: STYListener!, didCreatePeer inPeer: STYPeer!) {
         peersViewController.addPeer(inPeer)
     }
 }
