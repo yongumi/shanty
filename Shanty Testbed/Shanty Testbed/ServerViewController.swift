@@ -39,7 +39,7 @@ class ServerViewController: NSViewController, STYServerDelegate {
     }
 
     @IBAction func serve(sender:AnyObject?) {
-        self.server = STYServer(listeningAddress:STYAddress(anyAddress:UInt32(port)), netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server = STYServer(listeningAddress:STYAddress(anyAddress:port), netServiceDomain:self.domain, type:self.type, name:self.name)
         self.server.delegate = self
         println("Using localhost? \(loopback)")
         self.server.publishOnLocalhostOnly = self.loopback

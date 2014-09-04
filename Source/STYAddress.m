@@ -35,7 +35,7 @@
     return self;
     }
 
-- (instancetype)initWithAnyAddress:(unsigned int)inPort
+- (instancetype)initWithAnyAddress:(uint16_t)inPort
     {
     if ((self = [self initWithIPV4Address:INADDR_ANY port:inPort]) != NULL)
         {
@@ -43,7 +43,7 @@
     return self;
     }
 
-- (instancetype)initWithLoopbackAddress:(unsigned int)inPort
+- (instancetype)initWithLoopbackAddress:(uint16_t)inPort
     {
     if ((self = [self initWithIPV4Address:INADDR_LOOPBACK port:inPort]) != NULL)
         {
@@ -63,7 +63,7 @@
     return self;
     }
 
-- (instancetype)initWithHostname:(NSString *)inHostname port:(unsigned int)inPort
+- (instancetype)initWithHostname:(NSString *)inHostname port:(uint16_t)inPort
     {
     if ((self = [self init]) != NULL)
         {
@@ -276,7 +276,7 @@
     return [NSData dataWithBytes:&theSockAddress length:sizeof(theSockAddress)];
     }
 
-- (NSData *)_addressData:(NSData *)inAddressData withPort:(unsigned int)inPort
+- (NSData *)_addressData:(NSData *)inAddressData withPort:(uint16_t)inPort
     {
     struct sockaddr_in theAddress;
 
