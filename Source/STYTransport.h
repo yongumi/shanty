@@ -40,13 +40,6 @@ typedef NS_ENUM(NSInteger, STYTransportState) {
 - (void)open:(STYCompletionBlock)inCompletion;
 - (void)close:(STYCompletionBlock)inCompletion;
 
-/**
- *  <#Description#>
- *
- *  @param inMessage <#inMessage description#>
- *
- *  @return <#return value description#>
- */
 - (STYMessage *)messageForSending:(STYMessage *)inMessage;
 
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
@@ -58,12 +51,6 @@ typedef NS_ENUM(NSInteger, STYTransportState) {
 
 @protocol STYTransportDelegate <NSObject>
 @optional
-
 - (void)transport:(STYTransport *)inTransport didReceiveMessage:(STYMessage *)inMessage;
-
-//- (void)transportWillChangeState:(STYTransport *)inTransport oldState:(STYTransportState)inOldState newState:(STYTransportState)inNewState;
-//- (void)transportDidChangeState:(STYTransport *)inTransport oldState:(STYTransportState)inOldState newState:(STYTransportState)inNewState;
-
-// TODO: Will be deprecated.
-- (void)transportDidClose:(STYTransport *)inTransport;
+- (void)transportWillClose:(STYTransport *)inTransport;
 @end

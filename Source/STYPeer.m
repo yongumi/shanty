@@ -24,7 +24,6 @@
 //@property (readwrite, atomic) STYPeerState state;
 @property (readwrite, nonatomic) STYTransport *transport;
 //@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
-@property (readwrite, nonatomic) STYAddress *peerAddress;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
 
@@ -65,44 +64,6 @@
     [self close:NULL];
     }
 
-//- (NSString *)description
-//    {
-//    return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
-//    }
-
-- (STYPeerState)state
-    {
-    @synchronized(self)
-        {
-        return _state;
-        }
-    }
-
-- (void)setState:(STYPeerState)state
-    {
-    @synchronized(self)
-        {
-        STYLogDebug_(@"STATE CHANGE: %d -> %d", _state, state);
-
-        if (_state == state)
-            {
-            return;
-            }
-            
-        if ([self.delegate respondsToSelector:@selector(peerWillChangeState:oldState:newState:)] == YES)
-            {
-            [self.delegate peerWillChangeState:self oldState:_state newState:state];
-            }
-            
-        _state = state;
-
-        if ([self.delegate respondsToSelector:@selector(peerDidChangeState:oldState:newState:)] == YES)
-            {
-            [self.delegate peerDidChangeState:self oldState:_state newState:state];
-            }
-        }
-    }
-
 #pragma mark -
 
 - (void)open:(STYCompletionBlock)inCompletion
@@ -130,11 +91,6 @@
                 inCompletion(error);
                 }
             return;
-            }
-
-        if (strong_self.transport.socket.connected == YES)
-            {
-            strong_self.peerAddress = strong_self.transport.socket.peerAddress;
             }
 
         NSParameterAssert(strong_self.state == kSTYPeerStateOpening);
@@ -167,9 +123,7 @@
         [self.delegate peerDidClose:self];
         }
 
-    NSParameterAssert(self.state == kSTYPeerStateReady);
     self.state = kSTYPeerStateClosed;
-
     [self.transport close:inCompletion];
     }
 
@@ -348,10 +302,22 @@
     });
 }
 
+#pragma mark -
+
 - (void)transport:(STYTransport *)inTransport didReceiveMessage:(STYMessage *)inMessage;
     {
     [self _handleMessage:inMessage error:NULL];
-    
+    }
+
+- (void)transportWillClose:(STYTransport *)inTransport
+    {
+    if ([self.delegate respondsToSelector:@selector(peerDidClose:)])
+        {
+        [self.delegate peerDidClose:self];
+        }
+
+    self.state = kSTYPeerStateClosed;
+
     }
 
 @end

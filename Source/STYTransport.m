@@ -18,7 +18,6 @@
 @property (readwrite, atomic) STYTransportState state;
 @property (readwrite, nonatomic) STYSocket *socket;
 //@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
-@property (readwrite, nonatomic) STYAddress *peerAddress;
 @property (readwrite, atomic) NSInteger nextOutgoingMessageID;
 @property (readwrite, atomic) NSInteger lastIncomingMessageID;
 @property (readwrite, nonatomic) NSData *data;
@@ -37,7 +36,6 @@
         {
         _nextOutgoingMessageID = 0;
         _lastIncomingMessageID = -1;
-//        _blocksForReplies = [NSMutableDictionary dictionary];
         }
     return self;
     }
@@ -58,44 +56,6 @@
 - (void)dealloc
     {
     [self close:NULL];
-    }
-
-//- (NSString *)description
-//    {
-//    return([NSString stringWithFormat:@"%@ (mode:%d, state:%d, %@, %@)", [super description], (int)self.mode, (int)self.state, self.socket, self.name]);
-//    }
-
-- (STYTransportState)state
-    {
-    @synchronized(self)
-        {
-        return _state;
-        }
-    }
-
-- (void)setState:(STYTransportState)state
-    {
-    @synchronized(self)
-        {
-        STYLogDebug_(@"STATE CHANGE: %d -> %d", _state, state);
-
-        if (_state == state)
-            {
-            return;
-            }
-            
-//        if ([self.delegate respondsToSelector:@selector(peerWillChangeState:oldState:newState:)] == YES)
-//            {
-//            [self.delegate peerWillChangeState:self oldState:_state newState:state];
-//            }
-            
-        _state = state;
-
-//        if ([self.delegate respondsToSelector:@selector(peerDidChangeState:oldState:newState:)] == YES)
-//            {
-//            [self.delegate peerDidChangeState:self oldState:_state newState:state];
-//            }
-        }
     }
 
 #pragma mark -
@@ -129,11 +89,6 @@
             return;
             }
 
-        if (strong_self.socket.connected == YES)
-            {
-            strong_self.peerAddress = strong_self.socket.peerAddress;
-            }
-
         NSParameterAssert(strong_self.state == kSTYTransportStateOpening);
         strong_self.state = kSTYTransportStateReady;
 
@@ -152,13 +107,14 @@
         #warning TODO - call inCompletion with error?
         return;
         }
-    if ([self.delegate respondsToSelector:@selector(transportDidClose:)])
-        {
-        [self.delegate transportDidClose:self];
-        }
 
     NSParameterAssert(self.state == kSTYTransportStateReady);
     self.state = kSTYTransportStateClosed;
+
+    if ([self.delegate respondsToSelector:@selector(transportDidClose:)])
+        {
+        [self.delegate transportWillClose:self];
+        }
 
     [self.socket close:inCompletion];
     }
@@ -181,12 +137,6 @@
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion
     {
     NSParameterAssert(inMessage != NULL);
-
-
-//    if (inReplyHandler != NULL)
-//        {
-//        self.blocksForReplies[theMessage.controlData[kSTYMessageIDKey]] = inReplyHandler;
-//        }
 
     NSData *theBuffer = [inMessage buffer:NULL];
 
@@ -270,8 +220,6 @@
                     strong_self.tap(strong_self.peer, theMessage, NULL);
                     }
 
-//                [self _handleMessage:theMessage error:NULL];
-                // TODO handle error (via completion block)
                 if ([self.delegate respondsToSelector:@selector(transport:didReceiveMessage:)])
                     {
                     [self.delegate transport:self didReceiveMessage:theMessage];
@@ -291,66 +239,6 @@
         }];
     }
 
-//- (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
-//    {
-//    BOOL theHandledFlag = NO;
-//
-//    STYMessageBlock theBlock = self.blocksForReplies[inMessage.controlData[kSTYInReplyToKey]];
-//    if (theBlock)
-//        {
-//        theHandledFlag = theBlock(self, inMessage, outError);
-//        if (inMessage.moreComing == NO)
-//            {
-//            [self.blocksForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
-//            }
-//        }
-//
-//    if (theHandledFlag == NO)
-//        {
-//        NSMutableArray *theHandlers = [NSMutableArray arrayWithObjects:self.systemHandler, NULL];
-//
-//        if (self.messageHandler == NULL)
-//            {
-//            STYLogWarning_(@"%@: No handlers", self);
-//            }
-//        else
-//            {
-//            [theHandlers addObject:self.messageHandler];
-//            }
-//
-//        for (STYMessageHandler *theHandler in theHandlers)
-//            {
-//            NSArray *theBlocks = [theHandler blocksForMessage:inMessage];
-//            for (theBlock in theBlocks)
-//                {
-//                theHandledFlag = theBlock(self, inMessage, outError);
-//                if (theHandledFlag == YES)
-//                    {
-//                    break;
-//                    }
-//                }
-//
-//            if (theHandledFlag == YES)
-//                {
-//                break;
-//                }
-//            }
-//        }
-//
-//    if (theHandledFlag == NO)
-//        {
-//        STYLogWarning_(@"%@: No handler for message: %@", self, inMessage.controlData);
-//        }
-//
-//    if ([inMessage.controlData[kSTYCloseKey] boolValue] == YES)
-//        {
-//        // TODO handle close
-//        [self close:NULL];
-//        }
-//
-//    return(theHandledFlag);
-//    }
-
 #pragma mark -
 
 - (void)socketHasDataAvailable:(STYSocket *)inSocket
@@ -362,8 +250,5 @@
     {
     //STYLogDebug_(@"socketDidClose called but we're not doing much with it!");
     }
-
-
-
 
 @end

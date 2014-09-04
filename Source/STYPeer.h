@@ -54,8 +54,6 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 - (void)open:(STYCompletionBlock)inCompletion;
 - (void)close:(STYCompletionBlock)inCompletion;
 
-//- (void)reopen:(STYCompletionBlock)inCompletion;
-
 - (void)sendMessage:(STYMessage *)inMessage completion:(STYCompletionBlock)inCompletion;
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;
 
@@ -67,9 +65,5 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 @protocol STYPeerDelegate <NSObject>
 @optional
-- (void)peerWillChangeState:(STYPeer *)inPeer oldState:(STYPeerState)inOldState newState:(STYPeerState)inNewState;
-- (void)peerDidChangeState:(STYPeer *)inPeer oldState:(STYPeerState)inOldState newState:(STYPeerState)inNewState;
-
-// TODO: Will be deprecated.
 - (void)peerDidClose:(STYPeer *)inPeer;
 @end

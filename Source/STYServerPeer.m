@@ -65,9 +65,6 @@
             {
             [self close:NULL];
             }
-        
-    
-    
         return YES;
     }];
 
