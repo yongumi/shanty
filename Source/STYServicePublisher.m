@@ -130,9 +130,12 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
         const char *theDomain = self.netServiceDomain.length > 0 ? self.netServiceDomain.UTF8String : NULL;
         const char *theHost = "localhost";
         unsigned short thePort = htons(self.port);
-        size_t theTXTRecordSize = 0;
-        const char *theTXTRecord = NULL;
-        
+
+        NSData *theTXTRecordData = [[NSNetService dataFromTXTRecordDictionary:@{}] bytes];
+        size_t theTXTRecordSize = theTXTRecordData.length;
+        const char *theTXTRecord = theTXTRecordData.bytes;
+
+
         NSParameterAssert(_DNSService == NULL);
         
         DNSServiceErrorType theResult = DNSServiceRegister(&_DNSService, theFlags, theInterfaceIndex, theName, theRegType, theDomain, theHost, thePort, theTXTRecordSize, theTXTRecord, MyDNSServiceRegisterReply, (__bridge void *)self);
