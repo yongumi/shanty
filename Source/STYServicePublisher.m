@@ -126,10 +126,9 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
         const char *theName = self.netServiceName.UTF8String;
         
         NSString *theSubtypes = [[@[ self.netServiceType ] arrayByAddingObjectsFromArray:self.netServiceSubtypes] componentsJoinedByString:@","];
-        
         const char *theRegType = theSubtypes.UTF8String;
         const char *theDomain = self.netServiceDomain.length > 0 ? self.netServiceDomain.UTF8String : NULL;
-        const char *theHost = NULL;
+        const char *theHost = "localhost";
         unsigned short thePort = htons(self.port);
         size_t theTXTRecordSize = 0;
         const char *theTXTRecord = NULL;
