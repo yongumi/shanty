@@ -10,18 +10,20 @@ import Foundation
 
 class BlockValueTransformer: NSValueTransformer {
 
-    let block : (AnyObject!) -> (AnyObject!)
+    typealias Block = (AnyObject?) -> (AnyObject?)
+    let block: Block
 
-    class func register(name:String, block:(AnyObject!) -> (AnyObject!)) {
+    class func register(name:String, block:Block) -> BlockValueTransformer {
         let transformer = BlockValueTransformer(block:block)
         self.setValueTransformer(transformer, forName:name)
+        return transformer
     }
 
-    init(block:(AnyObject!) -> (AnyObject!)) {
+    init(block:Block) {
         self.block = block
     }
     
-    override func transformedValue(value: AnyObject!) -> AnyObject! {
+    override func transformedValue(value: AnyObject?) -> AnyObject? {
         return self.block(value)
     }
 }
