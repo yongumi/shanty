@@ -272,6 +272,8 @@
     }
 
 - (void)_clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion {
+
+    #if TARGET_OS_IPHONE == 0
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAlert *theAlert = [NSAlert alertWithMessageText:@"Enter secret" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Informative text"];
         
@@ -300,6 +302,9 @@
             [self close:nil];
         }
     });
+    #else
+    NSParameterAssert(NO);
+    #endif
 }
 
 #pragma mark -
