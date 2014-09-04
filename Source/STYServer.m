@@ -63,10 +63,7 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     if ((self = [self initWithListeningAddress:inListeningAddress]) != NULL)
         {
         _servicePublisher = [[STYServicePublisher alloc] initWithNetServiceDomain:inDomain type:inType name:inName port:0];
-        if (self.publishOnLocalhostOnly == YES)
-            {
-            _servicePublisher.localhostOnly = YES;
-            }
+        _servicePublisher.localhostOnly = _publishOnLocalhostOnly;
         }
     return self;
     }
@@ -74,6 +71,18 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 - (void)dealloc
     {
     [self stopListening:NULL];
+    }
+
+#pragma mark -
+
+- (void)setPublishOnLocalhostOnly:(BOOL)publishOnLocalhostOnly
+    {
+    if (_publishOnLocalhostOnly != publishOnLocalhostOnly)
+        {
+        _publishOnLocalhostOnly = publishOnLocalhostOnly;
+
+        _servicePublisher.localhostOnly = _publishOnLocalhostOnly;
+        }
     }
 
 #pragma mark -

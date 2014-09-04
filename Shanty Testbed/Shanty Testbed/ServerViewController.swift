@@ -11,13 +11,13 @@ import Cocoa
 import Shanty
 
 class ServerViewController: NSViewController, STYServerDelegate {
-    var useLoopback : Bool = true
-    var domain : String?
-    var type : String = "_styexample._tcp"
-    var name : String?
-    var host : String?
-    var port : NSNumber?
-    var code : String = STYServer.randomCode()
+    dynamic var domain : String?
+    dynamic var type : String = "_styexample._tcp"
+    dynamic var name : String?
+    dynamic var host : String?
+    dynamic var port : UInt16 = 0
+    dynamic var code : String = STYServer.randomCode()
+    dynamic var loopback : Bool = true
 
     dynamic var server : STYServer!
 
@@ -39,14 +39,10 @@ class ServerViewController: NSViewController, STYServerDelegate {
     }
 
     @IBAction func serve(sender:AnyObject?) {
-        var port_ : UInt32 = 0
-        if self.port != nil {
-            port_ = UInt32(self.port!.unsignedIntegerValue)
-        }
-
-        self.server = STYServer(listeningAddress:STYAddress(anyAddress: port_), netServiceDomain:self.domain, type:self.type, name:self.name)
+        self.server = STYServer(listeningAddress:STYAddress(anyAddress:UInt32(port)), netServiceDomain:self.domain, type:self.type, name:self.name)
         self.server.delegate = self
-        self.server.publishOnLocalhostOnly = self.useLoopback
+        println("Using localhost? \(loopback)")
+        self.server.publishOnLocalhostOnly = self.loopback
         self.server.startListening() {
             error in
         }
