@@ -18,7 +18,7 @@
 @property (readwrite, nonatomic) NSNetServiceBrowser *domainBrowser;
 @property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
 @property (readwrite, nonatomic, copy) void (^discoverFirstServiceAndStopHandler)(NSNetService *service, NSError *error);
-@property (readwrite, nonatomic) BOOL running;
+@property (readwrite, nonatomic) BOOL started;
 @end
 
 #pragma mark -
@@ -49,7 +49,7 @@
 
 - (void)start
     {
-    if (self.running == NO)
+    if (self.started == NO)
         {
         self.mutableServices = [NSMutableSet set];
 
@@ -61,13 +61,13 @@
         self.domainBrowser.delegate = self;
         [self.domainBrowser searchForBrowsableDomains];
 
-        self.running = YES;
+        self.started = YES;
         }
     }
 
 - (void)stop
     {
-    if (self.running == YES)
+    if (self.started == YES)
         {
         [self.serviceBrowser stop];
         self.serviceBrowser.delegate = NULL;
@@ -77,13 +77,13 @@
         self.domainBrowser.delegate = NULL;
         self.domainBrowser = NULL;
 
-        self.running = NO;
+        self.started = NO;
         }
     }
 
 - (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler
     {
-    NSParameterAssert(self.running == NO);
+    NSParameterAssert(self.started == NO);
 
     self.discoverFirstServiceAndStopHandler = inHandler;
     [self start];
@@ -98,7 +98,7 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
     {
-    if (self.running == NO)
+    if (self.started == NO)
         {
         return;
         }
@@ -152,7 +152,7 @@
    
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
     {
-    if (self.running == NO)
+    if (self.started == NO)
         {
         return;
         }

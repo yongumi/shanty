@@ -50,6 +50,15 @@
         }
     }
 
+- (IBAction)reload:(id)sender
+    {
+    if (self.discoverer.started == YES)
+        {
+        [self.discoverer stop];
+        [self.discoverer start];
+        }
+    }
+
 - (IBAction)connect:(id)sender
     {
     NSNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
