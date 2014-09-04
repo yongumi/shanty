@@ -8,6 +8,8 @@
 
 #import "STYPeer.h"
 
+#import <Cocoa/Cocoa.h>
+
 #import "STYMessage.h"
 #import "STYDataScanner+Message.h"
 #import "STYMessageHandler.h"
@@ -189,7 +191,6 @@
         self.blocksForReplies[theMessage.controlData[kSTYMessageIDKey]] = inReplyHandler;
         }
 
-
     [self.transport sendMessage:theMessage replyHandler:inReplyHandler completion:inCompletion];
     }
 
@@ -293,13 +294,15 @@
             return NO;
             }
             
-//        if ([inMessage.metadata[@"requiresChallenge"] boolValue] == YES)
-//            {
-//            NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
-//            strong_self.state = kSTYPeerStateChallengeResponse;
-//            
-//            [self _performChallengeRepsonse];
-//            }
+        if ([inMessage.metadata[@"requiresChallenge"] boolValue] == YES)
+            {
+            NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
+            strong_self.state = kSTYPeerStateChallengeResponse;
+            
+            [self _clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion];
+            
+            return YES;
+            }
         
         if (inCompletion != NULL)
             {
@@ -314,9 +317,36 @@
     [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
-- (void)_performChallengeRepsonse
-    {
-    }
+- (void)_clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAlert *theAlert = [NSAlert alertWithMessageText:@"Enter secret" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Informative text"];
+        
+        NSTextField *theTextField = [[NSTextField alloc] initWithFrame:(CGRect){ .size = { 80, 20 } }];
+        theAlert.accessoryView = theTextField;
+        if ([theAlert runModal] == 1) {
+            NSString *theSecret = theTextField.stringValue;
+            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: @"_secret" } metadata:@{ @"secret": theSecret } data:NULL];
+            [self sendMessage:theMessage replyHandler:^BOOL(STYPeer *inPeer, STYMessage *inMessage, NSError *__autoreleasing *outError) {
+                //                NSLog(@"%@", inMessage);
+                if (inCompletion) {
+                    inCompletion(NULL);
+                }
+                return true;
+            } completion:^(NSError *error) {
+                if (error != NULL) {
+                    if (inCompletion) {
+                        inCompletion(NULL);
+                    }
+                }
+            }];
+        } else {
+            if (inCompletion) {
+                inCompletion([NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL]);
+            }
+            [self close:nil];
+        }
+    });
+}
 
 - (void)transport:(STYTransport *)inTransport didReceiveMessage:(STYMessage *)inMessage;
     {

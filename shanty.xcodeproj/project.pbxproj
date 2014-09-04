@@ -72,6 +72,8 @@
 		453D8F051930155800743852 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
 		454B1BEF185F9D21003FB0E7 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		454B1BF0185F9D21003FB0E7 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45563F2619B0F415003B1639 /* STYChallengeResponseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 45563F2419B0F415003B1639 /* STYChallengeResponseHelper.h */; };
+		45563F2719B0F415003B1639 /* STYChallengeResponseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 45563F2519B0F415003B1639 /* STYChallengeResponseHelper.m */; };
 		4580B009192D45E600E1C6FE /* STYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4580B007192D45E600E1C6FE /* STYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4580B00A192D45E600E1C6FE /* STYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4580B007192D45E600E1C6FE /* STYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4580B00B192D45E600E1C6FE /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
@@ -176,6 +178,8 @@
 		453D8F001930155800743852 /* STYDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYDebug.h; sourceTree = "<group>"; };
 		453D8F011930155800743852 /* STYDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYDebug.m; sourceTree = "<group>"; };
 		454B1BEE185F9D21003FB0E7 /* Shanty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shanty.h; sourceTree = "<group>"; };
+		45563F2419B0F415003B1639 /* STYChallengeResponseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYChallengeResponseHelper.h; sourceTree = "<group>"; };
+		45563F2519B0F415003B1639 /* STYChallengeResponseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYChallengeResponseHelper.m; sourceTree = "<group>"; };
 		4580B007192D45E600E1C6FE /* STYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYLogger.h; sourceTree = "<group>"; };
 		4580B008192D45E600E1C6FE /* STYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYLogger.m; sourceTree = "<group>"; };
 		45BA660418BC0D3700EA2A5A /* STYPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STYPeerBrowserViewController.xib; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				4580B008192D45E600E1C6FE /* STYLogger.m */,
 				453D8F001930155800743852 /* STYDebug.h */,
 				453D8F011930155800743852 /* STYDebug.m */,
+				45563F2419B0F415003B1639 /* STYChallengeResponseHelper.h */,
+				45563F2519B0F415003B1639 /* STYChallengeResponseHelper.m */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -406,6 +412,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45563F2619B0F415003B1639 /* STYChallengeResponseHelper.h in Headers */,
 				4538AEFC185F88D2003DF921 /* NSNetService+STYUserInfo.h in Headers */,
 				454B1BEF185F9D21003FB0E7 /* Shanty.h in Headers */,
 				4538AEFE185F88D2003DF921 /* STYAddress.h in Headers */,
@@ -605,6 +612,7 @@
 				4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */,
 				45E719A719AFAF7A00854866 /* STYClientPeer.m in Sources */,
 				4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */,
+				45563F2719B0F415003B1639 /* STYChallengeResponseHelper.m in Sources */,
 				4538AEF0185F85D7003DF921 /* NSNetService+STYUserInfo.m in Sources */,
 				452C013418763FA500BF19DB /* STYSocket.m in Sources */,
 				4580B00B192D45E600E1C6FE /* STYLogger.m in Sources */,
