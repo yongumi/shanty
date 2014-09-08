@@ -217,7 +217,7 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
     STYCompletionBlock theBlock = sender.sty_userInfo;
     if (theBlock)
         {
-        theBlock([NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL]);
+        theBlock([NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL]);
         sender.sty_userInfo = NULL;
         }
     }

@@ -325,7 +325,7 @@
             }];
         } else {
             if (inCompletion) {
-                inCompletion([NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL]);
+                inCompletion([NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL]);
             }
             [self close:nil];
         }

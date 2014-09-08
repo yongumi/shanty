@@ -40,7 +40,7 @@
         {
         if (outError)
             {
-            *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+            *outError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
             }
         return NULL;
         }

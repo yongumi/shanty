@@ -69,7 +69,7 @@
             {
             if (outError != NULL)
                 {
-                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 }
             return NO;
             }
@@ -78,7 +78,7 @@
             {
             if (outError != NULL)
                 {
-                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 }
 
             return NO;
@@ -97,7 +97,7 @@
 
             if (outError != NULL)
                 {
-                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
                 }
 
             return NO;
