@@ -67,11 +67,11 @@ class ServerViewController: NSViewController, STYListenerDelegate {
 
     func listener(inListener: STYListener!, didCreatePeer inPeer: STYPeer!) {
     
-        if let serverPeer = inPeer as? STYServerPeer {
-            serverPeer.secret = self.code
-        
-        }
-    
+        let serverPeer = inPeer as STYServerPeer
+        serverPeer.requiresChallenge = true
+        serverPeer.secret = self.code
+        println("Using secret: \(self.code)")
+
         peersViewController.addPeer(inPeer)
     }
 }
