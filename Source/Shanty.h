@@ -1,3 +1,19 @@
+//
+//  Shanty.h
+//  Shanty
+//
+//  Created by Jonathan Wight on 9/5/14.
+//  Copyright (c) 2014 schwa.io. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+//! Project version number for Shanty
+FOUNDATION_EXPORT double Shanty_VersionNumber;
+
+//! Project version string for Shanty
+FOUNDATION_EXPORT const unsigned char Shanty_VersionString[];
+
 #import <Shanty/NSNetService+STYUserInfo.h>
 #import <Shanty/STYAddress.h>
 #import <Shanty/STYCompletionBlocks.h>

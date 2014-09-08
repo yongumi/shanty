@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 schwa.io. All rights reserved.
 //
 
-#import <Shanty/Shanty.h>
+#import "STYPeer.h"
 
 @interface STYClientPeer : STYPeer
 

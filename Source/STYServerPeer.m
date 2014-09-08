@@ -8,6 +8,11 @@
 
 #import "STYServerPeer.h"
 
+#import "STYMessageHandler.h"
+#import "STYConstants.h"
+#import "STYMessage.h"
+#import "STYLogger.h"
+
 @implementation STYServerPeer
 
 - (id)init
