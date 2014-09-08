@@ -197,6 +197,7 @@
             return;
             }
 
+        // Bail early if we're cancelled - this isn't an actual error.
         if (error == ECANCELED)
             {
             return;
@@ -206,8 +207,8 @@
             /// TODO handle error (via completion block)
             
             NSError *thePOSIXError = [NSError errorWithDomain:NSPOSIXErrorDomain code:error userInfo:NULL];
-            
             STYLogError_(@"%@: dispatch_io_read: %@", self, thePOSIXError);
+            inCompletion(thePOSIXError);
             return;
             }
 
