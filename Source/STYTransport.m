@@ -111,7 +111,7 @@
     NSParameterAssert(self.state == kSTYTransportStateReady);
     self.state = kSTYTransportStateClosed;
 
-    if ([self.delegate respondsToSelector:@selector(transportDidClose:)])
+    if ([self.delegate respondsToSelector:@selector(transportWillClose:)])
         {
         [self.delegate transportWillClose:self];
         }
@@ -248,7 +248,7 @@
 
 - (void)socketDidClose:(STYSocket *)inSocket;
     {
-    //STYLogDebug_(@"socketDidClose called but we're not doing much with it!");
+//    STYLogDebug_(@"socketDidClose called but we're not doing much with it!");
     }
 
 @end
