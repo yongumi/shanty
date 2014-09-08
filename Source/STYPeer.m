@@ -277,7 +277,7 @@
             NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
             strong_self.state = kSTYPeerStateChallengeResponse;
             
-            [self _clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion];
+            [self _clientPerformChallengeResponse:(STYCompletionBlock)inCompletion];
             
             return YES;
             }
@@ -295,7 +295,7 @@
     [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
-- (void)_clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion
+- (void)_clientPerformChallengeResponse:(STYCompletionBlock)inCompletion
     {
     #if TARGET_OS_IPHONE == 0
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -305,9 +305,13 @@
         theAlert.accessoryView = theTextField;
         if ([theAlert runModal] == 1) {
             NSString *theSecret = theTextField.stringValue;
+            __weak typeof(self) weak_self = self;
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: @"_secret" } metadata:@{ @"secret": theSecret } data:NULL];
             [self sendMessage:theMessage replyHandler:^BOOL(STYPeer *inPeer, STYMessage *inMessage, NSError *__autoreleasing *outError) {
+                __weak typeof(weak_self) strong_self = weak_self;
                 //                NSLog(@"%@", inMessage);
+                NSCParameterAssert(strong_self.state == kSTYPeerStateChallengeResponse);
+                strong_self.state = kSTYPeerStateReady;
                 if (inCompletion) {
                     inCompletion(NULL);
                 }
