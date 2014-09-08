@@ -325,7 +325,7 @@
             }];
         } else {
             if (inCompletion) {
-                inCompletion([NSError errorWithDomain:@"TODO_DOMAIN" code:-1 userInfo:NULL]);
+                inCompletion([NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL]);
             }
             [self close:nil];
         }
