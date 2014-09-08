@@ -10,11 +10,11 @@
 
 #import "STYPeer.h"
 
-// Misnamed. This isn't a handler. It's a "message handler group"
+// TODO: Refactor this.
 @interface STYMessageHandler : NSObject
 
 - (void)addCommand:(NSString *)inCommand block:(STYMessageBlock)inBlock;
 
-- (NSArray *)blocksForMessage:(STYMessage *)inMessage;
+- (STYMessageBlock)blockForMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError;
 
 @end

@@ -198,22 +198,33 @@
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
+    BOOL theErrorFlag = NO;
     BOOL theHandledFlag = NO;
 
     STYMessageBlock theBlock = self.blocksForReplies[inMessage.controlData[kSTYInReplyToKey]];
-    if (theBlock)
+    if (theBlock != NULL)
         {
-        theHandledFlag = theBlock(self, inMessage, outError);
+        NSError *theError = NULL;
+        theErrorFlag = theBlock(self, inMessage, outError);
+        if (theErrorFlag == YES)
+            {
+            if (outError != NULL)
+                {
+                *outError = theError;
+                }
+            }
+
         if (inMessage.moreComing == NO)
             {
             [self.blocksForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
             }
+
+        theHandledFlag = YES;
         }
 
     if (theHandledFlag == NO)
         {
         NSMutableArray *theHandlers = [NSMutableArray arrayWithObjects:self.systemHandler, NULL];
-
         if (self.messageHandler == NULL)
             {
             STYLogWarning_(@"%@: No handlers", self);
@@ -225,22 +236,25 @@
 
         for (STYMessageHandler *theHandler in theHandlers)
             {
-            NSArray *theBlocks = [theHandler blocksForMessage:inMessage];
-            for (theBlock in theBlocks)
+            NSError *theError = NULL;
+            theBlock = [theHandler blockForMessage:inMessage error:&theError];
+            if (theBlock != NULL)
                 {
-                theHandledFlag = theBlock(self, inMessage, outError);
-                if (theHandledFlag == YES)
+                theErrorFlag = theBlock(self, inMessage, &theError);
+                if (theErrorFlag == YES)
                     {
-                    break;
+                    if (outError != NULL)
+                        {
+                        *outError = theError;
+                        }
                     }
-                }
 
-            if (theHandledFlag == YES)
-                {
+                theHandledFlag = YES;
                 break;
                 }
             }
         }
+
 
     if (theHandledFlag == NO)
         {
@@ -253,12 +267,13 @@
         [self close:NULL];
         }
 
-    return(theHandledFlag);
+    return theErrorFlag;
     }
 
 #pragma mark -
 
-- (NSDictionary *)_makeHelloMetadata:(NSDictionary *)inExtras
+// TODO: Should move onto message handler.
+- (NSDictionary *)makeHelloMetadata:(NSDictionary *)inExtras
     {
     NSMutableDictionary *theMetadata = [NSMutableDictionary dictionary];
     
@@ -278,6 +293,7 @@
     return theMetadata;
     }
 
+#pragma mark -
 
 - (STYMessageHandler *)_makeSystemHandler
     {
@@ -299,7 +315,7 @@
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
             };
 
-        NSDictionary *theMetadata = [self _makeHelloMetadata:@{ @"requiresChallenge": @(YES) }];
+        NSDictionary *theMetadata = [self makeHelloMetadata:@{ @"requiresChallenge": @(YES) }];
 
         STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
         [inPeer sendMessage:theResponse completion:NULL];
@@ -317,7 +333,7 @@
     {
     NSParameterAssert(self.mode == kSTYMessengerModeClient);
     
-    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self _makeHelloMetadata:NULL] data:NULL];
+    STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYHelloCommand } metadata:[self makeHelloMetadata:NULL] data:NULL];
 
     // TODO retaining self
     __weak typeof(self) weak_self = self;
