@@ -41,12 +41,11 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 @property (readonly, nonatomic) STYMessengerMode mode;
 @property (readonly, nonatomic) STYTransport *transport;
-@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
-@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
-@property (readwrite, nonatomic) STYMessageHandler *messageHandler;
+@property (readonly, atomic) STYPeerState state;
+@property (readonly, nonatomic) STYMessageHandler *systemHandler;
+@property (readonly, nonatomic) STYMessageHandler *messageHandler;
 @property (readonly, nonatomic, copy) NSString *name;
 @property (readonly, nonatomic, copy) NSUUID *UUID;
-@property (readwrite, nonatomic) id userInfo;
 @property (readwrite, nonatomic, weak) id <STYPeerDelegate> delegate;
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
@@ -66,4 +65,12 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 @protocol STYPeerDelegate <NSObject>
 @optional
 - (void)peerDidClose:(STYPeer *)inPeer;
+@end
+
+#pragma mark -
+
+@interface STYPeer (Subclassing)
+@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @end

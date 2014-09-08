@@ -8,8 +8,6 @@
 
 #import "STYPeer.h"
 
-#import <Cocoa/Cocoa.h>
-
 #import "STYMessage.h"
 #import "STYDataScanner+Message.h"
 #import "STYMessageHandler.h"
@@ -21,9 +19,7 @@
 
 @interface STYPeer () <STYTransportDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
-//@property (readwrite, atomic) STYPeerState state;
 @property (readwrite, nonatomic) STYTransport *transport;
-//@property (readwrite, nonatomic) STYMessageHandler *systemHandler;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
 @end
 
