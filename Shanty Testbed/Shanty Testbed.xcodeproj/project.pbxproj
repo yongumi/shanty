@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		454353F319BE350600FEFB23 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 454353F419BE350600FEFB23 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				454353F819BE351200FEFB23 /* PBXTargetDependency */,
+				454353FA19BE351200FEFB23 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		450F7DBD19BA594A00905776 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F7DBC19BA594A00905776 /* AppDelegate.swift */; };
 		450F7DBF19BA594A00905776 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F7DBE19BA594A00905776 /* ServerViewController.swift */; };
@@ -34,6 +49,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		454353F719BE351200FEFB23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4571C8C2197EF9070076C0D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4571C8C9197EF9070076C0D5;
+			remoteInfo = "Shanty Testbed";
+		};
+		454353F919BE351200FEFB23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4571C8C2197EF9070076C0D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 450F7DB719BA594A00905776;
+			remoteInfo = "Shanty Testbed iOS";
+		};
 		4555D59719BA6E60007E992B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
@@ -275,6 +304,9 @@
 					450F7DB719BA594A00905776 = {
 						CreatedOnToolsVersion = 6.0;
 					};
+					454353F319BE350600FEFB23 = {
+						CreatedOnToolsVersion = 6.0;
+					};
 					4571C8C9197EF9070076C0D5 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -299,6 +331,7 @@
 			);
 			projectRoot = "";
 			targets = (
+				454353F319BE350600FEFB23 /* All */,
 				4571C8C9197EF9070076C0D5 /* Shanty Testbed */,
 				450F7DB719BA594A00905776 /* Shanty Testbed iOS */,
 			);
@@ -392,6 +425,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		454353F819BE351200FEFB23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4571C8C9197EF9070076C0D5 /* Shanty Testbed */;
+			targetProxy = 454353F719BE351200FEFB23 /* PBXContainerItemProxy */;
+		};
+		454353FA19BE351200FEFB23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 450F7DB719BA594A00905776 /* Shanty Testbed iOS */;
+			targetProxy = 454353F919BE351200FEFB23 /* PBXContainerItemProxy */;
+		};
 		4555D59819BA6E60007E992B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Shanty;
@@ -450,6 +493,20 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		454353F519BE350600FEFB23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		454353F619BE350600FEFB23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -568,6 +625,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		454353F419BE350600FEFB23 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				454353F519BE350600FEFB23 /* Debug */,
+				454353F619BE350600FEFB23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		4571C8C5197EF9070076C0D5 /* Build configuration list for PBXProject "Shanty Testbed" */ = {
 			isa = XCConfigurationList;
