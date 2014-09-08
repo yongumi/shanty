@@ -10,6 +10,7 @@
 
 @interface STYServerPeer : STYPeer
 
+@property (readwrite, nonatomic) BOOL requiresChallenge;
 @property (readwrite, nonatomic, copy) NSString *secret;
 
 @end

@@ -33,10 +33,33 @@
     [self.blocks insertObject:@[ inCommand ?: [NSNull null], inBlock ] atIndex:0];
     }
 
-- (NSArray *)blocksForMessage:(STYMessage *)inMessage;
+- (STYMessageBlock)blockForMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
+    {
+    NSArray *theBlocks = [self _blocksForMessage:inMessage];
+    if (theBlocks.count > 1)
+        {
+        if (outError)
+            {
+            *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+            }
+        return NULL;
+        }
+
+    if (theBlocks.count == 0)
+        {
+        if (outError)
+            {
+            *outError = NULL;
+            }
+        return NULL;
+        }
+
+    return theBlocks[0];
+    }
+
+- (NSArray *)_blocksForMessage:(STYMessage *)inMessage;
     {
     NSMutableArray *theBlocks = [NSMutableArray array];
-
     for (NSArray *theRecord in self.blocks)
         {
         id theCommand = theRecord[0];
@@ -46,7 +69,6 @@
             [theBlocks addObject:theBlock];
             }
         }
-
     return(theBlocks);
     }
 

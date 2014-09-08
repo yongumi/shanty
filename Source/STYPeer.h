@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 @interface STYPeer : NSObject
 
-@property (readonly, nonatomic) STYMessengerMode mode;
+@property (readonly, nonatomic) STYMessengerMode mode; // TODO: Will be deprecated.
 @property (readonly, nonatomic) STYTransport *transport;
 @property (readonly, atomic) STYPeerState state;
 @property (readonly, nonatomic) STYMessageHandler *systemHandler;

@@ -44,8 +44,14 @@
             kSTYInReplyToKey: inMessage.controlData[kSTYMessageIDKey],
             };
 
-        NSDictionary *theMetadata = [self makeHelloMetadata:@{ @"requiresChallenge": @(YES) }];
-//        NSDictionary *theMetadata = [self _makeHelloMetadata:NULL];
+        NSMutableDictionary *theExtraMetadata = [NSMutableDictionary dictionary];
+
+        if (strong_self.requiresChallenge == YES)
+            {
+            theExtraMetadata[@"requiresChallenge"] = @(YES);
+            }
+
+        NSDictionary *theMetadata = [strong_self makeHelloMetadata:theExtraMetadata];
 
         STYMessage *theResponse = [[STYMessage alloc] initWithControlData:theControlData metadata:theMetadata data:NULL];
         [inPeer sendMessage:theResponse completion:NULL];
@@ -59,6 +65,25 @@
     [theHandler addCommand:@"_secret" block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;
 
+        if (strong_self.requiresChallenge == NO)
+            {
+            if (outError != NULL)
+                {
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                }
+            return NO;
+            }
+
+        if (strong_self.secret.length < 4)
+            {
+            if (outError != NULL)
+                {
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                }
+
+            return NO;
+            }
+
         if ([strong_self.secret isEqualToString:inMessage.metadata[@"secret"]] == YES)
             {
             STYMessage *theResponse = [inMessage replyWithControlData:@{kSTYCommandKey: @"_secret.reply"} metadata:NULL data:NULL];
@@ -69,6 +94,13 @@
         else
             {
             [self close:NULL];
+
+            if (outError != NULL)
+                {
+                *outError = [NSError errorWithDomain:kSTYErrorDomain code:-1 userInfo:NULL];
+                }
+
+            return NO;
             }
         return YES;
     }];

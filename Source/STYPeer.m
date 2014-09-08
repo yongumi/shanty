@@ -17,10 +17,18 @@
 #import "STYTransport.h"
 #import "STYSocket.h"
 
+#if TARGET_OS_IPHONE == 0
+#import <Cocoa/Cocoa.h>
+#endif
+
+
 @interface STYPeer () <STYTransportDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, nonatomic) STYTransport *transport;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
+@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @end
 
 #pragma mark -
@@ -152,22 +160,33 @@
 
 - (BOOL)_handleMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError
     {
+    BOOL theErrorFlag = NO;
     BOOL theHandledFlag = NO;
 
     STYMessageBlock theBlock = self.blocksForReplies[inMessage.controlData[kSTYInReplyToKey]];
-    if (theBlock)
+    if (theBlock != NULL)
         {
-        theHandledFlag = theBlock(self, inMessage, outError);
+        NSError *theError = NULL;
+        theErrorFlag = theBlock(self, inMessage, outError);
+        if (theErrorFlag == YES)
+            {
+            if (outError != NULL)
+                {
+                *outError = theError;
+                }
+            }
+
         if (inMessage.moreComing == NO)
             {
             [self.blocksForReplies removeObjectForKey:inMessage.controlData[kSTYInReplyToKey]];
             }
+
+        theHandledFlag = YES;
         }
 
     if (theHandledFlag == NO)
         {
         NSMutableArray *theHandlers = [NSMutableArray arrayWithObjects:self.systemHandler, NULL];
-
         if (self.messageHandler == NULL)
             {
             STYLogWarning_(@"%@: No handlers", self);
@@ -179,22 +198,25 @@
 
         for (STYMessageHandler *theHandler in theHandlers)
             {
-            NSArray *theBlocks = [theHandler blocksForMessage:inMessage];
-            for (theBlock in theBlocks)
+            NSError *theError = NULL;
+            theBlock = [theHandler blockForMessage:inMessage error:&theError];
+            if (theBlock != NULL)
                 {
-                theHandledFlag = theBlock(self, inMessage, outError);
-                if (theHandledFlag == YES)
+                theErrorFlag = theBlock(self, inMessage, &theError);
+                if (theErrorFlag == YES)
                     {
-                    break;
+                    if (outError != NULL)
+                        {
+                        *outError = theError;
+                        }
                     }
-                }
 
-            if (theHandledFlag == YES)
-                {
+                theHandledFlag = YES;
                 break;
                 }
             }
         }
+
 
     if (theHandledFlag == NO)
         {
@@ -207,11 +229,12 @@
         [self close:NULL];
         }
 
-    return(theHandledFlag);
+    return theErrorFlag;
     }
 
 #pragma mark -
 
+// TODO: Should move onto message handler.
 - (NSDictionary *)makeHelloMetadata:(NSDictionary *)inExtras
     {
     NSMutableDictionary *theMetadata = [NSMutableDictionary dictionary];
@@ -232,6 +255,7 @@
     return theMetadata;
     }
 
+#pragma mark -
 
 - (void)_clientPerformHandShake:(STYCompletionBlock)inCompletion
     {
