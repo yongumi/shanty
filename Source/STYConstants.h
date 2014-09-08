@@ -21,4 +21,5 @@ extern NSString *const kSTYErrorDomain; // = @"io.schwa.shanty";
 
 typedef NS_ENUM(NSInteger, ESTYErrorCode) {
 	kSTYErrorCode_Unknown = -1,
+	kSTYErrorCode_AlreadyClosed = 100,
 	};

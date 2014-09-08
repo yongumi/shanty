@@ -111,7 +111,11 @@
     if (self.state == kSTYPeerStateClosed)
         {
         STYLogWarning_(@"%@: Trying to close an already closed Peer", self);
-        #warning TODO - call inCompletion with error?
+        if (inCompletion != NULL)
+            {
+            NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_AlreadyClosed userInfo:NULL];
+            inCompletion(theError);
+            }
         return;
         }
     if ([self.delegate respondsToSelector:@selector(peerDidClose:)])
@@ -267,8 +271,8 @@
     [self sendMessage:theMessage replyHandler:theReplyHandler completion:NULL];
     }
 
-- (void)_clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion {
-
+- (void)_clientPerformChallengeRepsonse:(STYCompletionBlock)inCompletion
+    {
     #if TARGET_OS_IPHONE == 0
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAlert *theAlert = [NSAlert alertWithMessageText:@"Enter secret" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Informative text"];

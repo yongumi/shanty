@@ -104,7 +104,11 @@
     if (self.state == kSTYTransportStateClosed)
         {
         STYLogWarning_(@"%@: Trying to close an already closed Peer", self);
-        #warning TODO - call inCompletion with error?
+        if (inCompletion != NULL)
+            {
+            NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_AlreadyClosed userInfo:NULL];
+            inCompletion(theError);
+            }
         return;
         }
 
