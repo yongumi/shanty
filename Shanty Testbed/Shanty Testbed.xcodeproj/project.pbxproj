@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		450F7DBD19BA594A00905776 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F7DBC19BA594A00905776 /* AppDelegate.swift */; };
+		450F7DBF19BA594A00905776 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F7DBE19BA594A00905776 /* ServerViewController.swift */; };
+		450F7DC219BA594A00905776 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450F7DC019BA594A00905776 /* Main.storyboard */; };
+		450F7DC419BA594A00905776 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450F7DC319BA594A00905776 /* Images.xcassets */; };
 		4518065E19881B6F0083CC28 /* ServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4518065D19881B6F0083CC28 /* ServerViewController.xib */; };
 		45180665198825590083CC28 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45180663198825590083CC28 /* MainWindowController.swift */; };
 		45180666198825590083CC28 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45180664198825590083CC28 /* MainWindowController.xib */; };
 		451806681988450D0083CC28 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451806671988450D0083CC28 /* ClientViewController.xib */; };
 		452D5FBE19A6C011009B6DBE /* SendMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452D5FBD19A6C011009B6DBE /* SendMessageViewController.swift */; };
 		45319A1719A6AF49005A0F48 /* PeersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45319A1619A6AF49005A0F48 /* PeersViewController.storyboard */; };
+		4555D5C519BA6F61007E992B /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4555D59E19BA6E61007E992B /* Shanty.framework */; };
 		4563C293198B03F5007BCB49 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4563C291198B03F5007BCB49 /* MessagesViewController.swift */; };
 		4563C294198B03F5007BCB49 /* MessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4563C292198B03F5007BCB49 /* MessagesViewController.xib */; };
 		4571C8D0197EF9080076C0D5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571C8CF197EF9080076C0D5 /* main.swift */; };
@@ -29,6 +34,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4555D59719BA6E60007E992B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4555D58019BA6E31007E992B;
+			remoteInfo = Shanty;
+		};
+		4555D59D19BA6E61007E992B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4555D58119BA6E31007E992B;
+			remoteInfo = Shanty;
+		};
 		45E3EAE719805F8A00A42F0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
@@ -73,6 +92,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		450F7DB819BA594A00905776 /* Shanty Testbed iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shanty Testbed iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		450F7DBB19BA594A00905776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		450F7DBC19BA594A00905776 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		450F7DBE19BA594A00905776 /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
+		450F7DC119BA594A00905776 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		450F7DC319BA594A00905776 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4518065D19881B6F0083CC28 /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
 		45180663198825590083CC28 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		45180664198825590083CC28 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
@@ -96,6 +121,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		450F7DB519BA594A00905776 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4555D5C519BA6F61007E992B /* Shanty.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4571C8C7197EF9070076C0D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,10 +140,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		450F7DB919BA594A00905776 /* Shanty Testbed iOS */ = {
+			isa = PBXGroup;
+			children = (
+				450F7DBC19BA594A00905776 /* AppDelegate.swift */,
+				450F7DBE19BA594A00905776 /* ServerViewController.swift */,
+				450F7DC019BA594A00905776 /* Main.storyboard */,
+				450F7DC319BA594A00905776 /* Images.xcassets */,
+				450F7DBA19BA594A00905776 /* Supporting Files */,
+			);
+			path = "Shanty Testbed iOS";
+			sourceTree = "<group>";
+		};
+		450F7DBA19BA594A00905776 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				450F7DBB19BA594A00905776 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4571C8C1197EF9070076C0D5 = {
 			isa = PBXGroup;
 			children = (
-				4571C8CC197EF9070076C0D5 /* Shanty Testbed */,
+				4571C8CC197EF9070076C0D5 /* Shanty Testbed OSX */,
+				450F7DB919BA594A00905776 /* Shanty Testbed iOS */,
 				45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */,
 				4571C8CB197EF9070076C0D5 /* Products */,
 			);
@@ -120,11 +174,12 @@
 			isa = PBXGroup;
 			children = (
 				4571C8CA197EF9070076C0D5 /* Shanty Testbed.app */,
+				450F7DB819BA594A00905776 /* Shanty Testbed iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4571C8CC197EF9070076C0D5 /* Shanty Testbed */ = {
+		4571C8CC197EF9070076C0D5 /* Shanty Testbed OSX */ = {
 			isa = PBXGroup;
 			children = (
 				4571C8D3197EF9080076C0D5 /* AppDelegate.swift */,
@@ -145,7 +200,7 @@
 				4571C8CD197EF9080076C0D5 /* Supporting Files */,
 				4581B39F198060B800B227E3 /* Application.xib */,
 			);
-			path = "Shanty Testbed";
+			path = "Shanty Testbed OSX";
 			sourceTree = "<group>";
 		};
 		4571C8CD197EF9080076C0D5 /* Supporting Files */ = {
@@ -160,8 +215,9 @@
 		45E3EAE519805F7A00A42F0F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45E3EAEE19805F9100A42F0F /* libShanty.a */,
 				45E3EAF019805F9100A42F0F /* Shanty.framework */,
+				4555D59E19BA6E61007E992B /* Shanty.framework */,
+				45E3EAEE19805F9100A42F0F /* libShanty.a */,
 				45E3EAF219805F9100A42F0F /* Shanty Mac OS X Tests.xctest */,
 			);
 			name = Products;
@@ -170,6 +226,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		450F7DB719BA594A00905776 /* Shanty Testbed iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 450F7DD819BA594A00905776 /* Build configuration list for PBXNativeTarget "Shanty Testbed iOS" */;
+			buildPhases = (
+				450F7DB419BA594A00905776 /* Sources */,
+				450F7DB519BA594A00905776 /* Frameworks */,
+				450F7DB619BA594A00905776 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4555D59819BA6E60007E992B /* PBXTargetDependency */,
+			);
+			name = "Shanty Testbed iOS";
+			productName = "Shanty Testbed iOS";
+			productReference = 450F7DB819BA594A00905776 /* Shanty Testbed iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4571C8C9197EF9070076C0D5 /* Shanty Testbed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4571C8E8197EF9080076C0D5 /* Build configuration list for PBXNativeTarget "Shanty Testbed" */;
@@ -198,6 +272,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = schwa;
 				TargetAttributes = {
+					450F7DB719BA594A00905776 = {
+						CreatedOnToolsVersion = 6.0;
+					};
 					4571C8C9197EF9070076C0D5 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -223,11 +300,19 @@
 			projectRoot = "";
 			targets = (
 				4571C8C9197EF9070076C0D5 /* Shanty Testbed */,
+				450F7DB719BA594A00905776 /* Shanty Testbed iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4555D59E19BA6E61007E992B /* Shanty.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Shanty.framework;
+			remoteRef = 4555D59D19BA6E61007E992B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		45E3EAEE19805F9100A42F0F /* libShanty.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -252,6 +337,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		450F7DB619BA594A00905776 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				450F7DC219BA594A00905776 /* Main.storyboard in Resources */,
+				450F7DC419BA594A00905776 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4571C8C8197EF9070076C0D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +363,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		450F7DB419BA594A00905776 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				450F7DBF19BA594A00905776 /* ServerViewController.swift in Sources */,
+				450F7DBD19BA594A00905776 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4571C8C6197EF9070076C0D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -289,6 +392,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4555D59819BA6E60007E992B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Shanty;
+			targetProxy = 4555D59719BA6E60007E992B /* PBXContainerItemProxy */;
+		};
 		45E3EAE819805F8A00A42F0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Shanty OSX Framework";
@@ -296,7 +404,55 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		450F7DC019BA594A00905776 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				450F7DC119BA594A00905776 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		450F7DD119BA594A00905776 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Shanty Testbed iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		450F7DD219BA594A00905776 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Shanty Testbed iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		4571C8E6197EF9080076C0D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -404,6 +560,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		450F7DD819BA594A00905776 /* Build configuration list for PBXNativeTarget "Shanty Testbed iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				450F7DD119BA594A00905776 /* Debug */,
+				450F7DD219BA594A00905776 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4571C8C5197EF9070076C0D5 /* Build configuration list for PBXProject "Shanty Testbed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
