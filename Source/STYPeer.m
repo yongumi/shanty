@@ -255,6 +255,9 @@
     if (theHandledFlag == NO)
         {
         STYLogWarning_(@"%@: No handler for message: %@", self, inMessage.controlData);
+
+        STYMessage *theReply = [inMessage replyWithControlData:@{ kSTYCommandKey: @"error" } metadata:NULL data:NULL];
+        [self sendMessage:theReply completion:NULL];
         }
 
     if ([inMessage.controlData[kSTYCloseKey] boolValue] == YES)
