@@ -57,7 +57,7 @@
         NSParameterAssert(inSocket != NULL);
 
         _mode = inMode;
-        
+
         _transport = [[STYTransport alloc] initWithPeer:self socket:inSocket];
         _transport.delegate = self;
         _name = [inName copy];
@@ -69,6 +69,26 @@
     {
     [self close:NULL];
     }
+
+#pragma mark -
+
+- (STYPeerState)state
+    {
+    // TODO atomic
+    return _state;
+    }
+
+- (void)setState:(STYPeerState)state
+    {
+    // TODO atomic
+    if (_state != state)
+        {
+        [self willChangeToState:state fromState:_state];
+        _state = state;
+        [self didChangeToState:state fromState:_state];
+        }
+    }
+
 
 #pragma mark -
 
@@ -160,6 +180,14 @@
         }
 
     [self.transport sendMessage:theMessage replyHandler:inReplyHandler completion:inCompletion];
+    }
+
+- (void)willChangeToState:(STYPeerState)inState fromState:(STYPeerState)inOldState
+    {
+    }
+
+- (void)didChangeToState:(STYPeerState)inState fromState:(STYPeerState)inOldState
+    {
     }
 
 #pragma mark -

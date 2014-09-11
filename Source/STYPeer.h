@@ -74,4 +74,8 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 @property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
 @property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
+
+- (void)willChangeToState:(STYPeerState)inState fromState:(STYPeerState)inOldState;
+- (void)didChangeToState:(STYPeerState)inState fromState:(STYPeerState)inOldState;
+
 @end
