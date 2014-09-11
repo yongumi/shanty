@@ -50,10 +50,9 @@
 		4538AF06185F88D2003DF921 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF07185F88D2003DF921 /* STYListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; };
+		453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF7192FF04500743852 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8EF4192FF04500743852 /* STYServicePublisher.m */; };
-		453D8F021930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; };
 		453D8F031930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8F041930155800743852 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
 		45468E5819BA5D76009CBCC8 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */; };
@@ -449,7 +448,6 @@
 				4538AF01185F88D2003DF921 /* STYDataScanner+Message.h in Headers */,
 				4538AF02185F88D2003DF921 /* STYDataScanner.h in Headers */,
 				4538AF04185F88D2003DF921 /* STYMessage.h in Headers */,
-				453D8F021930155800743852 /* STYDebug.h in Headers */,
 				4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */,
 				4538AF06185F88D2003DF921 /* STYPeer.h in Headers */,
 				45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */,
@@ -458,6 +456,7 @@
 				452C013218763FA500BF19DB /* STYSocket.h in Headers */,
 				4580B009192D45E600E1C6FE /* STYLogger.h in Headers */,
 				45065FF319ABFB1F007B22EE /* STYTransport.h in Headers */,
+				453D8F021930155800743852 /* STYDebug.h in Headers */,
 				453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */,
 				4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */,
 				45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */,
@@ -583,7 +582,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -837,6 +836,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
@@ -875,7 +875,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos7.0;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -886,6 +885,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
@@ -1092,7 +1092,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
