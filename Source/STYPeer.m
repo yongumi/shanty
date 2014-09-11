@@ -21,7 +21,6 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-
 @interface STYPeer () <STYTransportDelegate>
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, nonatomic) STYTransport *transport;
@@ -43,6 +42,9 @@
         {
         _blocksForReplies = [NSMutableDictionary dictionary];
         _UUID = [NSUUID UUID];
+
+        _systemHandler = [[STYMessageHandler alloc] init];
+        [self prepareSystemHandler];
         }
     return self;
     }
@@ -69,6 +71,10 @@
     }
 
 #pragma mark -
+
+- (void)prepareSystemHandler
+    {
+    }
 
 - (void)open:(STYCompletionBlock)inCompletion
     {

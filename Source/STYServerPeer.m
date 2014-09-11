@@ -19,19 +19,18 @@
     {
     if ((self = [super init]) != NULL)
         {
-        self.systemHandler = [self _makeSystemHandler];
         }
     return self;
     }
 
-- (STYMessageHandler *)_makeSystemHandler
+- (void)prepareSystemHandler
     {
-    STYMessageHandler *theHandler = [[STYMessageHandler alloc] init];
+    [super prepareSystemHandler];
 
     __weak typeof(self) weak_self = self;
 
     // TODO: Technically we only need this if the peer is a server.
-    [theHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self.systemHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;
         if (strong_self == NULL)
             {

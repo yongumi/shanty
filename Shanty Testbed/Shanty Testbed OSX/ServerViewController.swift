@@ -16,6 +16,7 @@ class ServerViewController: NSViewController, STYListenerDelegate {
     dynamic var name : String?
     dynamic var host : String?
     dynamic var port : UInt16 = 0
+    dynamic var challengeResponse : Bool = false
     dynamic var code : String = STYListener.randomCode()
     dynamic var loopback : Bool = true
 
@@ -41,7 +42,6 @@ class ServerViewController: NSViewController, STYListenerDelegate {
     @IBAction func serve(sender:AnyObject?) {
         self.server = STYListener(listeningAddress:STYAddress(anyAddress:port), netServiceDomain:self.domain, type:self.type, name:self.name)
         self.server.delegate = self
-        println("Using localhost? \(loopback)")
         self.server.publishOnLocalhostOnly = self.loopback
         self.server.startListening() {
             error in
@@ -66,9 +66,8 @@ class ServerViewController: NSViewController, STYListenerDelegate {
     }
 
     func listener(inListener: STYListener!, didCreatePeer inPeer: STYPeer!) {
-    
         let serverPeer = inPeer as STYServerPeer
-        serverPeer.requiresChallenge = true
+        serverPeer.requiresChallenge = self.challengeResponse
         serverPeer.secret = self.code
         println("Using secret: \(self.code)")
 

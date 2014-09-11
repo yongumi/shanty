@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 
 - (instancetype)initWithMode:(STYMessengerMode)inMode socket:(STYSocket *)inSocket name:(NSString *)inName;
 
+- (void)prepareSystemHandler;
+
 - (void)open:(STYCompletionBlock)inCompletion;
 - (void)close:(STYCompletionBlock)inCompletion;
 
@@ -57,7 +59,6 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 - (void)sendMessage:(STYMessage *)inMessage replyHandler:(STYMessageBlock)inReplyHandler completion:(STYCompletionBlock)inCompletion;
 
 - (NSDictionary *)makeHelloMetadata:(NSDictionary *)inExtras;
-
 @end
 
 #pragma mark -
