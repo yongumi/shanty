@@ -61,7 +61,7 @@
         return YES;
         }];
 
-    [theHandler addCommand:@"_secret" block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self.systemHandler addCommand:@"_secret" block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;
 
         if (strong_self.requiresChallenge == NO)
@@ -102,10 +102,7 @@
             return NO;
             }
         return YES;
-    }];
-
-        
-    return theHandler;
+        }];
     }
 
 
