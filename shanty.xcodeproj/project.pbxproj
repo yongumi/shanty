@@ -129,10 +129,10 @@
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		45DA2349187E7C4700599FAC /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; };
+		45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A019AFAF6E00854866 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A119AFAF6E00854866 /* STYServerPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7199E19AFAF6E00854866 /* STYServerPeer.m */; };
-		45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; };
+		45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A619AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A719AFAF7A00854866 /* STYClientPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E719A419AFAF7A00854866 /* STYClientPeer.m */; };
 		45E90C9F185F92DB0060B938 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -450,16 +450,15 @@
 				4538AF04185F88D2003DF921 /* STYMessage.h in Headers */,
 				4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */,
 				4538AF06185F88D2003DF921 /* STYPeer.h in Headers */,
-				45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */,
 				452C012C1876360900BF19DB /* STYConstants.h in Headers */,
 				4538AF07185F88D2003DF921 /* STYListener.h in Headers */,
 				452C013218763FA500BF19DB /* STYSocket.h in Headers */,
 				4580B009192D45E600E1C6FE /* STYLogger.h in Headers */,
 				45065FF319ABFB1F007B22EE /* STYTransport.h in Headers */,
-				453D8F021930155800743852 /* STYDebug.h in Headers */,
 				453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */,
-				4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */,
+				45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */,
 				45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */,
+				4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +581,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1092,7 +1091,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
@@ -1117,6 +1116,7 @@
 				4555D59319BA6E31007E992B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45DA233D187E7BA700599FAC /* Build configuration list for PBXNativeTarget "Shanty Mac OS X Tests" */ = {
 			isa = XCConfigurationList;

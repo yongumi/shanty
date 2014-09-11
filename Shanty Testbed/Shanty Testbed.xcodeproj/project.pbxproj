@@ -633,6 +633,7 @@
 				454353F619BE350600FEFB23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4571C8C5197EF9070076C0D5 /* Build configuration list for PBXProject "Shanty Testbed" */ = {
 			isa = XCConfigurationList;
