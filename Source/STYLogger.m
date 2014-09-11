@@ -19,7 +19,7 @@ static NSString *QueueName(void);
 
 extern void STYLog(STYLogLevel level, NSDictionary *location, NSString *format, ...)
     {
-    if (level == LogLevel_Debug && !gSTYLoggingEnabled)
+    if (!gSTYLoggingEnabled)
         {
         return;
         }
