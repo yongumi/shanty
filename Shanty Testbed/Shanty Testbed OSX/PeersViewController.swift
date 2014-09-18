@@ -20,7 +20,7 @@ class PeersViewController: NSViewController {
         BlockValueTransformer.register("PeerModeValueTransformer") {
             value in
             if let value = value as? NSNumber {
-                let direction: STYMessengerMode = STYMessengerMode.fromRaw(value.integerValue)!
+                let direction: STYMessengerMode = STYMessengerMode(rawValue:value.integerValue)!
                 switch direction {
                     case .Undefined:
                         return "Undefined"
@@ -37,7 +37,7 @@ class PeersViewController: NSViewController {
         BlockValueTransformer.register("PeerStateValueTransformer") {
             value in
             if let value = value as? NSNumber {
-                let direction: STYPeerState = STYPeerState.fromRaw(value.integerValue)!
+                let direction: STYPeerState = STYPeerState(rawValue:value.integerValue)!
                 switch direction {
                     case .Undefined:
                         return "Undefined"
