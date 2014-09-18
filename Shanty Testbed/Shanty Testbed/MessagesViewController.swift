@@ -33,7 +33,7 @@ class MessagesViewController: NSViewController {
             value in
             
             if let value = value as? NSNumber {
-                let direction: STYMessageDirection = STYMessageDirection.fromRaw(value.integerValue)!
+                let direction: STYMessageDirection = STYMessageDirection(rawValue:value.integerValue)!
                 switch direction {
                     case .Unknown:
                         return "Unknown"

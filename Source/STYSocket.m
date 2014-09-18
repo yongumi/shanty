@@ -21,8 +21,6 @@
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFSocketRef CFSocket;
 @property (readwrite, nonatomic, strong) __attribute__((NSObject)) CFRunLoopSourceRef runLoopSource;
 @property (readwrite, nonatomic) int connectTimeout;
-
-
 @property (readwrite, nonatomic) BOOL connected;
 @property (readwrite, nonatomic) BOOL open;
 @property (readwrite, nonatomic) dispatch_queue_t queue;
