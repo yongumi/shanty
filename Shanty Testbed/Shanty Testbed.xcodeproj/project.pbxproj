@@ -45,6 +45,7 @@
 		45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
 		45E49518198184E1001D8588 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E49517198184E1001D8588 /* ServerViewController.swift */; };
+		45EAC07819D0BB2C00A1FD70 /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4555D59E19BA6E61007E992B /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45ED490A1999826700D59C94 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED49091999826700D59C94 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,13 +85,6 @@
 			remoteGlobalIDString = 4518E30B185F90BA00B1B1D9;
 			remoteInfo = "Shanty OSX Framework";
 		};
-		45E3EAED19805F9100A42F0F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4538AEAE185F851A003DF921;
-			remoteInfo = Shanty;
-		};
 		45E3EAEF19805F9100A42F0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
@@ -115,6 +109,16 @@
 			dstSubfolderSpec = 10;
 			files = (
 				45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45EAC07319D0BAD000A1FD70 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				45EAC07819D0BB2C00A1FD70 /* Shanty.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +250,6 @@
 			children = (
 				45E3EAF019805F9100A42F0F /* Shanty.framework */,
 				4555D59E19BA6E61007E992B /* Shanty.framework */,
-				45E3EAEE19805F9100A42F0F /* libShanty.a */,
 				45E3EAF219805F9100A42F0F /* Shanty Mac OS X Tests.xctest */,
 			);
 			name = Products;
@@ -262,6 +265,7 @@
 				450F7DB419BA594A00905776 /* Sources */,
 				450F7DB519BA594A00905776 /* Frameworks */,
 				450F7DB619BA594A00905776 /* Resources */,
+				45EAC07319D0BAD000A1FD70 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -344,13 +348,6 @@
 			fileType = wrapper.framework;
 			path = Shanty.framework;
 			remoteRef = 4555D59D19BA6E61007E992B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		45E3EAEE19805F9100A42F0F /* libShanty.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libShanty.a;
-			remoteRef = 45E3EAED19805F9100A42F0F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		45E3EAF019805F9100A42F0F /* Shanty.framework */ = {

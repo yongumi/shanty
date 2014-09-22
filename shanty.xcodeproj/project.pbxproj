@@ -6,55 +6,13 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		45E6A596185F8F2000F87958 /* Shanty iOS Static Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Static Framework" */;
-			buildPhases = (
-				45E6A59C185F8F4300F87958 /* ShellScript */,
-			);
-			dependencies = (
-				45E6A59B185F8F2A00F87958 /* PBXTargetDependency */,
-			);
-			name = "Shanty iOS Static Framework";
-			productName = "iOS Framework";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		45065FEE19ABF9C2007B22EE /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45065FEB19ABF9C2007B22EE /* STYTransport.m */; };
-		45065FF319ABFB1F007B22EE /* STYTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 45065FEA19ABF9C2007B22EE /* STYTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45065FF419ABFB62007B22EE /* STYTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 45065FEA19ABF9C2007B22EE /* STYTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		452C012C1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		452C012D1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		452C012E1876360900BF19DB /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
-		452C013218763FA500BF19DB /* STYSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C013018763FA500BF19DB /* STYSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		452C013318763FA500BF19DB /* STYSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C013018763FA500BF19DB /* STYSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		452C013418763FA500BF19DB /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
-		4538AEF0185F85D7003DF921 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */; };
-		4538AEF1185F85D7003DF921 /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEDC185F85D7003DF921 /* STYAddress.m */; };
-		4538AEF3185F85D7003DF921 /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE1185F85D7003DF921 /* STYDataScanner+Message.m */; };
-		4538AEF4185F85D7003DF921 /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE3185F85D7003DF921 /* STYDataScanner.m */; };
-		4538AEF6185F85D7003DF921 /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE7185F85D7003DF921 /* STYMessage.m */; };
-		4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE9185F85D7003DF921 /* STYMessageHandler.m */; };
-		4538AEF8185F85D7003DF921 /* STYPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEB185F85D7003DF921 /* STYPeer.m */; };
-		4538AEF9185F85D7003DF921 /* STYListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEED185F85D7003DF921 /* STYListener.m */; };
-		4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEEF185F85D7003DF921 /* STYServiceDiscoverer.m */; };
-		4538AEFC185F88D2003DF921 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AEFE185F88D2003DF921 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDB185F85D7003DF921 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF00185F88D2003DF921 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDF185F85D7003DF921 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF01185F88D2003DF921 /* STYDataScanner+Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE0185F85D7003DF921 /* STYDataScanner+Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF02185F88D2003DF921 /* STYDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE2185F85D7003DF921 /* STYDataScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF04185F88D2003DF921 /* STYMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE6185F85D7003DF921 /* STYMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEE8185F85D7003DF921 /* STYMessageHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF06185F88D2003DF921 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF07185F88D2003DF921 /* STYListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF7192FF04500743852 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8EF4192FF04500743852 /* STYServicePublisher.m */; };
 		453D8F031930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		453D8F041930155800743852 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
 		45468E5819BA5D76009CBCC8 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */; };
 		45468E5919BA5D76009CBCC8 /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEDC185F85D7003DF921 /* STYAddress.m */; };
 		45468E5A19BA5D76009CBCC8 /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEE1185F85D7003DF921 /* STYDataScanner+Message.m */; };
@@ -72,7 +30,6 @@
 		45468E6619BA5D76009CBCC8 /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		45468E6719BA5D76009CBCC8 /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
 		45468E6819BA5D76009CBCC8 /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
-		454B1BEF185F9D21003FB0E7 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		454B1BF0185F9D21003FB0E7 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4555D5A019BA6E82007E992B /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4555D5A219BA6E82007E992B /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 454B1BEE185F9D21003FB0E7 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -110,9 +67,7 @@
 		4555D5D419BA6F81007E992B /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		4555D5D519BA6F81007E992B /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
 		4555D5D619BA6F81007E992B /* STYDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8F011930155800743852 /* STYDebug.m */; };
-		4580B009192D45E600E1C6FE /* STYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4580B007192D45E600E1C6FE /* STYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4580B00A192D45E600E1C6FE /* STYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4580B007192D45E600E1C6FE /* STYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4580B00B192D45E600E1C6FE /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4580B008192D45E600E1C6FE /* STYLogger.m */; };
 		45BA660518BC0D3700EA2A5A /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45BA660418BC0D3700EA2A5A /* STYPeerBrowserViewController.xib */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
@@ -129,12 +84,8 @@
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		45DA2349187E7C4700599FAC /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E719A019AFAF6E00854866 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A119AFAF6E00854866 /* STYServerPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7199E19AFAF6E00854866 /* STYServerPeer.m */; };
-		45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E719A619AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E719A719AFAF7A00854866 /* STYClientPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E719A419AFAF7A00854866 /* STYClientPeer.m */; };
 		45E90C9F185F92DB0060B938 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA1185F92DB0060B938 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDB185F85D7003DF921 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA3185F92DB0060B938 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDF185F85D7003DF921 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -156,26 +107,7 @@
 			remoteGlobalIDString = 4518E30B185F90BA00B1B1D9;
 			remoteInfo = "Mac OS X Framework";
 		};
-		45E6A59A185F8F2A00F87958 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4538AEA6185F851A003DF921 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4538AEAD185F851A003DF921;
-			remoteInfo = Shanty;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4538AEAC185F851A003DF921 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		45065FEA19ABF9C2007B22EE /* STYTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYTransport.h; sourceTree = "<group>"; };
@@ -188,7 +120,6 @@
 		452C012B1876360900BF19DB /* STYConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYConstants.m; sourceTree = "<group>"; };
 		452C013018763FA500BF19DB /* STYSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYSocket.h; sourceTree = "<group>"; };
 		452C013118763FA500BF19DB /* STYSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYSocket.m; sourceTree = "<group>"; };
-		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShanty.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNetService+STYUserInfo.h"; sourceTree = "<group>"; };
 		4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNetService+STYUserInfo.m"; sourceTree = "<group>"; };
 		4538AEDB185F85D7003DF921 /* STYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYAddress.h; sourceTree = "<group>"; };
@@ -212,8 +143,6 @@
 		453D8EF4192FF04500743852 /* STYServicePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYServicePublisher.m; sourceTree = "<group>"; };
 		453D8F001930155800743852 /* STYDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYDebug.h; sourceTree = "<group>"; };
 		453D8F011930155800743852 /* STYDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYDebug.m; sourceTree = "<group>"; };
-		45468E3C19BA5B76009CBCC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45468E3D19BA5B76009CBCC8 /* Shanty_iOS_FrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shanty_iOS_FrameworkTests.m; sourceTree = "<group>"; };
 		454B1BEE185F9D21003FB0E7 /* Shanty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shanty.h; sourceTree = "<group>"; };
 		4555D58119BA6E31007E992B /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4580B007192D45E600E1C6FE /* STYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYLogger.h; sourceTree = "<group>"; };
@@ -236,13 +165,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		4518E308185F90BA00B1B1D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4538AEAB185F851A003DF921 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -283,7 +205,6 @@
 				4538AEB3185F851A003DF921 /* Shanty */,
 				4529C55D19BA6C0C0071297C /* Supporting Files */,
 				45DA2330187E7BA700599FAC /* Shanty Mac OS X Tests */,
-				45468E3A19BA5B76009CBCC8 /* Shanty iOS FrameworkTests */,
 				45DA232D187E7BA700599FAC /* Frameworks */,
 				4538AEAF185F851A003DF921 /* Products */,
 			);
@@ -292,7 +213,6 @@
 		4538AEAF185F851A003DF921 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4538AEAE185F851A003DF921 /* libShanty.a */,
 				4518E30C185F90BA00B1B1D9 /* Shanty.framework */,
 				45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */,
 				4555D58119BA6E31007E992B /* Shanty.framework */,
@@ -351,23 +271,6 @@
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
-		};
-		45468E3A19BA5B76009CBCC8 /* Shanty iOS FrameworkTests */ = {
-			isa = PBXGroup;
-			children = (
-				45468E3D19BA5B76009CBCC8 /* Shanty_iOS_FrameworkTests.m */,
-				45468E3B19BA5B76009CBCC8 /* Supporting Files */,
-			);
-			path = "Shanty iOS FrameworkTests";
-			sourceTree = "<group>";
-		};
-		45468E3B19BA5B76009CBCC8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45468E3C19BA5B76009CBCC8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
 		};
 		45DA232D187E7BA700599FAC /* Frameworks */ = {
 			isa = PBXGroup;
@@ -437,31 +340,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4538AEFB185F88C4003DF921 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4538AEFC185F88D2003DF921 /* NSNetService+STYUserInfo.h in Headers */,
-				454B1BEF185F9D21003FB0E7 /* Shanty.h in Headers */,
-				4538AEFE185F88D2003DF921 /* STYAddress.h in Headers */,
-				4538AF00185F88D2003DF921 /* STYCompletionBlocks.h in Headers */,
-				4538AF01185F88D2003DF921 /* STYDataScanner+Message.h in Headers */,
-				4538AF02185F88D2003DF921 /* STYDataScanner.h in Headers */,
-				4538AF04185F88D2003DF921 /* STYMessage.h in Headers */,
-				4538AF05185F88D2003DF921 /* STYMessageHandler.h in Headers */,
-				4538AF06185F88D2003DF921 /* STYPeer.h in Headers */,
-				452C012C1876360900BF19DB /* STYConstants.h in Headers */,
-				4538AF07185F88D2003DF921 /* STYListener.h in Headers */,
-				452C013218763FA500BF19DB /* STYSocket.h in Headers */,
-				4580B009192D45E600E1C6FE /* STYLogger.h in Headers */,
-				45065FF319ABFB1F007B22EE /* STYTransport.h in Headers */,
-				453D8EF5192FF04500743852 /* STYServicePublisher.h in Headers */,
-				45E7199F19AFAF6E00854866 /* STYServerPeer.h in Headers */,
-				45E719A519AFAF7A00854866 /* STYClientPeer.h in Headers */,
-				4538AF08185F88D2003DF921 /* STYServiceDiscoverer.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4555D57E19BA6E31007E992B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,25 +386,6 @@
 			productName = "Mac OS X Framework";
 			productReference = 4518E30C185F90BA00B1B1D9 /* Shanty.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		4538AEAD185F851A003DF921 /* Shanty iOS Static Library */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty iOS Static Library" */;
-			buildPhases = (
-				4538AEAA185F851A003DF921 /* Sources */,
-				4538AEAB185F851A003DF921 /* Frameworks */,
-				4538AEAC185F851A003DF921 /* CopyFiles */,
-				4538AEFB185F88C4003DF921 /* Headers */,
-				4538AF09185F8A9D003DF921 /* Run Script */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Shanty iOS Static Library";
-			productName = Shanty;
-			productReference = 4538AEAE185F851A003DF921 /* libShanty.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		4555D58019BA6E31007E992B /* Shanty iOS Framework */ = {
 			isa = PBXNativeTarget;
@@ -595,8 +454,6 @@
 			targets = (
 				4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */,
 				4555D58019BA6E31007E992B /* Shanty iOS Framework */,
-				4538AEAD185F851A003DF921 /* Shanty iOS Static Library */,
-				45E6A596185F8F2000F87958 /* Shanty iOS Static Framework */,
 				45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */,
 			);
 		};
@@ -628,36 +485,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4538AF09185F8A9D003DF921 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
-		};
-		45E6A59C185F8F4300F87958 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\n    exit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    SF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    SF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    SF_OTHER_PLATFORM=iphonesimulator\nelse\n    SF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\n    SF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		4518E307185F90BA00B1B1D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -681,30 +508,6 @@
 				45468E5919BA5D76009CBCC8 /* STYAddress.m in Sources */,
 				45468E5B19BA5D76009CBCC8 /* STYDataScanner.m in Sources */,
 				45468E5D19BA5D76009CBCC8 /* STYMessageHandler.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4538AEAA185F851A003DF921 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4538AEF8185F85D7003DF921 /* STYPeer.m in Sources */,
-				452C012E1876360900BF19DB /* STYConstants.m in Sources */,
-				4538AEFA185F85D7003DF921 /* STYServiceDiscoverer.m in Sources */,
-				45E719A719AFAF7A00854866 /* STYClientPeer.m in Sources */,
-				4538AEF7185F85D7003DF921 /* STYMessageHandler.m in Sources */,
-				4538AEF0185F85D7003DF921 /* NSNetService+STYUserInfo.m in Sources */,
-				452C013418763FA500BF19DB /* STYSocket.m in Sources */,
-				4580B00B192D45E600E1C6FE /* STYLogger.m in Sources */,
-				4538AEF6185F85D7003DF921 /* STYMessage.m in Sources */,
-				4538AEF1185F85D7003DF921 /* STYAddress.m in Sources */,
-				453D8EF7192FF04500743852 /* STYServicePublisher.m in Sources */,
-				453D8F041930155800743852 /* STYDebug.m in Sources */,
-				4538AEF9185F85D7003DF921 /* STYListener.m in Sources */,
-				45065FEE19ABF9C2007B22EE /* STYTransport.m in Sources */,
-				45E719A119AFAF6E00854866 /* STYServerPeer.m in Sources */,
-				4538AEF3185F85D7003DF921 /* STYDataScanner+Message.m in Sources */,
-				4538AEF4185F85D7003DF921 /* STYDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,11 +561,6 @@
 			isa = PBXTargetDependency;
 			target = 4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */;
 			targetProxy = 45DA2339187E7BA700599FAC /* PBXContainerItemProxy */;
-		};
-		45E6A59B185F8F2A00F87958 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4538AEAD185F851A003DF921 /* Shanty iOS Static Library */;
-			targetProxy = 45E6A59A185F8F2A00F87958 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -923,40 +721,6 @@
 			};
 			name = Release;
 		};
-		4538AED2185F851B003DF921 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/Shanty.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Supporting Files/Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Shanty;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = all;
-			};
-			name = Debug;
-		};
-		4538AED3185F851B003DF921 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/Shanty.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Supporting Files/Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Shanty;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = all;
-			};
-			name = Release;
-		};
 		4555D59219BA6E31007E992B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1064,20 +828,6 @@
 			};
 			name = Release;
 		};
-		45E6A597185F8F2000F87958 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		45E6A598185F8F2000F87958 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1099,15 +849,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty iOS Static Library" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4538AED2185F851B003DF921 /* Debug */,
-				4538AED3185F851B003DF921 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4555D59119BA6E31007E992B /* Build configuration list for PBXNativeTarget "Shanty iOS Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1122,15 +863,6 @@
 			buildConfigurations = (
 				45DA233B187E7BA700599FAC /* Debug */,
 				45DA233C187E7BA700599FAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Static Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45E6A597185F8F2000F87958 /* Debug */,
-				45E6A598185F8F2000F87958 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

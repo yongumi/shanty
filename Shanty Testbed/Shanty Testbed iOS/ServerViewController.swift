@@ -17,6 +17,8 @@ class ServerViewController: UIViewController, STYListenerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(hue:1.0, saturation:1.0, brightness:0.5, alpha:1.0)
+        
         self.serve(nil)
     }
 
@@ -26,9 +28,18 @@ class ServerViewController: UIViewController, STYListenerDelegate {
     
         self.server = STYListener(listeningAddress:STYAddress(loopbackAddress:0), netServiceDomain:nil, type:type, name:nil)
         self.server.delegate = self
-        self.server.publishOnLocalhostOnly = true
+        self.server.publishOnLocalhostOnly = false
         self.server.startListening() {
             error in
+            if error != nil {
+                println(error)
+                return
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                println("Listening")
+                self.view.backgroundColor = UIColor(hue: 0.333, saturation:1.0, brightness:0.5, alpha:1.0)
+            }
         }
     }
 
