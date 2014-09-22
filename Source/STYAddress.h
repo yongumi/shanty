@@ -34,5 +34,4 @@
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;
 
-
 @end

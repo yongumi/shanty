@@ -9,6 +9,7 @@
 #import "STYAddress.h"
 
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 #import "STYLogger.h"
 #import "STYConstants.h"
@@ -58,7 +59,7 @@
     if ((self = [self init]) != NULL)
         {
         _addresses = [inAddresses copy];
-        _port = [DictionaryFromAddress(_addresses[0])[@"sin_port"] unsignedShortValue];
+        _port = _portForAddress(inAddresses[0]);
         }
     return self;
     }
@@ -127,11 +128,7 @@
         {
         for (NSData *theAddress in self.addresses)
             {
-            NSDictionary *theParts = DictionaryFromAddress(theAddress);
-            if (theParts != NULL)
-                {
-                [theDescriptions addObject:[NSString stringWithFormat:@"%@:%@", theParts[@"sin_addr"], theParts[@"sin_port"]]];
-                }
+            [theDescriptions addObject:[NSString stringWithFormat:@"%@:%hu", _descriptionForAddress(theAddress), _portForAddress(theAddress)]];
             }
         }
     else
@@ -147,8 +144,8 @@
     {
     // TODO HACK
     // This only returns the first address and only works on IPV4
-    NSDictionary *theDictionary = DictionaryFromAddress([self.addresses firstObject]);
-    return([NSString stringWithFormat:@"%@:%@", theDictionary[@"sin_addr"], theDictionary[@"sin_port"]]);
+    NSData *theAddress = self.addresses.firstObject;
+    return [NSString stringWithFormat:@"%@:%hu", _descriptionForAddress(theAddress), _portForAddress(theAddress)];
     }
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;
@@ -227,6 +224,7 @@
 
 - (BOOL)isLoopback
     {
+    // TODO: This is a bit of a hack.
     return self.addresses.count == 1 && [self.addresses[0] isEqual:[self _addressDataWithIPV4Address:INADDR_LOOPBACK port:self.port]];
     }
 
@@ -309,27 +307,19 @@
         }
     }
 
-#pragma mark -
-
-static NSDictionary *DictionaryFromAddress(NSData *inAddress)
+static NSString *_descriptionForAddress(NSData *inAddress)
     {
-    NSMutableDictionary *theParts = [NSMutableDictionary dictionary];
+    const struct sockaddr_in *theAddress = inAddress.bytes;
+    const socklen_t theLength = INET6_ADDRSTRLEN > INET_ADDRSTRLEN ? INET6_ADDRSTRLEN : INET_ADDRSTRLEN;
+    char buffer[theLength];
+    inet_ntop(theAddress->sin_family, &theAddress->sin_addr, buffer, theLength);
+    return theAddress->sin_family == AF_INET ? [NSString stringWithUTF8String:buffer] : [NSString stringWithFormat:@"[%s]", buffer];;
+    }
 
-    const struct sockaddr_in *theAddress = [inAddress bytes];
-
-    theParts[@"sin_len"] = @(theAddress->sin_len);
-    theParts[@"sin_family"] = @(theAddress->sin_family);
-    theParts[@"sin_port"] = @(ntohs(theAddress->sin_port));
-
-    in_addr_t theIPV4Address = ntohl(theAddress->sin_addr.s_addr);
-
-    theParts[@"sin_addr"] = [NSString stringWithFormat:@"%d.%d.%d.%d",
-        (theIPV4Address >> 24) & 0xFF,
-        (theIPV4Address >> 16) & 0xFF,
-        (theIPV4Address >> 8) & 0xFF,
-        (theIPV4Address) & 0xFF];
-
-    return theParts;
+UInt16 _portForAddress(NSData *inAddress)
+    {
+    const struct sockaddr_in *theAddress = inAddress.bytes;
+    return ntohs(theAddress->sin_port);
     }
 
 @end
