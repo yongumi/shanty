@@ -20,7 +20,6 @@ FOUNDATION_EXPORT const unsigned char Shanty_VersionString[];
 #import <Shanty/STYConstants.h>
 #import <Shanty/STYDataScanner+Message.h>
 #import <Shanty/STYDataScanner.h>
-#import <Shanty/STYDebug.h>
 #import <Shanty/STYLogger.h>
 #import <Shanty/STYMessage.h>
 #import <Shanty/STYMessageHandler.h>

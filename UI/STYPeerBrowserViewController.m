@@ -8,7 +8,12 @@
 
 #import "STYPeerBrowserViewController.h"
 
-#import <Shanty/Shanty.h>
+#import "STYServiceDiscoverer.h"
+#import "STYAddress.h"
+#import "STYSocket.h"
+#import "STYPeer.h"
+#import "STYClientPeer.h"
+#import "STYLogger.h"
 
 @interface STYPeerBrowserViewController ()
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
