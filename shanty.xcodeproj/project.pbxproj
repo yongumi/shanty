@@ -11,7 +11,6 @@
 		452C012D1876360900BF19DB /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C012A1876360900BF19DB /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		452C013318763FA500BF19DB /* STYSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 452C013018763FA500BF19DB /* STYSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8EF3192FF04500743852 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		453D8EF7192FF04500743852 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D8EF4192FF04500743852 /* STYServicePublisher.m */; };
 		453D8F031930155800743852 /* STYDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 453D8F001930155800743852 /* STYDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45468E5819BA5D76009CBCC8 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AED9185F85D7003DF921 /* NSNetService+STYUserInfo.m */; };
 		45468E5919BA5D76009CBCC8 /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4538AEDC185F85D7003DF921 /* STYAddress.m */; };
@@ -84,7 +83,6 @@
 		45DA2348187E7C4700599FAC /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C012B1876360900BF19DB /* STYConstants.m */; };
 		45DA2349187E7C4700599FAC /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C013118763FA500BF19DB /* STYSocket.m */; };
 		45E51A3D18BBF16D008D59DA /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E51A3A18BBF16D008D59DA /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45E719A119AFAF6E00854866 /* STYServerPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7199E19AFAF6E00854866 /* STYServerPeer.m */; };
 		45E719A619AFAF7A00854866 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E719A319AFAF7A00854866 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90C9F185F92DB0060B938 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AED8185F85D7003DF921 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CA1185F92DB0060B938 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEDB185F85D7003DF921 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -96,6 +94,7 @@
 		45E90CA9185F92DB0060B938 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEA185F85D7003DF921 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CAA185F92DB0060B938 /* STYListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEC185F85D7003DF921 /* STYListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E90CAB185F92DB0060B938 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4538AEEE185F85D7003DF921 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45EAC07F19D0C04B00A1FD70 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7199D19AFAF6E00854866 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45F4A28419BA5E61008938E0 /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E51A3B18BBF16D008D59DA /* STYPeerBrowserViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -333,10 +332,10 @@
 				453D8F031930155800743852 /* STYDebug.h in Headers */,
 				453D8EF6192FF04500743852 /* STYServicePublisher.h in Headers */,
 				45E719A619AFAF7A00854866 /* STYClientPeer.h in Headers */,
-				45E719A019AFAF6E00854866 /* STYServerPeer.h in Headers */,
 				4580B00A192D45E600E1C6FE /* STYLogger.h in Headers */,
 				45E90CAB185F92DB0060B938 /* STYServiceDiscoverer.h in Headers */,
 				45065FF419ABFB62007B22EE /* STYTransport.h in Headers */,
+				45EAC07F19D0C04B00A1FD70 /* STYServerPeer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
