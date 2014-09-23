@@ -186,13 +186,13 @@
 // TODO: Attempt to open IPV6 socket. Unfortunately no idea why this doesn't work with CFSocketCreateConnectedToSocketSignature
 //    if (self.address.IPV6Addresses.count > 0 && NO)
 //        {
-//        theSocketSignature.protocolFamily = PF_INET6; // IPV4 family
+//        theSocketSignature.protocolFamily = AF_INET6; // IPV6 family
 //        NSData *theAddress = self.address.IPV6Addresses.firstObject;
 //        theSocketSignature.address = (__bridge_retained CFDataRef)theAddress;
 //        }
 //    else
         {
-        theSocketSignature.protocolFamily = PF_INET; // IPV4 family
+        theSocketSignature.protocolFamily = AF_INET; // IPV4 family
         NSData *theAddress = self.address.IPV4Addresses.firstObject;
         theSocketSignature.address = (__bridge_retained CFDataRef)theAddress;
         }
