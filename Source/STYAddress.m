@@ -8,8 +8,11 @@
 
 #import "STYAddress.h"
 
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
 
 #import "STYLogger.h"
 #import "STYConstants.h"
@@ -325,5 +328,22 @@
     const struct sockaddr_in *theAddress = inAddress.bytes;
     return ntohs(theAddress->sin_port);
     }
+
+
+//        struct ifaddrs *interfaces = NULL;
+//        struct ifaddrs *temp_addr = NULL;
+//        int success = 0;
+//        success = getifaddrs(&interfaces);
+//        if (success == 0)
+//            {
+//            temp_addr = interfaces;
+//            while(temp_addr != NULL)
+//                {
+//                NSData *theData = [NSData dataWithBytes:temp_addr->ifa_addr length:temp_addr->ifa_addr->sa_len];
+//                NSLog(@"%s: %@", temp_addr->ifa_name, [STYAddress descriptionForAddress:theData]);
+//                temp_addr = temp_addr->ifa_next;
+//                }
+//            }
+
 
 @end
