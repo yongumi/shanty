@@ -17,8 +17,8 @@ class ServerViewController: UIViewController, STYListenerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        STYSetLoggingEnabled(true)
         self.view.backgroundColor = UIColor(hue:1.0, saturation:1.0, brightness:0.5, alpha:1.0)
-        
         self.serve(nil)
     }
 
@@ -37,12 +37,9 @@ class ServerViewController: UIViewController, STYListenerDelegate {
             }
             
             dispatch_async(dispatch_get_main_queue()) {
-                println("Listening")
                 self.view.backgroundColor = UIColor(hue: 0.333, saturation:1.0, brightness:0.5, alpha:1.0)
             }
         }
     }
-
-
 }
 
