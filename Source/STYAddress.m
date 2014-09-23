@@ -59,7 +59,7 @@
     if ((self = [self init]) != NULL)
         {
         _addresses = [inAddresses copy];
-        _port = _portForAddress(inAddresses[0]);
+        _port = [STYAddress portForAddress:inAddresses[0]];
         }
     return self;
     }
@@ -128,7 +128,7 @@
         {
         for (NSData *theAddress in self.addresses)
             {
-            [theDescriptions addObject:[NSString stringWithFormat:@"%@:%hu", _descriptionForAddress(theAddress), _portForAddress(theAddress)]];
+            [theDescriptions addObject:[NSString stringWithFormat:@"%@:%hu", [STYAddress descriptionForAddress:theAddress], [STYAddress portForAddress:theAddress]]];
             }
         }
     else
@@ -145,7 +145,7 @@
     // TODO HACK
     // This only returns the first address and only works on IPV4
     NSData *theAddress = self.addresses.firstObject;
-    return [NSString stringWithFormat:@"%@:%hu", _descriptionForAddress(theAddress), _portForAddress(theAddress)];
+    return [NSString stringWithFormat:@"%@:%hu", [STYAddress descriptionForAddress:theAddress], [STYAddress portForAddress:theAddress]];
     }
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;
@@ -289,7 +289,11 @@
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
     {
-    self.addresses = sender.addresses;
+    if (sender.addresses.count > 0)
+        {
+        self.addresses = sender.addresses;
+        self.port = [STYAddress portForAddress:self.addresses[0]];
+        }
     if (self.resolveHandler != NULL)
         {
         self.resolveHandler(NULL);
@@ -307,7 +311,7 @@
         }
     }
 
-static NSString *_descriptionForAddress(NSData *inAddress)
++ (NSString *)descriptionForAddress:(NSData *)inAddress
     {
     const struct sockaddr_in *theAddress = inAddress.bytes;
     const socklen_t theLength = INET6_ADDRSTRLEN > INET_ADDRSTRLEN ? INET6_ADDRSTRLEN : INET_ADDRSTRLEN;
@@ -316,7 +320,7 @@ static NSString *_descriptionForAddress(NSData *inAddress)
     return theAddress->sin_family == AF_INET ? [NSString stringWithUTF8String:buffer] : [NSString stringWithFormat:@"[%s]", buffer];;
     }
 
-UInt16 _portForAddress(NSData *inAddress)
++ (UInt16)portForAddress:(NSData *)inAddress
     {
     const struct sockaddr_in *theAddress = inAddress.bytes;
     return ntohs(theAddress->sin_port);

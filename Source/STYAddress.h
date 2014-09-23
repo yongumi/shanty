@@ -34,4 +34,7 @@
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;
 
++ (NSString *)descriptionForAddress:(NSData *)inAddress;
++ (UInt16)portForAddress:(NSData *)inAddress;
+
 @end
