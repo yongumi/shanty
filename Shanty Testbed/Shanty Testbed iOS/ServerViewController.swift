@@ -26,7 +26,7 @@ class ServerViewController: UIViewController, STYListenerDelegate {
     
         let type = "_styexample._tcp"
     
-        self.server = STYListener(listeningAddress:STYAddress(loopbackAddress:0), netServiceDomain:nil, type:type, name:nil)
+        self.server = STYListener(listeningAddress:STYAddress(anyAddress:0), netServiceDomain:nil, type:type, name:nil)
         self.server.delegate = self
         self.server.publishOnLocalhostOnly = false
         self.server.startListening() {
