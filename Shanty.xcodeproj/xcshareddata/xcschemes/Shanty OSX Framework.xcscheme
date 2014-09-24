@@ -20,20 +20,6 @@
                ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45DA232B187E7BA700599FAC"
-               BuildableName = "Shanty Mac OS X Tests.xctest"
-               BlueprintName = "Shanty Mac OS X Tests"
-               ReferencedContainer = "container:shanty.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -53,15 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4518E30B185F90BA00B1B1D9"
-            BuildableName = "Shanty.framework"
-            BlueprintName = "Shanty OSX Framework"
-            ReferencedContainer = "container:shanty.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -90,15 +67,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4518E30B185F90BA00B1B1D9"
-            BuildableName = "Shanty.framework"
-            BlueprintName = "Shanty OSX Framework"
-            ReferencedContainer = "container:shanty.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
