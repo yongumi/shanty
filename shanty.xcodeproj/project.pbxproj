@@ -164,7 +164,7 @@
 
 /* Begin PBXFileReference section */
 		4518E30C185F90BA00B1B1D9 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libShanty.a; path = "libShanty Static Library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4538AEAE185F851A003DF921 /* libShanty Static Library.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libShanty Static Library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		4538AEAF185F851A003DF921 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4538AEAE185F851A003DF921 /* libShanty.a */,
+				4538AEAE185F851A003DF921 /* libShanty Static Library.a */,
 				4518E30C185F90BA00B1B1D9 /* Shanty.framework */,
 				45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */,
 				45D5D62819D382DC00A76535 /* Shanty.framework */,
@@ -504,7 +504,7 @@
 			);
 			name = "Shanty Static Library";
 			productName = Shanty;
-			productReference = 4538AEAE185F851A003DF921 /* libShanty.a */;
+			productReference = 4538AEAE185F851A003DF921 /* libShanty Static Library.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		45D5D62719D382DC00A76535 /* Shanty iOS Framework */ = {
