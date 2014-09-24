@@ -56,6 +56,9 @@
 		45D5D66119D3842500A76535 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
 		45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
+		45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */; };
+		45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */; };
+		45D5D67719D38DB000A76535 /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
 		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
@@ -127,10 +130,6 @@
 		45FF04A819D35C9000CED777 /* STYTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF046119D35C9000CED777 /* STYTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF04A919D35C9000CED777 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
 		45FF04AA19D35C9000CED777 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
-		45FF04AB19D35C9000CED777 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF046419D35C9000CED777 /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45FF04B019D35C9900CED777 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF046419D35C9000CED777 /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45FF04B119D35C9900CED777 /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046519D35C9000CED777 /* STYPeerBrowserViewController.m */; };
-		45FF04B219D35C9900CED777 /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FF046619D35C9000CED777 /* STYPeerBrowserViewController.xib */; };
 		45FF04B819D35CD900CED777 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FF04B419D35CD100CED777 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +169,9 @@
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
 		45D5D62819D382DC00A76535 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeerBrowserViewController.h; sourceTree = "<group>"; };
+		45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYPeerBrowserViewController.m; sourceTree = "<group>"; };
+		45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STYPeerBrowserViewController.xib; sourceTree = "<group>"; };
 		45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shanty Mac OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DA232E187E7BA700599FAC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45DA2332187E7BA700599FAC /* Shanty Mac OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac OS X Tests-Info.plist"; sourceTree = "<group>"; };
@@ -210,9 +212,6 @@
 		45FF046019D35C9000CED777 /* STYSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYSocket.m; sourceTree = "<group>"; };
 		45FF046119D35C9000CED777 /* STYTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYTransport.h; sourceTree = "<group>"; };
 		45FF046219D35C9000CED777 /* STYTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYTransport.m; sourceTree = "<group>"; };
-		45FF046419D35C9000CED777 /* STYPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeerBrowserViewController.h; sourceTree = "<group>"; };
-		45FF046519D35C9000CED777 /* STYPeerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYPeerBrowserViewController.m; sourceTree = "<group>"; };
-		45FF046619D35C9000CED777 /* STYPeerBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STYPeerBrowserViewController.xib; sourceTree = "<group>"; };
 		45FF04B519D35CD100CED777 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45FF04B619D35CD100CED777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45FF04B719D35CD100CED777 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -278,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				45FF044019D35C9000CED777 /* Source */,
-				45FF046319D35C9000CED777 /* UI */,
 			);
 			path = Shanty;
 			sourceTree = "<group>";
@@ -298,6 +296,16 @@
 				45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45D5D67119D38DB000A76535 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */,
+				45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */,
+				45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		45DA232D187E7BA700599FAC /* Frameworks */ = {
@@ -365,18 +373,9 @@
 				45FF046019D35C9000CED777 /* STYSocket.m */,
 				45FF046119D35C9000CED777 /* STYTransport.h */,
 				45FF046219D35C9000CED777 /* STYTransport.m */,
+				45D5D67119D38DB000A76535 /* UI */,
 			);
 			path = Source;
-			sourceTree = SOURCE_ROOT;
-		};
-		45FF046319D35C9000CED777 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				45FF046419D35C9000CED777 /* STYPeerBrowserViewController.h */,
-				45FF046519D35C9000CED777 /* STYPeerBrowserViewController.m */,
-				45FF046619D35C9000CED777 /* STYPeerBrowserViewController.xib */,
-			);
-			path = UI;
 			sourceTree = SOURCE_ROOT;
 		};
 		45FF04B319D35CD100CED777 /* Supporting Files */ = {
@@ -407,7 +406,7 @@
 				45FF047819D35C9000CED777 /* STYConstants.h in Headers */,
 				45FF048819D35C9000CED777 /* STYLogger.h in Headers */,
 				45FF047219D35C9000CED777 /* STYClientPeer.h in Headers */,
-				45FF04B019D35C9900CED777 /* STYPeerBrowserViewController.h in Headers */,
+				45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */,
 				45FF04A019D35C9000CED777 /* STYServicePublisher.h in Headers */,
 				45FF049019D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046E19D35C9000CED777 /* STYAddress.h in Headers */,
@@ -433,7 +432,6 @@
 				45FF047719D35C9000CED777 /* STYConstants.h in Headers */,
 				45FF048719D35C9000CED777 /* STYLogger.h in Headers */,
 				45FF047119D35C9000CED777 /* STYClientPeer.h in Headers */,
-				45FF04AB19D35C9000CED777 /* STYPeerBrowserViewController.h in Headers */,
 				45FF049F19D35C9000CED777 /* STYServicePublisher.h in Headers */,
 				45FF048F19D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046D19D35C9000CED777 /* STYAddress.h in Headers */,
@@ -588,7 +586,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45FF04B219D35C9900CED777 /* STYPeerBrowserViewController.xib in Resources */,
+				45D5D67719D38DB000A76535 /* STYPeerBrowserViewController.xib in Resources */,
 				45FF04B819D35CD900CED777 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -655,9 +653,9 @@
 				45FF047A19D35C9000CED777 /* STYConstants.m in Sources */,
 				45FF047419D35C9000CED777 /* STYClientPeer.m in Sources */,
 				45FF048619D35C9000CED777 /* STYListener.m in Sources */,
+				45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */,
 				45FF048E19D35C9000CED777 /* STYMessage.m in Sources */,
 				45FF049E19D35C9000CED777 /* STYServiceDiscoverer.m in Sources */,
-				45FF04B119D35C9900CED777 /* STYPeerBrowserViewController.m in Sources */,
 				45FF048A19D35C9000CED777 /* STYLogger.m in Sources */,
 				45FF049619D35C9000CED777 /* STYPeer.m in Sources */,
 				45FF048219D35C9000CED777 /* STYDataScanner.m in Sources */,
