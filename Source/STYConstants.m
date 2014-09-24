@@ -13,8 +13,13 @@ NSString *const kSTYMessageIDKey = @"msgid";
 NSString *const kSTYInReplyToKey = @"in-reply-to";
 NSString *const kSTYCloseKey = @"close";
 NSString *const kSTYMoreComing = @"more-coming";
+NSString *const kSTYSecretKey = @"secret";
 
 NSString *const kSTYHelloCommand = @"hello";
 NSString *const kSTYHelloReplyCommand = @"hello.reply";
+NSString *const kSTYSecretCommand = @"_secret";
+NSString *const kSTYSecretReplyCommand = @"_secret.reply";
+
+
 
 NSString *const kSTYErrorDomain = @"io.schwa.shanty";

@@ -360,7 +360,7 @@
         
         if (theSecret != NULL) {
             __weak typeof(self) weak_self = self;
-            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: @"_secret" } metadata:@{ @"secret": theSecret } data:NULL];
+            STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYSecretCommand } metadata:@{ kSTYSecretKey: theSecret } data:NULL];
             [self sendMessage:theMessage replyHandler:^BOOL(STYPeer *inPeer, STYMessage *inMessage, NSError *__autoreleasing *outError) {
                 __weak typeof(weak_self) strong_self = weak_self;
                 //                NSLog(@"%@", inMessage);

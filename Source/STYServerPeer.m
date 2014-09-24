@@ -61,7 +61,7 @@
         return YES;
         }];
 
-    [self.systemHandler addCommand:@"_secret" block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
+    [self.systemHandler addCommand:kSTYSecretCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;
 
         if (strong_self.requiresChallenge == NO)
@@ -83,9 +83,9 @@
             return NO;
             }
 
-        if ([strong_self.secret isEqualToString:inMessage.metadata[@"secret"]] == YES)
+        if ([strong_self.secret isEqualToString:inMessage.metadata[kSTYSecretKey]] == YES)
             {
-            STYMessage *theResponse = [inMessage replyWithControlData:@{kSTYCommandKey: @"_secret.reply"} metadata:NULL data:NULL];
+            STYMessage *theResponse = [inMessage replyWithControlData:@{kSTYCommandKey: kSTYSecretReplyCommand} metadata:NULL data:NULL];
             [inPeer sendMessage:theResponse completion:NULL];
 //            NSCParameterAssert(strong_self.state == kSTYPeerStateChallengeResponse);
             strong_self.state = kSTYPeerStateReady;
