@@ -32,7 +32,6 @@
 		451806681988450D0083CC28 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451806671988450D0083CC28 /* ClientViewController.xib */; };
 		452D5FBE19A6C011009B6DBE /* SendMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452D5FBD19A6C011009B6DBE /* SendMessageViewController.swift */; };
 		45319A1719A6AF49005A0F48 /* PeersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45319A1619A6AF49005A0F48 /* PeersViewController.storyboard */; };
-		4555D5C519BA6F61007E992B /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4555D59E19BA6E61007E992B /* Shanty.framework */; };
 		4563C293198B03F5007BCB49 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4563C291198B03F5007BCB49 /* MessagesViewController.swift */; };
 		4563C294198B03F5007BCB49 /* MessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4563C292198B03F5007BCB49 /* MessagesViewController.xib */; };
 		4571C8D0197EF9080076C0D5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571C8CF197EF9080076C0D5 /* main.swift */; };
@@ -42,10 +41,10 @@
 		45BC27BB19A68F3300B65A4E /* PeersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BC27B919A68F3300B65A4E /* PeersViewController.swift */; };
 		45C854C619A2B9FB00AE8AE3 /* GlobalWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C854C519A2B9FB00AE8AE3 /* GlobalWindowManager.swift */; };
 		45CD31291982DFCB00EB6551 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD31281982DFCB00EB6551 /* ClientViewController.swift */; };
+		45D5D66C19D3861400A76535 /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45D5D66819D385FA00A76535 /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45D6E98D1989704600FF6AFE /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45E3EAF319805F9100A42F0F /* Shanty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E3EAF019805F9100A42F0F /* Shanty.framework */; };
 		45E49518198184E1001D8588 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E49517198184E1001D8588 /* ServerViewController.swift */; };
-		45EAC07819D0BB2C00A1FD70 /* Shanty.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4555D59E19BA6E61007E992B /* Shanty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45ED490A1999826700D59C94 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED49091999826700D59C94 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,19 +63,26 @@
 			remoteGlobalIDString = 450F7DB719BA594A00905776;
 			remoteInfo = "Shanty Testbed iOS";
 		};
-		4555D59719BA6E60007E992B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4555D58019BA6E31007E992B;
-			remoteInfo = Shanty;
-		};
-		4555D59D19BA6E61007E992B /* PBXContainerItemProxy */ = {
+		45D5D66519D385FA00A76535 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4555D58119BA6E31007E992B;
-			remoteInfo = Shanty;
+			remoteGlobalIDString = 4538AEAE185F851A003DF921;
+			remoteInfo = "Shanty Static Library";
+		};
+		45D5D66719D385FA00A76535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45D5D62819D382DC00A76535;
+			remoteInfo = "Shanty iOS Framework";
+		};
+		45D5D66919D3860000A76535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E3EAE419805F7A00A42F0F /* shanty.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 45D5D62719D382DC00A76535;
+			remoteInfo = "Shanty iOS Framework";
 		};
 		45E3EAE719805F8A00A42F0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -118,7 +124,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				45EAC07819D0BB2C00A1FD70 /* Shanty.framework in CopyFiles */,
+				45D5D66C19D3861400A76535 /* Shanty.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +164,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4555D5C519BA6F61007E992B /* Shanty.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,8 +253,9 @@
 		45E3EAE519805F7A00A42F0F /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				45D5D66619D385FA00A76535 /* libShanty.a */,
 				45E3EAF019805F9100A42F0F /* Shanty.framework */,
-				4555D59E19BA6E61007E992B /* Shanty.framework */,
+				45D5D66819D385FA00A76535 /* Shanty.framework */,
 				45E3EAF219805F9100A42F0F /* Shanty Mac OS X Tests.xctest */,
 			);
 			name = Products;
@@ -270,7 +276,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				4555D59819BA6E60007E992B /* PBXTargetDependency */,
+				45D5D66A19D3860000A76535 /* PBXTargetDependency */,
 			);
 			name = "Shanty Testbed iOS";
 			productName = "Shanty Testbed iOS";
@@ -344,11 +350,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4555D59E19BA6E61007E992B /* Shanty.framework */ = {
+		45D5D66619D385FA00A76535 /* libShanty.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libShanty.a;
+			remoteRef = 45D5D66519D385FA00A76535 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45D5D66819D385FA00A76535 /* Shanty.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Shanty.framework;
-			remoteRef = 4555D59D19BA6E61007E992B /* PBXContainerItemProxy */;
+			remoteRef = 45D5D66719D385FA00A76535 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		45E3EAF019805F9100A42F0F /* Shanty.framework */ = {
@@ -433,10 +446,10 @@
 			target = 450F7DB719BA594A00905776 /* Shanty Testbed iOS */;
 			targetProxy = 454353F919BE351200FEFB23 /* PBXContainerItemProxy */;
 		};
-		4555D59819BA6E60007E992B /* PBXTargetDependency */ = {
+		45D5D66A19D3860000A76535 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = Shanty;
-			targetProxy = 4555D59719BA6E60007E992B /* PBXContainerItemProxy */;
+			name = "Shanty iOS Framework";
+			targetProxy = 45D5D66919D3860000A76535 /* PBXContainerItemProxy */;
 		};
 		45E3EAE819805F8A00A42F0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

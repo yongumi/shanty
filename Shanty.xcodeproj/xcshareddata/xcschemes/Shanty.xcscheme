@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4538AEAD185F851A003DF921"
-               BuildableName = "libShanty.a"
-               BlueprintName = "Shanty"
+               BuildableName = "libShanty Static Library.a"
+               BlueprintName = "Shanty Static Library"
                ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4538AEAD185F851A003DF921"
-            BuildableName = "libShanty.a"
-            BlueprintName = "Shanty"
+            BuildableName = "libShanty Static Library.a"
+            BlueprintName = "Shanty Static Library"
             ReferencedContainer = "container:shanty.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

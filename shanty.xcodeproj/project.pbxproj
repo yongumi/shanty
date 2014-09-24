@@ -7,21 +7,54 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		45E6A596185F8F2000F87958 /* Shanty iOS Framework */ = {
+		45E6A596185F8F2000F87958 /* Shanty Static iOS Framework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Framework" */;
+			buildConfigurationList = 45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty Static iOS Framework" */;
 			buildPhases = (
 				45E6A59C185F8F4300F87958 /* ShellScript */,
 			);
 			dependencies = (
 				45E6A59B185F8F2A00F87958 /* PBXTargetDependency */,
 			);
-			name = "Shanty iOS Framework";
+			name = "Shanty Static iOS Framework";
 			productName = "iOS Framework";
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		45D5D64219D383B000A76535 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64319D383B000A76535 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64519D383B000A76535 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64619D383B000A76535 /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044919D35C9000CED777 /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64719D383B000A76535 /* STYDataScanner+Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044B19D35C9000CED777 /* STYDataScanner+Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64819D383B000A76535 /* STYDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044D19D35C9000CED777 /* STYDataScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64919D383B000A76535 /* STYListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044F19D35C9000CED777 /* STYListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64A19D383B000A76535 /* STYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045119D35C9000CED777 /* STYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64B19D383B000A76535 /* STYMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045319D35C9000CED777 /* STYMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64C19D383B000A76535 /* STYMessageHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045519D35C9000CED777 /* STYMessageHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64D19D383B000A76535 /* STYPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045719D35C9000CED777 /* STYPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64E19D383B000A76535 /* STYServerPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045919D35C9000CED777 /* STYServerPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64F19D383B000A76535 /* STYServiceDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045B19D35C9000CED777 /* STYServiceDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D65019D383B000A76535 /* STYServicePublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045D19D35C9000CED777 /* STYServicePublisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D65119D383B000A76535 /* STYSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF045F19D35C9000CED777 /* STYSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D65219D383B000A76535 /* STYTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF046119D35C9000CED777 /* STYTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D65319D3842500A76535 /* STYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044519D35C9000CED777 /* STYAddress.m */; };
+		45D5D65419D3842500A76535 /* STYClientPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044719D35C9000CED777 /* STYClientPeer.m */; };
+		45D5D65519D3842500A76535 /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044A19D35C9000CED777 /* STYConstants.m */; };
+		45D5D65619D3842500A76535 /* STYDataScanner+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044C19D35C9000CED777 /* STYDataScanner+Message.m */; };
+		45D5D65719D3842500A76535 /* STYDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044E19D35C9000CED777 /* STYDataScanner.m */; };
+		45D5D65819D3842500A76535 /* STYListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045019D35C9000CED777 /* STYListener.m */; };
+		45D5D65919D3842500A76535 /* STYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045219D35C9000CED777 /* STYLogger.m */; };
+		45D5D65A19D3842500A76535 /* STYMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045419D35C9000CED777 /* STYMessage.m */; };
+		45D5D65B19D3842500A76535 /* STYMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045619D35C9000CED777 /* STYMessageHandler.m */; };
+		45D5D65C19D3842500A76535 /* STYPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045819D35C9000CED777 /* STYPeer.m */; };
+		45D5D65D19D3842500A76535 /* STYServerPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045A19D35C9000CED777 /* STYServerPeer.m */; };
+		45D5D65E19D3842500A76535 /* STYServiceDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045C19D35C9000CED777 /* STYServiceDiscoverer.m */; };
+		45D5D65F19D3842500A76535 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045E19D35C9000CED777 /* STYServicePublisher.m */; };
+		45D5D66019D3842500A76535 /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046019D35C9000CED777 /* STYSocket.m */; };
+		45D5D66119D3842500A76535 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
+		45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
 		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
@@ -135,6 +168,7 @@
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
+		45D5D62819D382DC00A76535 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shanty Mac OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DA232E187E7BA700599FAC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45DA2332187E7BA700599FAC /* Shanty Mac OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac OS X Tests-Info.plist"; sourceTree = "<group>"; };
@@ -198,6 +232,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45D5D62419D382DC00A76535 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45DA2329187E7BA700599FAC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,6 +268,7 @@
 				4538AEAE185F851A003DF921 /* libShanty.a */,
 				4518E30C185F90BA00B1B1D9 /* Shanty.framework */,
 				45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */,
+				45D5D62819D382DC00A76535 /* Shanty.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,6 +443,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45D5D62519D382DC00A76535 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */,
+				45D5D64219D383B000A76535 /* Shanty.h in Headers */,
+				45D5D64319D383B000A76535 /* STYAddress.h in Headers */,
+				45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */,
+				45D5D64519D383B000A76535 /* STYCompletionBlocks.h in Headers */,
+				45D5D64619D383B000A76535 /* STYConstants.h in Headers */,
+				45D5D64719D383B000A76535 /* STYDataScanner+Message.h in Headers */,
+				45D5D64819D383B000A76535 /* STYDataScanner.h in Headers */,
+				45D5D64919D383B000A76535 /* STYListener.h in Headers */,
+				45D5D64A19D383B000A76535 /* STYLogger.h in Headers */,
+				45D5D64B19D383B000A76535 /* STYMessage.h in Headers */,
+				45D5D64C19D383B000A76535 /* STYMessageHandler.h in Headers */,
+				45D5D64D19D383B000A76535 /* STYPeer.h in Headers */,
+				45D5D64E19D383B000A76535 /* STYServerPeer.h in Headers */,
+				45D5D64F19D383B000A76535 /* STYServiceDiscoverer.h in Headers */,
+				45D5D65019D383B000A76535 /* STYServicePublisher.h in Headers */,
+				45D5D65119D383B000A76535 /* STYSocket.h in Headers */,
+				45D5D65219D383B000A76535 /* STYTransport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -422,9 +489,9 @@
 			productReference = 4518E30C185F90BA00B1B1D9 /* Shanty.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4538AEAD185F851A003DF921 /* Shanty */ = {
+		4538AEAD185F851A003DF921 /* Shanty Static Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty" */;
+			buildConfigurationList = 4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty Static Library" */;
 			buildPhases = (
 				4538AEAA185F851A003DF921 /* Sources */,
 				4538AEAB185F851A003DF921 /* Frameworks */,
@@ -436,10 +503,28 @@
 			);
 			dependencies = (
 			);
-			name = Shanty;
+			name = "Shanty Static Library";
 			productName = Shanty;
 			productReference = 4538AEAE185F851A003DF921 /* libShanty.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		45D5D62719D382DC00A76535 /* Shanty iOS Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45D5D63B19D382DC00A76535 /* Build configuration list for PBXNativeTarget "Shanty iOS Framework" */;
+			buildPhases = (
+				45D5D62319D382DC00A76535 /* Sources */,
+				45D5D62419D382DC00A76535 /* Frameworks */,
+				45D5D62519D382DC00A76535 /* Headers */,
+				45D5D62619D382DC00A76535 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Shanty iOS Framework";
+			productName = "Shanty iOS Framework";
+			productReference = 45D5D62819D382DC00A76535 /* Shanty.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */ = {
 			isa = PBXNativeTarget;
@@ -468,12 +553,15 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = schwa.io;
 				TargetAttributes = {
+					45D5D62719D382DC00A76535 = {
+						CreatedOnToolsVersion = 6.1;
+					};
 					45DA232B187E7BA700599FAC = {
 						TestTargetID = 4518E30B185F90BA00B1B1D9;
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -485,9 +573,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4538AEAD185F851A003DF921 /* Shanty */,
-				45E6A596185F8F2000F87958 /* Shanty iOS Framework */,
+				4538AEAD185F851A003DF921 /* Shanty Static Library */,
+				45E6A596185F8F2000F87958 /* Shanty Static iOS Framework */,
 				4518E30B185F90BA00B1B1D9 /* Shanty OSX Framework */,
+				45D5D62719D382DC00A76535 /* Shanty iOS Framework */,
 				45DA232B187E7BA700599FAC /* Shanty Mac OS X Tests */,
 			);
 		};
@@ -500,6 +589,13 @@
 			files = (
 				45FF04B219D35C9900CED777 /* STYPeerBrowserViewController.xib in Resources */,
 				45FF04B819D35CD900CED777 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45D5D62619D382DC00A76535 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +687,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45D5D62319D382DC00A76535 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45D5D65319D3842500A76535 /* STYAddress.m in Sources */,
+				45D5D65419D3842500A76535 /* STYClientPeer.m in Sources */,
+				45D5D65519D3842500A76535 /* STYConstants.m in Sources */,
+				45D5D65619D3842500A76535 /* STYDataScanner+Message.m in Sources */,
+				45D5D65719D3842500A76535 /* STYDataScanner.m in Sources */,
+				45D5D65819D3842500A76535 /* STYListener.m in Sources */,
+				45D5D65919D3842500A76535 /* STYLogger.m in Sources */,
+				45D5D65A19D3842500A76535 /* STYMessage.m in Sources */,
+				45D5D65B19D3842500A76535 /* STYMessageHandler.m in Sources */,
+				45D5D65C19D3842500A76535 /* STYPeer.m in Sources */,
+				45D5D65D19D3842500A76535 /* STYServerPeer.m in Sources */,
+				45D5D65E19D3842500A76535 /* STYServiceDiscoverer.m in Sources */,
+				45D5D65F19D3842500A76535 /* STYServicePublisher.m in Sources */,
+				45D5D66019D3842500A76535 /* STYSocket.m in Sources */,
+				45D5D66119D3842500A76535 /* STYTransport.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45DA2328187E7BA700599FAC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -609,7 +727,7 @@
 		};
 		45E6A59B185F8F2A00F87958 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4538AEAD185F851A003DF921 /* Shanty */;
+			target = 4538AEAD185F851A003DF921 /* Shanty Static Library */;
 			targetProxy = 45E6A59A185F8F2A00F87958 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -813,6 +931,59 @@
 			};
 			name = Release;
 		};
+		45D5D63C19D382DC00A76535 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Shanty;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		45D5D63D19D382DC00A76535 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Shanty;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		45DA233B187E7BA700599FAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -888,7 +1059,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
@@ -897,7 +1068,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty" */ = {
+		4538AED1185F851B003DF921 /* Build configuration list for PBXNativeTarget "Shanty Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AED2185F851B003DF921 /* Debug */,
@@ -905,6 +1076,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		45D5D63B19D382DC00A76535 /* Build configuration list for PBXNativeTarget "Shanty iOS Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45D5D63C19D382DC00A76535 /* Debug */,
+				45D5D63D19D382DC00A76535 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		45DA233D187E7BA700599FAC /* Build configuration list for PBXNativeTarget "Shanty Mac OS X Tests" */ = {
 			isa = XCConfigurationList;
@@ -915,7 +1094,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty iOS Framework" */ = {
+		45E6A599185F8F2000F87958 /* Build configuration list for PBXAggregateTarget "Shanty Static iOS Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45E6A597185F8F2000F87958 /* Debug */,

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45E6A596185F8F2000F87958"
-               BuildableName = "Shanty iOS Framework"
-               BlueprintName = "Shanty iOS Framework"
+               BuildableName = "Shanty Static iOS Framework"
+               BlueprintName = "Shanty Static iOS Framework"
                ReferencedContainer = "container:shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45E6A596185F8F2000F87958"
-            BuildableName = "Shanty iOS Framework"
-            BlueprintName = "Shanty iOS Framework"
+            BuildableName = "Shanty Static iOS Framework"
+            BlueprintName = "Shanty Static iOS Framework"
             ReferencedContainer = "container:shanty.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
