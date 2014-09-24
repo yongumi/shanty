@@ -55,6 +55,7 @@
 		45D5D66019D3842500A76535 /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046019D35C9000CED777 /* STYSocket.m */; };
 		45D5D66119D3842500A76535 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
 		45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
 		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
@@ -164,7 +165,7 @@
 
 /* Begin PBXFileReference section */
 		4518E30C185F90BA00B1B1D9 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShanty.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libShanty.a; path = "libShanty Static Library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
@@ -691,6 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */,
 				45D5D65319D3842500A76535 /* STYAddress.m in Sources */,
 				45D5D65419D3842500A76535 /* STYClientPeer.m in Sources */,
 				45D5D65519D3842500A76535 /* STYConstants.m in Sources */,
@@ -1084,6 +1086,7 @@
 				45D5D63D19D382DC00A76535 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45DA233D187E7BA700599FAC /* Build configuration list for PBXNativeTarget "Shanty Mac OS X Tests" */ = {
 			isa = XCConfigurationList;
