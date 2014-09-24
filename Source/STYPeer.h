@@ -66,6 +66,9 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 @protocol STYPeerDelegate <NSObject>
 @optional
 - (void)peerDidClose:(STYPeer *)inPeer;
+
+- (NSString *)peerRequestSecret:(STYPeer *)inPeer;
+
 @end
 
 #pragma mark -

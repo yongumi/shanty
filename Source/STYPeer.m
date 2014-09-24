@@ -333,15 +333,32 @@
     }
 
 - (void)_clientPerformChallengeResponse:(STYCompletionBlock)inCompletion
-    {
-    #if TARGET_OS_IPHONE == 0
+{
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSAlert *theAlert = [NSAlert alertWithMessageText:@"Enter secret" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Informative text"];
         
-        NSTextField *theTextField = [[NSTextField alloc] initWithFrame:(CGRect){ .size = { 80, 20 } }];
-        theAlert.accessoryView = theTextField;
-        if ([theAlert runModal] == 1) {
-            NSString *theSecret = theTextField.stringValue;
+        NSString *theSecret = NULL;
+        if ([self.delegate respondsToSelector:@selector(peerRequestSecret:)]) {
+            theSecret = [self.delegate peerRequestSecret:self];
+        }
+        else {
+#if TARGET_OS_IPHONE == 0
+            NSAlert *theAlert = [[NSAlert alloc] init];
+            theAlert.messageText = @"Enter secret";
+            [theAlert addButtonWithTitle:@"OK"];
+            [theAlert addButtonWithTitle:@"Cancel"];
+            
+            NSTextField *theTextField = [[NSTextField alloc] initWithFrame:(CGRect){ .size = { 290, 20 } }];
+            theAlert.accessoryView = theTextField;
+            
+            NSInteger theButton = [theAlert runModal];
+            
+            if (theButton == NSAlertFirstButtonReturn) {
+                theSecret = theTextField.stringValue;
+            }
+#endif
+        }
+        
+        if (theSecret != NULL) {
             __weak typeof(self) weak_self = self;
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: @"_secret" } metadata:@{ @"secret": theSecret } data:NULL];
             [self sendMessage:theMessage replyHandler:^BOOL(STYPeer *inPeer, STYMessage *inMessage, NSError *__autoreleasing *outError) {
@@ -360,16 +377,14 @@
                     }
                 }
             }];
-        } else {
+        }
+        else {
             if (inCompletion) {
                 inCompletion([NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL]);
             }
             [self close:nil];
         }
     });
-    #else
-    NSParameterAssert(NO);
-    #endif
 }
 
 #pragma mark -
