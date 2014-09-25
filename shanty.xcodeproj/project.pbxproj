@@ -56,7 +56,7 @@
 		45D5D66119D3842500A76535 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
 		45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
-		45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */; };
+		45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */; };
 		45D5D67719D38DB000A76535 /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
@@ -164,7 +164,7 @@
 
 /* Begin PBXFileReference section */
 		4518E30C185F90BA00B1B1D9 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4538AEAE185F851A003DF921 /* libShanty Static Library.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libShanty Static Library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShanty.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		4538AEAF185F851A003DF921 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4538AEAE185F851A003DF921 /* libShanty Static Library.a */,
+				4538AEAE185F851A003DF921 /* libShanty.a */,
 				4518E30C185F90BA00B1B1D9 /* Shanty.framework */,
 				45DA232C187E7BA700599FAC /* Shanty Mac OS X Tests.xctest */,
 				45D5D62819D382DC00A76535 /* Shanty.framework */,
@@ -406,12 +406,12 @@
 				45FF047819D35C9000CED777 /* STYConstants.h in Headers */,
 				45FF048819D35C9000CED777 /* STYLogger.h in Headers */,
 				45FF047219D35C9000CED777 /* STYClientPeer.h in Headers */,
-				45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */,
 				45FF04A019D35C9000CED777 /* STYServicePublisher.h in Headers */,
 				45FF049019D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046E19D35C9000CED777 /* STYAddress.h in Headers */,
 				45FF049C19D35C9000CED777 /* STYServiceDiscoverer.h in Headers */,
 				45FF046819D35C9000CED777 /* NSNetService+STYUserInfo.h in Headers */,
+				45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */,
 				45FF04A419D35C9000CED777 /* STYSocket.h in Headers */,
 				45FF046C19D35C9000CED777 /* Shanty.h in Headers */,
 			);
@@ -504,7 +504,7 @@
 			);
 			name = "Shanty Static Library";
 			productName = Shanty;
-			productReference = 4538AEAE185F851A003DF921 /* libShanty Static Library.a */;
+			productReference = 4538AEAE185F851A003DF921 /* libShanty.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		45D5D62719D382DC00A76535 /* Shanty iOS Framework */ = {
@@ -560,7 +560,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -653,13 +653,13 @@
 				45FF047A19D35C9000CED777 /* STYConstants.m in Sources */,
 				45FF047419D35C9000CED777 /* STYClientPeer.m in Sources */,
 				45FF048619D35C9000CED777 /* STYListener.m in Sources */,
-				45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */,
 				45FF048E19D35C9000CED777 /* STYMessage.m in Sources */,
 				45FF049E19D35C9000CED777 /* STYServiceDiscoverer.m in Sources */,
 				45FF048A19D35C9000CED777 /* STYLogger.m in Sources */,
 				45FF049619D35C9000CED777 /* STYPeer.m in Sources */,
 				45FF048219D35C9000CED777 /* STYDataScanner.m in Sources */,
 				45FF04A219D35C9000CED777 /* STYServicePublisher.m in Sources */,
+				45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,7 +906,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shanty;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -923,7 +923,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shanty;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1059,7 +1059,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,
