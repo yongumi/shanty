@@ -120,12 +120,16 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     CFSocketContext theSocketContext = {
         .info = (__bridge void *)self
         };
-    self.IPV4Socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, TCPSocketListenerAcceptCallBack, &theSocketContext);
-    if (self.IPV4Socket == NULL)
+    CFSocketRef theSocket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, TCPSocketListenerAcceptCallBack, &theSocketContext);
+    
+    if (theSocket == NULL)
         {
         STYLogError_(@"Could not create socket %d", errno);
         return;
         }
+
+    self.IPV4Socket = theSocket;
+    CFRelease(theSocket);
 
     // Turn on socket flags...
     int theReuseSocketFlag = 1;
