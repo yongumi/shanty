@@ -74,6 +74,9 @@
 - (void)dealloc
 	{
     [self close:nil];
+    
+    self.CFSocket = nil;
+    self.runLoopSource = nil;
 	}
 
 - (NSString *)description

@@ -71,6 +71,10 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
 - (void)dealloc
     {
     [self stopListening:NULL];
+    
+    self.IPV4Socket = nil;
+    self.runLoop = nil;
+    self.runLoopSource = nil;
     }
 
 #pragma mark -
