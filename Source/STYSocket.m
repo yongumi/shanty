@@ -232,6 +232,7 @@
         return;
         }
     self.CFSocket = theSocket;
+    CFRelease(theSocket);
 
     CFRunLoopSourceRef theRunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self.CFSocket, 0);
     CFRunLoopAddSource(theRunLoop, theRunLoopSource, kCFRunLoopCommonModes);
