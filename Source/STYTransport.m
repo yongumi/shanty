@@ -112,7 +112,6 @@
         return;
         }
 
-    NSParameterAssert(self.state == kSTYTransportStateReady);
     self.state = kSTYTransportStateClosed;
 
     if ([self.delegate respondsToSelector:@selector(transportWillClose:)])
