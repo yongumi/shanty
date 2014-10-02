@@ -14,7 +14,7 @@ extern NSString *const kSTYInReplyToKey; // = @"in-reply-to";
 extern NSString *const kSTYCloseKey; // = @"close";
 extern NSString *const kSTYMoreComing; // = @"more-coming";
 extern NSString *const kSTYSecretKey; // = @"secret";
-extern NSString *const kSTYRequiresChallengeKey; // = @"requiresChallenge";
+extern NSString *const kSTYRequiresChallengeResponseKey; // = @"requiresChallengeResponse";
 
 extern NSString *const kSTYHelloCommand; // = @"hello";
 extern NSString *const kSTYHelloReplyCommand; // = @"hello.reply";
