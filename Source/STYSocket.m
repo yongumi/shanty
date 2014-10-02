@@ -221,14 +221,14 @@
         .retain = CFRetain,
         .release = CFRelease,
         };
-    self.CFSocket = CFSocketCreateConnectedToSocketSignature(kCFAllocatorDefault, &theSocketSignature, kCFSocketConnectCallBack, MyCFSocketCallBack, &theSocketContext, self.connectTimeout);
-
-    if (self.CFSocket == NULL)
+    CFSocketRef theSocket = CFSocketCreateConnectedToSocketSignature(kCFAllocatorDefault, &theSocketSignature, kCFSocketConnectCallBack, MyCFSocketCallBack, &theSocketContext, self.connectTimeout);
+    if (theSocket == NULL)
         {
         NSError *theError = _CreateErrorWithErrno(kSTYErrorCode_Unknown, @"Could not create socket");
         inCompletion(theError);
         return;
         }
+    self.CFSocket = theSocket;
 
     CFRunLoopSourceRef theRunLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, self.CFSocket, 0);
     CFRunLoopAddSource(theRunLoop, theRunLoopSource, kCFRunLoopCommonModes);
