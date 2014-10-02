@@ -47,7 +47,7 @@
 
         if (strong_self.requiresChallenge == YES)
             {
-            theExtraMetadata[@"requiresChallenge"] = @(YES);
+            theExtraMetadata[kSTYRequiresChallengeKey] = @(YES);
             }
 
         NSDictionary *theMetadata = [strong_self makeHelloMetadata:theExtraMetadata];

@@ -14,6 +14,7 @@ NSString *const kSTYInReplyToKey = @"in-reply-to";
 NSString *const kSTYCloseKey = @"close";
 NSString *const kSTYMoreComing = @"more-coming";
 NSString *const kSTYSecretKey = @"secret";
+NSString *const kSTYRequiresChallengeKey = @"requiresChallenge";
 
 NSString *const kSTYHelloCommand = @"hello";
 NSString *const kSTYHelloReplyCommand = @"hello.reply";

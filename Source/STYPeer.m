@@ -309,7 +309,7 @@
             return NO;
             }
             
-        if ([inMessage.metadata[@"requiresChallenge"] boolValue] == YES)
+        if ([inMessage.metadata[kSTYRequiresChallengeKey] boolValue] == YES)
             {
             NSParameterAssert(strong_self.state == kSTYPeerStateHandshaking);
             strong_self.state = kSTYPeerStateChallengeResponse;
