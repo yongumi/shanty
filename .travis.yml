@@ -1,5 +1,7 @@
 #before_script: cd 'Cocoa Examples'
 language: objective-c
-xcode_project: 'Shanty.xcodeproj'
-xcode_scheme: 'Shanty OSX Framework'
+xcode_project: 'Shanty Testbed.xcodeproj'
+xcode_scheme: 'All'
 osx_image: xcode61
+before_script:
+    cd 'Shanty Testbed'
