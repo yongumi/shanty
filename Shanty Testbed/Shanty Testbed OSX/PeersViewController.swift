@@ -62,13 +62,13 @@ class PeersViewController: NSViewController {
         }
     }
 
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init?(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.title = "Peers"
         peersViewController = self
     }
 
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder:coder)
         self.title = "Peers"
         peersViewController = self
@@ -90,7 +90,7 @@ class PeersViewController: NSViewController {
         }
     }
 
-    override func prepareForSegue(segue: NSStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject!) {
         let peer = self.peers[self.tableView.selectedRow]
         let destinationController = segue.destinationController as SendMessageViewController
         destinationController.representedObject = peer

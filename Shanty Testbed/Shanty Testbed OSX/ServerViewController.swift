@@ -25,12 +25,12 @@ class ServerViewController: NSViewController, STYListenerDelegate {
     @IBOutlet var startButton : NSButton?
     @IBOutlet var stopButton : NSButton?
 
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init?(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
         self._setup()
     }
     
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder:coder)
         self._setup()
     }

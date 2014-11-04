@@ -38,15 +38,15 @@ class MainWindowController: NSWindowController {
         messagesItem.view = self.messagesViewController!.view
         self.tabView!.addTabViewItem(messagesItem)
 
-        let storyboard = NSStoryboard(name:"PeersViewController", bundle:NSBundle(forClass: PeersViewController.self))
+        let storyboard = NSStoryboard(name:"PeersViewController", bundle:NSBundle(forClass: PeersViewController.self))!
         self.peersViewController = storyboard.instantiateInitialController() as PeersViewController
         self.addViewController(self.peersViewController)
     }
 
     func addViewController(viewController:NSViewController) {
 
-        let item = NSTabViewItem(identifier: self.peersViewController.title)
-        item.label = self.peersViewController.title
+        let item = NSTabViewItem(identifier: self.peersViewController.title!)
+        item.label = self.peersViewController.title!
         item.view = self.peersViewController!.view
         self.tabView!.addTabViewItem(item)
     }

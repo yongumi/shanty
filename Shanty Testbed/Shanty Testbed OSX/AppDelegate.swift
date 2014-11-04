@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification?) {
         STYSetLoggingEnabled(true)
         self.mainWindowController = MainWindowController(windowNibName: "MainWindowController")
-        self.mainWindowController.window.makeKeyAndOrderFront(nil)
+        self.mainWindowController.window!.makeKeyAndOrderFront(nil)
     
 
 //        self.serverViewController = ServerViewController(nibName:"ServerViewController", bundle:nil)

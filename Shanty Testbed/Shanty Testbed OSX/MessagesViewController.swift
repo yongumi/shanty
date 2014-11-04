@@ -48,13 +48,13 @@ class MessagesViewController: NSViewController {
         }
     }
 
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init?(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.title = "Messages"
         messagesViewController = self
     }
 
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder:coder)
         self.title = "Messages"
         messagesViewController = self

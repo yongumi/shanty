@@ -20,7 +20,7 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         }
     }
 
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init?(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         self.type = "_styexample._tcp"
         self.browserViewController = STYPeerBrowserViewController()
         self.browserViewController.netServiceType = self.type
@@ -31,7 +31,7 @@ class ClientViewController: NSViewController, STYPeerBrowserViewControllerDelega
         self.browserViewController.delegate = self
     }
 
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         self.type = "_styexample._tcp"
         self.browserViewController = STYPeerBrowserViewController()
         self.browserViewController.netServiceType = self.type

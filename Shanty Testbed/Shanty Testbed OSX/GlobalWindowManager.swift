@@ -18,7 +18,7 @@ class GlobalWindowManager : NSResponder {
         NSApplication.sharedApplication().nextResponder = self
     }
 
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder:coder)
     }
     
@@ -33,28 +33,24 @@ class GlobalWindowManager : NSResponder {
 
     func addWindowController(windowController:NSWindowController) {
         self.windowControllers.append(windowController)
-        windowController.window.makeKeyAndOrderFront(self)
+        windowController.window!.makeKeyAndOrderFront(self)
         self._updateWindowMenu()
     }
 
     func _updateWindowMenu() {
         let windowMenu = NSApplication.sharedApplication().windowsMenu
-        let menuItemIndex = windowMenu.indexOfItemWithTitle("Bring All to Front")
+        let menuItemIndex = windowMenu!.indexOfItemWithTitle("Bring All to Front")
         for (index, windowController) in enumerate(self.windowControllers) {
-            let title = "Show \(windowController.window.title)"
-            if windowMenu.indexOfItemWithTitle(title) == -1 {
+            let title = "Show \(windowController.window?.title)"
+            if windowMenu!.indexOfItemWithTitle(title) == -1 {
                 let key = "\(index + 1)"
                 let newItem = NSMenuItem(title:title, action:"test", keyEquivalent:key)
-                windowMenu.insertItem(newItem, atIndex: menuItemIndex)
+                windowMenu!.insertItem(newItem, atIndex: menuItemIndex)
             }
         }
     }
-
 }
 
-
-
 let GlobalWindowManager_shareInstance = GlobalWindowManager()
-
 
 //        println(NSApplication.sharedApplication().mainMenu.itemWithTitle("Window").submenu)
