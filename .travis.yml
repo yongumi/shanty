@@ -2,3 +2,4 @@
 language: objective-c
 xcode_project: 'Shanty.xcodeproj'
 xcode_scheme: 'Shanty OSX Framework'
+osx_image: xcode61
