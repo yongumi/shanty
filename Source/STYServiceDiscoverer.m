@@ -12,12 +12,12 @@
 #import "STYSocket.h"
 #import "STYSocket.h"
 #import "STYLogger.h"
+#import "STYNetService.h"
 
-@interface STYServiceDiscoverer () <NSNetServiceBrowserDelegate>
+@interface STYServiceDiscoverer () <STYNetServiceBrowserDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
-@property (readwrite, nonatomic) NSNetServiceBrowser *domainBrowser;
-@property (readwrite, nonatomic) NSNetServiceBrowser *serviceBrowser;
-@property (readwrite, nonatomic, copy) void (^discoverFirstServiceAndStopHandler)(NSNetService *service, NSError *error);
+@property (readwrite, nonatomic) STYNetServiceBrowser *serviceBrowser;
+@property (readwrite, nonatomic, copy) void (^discoverFirstServiceAndStopHandler)(STYNetService *service, NSError *error);
 @property (readwrite, nonatomic) BOOL started;
 @end
 
@@ -53,13 +53,10 @@
         {
         self.mutableServices = [NSMutableSet set];
 
-        self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+        self.serviceBrowser = [[STYNetServiceBrowser alloc] init];
+//        self.serviceBrowser.localOnly = YES;
         self.serviceBrowser.delegate = self;
         [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
-
-        self.domainBrowser = [[NSNetServiceBrowser alloc] init];
-        self.domainBrowser.delegate = self;
-        [self.domainBrowser searchForBrowsableDomains];
 
         self.started = YES;
         }
@@ -73,15 +70,11 @@
         self.serviceBrowser.delegate = NULL;
         self.serviceBrowser = NULL;
 
-        [self.domainBrowser stop];
-        self.domainBrowser.delegate = NULL;
-        self.domainBrowser = NULL;
-
         self.started = NO;
         }
     }
 
-- (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler
+- (void)discoverFirstServiceAndStop:(void (^)(STYNetService *service, NSError *error))inHandler
     {
     NSParameterAssert(self.started == NO);
 
@@ -96,7 +89,7 @@
 
 #pragma mark -
 
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
+- (void)netServiceBrowser:(STYNetServiceBrowser *)aNetServiceBrowser didFindService:(STYNetService *)aNetService moreComing:(BOOL)moreComing
     {
     if (self.started == NO)
         {
@@ -121,12 +114,12 @@
     [self didChangeValueForKey:@"services"];
     }
    
-- (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError
+- (STYNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError
     {
-    __block NSNetService *theNetService = NULL;
+    __block STYNetService *theNetService = NULL;
     __block NSError *theError = NULL;
     __block BOOL theFlag = YES;
-    [self discoverFirstServiceAndStop:^(NSNetService *service, NSError *error) {
+    [self discoverFirstServiceAndStop:^(STYNetService *service, NSError *error) {
         theNetService = service;
         theError = error;
         theFlag = NO;
@@ -150,7 +143,7 @@
     return theNetService;
     }
    
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
+- (void)netServiceBrowser:(STYNetServiceBrowser *)aNetServiceBrowser didRemoveService:(STYNetService *)aNetService moreComing:(BOOL)moreComing;
     {
     if (self.started == NO)
         {

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol STYServiceDiscovererDelegate;
+@class STYNetService;
 
 @interface STYServiceDiscoverer : NSObject
 
@@ -23,11 +24,11 @@
 - (void)start;
 - (void)stop;
 
-- (void)discoverFirstServiceAndStop:(void (^)(NSNetService *service, NSError *error))inHandler;
+- (void)discoverFirstServiceAndStop:(void (^)(STYNetService *service, NSError *error))inHandler;
 
 /**
  *  Attempt to discover the a network service of type. This method is blocking.
  */
-- (NSNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError;
+- (STYNetService *)discoverFirstService:(NSTimeInterval)inTimeout error:(NSError *__autoreleasing *)outError;
 
 @end

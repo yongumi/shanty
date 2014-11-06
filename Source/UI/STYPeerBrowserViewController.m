@@ -14,6 +14,7 @@
 #import "STYPeer.h"
 #import "STYClientPeer.h"
 #import "STYLogger.h"
+#import "STYNetService.h"
 
 @interface STYPeerBrowserViewController ()
 @property (readwrite, nonatomic) STYServiceDiscoverer *discoverer;
@@ -66,7 +67,7 @@
 
 - (IBAction)connect:(id)sender
     {
-    NSNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
+    STYNetService *theSelectedService = [self.servicesArrayController.selectedObjects lastObject];
 
     __weak typeof(self) weak_self = self;
     

@@ -22,6 +22,18 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		456DF74B1A0C027900F3F3A7 /* STYNetService.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7471A0C027900F3F3A7 /* STYNetService.h */; };
+		456DF74C1A0C027900F3F3A7 /* STYNetService.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7471A0C027900F3F3A7 /* STYNetService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		456DF74D1A0C027900F3F3A7 /* STYNetService.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7471A0C027900F3F3A7 /* STYNetService.h */; };
+		456DF74E1A0C027900F3F3A7 /* STYNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7481A0C027900F3F3A7 /* STYNetService.m */; };
+		456DF74F1A0C027900F3F3A7 /* STYNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7481A0C027900F3F3A7 /* STYNetService.m */; };
+		456DF7501A0C027900F3F3A7 /* STYNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7481A0C027900F3F3A7 /* STYNetService.m */; };
+		456DF7511A0C027900F3F3A7 /* STYResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7491A0C027900F3F3A7 /* STYResolver.h */; };
+		456DF7521A0C027900F3F3A7 /* STYResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7491A0C027900F3F3A7 /* STYResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		456DF7531A0C027900F3F3A7 /* STYResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7491A0C027900F3F3A7 /* STYResolver.h */; };
+		456DF7541A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
+		456DF7551A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
+		456DF7561A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
 		45D5D64219D383B000A76535 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64319D383B000A76535 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,18 +66,12 @@
 		45D5D65F19D3842500A76535 /* STYServicePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF045E19D35C9000CED777 /* STYServicePublisher.m */; };
 		45D5D66019D3842500A76535 /* STYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046019D35C9000CED777 /* STYSocket.m */; };
 		45D5D66119D3842500A76535 /* STYTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF046219D35C9000CED777 /* STYTransport.m */; };
-		45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
 		45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D67619D38DB000A76535 /* STYPeerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */; };
 		45D5D67719D38DB000A76535 /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
 		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
-		45FF046719D35C9000CED777 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45FF046819D35C9000CED777 /* NSNetService+STYUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45FF046919D35C9000CED777 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
-		45FF046A19D35C9000CED777 /* NSNetService+STYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */; };
 		45FF046B19D35C9000CED777 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF046C19D35C9000CED777 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF046D19D35C9000CED777 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -165,6 +171,10 @@
 /* Begin PBXFileReference section */
 		4518E30C185F90BA00B1B1D9 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4538AEAE185F851A003DF921 /* libShanty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShanty.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		456DF7471A0C027900F3F3A7 /* STYNetService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYNetService.h; sourceTree = "<group>"; };
+		456DF7481A0C027900F3F3A7 /* STYNetService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYNetService.m; sourceTree = "<group>"; };
+		456DF7491A0C027900F3F3A7 /* STYResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYResolver.h; sourceTree = "<group>"; };
+		456DF74A1A0C027900F3F3A7 /* STYResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYResolver.m; sourceTree = "<group>"; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
@@ -178,8 +188,6 @@
 		45DA2334187E7BA700599FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shanty_Mac_OS_X_Tests.m; sourceTree = "<group>"; };
 		45DA2338187E7BA700599FAC /* Shanty Mac OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
-		45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNetService+STYUserInfo.h"; sourceTree = "<group>"; };
-		45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNetService+STYUserInfo.m"; sourceTree = "<group>"; };
 		45FF044319D35C9000CED777 /* Shanty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shanty.h; sourceTree = "<group>"; };
 		45FF044419D35C9000CED777 /* STYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYAddress.h; sourceTree = "<group>"; };
 		45FF044519D35C9000CED777 /* STYAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYAddress.m; sourceTree = "<group>"; };
@@ -339,8 +347,6 @@
 		45FF044019D35C9000CED777 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				45FF044119D35C9000CED777 /* NSNetService+STYUserInfo.h */,
-				45FF044219D35C9000CED777 /* NSNetService+STYUserInfo.m */,
 				45FF044319D35C9000CED777 /* Shanty.h */,
 				45FF044419D35C9000CED777 /* STYAddress.h */,
 				45FF044519D35C9000CED777 /* STYAddress.m */,
@@ -373,6 +379,10 @@
 				45FF046019D35C9000CED777 /* STYSocket.m */,
 				45FF046119D35C9000CED777 /* STYTransport.h */,
 				45FF046219D35C9000CED777 /* STYTransport.m */,
+				456DF7471A0C027900F3F3A7 /* STYNetService.h */,
+				456DF7481A0C027900F3F3A7 /* STYNetService.m */,
+				456DF7491A0C027900F3F3A7 /* STYResolver.h */,
+				456DF74A1A0C027900F3F3A7 /* STYResolver.m */,
 				45D5D67119D38DB000A76535 /* UI */,
 			);
 			path = Source;
@@ -410,8 +420,9 @@
 				45FF049019D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046E19D35C9000CED777 /* STYAddress.h in Headers */,
 				45FF049C19D35C9000CED777 /* STYServiceDiscoverer.h in Headers */,
-				45FF046819D35C9000CED777 /* NSNetService+STYUserInfo.h in Headers */,
 				45D5D67519D38DB000A76535 /* STYPeerBrowserViewController.h in Headers */,
+				456DF7521A0C027900F3F3A7 /* STYResolver.h in Headers */,
+				456DF74C1A0C027900F3F3A7 /* STYNetService.h in Headers */,
 				45FF04A419D35C9000CED777 /* STYSocket.h in Headers */,
 				45FF046C19D35C9000CED777 /* Shanty.h in Headers */,
 			);
@@ -433,10 +444,11 @@
 				45FF048719D35C9000CED777 /* STYLogger.h in Headers */,
 				45FF047119D35C9000CED777 /* STYClientPeer.h in Headers */,
 				45FF049F19D35C9000CED777 /* STYServicePublisher.h in Headers */,
+				456DF74B1A0C027900F3F3A7 /* STYNetService.h in Headers */,
+				456DF7511A0C027900F3F3A7 /* STYResolver.h in Headers */,
 				45FF048F19D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046D19D35C9000CED777 /* STYAddress.h in Headers */,
 				45FF049B19D35C9000CED777 /* STYServiceDiscoverer.h in Headers */,
-				45FF046719D35C9000CED777 /* NSNetService+STYUserInfo.h in Headers */,
 				45FF04A319D35C9000CED777 /* STYSocket.h in Headers */,
 				45FF046B19D35C9000CED777 /* Shanty.h in Headers */,
 			);
@@ -446,7 +458,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45D5D66D19D3863100A76535 /* NSNetService+STYUserInfo.h in Headers */,
 				45D5D64219D383B000A76535 /* Shanty.h in Headers */,
 				45D5D64319D383B000A76535 /* STYAddress.h in Headers */,
 				45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */,
@@ -458,6 +469,8 @@
 				45D5D64A19D383B000A76535 /* STYLogger.h in Headers */,
 				45D5D64B19D383B000A76535 /* STYMessage.h in Headers */,
 				45D5D64C19D383B000A76535 /* STYMessageHandler.h in Headers */,
+				456DF74D1A0C027900F3F3A7 /* STYNetService.h in Headers */,
+				456DF7531A0C027900F3F3A7 /* STYResolver.h in Headers */,
 				45D5D64D19D383B000A76535 /* STYPeer.h in Headers */,
 				45D5D64E19D383B000A76535 /* STYServerPeer.h in Headers */,
 				45D5D64F19D383B000A76535 /* STYServiceDiscoverer.h in Headers */,
@@ -560,7 +573,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -643,7 +656,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45FF046A19D35C9000CED777 /* NSNetService+STYUserInfo.m in Sources */,
 				45FF049A19D35C9000CED777 /* STYServerPeer.m in Sources */,
 				45FF047E19D35C9000CED777 /* STYDataScanner+Message.m in Sources */,
 				45FF047019D35C9000CED777 /* STYAddress.m in Sources */,
@@ -651,10 +663,12 @@
 				45FF04A619D35C9000CED777 /* STYSocket.m in Sources */,
 				45FF04AA19D35C9000CED777 /* STYTransport.m in Sources */,
 				45FF047A19D35C9000CED777 /* STYConstants.m in Sources */,
+				456DF74F1A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45FF047419D35C9000CED777 /* STYClientPeer.m in Sources */,
 				45FF048619D35C9000CED777 /* STYListener.m in Sources */,
 				45FF048E19D35C9000CED777 /* STYMessage.m in Sources */,
 				45FF049E19D35C9000CED777 /* STYServiceDiscoverer.m in Sources */,
+				456DF7551A0C027900F3F3A7 /* STYResolver.m in Sources */,
 				45FF048A19D35C9000CED777 /* STYLogger.m in Sources */,
 				45FF049619D35C9000CED777 /* STYPeer.m in Sources */,
 				45FF048219D35C9000CED777 /* STYDataScanner.m in Sources */,
@@ -667,7 +681,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45FF046919D35C9000CED777 /* NSNetService+STYUserInfo.m in Sources */,
+				456DF74E1A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45FF049919D35C9000CED777 /* STYServerPeer.m in Sources */,
 				45FF047D19D35C9000CED777 /* STYDataScanner+Message.m in Sources */,
 				45FF046F19D35C9000CED777 /* STYAddress.m in Sources */,
@@ -682,6 +696,7 @@
 				45FF048919D35C9000CED777 /* STYLogger.m in Sources */,
 				45FF049519D35C9000CED777 /* STYPeer.m in Sources */,
 				45FF048119D35C9000CED777 /* STYDataScanner.m in Sources */,
+				456DF7541A0C027900F3F3A7 /* STYResolver.m in Sources */,
 				45FF04A119D35C9000CED777 /* STYServicePublisher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -690,7 +705,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45D5D66F19D3873400A76535 /* NSNetService+STYUserInfo.m in Sources */,
+				456DF7501A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45D5D65319D3842500A76535 /* STYAddress.m in Sources */,
 				45D5D65419D3842500A76535 /* STYClientPeer.m in Sources */,
 				45D5D65519D3842500A76535 /* STYConstants.m in Sources */,
@@ -705,6 +720,7 @@
 				45D5D65E19D3842500A76535 /* STYServiceDiscoverer.m in Sources */,
 				45D5D65F19D3842500A76535 /* STYServicePublisher.m in Sources */,
 				45D5D66019D3842500A76535 /* STYSocket.m in Sources */,
+				456DF7561A0C027900F3F3A7 /* STYResolver.m in Sources */,
 				45D5D66119D3842500A76535 /* STYTransport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1059,7 +1075,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,

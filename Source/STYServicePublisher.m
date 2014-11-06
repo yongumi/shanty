@@ -8,21 +8,17 @@
 
 #import "STYServicePublisher.h"
 
-#import <dns_sd.h>
-
 #if TARGET_OS_IPHONE == 1
 #import <UIKit/UIKit.h>
 #endif
 
 #import "STYLogger.h"
-#import "NSNetService+STYUserInfo.h"
 #import "STYConstants.h"
+#import "STYLogger.h"
+#import "STYNetService.h"
 
-static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags, DNSServiceErrorType errorCode, const char *name, const char *regtype, const char *domain, void *context);
-
-@interface STYServicePublisher () <NSNetServiceDelegate>
-@property (readwrite, nonatomic) NSNetService *netService;
-@property (readwrite, nonatomic, assign) DNSServiceRef DNSService;
+@interface STYServicePublisher () <STYNetServiceDelegate>
+@property (readwrite, nonatomic) STYNetService *netService;
 @property (readwrite, nonatomic) BOOL publishing;
 @property (readwrite, nonatomic) BOOL resumeOnForegrounding;
 @property (readwrite, nonatomic) dispatch_source_t source;
@@ -119,56 +115,10 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
         STYLogWarning_(@"\"%@\" is an invalid DNSSD name", self.netServiceName);
         }
 
-    if (self.localhostOnly == YES)
-        {
-        DNSServiceFlags theFlags = 0;
-        u_int32_t theInterfaceIndex = self.localhostOnly ? kDNSServiceInterfaceIndexLocalOnly : kDNSServiceInterfaceIndexAny;
-        const char *theName = self.netServiceName.UTF8String;
-        
-        NSString *theSubtypes = [[@[ self.netServiceType ] arrayByAddingObjectsFromArray:self.netServiceSubtypes] componentsJoinedByString:@","];
-        const char *theRegType = theSubtypes.UTF8String;
-        const char *theDomain = self.netServiceDomain.length > 0 ? self.netServiceDomain.UTF8String : NULL;
-        const char *theHost = "localhost";
-        unsigned short thePort = htons(self.port);
-
-        NSData *theTXTRecordData = [[NSNetService dataFromTXTRecordDictionary:@{}] bytes];
-        size_t theTXTRecordSize = theTXTRecordData.length;
-        const char *theTXTRecord = theTXTRecordData.bytes;
-
-
-        NSParameterAssert(_DNSService == NULL);
-        
-        DNSServiceErrorType theResult = DNSServiceRegister(&_DNSService, theFlags, theInterfaceIndex, theName, theRegType, theDomain, theHost, thePort, theTXTRecordSize, theTXTRecord, MyDNSServiceRegisterReply, (__bridge void *)self);
-        
-        NSError *theError = NULL;
-        if (theResult == kDNSServiceErr_NoError)
-            {
-            self.publishing = YES;
-            }
-        else
-            {
-            NSDictionary *theUserInfo = @{
-                @"DNSServiceError": @(theResult),
-                };
-            theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:theUserInfo];
-            }
-
-        DNSServiceSetDispatchQueue(self.DNSService, dispatch_get_main_queue());
-
-        if (inResultHandler != NULL)
-            {
-            inResultHandler(theError);
-            }
-        }
-    else
-        {
-        self.netService = [[NSNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.port];
-        self.netService.sty_userInfo = [inResultHandler copy];
-        self.netService.delegate = self;
-        [self.netService publishWithOptions:0];
-        
-        self.publishing = YES;
-        }
+    self.netService = [[STYNetService alloc] initWithDomain:self.netServiceDomain type:self.netServiceType name:self.netServiceName port:self.port];
+    self.netService.userInfo = [inResultHandler copy];
+    self.netService.delegate = self;
+    [self.netService publish:self.localhostOnly];
     }
 
 - (void)stopPublishing:(STYCompletionBlock)inResultHandler
@@ -182,56 +132,45 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
         return;
         }
 
-    if (self.localhostOnly == YES)
-        {
-        NSParameterAssert(self.DNSService != NULL);
+    NSParameterAssert(self.netService != NULL);
 
-        DNSServiceRefDeallocate(self.DNSService);
-        _DNSService = NULL;
-        self.publishing = NO;
-        }
-    else
-        {
-        NSParameterAssert(self.netService != NULL);
-
-        self.netService.sty_userInfo = inResultHandler;
-        [self.netService stop];
-        self.publishing = NO;
-        }
+    self.netService.userInfo = inResultHandler;
+    [self.netService stop];
+    self.publishing = NO;
     }
     
 #pragma mark -
 
-- (void)netServiceDidPublish:(NSNetService *)sender
+- (void)netServiceDidPublish:(STYNetService *)sender
     {
-    STYCompletionBlock theBlock = sender.sty_userInfo;
+    STYCompletionBlock theBlock = sender.userInfo;
     if (theBlock)
         {
         theBlock(NULL);
-        sender.sty_userInfo = NULL;
+        sender.userInfo = NULL;
         }
     }
 
-- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
+- (void)netService:(STYNetService *)sender didNotPublish:(NSError *)error
     {
-    STYCompletionBlock theBlock = sender.sty_userInfo;
+    STYCompletionBlock theBlock = sender.userInfo;
     if (theBlock)
         {
-        theBlock([NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL]);
-        sender.sty_userInfo = NULL;
+        theBlock(error);
+        sender.userInfo = NULL;
         }
     }
     
-- (void)netServiceDidStop:(NSNetService *)sender
+- (void)netServiceDidStop:(STYNetService *)sender
     {
     self.netService.delegate = NULL;
     self.netService = NULL;
 
-    STYCompletionBlock theBlock = sender.sty_userInfo;
+    STYCompletionBlock theBlock = sender.userInfo;
     if (theBlock)
         {
         theBlock(NULL);
-        sender.sty_userInfo = NULL;
+        sender.userInfo = NULL;
         }
     }
 
@@ -270,14 +209,6 @@ static BOOL IsNetServiceNameValid(NSString *inName)
     NSRegularExpression *theExpression = [NSRegularExpression regularExpressionWithPattern:@"^_([0-9a-z\\-]{1,10})\\.(_tcp|_udp)$" options:NSRegularExpressionCaseInsensitive error:NULL];
     return [theExpression firstMatchInString:inName options:0 range:(NSRange){ .length = inName.length }] != NULL;
    
-    }
-
-static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags, DNSServiceErrorType errorCode, const char *name, const char *regtype, const char *domain, void *context)
-    {
-    if (errorCode != 0)
-        {
-        STYLogError_(@"MyDNSServiceRegisterReply: %d %d %s %s %s", flags, errorCode, name, regtype, domain);
-        }
     }
 
 @end

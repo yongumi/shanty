@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "STYCompletionBlocks.h"
 
+@class STYNetService;
+
 @interface STYAddress : NSObject <NSCopying>
 
 @property (readonly, nonatomic, copy) NSArray *addresses;
@@ -19,7 +21,7 @@
 - (instancetype)initWithLoopbackAddress:(uint16_t)inPort;
 - (instancetype)initWithAddresses:(NSArray *)inAddresses;
 - (instancetype)initWithHostname:(NSString *)inHostname port:(uint16_t)inPort;
-- (instancetype)initWithNetService:(NSNetService *)inNetService;
+- (instancetype)initWithNetService:(STYNetService *)inNetService;
 - (instancetype)initWithIPV4Address:(u_int32_t)inAddress port:(uint16_t)inPort;
 
 - (void)resolveWithTimeout:(NSTimeInterval)timeout handler:(STYCompletionBlock)inHandler;

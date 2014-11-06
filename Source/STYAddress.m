@@ -16,14 +16,15 @@
 
 #import "STYLogger.h"
 #import "STYConstants.h"
+#import "STYNetService.h"
 
 // TODO - hey what about that IPV6?
 
-@interface STYAddress () <NSNetServiceDelegate>
+@interface STYAddress () <STYNetServiceDelegate>
 @property (readwrite, nonatomic, copy) NSArray *addresses;
 @property (readwrite, nonatomic, copy) NSString *hostname;
 @property (readwrite, nonatomic) uint16_t port;
-@property (readwrite, nonatomic, strong) NSNetService *netService;
+@property (readwrite, nonatomic, strong) STYNetService *netService;
 @property (readwrite, nonatomic, copy) void (^resolveHandler)(NSError *);
 @end
 
@@ -92,7 +93,7 @@
     return self;
     }
 
-- (instancetype)initWithNetService:(NSNetService *)inNetService;
+- (instancetype)initWithNetService:(STYNetService *)inNetService;
     {
     if ((self = [self init]) != NULL)
         {
@@ -176,7 +177,7 @@
             {
             self.resolveHandler = inHandler;
             self.netService.delegate = self;
-            [self.netService resolveWithTimeout:timeout];
+            [self.netService resolve];
             }
         }
     else if (self.hostname != NULL)
@@ -290,7 +291,7 @@
     return(theAddressData);
     }
 
-- (void)netServiceDidResolveAddress:(NSNetService *)sender
+- (void)netServiceDidResolveAddress:(STYNetService *)sender
     {
     if (sender.addresses.count > 0)
         {
@@ -304,7 +305,7 @@
         }
     }
 
-- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
+- (void)netService:(STYNetService *)sender didNotResolve:(NSDictionary *)errorDict
     {
     if (self.resolveHandler != NULL)
         {

@@ -178,7 +178,6 @@
     NSParameterAssert(self.connected == NO);
     NSParameterAssert(self.address.addresses != NULL);
 
-
     CFSocketSignature theSocketSignature = (CFSocketSignature){
         .socketType = SOCK_STREAM, // Streaming type
         .protocol = IPPROTO_TCP, // TCP/IP protocol

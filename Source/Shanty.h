@@ -14,7 +14,6 @@ FOUNDATION_EXPORT double Shanty_VersionNumber;
 //! Project version string for Shanty
 FOUNDATION_EXPORT const unsigned char Shanty_VersionString[];
 
-#import <Shanty/NSNetService+STYUserInfo.h>
 #import <Shanty/STYAddress.h>
 #import <Shanty/STYCompletionBlocks.h>
 #import <Shanty/STYConstants.h>
@@ -31,6 +30,8 @@ FOUNDATION_EXPORT const unsigned char Shanty_VersionString[];
 #import <Shanty/STYServicePublisher.h>
 #import <Shanty/STYSocket.h>
 #import <Shanty/STYTransport.h>
+#import <Shanty/STYNetService.h>
+#import <Shanty/STYResolver.h>
 
 #if TARGET_OS_IPHONE == 0
 #import <Shanty/STYPeerBrowserViewController.h>
