@@ -197,7 +197,7 @@
         {
         theSocketSignature.protocolFamily = AF_INET; // IPV4 family
         NSData *theAddress = self.address.IPV4Addresses.firstObject;
-        STYLogDebug_(@"Using %@:%d to connect.", [STYAddress descriptionForAddress:theAddress], [STYAddress portForAddress:theAddress]);
+        STYLogDebug_(@"Using %@:%d (%@) to connect.", [STYAddress descriptionForAddress:theAddress], [STYAddress portForAddress:theAddress], theAddress);
         theSocketSignature.address = (__bridge_retained CFDataRef)theAddress;
         }
 
