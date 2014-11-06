@@ -13,6 +13,7 @@
 #import "STYSocket.h"
 #import "STYLogger.h"
 #import "STYNetService.h"
+#import "STYNetServiceBrowser.h"
 
 @interface STYServiceDiscoverer () <STYNetServiceBrowserDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol STYNetServiceDelegate;
-@protocol STYNetServiceBrowserDelegate;
 
 #pragma mark -
 
@@ -43,19 +42,6 @@
 
 #pragma mark -
 
-@interface STYNetServiceBrowser : NSObject
-
-@property (readwrite, nonatomic, strong) dispatch_queue_t queue;
-@property (readwrite, nonatomic) BOOL localOnly;
-@property (readwrite, nonatomic, weak) id <STYNetServiceBrowserDelegate> delegate;
-
-- (void)searchForServicesOfType:(NSString *)type inDomain:(NSString *)domainString;
-- (void)stop;
-
-@end
-
-#pragma mark -
-
 @protocol STYNetServiceDelegate <NSObject>
 @optional
 - (void)netServiceWillPublish:(STYNetService *)sender;
@@ -66,10 +52,4 @@
 - (void)netServiceDidResolveAddress:(STYNetService *)sender;
 - (void)netService:(STYNetService *)sender didNotResolve:(NSError *)error;
 - (void)netServiceDidStop:(STYNetService *)sender;
-@end
-
-
-@interface STYNetService (Extras)
-@property (readwrite, nonatomic, strong) id userInfo;
-@property (readonly, nonatomic, copy) NSString *key; // Unique ID for service.
 @end

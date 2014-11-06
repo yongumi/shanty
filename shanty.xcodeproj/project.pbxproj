@@ -34,6 +34,12 @@
 		456DF7541A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
 		456DF7551A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
 		456DF7561A0C027900F3F3A7 /* STYResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF74A1A0C027900F3F3A7 /* STYResolver.m */; };
+		456DF75A1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7581A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h */; };
+		456DF75B1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7581A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h */; };
+		456DF75C1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 456DF7581A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h */; };
+		456DF75D1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */; };
+		456DF75E1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */; };
+		456DF75F1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */; };
 		45D5D64219D383B000A76535 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64319D383B000A76535 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -175,6 +181,8 @@
 		456DF7481A0C027900F3F3A7 /* STYNetService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYNetService.m; sourceTree = "<group>"; };
 		456DF7491A0C027900F3F3A7 /* STYResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYResolver.h; sourceTree = "<group>"; };
 		456DF74A1A0C027900F3F3A7 /* STYResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYResolver.m; sourceTree = "<group>"; };
+		456DF7581A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYNetServiceBrowser.h; sourceTree = "<group>"; };
+		456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYNetServiceBrowser.m; sourceTree = "<group>"; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
@@ -381,6 +389,8 @@
 				45FF046219D35C9000CED777 /* STYTransport.m */,
 				456DF7471A0C027900F3F3A7 /* STYNetService.h */,
 				456DF7481A0C027900F3F3A7 /* STYNetService.m */,
+				456DF7581A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h */,
+				456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */,
 				456DF7491A0C027900F3F3A7 /* STYResolver.h */,
 				456DF74A1A0C027900F3F3A7 /* STYResolver.m */,
 				45D5D67119D38DB000A76535 /* UI */,
@@ -425,6 +435,7 @@
 				456DF74C1A0C027900F3F3A7 /* STYNetService.h in Headers */,
 				45FF04A419D35C9000CED777 /* STYSocket.h in Headers */,
 				45FF046C19D35C9000CED777 /* Shanty.h in Headers */,
+				456DF75B1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +459,7 @@
 				456DF7511A0C027900F3F3A7 /* STYResolver.h in Headers */,
 				45FF048F19D35C9000CED777 /* STYMessageHandler.h in Headers */,
 				45FF046D19D35C9000CED777 /* STYAddress.h in Headers */,
+				456DF75A1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */,
 				45FF049B19D35C9000CED777 /* STYServiceDiscoverer.h in Headers */,
 				45FF04A319D35C9000CED777 /* STYSocket.h in Headers */,
 				45FF046B19D35C9000CED777 /* Shanty.h in Headers */,
@@ -474,6 +486,7 @@
 				45D5D64D19D383B000A76535 /* STYPeer.h in Headers */,
 				45D5D64E19D383B000A76535 /* STYServerPeer.h in Headers */,
 				45D5D64F19D383B000A76535 /* STYServiceDiscoverer.h in Headers */,
+				456DF75C1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.h in Headers */,
 				45D5D65019D383B000A76535 /* STYServicePublisher.h in Headers */,
 				45D5D65119D383B000A76535 /* STYSocket.h in Headers */,
 				45D5D65219D383B000A76535 /* STYTransport.h in Headers */,
@@ -663,6 +676,7 @@
 				45FF04A619D35C9000CED777 /* STYSocket.m in Sources */,
 				45FF04AA19D35C9000CED777 /* STYTransport.m in Sources */,
 				45FF047A19D35C9000CED777 /* STYConstants.m in Sources */,
+				456DF75E1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */,
 				456DF74F1A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45FF047419D35C9000CED777 /* STYClientPeer.m in Sources */,
 				45FF048619D35C9000CED777 /* STYListener.m in Sources */,
@@ -684,6 +698,7 @@
 				456DF74E1A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45FF049919D35C9000CED777 /* STYServerPeer.m in Sources */,
 				45FF047D19D35C9000CED777 /* STYDataScanner+Message.m in Sources */,
+				456DF75D1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */,
 				45FF046F19D35C9000CED777 /* STYAddress.m in Sources */,
 				45FF049119D35C9000CED777 /* STYMessageHandler.m in Sources */,
 				45FF04A519D35C9000CED777 /* STYSocket.m in Sources */,
@@ -708,6 +723,7 @@
 				456DF7501A0C027900F3F3A7 /* STYNetService.m in Sources */,
 				45D5D65319D3842500A76535 /* STYAddress.m in Sources */,
 				45D5D65419D3842500A76535 /* STYClientPeer.m in Sources */,
+				456DF75F1A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m in Sources */,
 				45D5D65519D3842500A76535 /* STYConstants.m in Sources */,
 				45D5D65619D3842500A76535 /* STYDataScanner+Message.m in Sources */,
 				45D5D65719D3842500A76535 /* STYDataScanner.m in Sources */,
