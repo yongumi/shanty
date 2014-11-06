@@ -14,6 +14,7 @@
 #import "STYLogger.h"
 #import "STYNetService.h"
 #import "STYNetServiceBrowser.h"
+#import "STYHackyNetServiceBrowser.h"
 
 @interface STYServiceDiscoverer () <STYNetServiceBrowserDelegate>
 @property (readwrite, nonatomic, strong) NSMutableSet *mutableServices;
@@ -54,7 +55,7 @@
         {
         self.mutableServices = [NSMutableSet set];
 
-        self.serviceBrowser = [[STYNetServiceBrowser alloc] init];
+        self.serviceBrowser = [[STYHackyNetServiceBrowser alloc] init];
 //        self.serviceBrowser.localOnly = YES;
         self.serviceBrowser.delegate = self;
         [self.serviceBrowser searchForServicesOfType:self.type inDomain:self.domain];
