@@ -43,7 +43,7 @@
         [self.delegate netServiceBrowserWillSearch:self];
         }
     
-    uint32_t theInterfaceIndex = 0;
+    uint32_t theInterfaceIndex = kDNSServiceInterfaceIndexAny;
 
     if (self.localOnly == YES)
         {
