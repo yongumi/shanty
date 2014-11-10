@@ -92,32 +92,29 @@ static void MyDNSServiceBrowseReply(DNSServiceRef sdRef, DNSServiceFlags flags, 
     {
 //    NSLog(@"MyDNSServiceBrowseReply flags:%d idx:%d err:%d serviceName:%s regtype:%s replyDomain:%s", flags, interfaceIndex, errorCode, serviceName, regtype, replyDomain);
 
-    if (errorCode == kDNSServiceErr_NoError)
+    if (flags & kDNSServiceFlagsAdd && errorCode == kDNSServiceErr_NoError)
         {
-        if (flags & kDNSServiceFlagsAdd)
+        STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;
+        STYNetService *theService = [[STYNetService alloc] initWithDomain:[NSString stringWithUTF8String:replyDomain] type:[NSString stringWithUTF8String:regtype] name:[NSString stringWithUTF8String:serviceName]];
+        NSString *theKey = [@[theService.domain, theService.type, theService.name] componentsJoinedByString:@"|"];
+        if ([self.services objectForKey:theKey] != NULL)
             {
-            STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;
-            STYNetService *theService = [[STYNetService alloc] initWithDomain:[NSString stringWithUTF8String:replyDomain] type:[NSString stringWithUTF8String:regtype] name:[NSString stringWithUTF8String:serviceName]];
-            NSString *theKey = [@[theService.domain, theService.type, theService.name] componentsJoinedByString:@"|"];
-            if ([self.services objectForKey:theKey] != NULL)
-                {
-                return;
-                }
-            theService.queue = self.queue;
-            [self.services setObject:theService forKey:theKey];
-            if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didFindService:moreComing:)])
-                {
-                [self.delegate netServiceBrowser:self didFindService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
-                }
+            return;
             }
-        else if (!(flags & kDNSServiceFlagsAdd))
+        theService.queue = self.queue;
+        [self.services setObject:theService forKey:theKey];
+        if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didFindService:moreComing:)])
             {
-            STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;
-            STYNetService *theService = [[STYNetService alloc] initWithDomain:[NSString stringWithUTF8String:replyDomain] type:[NSString stringWithUTF8String:regtype] name:[NSString stringWithUTF8String:serviceName]];
-            NSString *theKey = [@[theService.domain, theService.type, theService.name] componentsJoinedByString:@"|"];
-            [self.services removeObjectForKey:theKey];
-            [self.delegate netServiceBrowser:self didRemoveService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
+            [self.delegate netServiceBrowser:self didFindService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
             }
+        }
+    else if (!(flags & kDNSServiceFlagsAdd))
+        {
+        STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;
+        STYNetService *theService = [[STYNetService alloc] initWithDomain:[NSString stringWithUTF8String:replyDomain] type:[NSString stringWithUTF8String:regtype] name:[NSString stringWithUTF8String:serviceName]];
+        NSString *theKey = [@[theService.domain, theService.type, theService.name] componentsJoinedByString:@"|"];
+        [self.services removeObjectForKey:theKey];
+        [self.delegate netServiceBrowser:self didRemoveService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
         }
     }
 
