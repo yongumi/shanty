@@ -52,6 +52,7 @@
 
     self.services = [NSMutableDictionary dictionary];
 
+    // TODO: Need to retain self across life of callback.
     DNSServiceErrorType theResult = DNSServiceBrowse(&_service, 0, theInterfaceIndex, type.UTF8String, domainString.UTF8String, MyDNSServiceBrowseReply, (__bridge void *)self);
     if (theResult == kDNSServiceErr_NoError)
         {

@@ -81,6 +81,7 @@ static id gSharedInstance = NULL;
 
     [[STYNetService resolvingDomains] setObject:self forKey:self.key];
 
+    // TODO: Retain self across lifetime of callback
     DNSServiceErrorType theResult = DNSServiceResolve(&_service, 0, 0, self.name.UTF8String, self.type.UTF8String, self.domain.UTF8String, MyDNSServiceResolveReply, (__bridge void *)self);
     if (theResult == kDNSServiceErr_NoError)
         {

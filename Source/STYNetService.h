@@ -14,7 +14,7 @@
 
 @interface STYNetService : NSObject
 
-@property (readwrite, nonatomic, strong) dispatch_queue_t queue;
+@property (readwrite, nonatomic, strong) dispatch_queue_t queue; // TODO: Only main queue supported for now.
 @property (readonly, nonatomic, copy) NSString *domain;
 @property (readonly, nonatomic, copy) NSString *type;
 @property (readonly, nonatomic, copy) NSString *name;
