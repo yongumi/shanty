@@ -126,7 +126,7 @@ static void MyDNSServiceBrowseReply(DNSServiceRef sdRef, DNSServiceFlags flags, 
 
         if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didRemoveService:moreComing:)])
             {
-            [self.delegate netServiceBrowser:self didRemoveService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
+            [self.delegate netServiceBrowser:self didRemoveService:theFoundService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
             }
 
         [self.services removeObjectForKey:theKey];
