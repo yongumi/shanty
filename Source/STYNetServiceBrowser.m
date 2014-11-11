@@ -111,10 +111,24 @@ static void MyDNSServiceBrowseReply(DNSServiceRef sdRef, DNSServiceFlags flags, 
     else if (!(flags & kDNSServiceFlagsAdd))
         {
         STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;
+
+        // Create a temporary service _just_ to create a key from it...
         STYNetService *theService = [[STYNetService alloc] initWithDomain:[NSString stringWithUTF8String:replyDomain] type:[NSString stringWithUTF8String:regtype] name:[NSString stringWithUTF8String:serviceName]];
         NSString *theKey = [@[theService.domain, theService.type, theService.name] componentsJoinedByString:@"|"];
+
+        // Find the canonical service...
+        STYNetService *theFoundService = [self.services objectForKey:theService.key];
+        if (theFoundService == NULL)
+            {
+            return;
+            }
+
+        if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didRemoveService:moreComing:)])
+            {
+            [self.delegate netServiceBrowser:self didRemoveService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
+            }
+
         [self.services removeObjectForKey:theKey];
-        [self.delegate netServiceBrowser:self didRemoveService:theService moreComing:kDNSServiceFlagsMoreComing ? YES : NO];
         }
     }
 
