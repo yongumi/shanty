@@ -192,8 +192,6 @@
 		456DF7601A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYHackyNetServiceBrowser.h; sourceTree = "<group>"; };
 		456DF7611A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYHackyNetServiceBrowser.m; sourceTree = "<group>"; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		45C73064191AD9CD006254B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleTest-Prefix.pch"; sourceTree = "<group>"; };
 		45D5D62819D382DC00A76535 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeerBrowserViewController.h; sourceTree = "<group>"; };
 		45D5D67319D38DB000A76535 /* STYPeerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYPeerBrowserViewController.m; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 				4538AEB3185F851A003DF921 /* Shanty */,
 				45FF04B319D35CD100CED777 /* Supporting Files */,
 				45DA2330187E7BA700599FAC /* Shanty Mac OS X Tests */,
-				45C73063191AD9CD006254B2 /* SimpleTest */,
 				45DA232D187E7BA700599FAC /* Frameworks */,
 				4538AEAF185F851A003DF921 /* Products */,
 			);
@@ -303,23 +300,6 @@
 				45FF044019D35C9000CED777 /* Source */,
 			);
 			path = Shanty;
-			sourceTree = "<group>";
-		};
-		45C73063191AD9CD006254B2 /* SimpleTest */ = {
-			isa = PBXGroup;
-			children = (
-				45C73064191AD9CD006254B2 /* main.m */,
-				45C73066191AD9CD006254B2 /* Supporting Files */,
-			);
-			path = SimpleTest;
-			sourceTree = "<group>";
-		};
-		45C73066191AD9CD006254B2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45C73067191AD9CD006254B2 /* SimpleTest-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		45D5D67119D38DB000A76535 /* UI */ = {
