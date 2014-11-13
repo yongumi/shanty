@@ -61,7 +61,6 @@
             {
             return;
             }
-        // TODO: Error handling
         }
 
     if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didNotSearch:)])
@@ -91,8 +90,6 @@
 
 static void MyDNSServiceBrowseReply(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context)
     {
-//    NSLog(@"MyDNSServiceBrowseReply flags:%d idx:%d err:%d serviceName:%s regtype:%s replyDomain:%s", flags, interfaceIndex, errorCode, serviceName, regtype, replyDomain);
-
     if (flags & kDNSServiceFlagsAdd && errorCode == kDNSServiceErr_NoError)
         {
         STYNetServiceBrowser *self = (__bridge STYNetServiceBrowser *)context;

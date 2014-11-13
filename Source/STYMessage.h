@@ -14,7 +14,6 @@ typedef NS_ENUM(NSInteger, STYMessageDirection) {
 	kSTYMessageDirection_Outgoing,
 	};
 
-/// TODO should probably break this up into categories. Creating, parsing and utilities?
 @interface STYMessage : NSObject <NSCopying, NSMutableCopying>
 
 @property (readonly, nonatomic, copy) NSDictionary *controlData;

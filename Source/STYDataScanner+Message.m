@@ -58,10 +58,10 @@
         return(NO);
         }
 
-    if (outValue)
+    if (outValue != NULL)
         {
         STYMutableMessage *theMessage = [[STYMutableMessage alloc] initWithControlData:theControlDataObject metadata:theMetadataObject data:theData];
-        theMessage.direction = kSTYMessageDirection_Incoming; // TODO this is a bit fake...
+        theMessage.direction = kSTYMessageDirection_Incoming;
         *outValue = theMessage;
         }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "STYCompletionBlocks.h"
+#import "STYBlockTypes.h"
 
 @interface STYServicePublisher : NSObject
 

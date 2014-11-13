@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, EDataScannerMode) {
-	DataScannerMode_Binary,
-	DataScannerMode_Text,
-	};
-
 typedef NS_ENUM(NSInteger, EDataScannerDataEndianness) {
 	DataScannerDataEndianness_Native,
 	DataScannerDataEndianness_Little,
@@ -24,7 +19,6 @@ typedef NS_ENUM(NSInteger, EDataScannerDataEndianness) {
 
 @property (readonly, nonatomic, copy) NSData *data;
 @property (readwrite, nonatomic) NSRange range;
-@property (readwrite, nonatomic) EDataScannerMode mode;
 @property (readwrite, nonatomic) EDataScannerDataEndianness dataEndianness;
 @property (readwrite, nonatomic) BOOL shouldCopyData;
 

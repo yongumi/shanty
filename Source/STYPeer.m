@@ -25,8 +25,8 @@
 @property (readwrite, nonatomic) STYMessengerMode mode;
 @property (readwrite, nonatomic) STYTransport *transport;
 @property (readwrite, nonatomic) NSMutableDictionary *blocksForReplies;
-@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
-@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, atomic) STYPeerState state; // NOTE: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // NOTE: Should be readonly but needed by subclasses.
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 @end
 
@@ -363,7 +363,6 @@
             STYMessage *theMessage = [[STYMessage alloc] initWithControlData:@{ kSTYCommandKey: kSTYSecretCommand } metadata:@{ kSTYSecretKey: theSecret } data:NULL];
             [self sendMessage:theMessage replyHandler:^BOOL(STYPeer *inPeer, STYMessage *inMessage, NSError *__autoreleasing *outError) {
                 __weak typeof(weak_self) strong_self = weak_self;
-                //                NSLog(@"%@", inMessage);
                 NSCParameterAssert(strong_self.state == kSTYPeerStateChallengeResponse);
                 strong_self.state = kSTYPeerStateReady;
                 if (inCompletion) {

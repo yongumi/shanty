@@ -128,7 +128,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     
     if (theSocket == NULL)
         {
-        STYLogError_(@"Could not create socket %d", errno);
+        if (inResultHandler != NULL)
+            {
+            NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
+            inResultHandler(theError);
+            }
         return;
         }
 
@@ -140,7 +144,11 @@ static void TCPSocketListenerAcceptCallBack(CFSocketRef inSocket, CFSocketCallBa
     int result = setsockopt(CFSocketGetNative(self.IPV4Socket), SOL_SOCKET, SO_REUSEADDR, (void *)&theReuseSocketFlag, sizeof(theReuseSocketFlag));
     if (result != 0)
         {
-        STYLogError_(@"Could not setsockopt %d", errno);
+        if (inResultHandler != NULL)
+            {
+            NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
+            inResultHandler(theError);
+            }
         return;
         }
     

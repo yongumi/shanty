@@ -49,7 +49,7 @@
 		45D5D64219D383B000A76535 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64319D383B000A76535 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45D5D64519D383B000A76535 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D5D64519D383B000A76535 /* STYBlockTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYBlockTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64619D383B000A76535 /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044919D35C9000CED777 /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64719D383B000A76535 /* STYDataScanner+Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044B19D35C9000CED777 /* STYDataScanner+Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64819D383B000A76535 /* STYDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044D19D35C9000CED777 /* STYDataScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,8 +94,8 @@
 		45FF047219D35C9000CED777 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF047319D35C9000CED777 /* STYClientPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044719D35C9000CED777 /* STYClientPeer.m */; };
 		45FF047419D35C9000CED777 /* STYClientPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044719D35C9000CED777 /* STYClientPeer.m */; };
-		45FF047519D35C9000CED777 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45FF047619D35C9000CED777 /* STYCompletionBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYCompletionBlocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45FF047519D35C9000CED777 /* STYBlockTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYBlockTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45FF047619D35C9000CED777 /* STYBlockTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044819D35C9000CED777 /* STYBlockTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF047719D35C9000CED777 /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044919D35C9000CED777 /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF047819D35C9000CED777 /* STYConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044919D35C9000CED777 /* STYConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF047919D35C9000CED777 /* STYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FF044A19D35C9000CED777 /* STYConstants.m */; };
@@ -209,7 +209,7 @@
 		45FF044519D35C9000CED777 /* STYAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYAddress.m; sourceTree = "<group>"; };
 		45FF044619D35C9000CED777 /* STYClientPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYClientPeer.h; sourceTree = "<group>"; };
 		45FF044719D35C9000CED777 /* STYClientPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYClientPeer.m; sourceTree = "<group>"; };
-		45FF044819D35C9000CED777 /* STYCompletionBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYCompletionBlocks.h; sourceTree = "<group>"; };
+		45FF044819D35C9000CED777 /* STYBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYBlockTypes.h; sourceTree = "<group>"; };
 		45FF044919D35C9000CED777 /* STYConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYConstants.h; sourceTree = "<group>"; };
 		45FF044A19D35C9000CED777 /* STYConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYConstants.m; sourceTree = "<group>"; };
 		45FF044B19D35C9000CED777 /* STYDataScanner+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STYDataScanner+Message.h"; sourceTree = "<group>"; };
@@ -368,7 +368,7 @@
 				45FF044519D35C9000CED777 /* STYAddress.m */,
 				45FF044619D35C9000CED777 /* STYClientPeer.h */,
 				45FF044719D35C9000CED777 /* STYClientPeer.m */,
-				45FF044819D35C9000CED777 /* STYCompletionBlocks.h */,
+				45FF044819D35C9000CED777 /* STYBlockTypes.h */,
 				45FF044919D35C9000CED777 /* STYConstants.h */,
 				45FF044A19D35C9000CED777 /* STYConstants.m */,
 				45FF044B19D35C9000CED777 /* STYDataScanner+Message.h */,
@@ -426,7 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FF049419D35C9000CED777 /* STYPeer.h in Headers */,
-				45FF047619D35C9000CED777 /* STYCompletionBlocks.h in Headers */,
+				45FF047619D35C9000CED777 /* STYBlockTypes.h in Headers */,
 				45FF048C19D35C9000CED777 /* STYMessage.h in Headers */,
 				45FF048419D35C9000CED777 /* STYListener.h in Headers */,
 				45FF047C19D35C9000CED777 /* STYDataScanner+Message.h in Headers */,
@@ -455,7 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FF049319D35C9000CED777 /* STYPeer.h in Headers */,
-				45FF047519D35C9000CED777 /* STYCompletionBlocks.h in Headers */,
+				45FF047519D35C9000CED777 /* STYBlockTypes.h in Headers */,
 				45FF048B19D35C9000CED777 /* STYMessage.h in Headers */,
 				45FF048319D35C9000CED777 /* STYListener.h in Headers */,
 				45FF047B19D35C9000CED777 /* STYDataScanner+Message.h in Headers */,
@@ -485,7 +485,7 @@
 				45D5D64219D383B000A76535 /* Shanty.h in Headers */,
 				45D5D64319D383B000A76535 /* STYAddress.h in Headers */,
 				45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */,
-				45D5D64519D383B000A76535 /* STYCompletionBlocks.h in Headers */,
+				45D5D64519D383B000A76535 /* STYBlockTypes.h in Headers */,
 				45D5D64619D383B000A76535 /* STYConstants.h in Headers */,
 				45D5D64719D383B000A76535 /* STYDataScanner+Message.h in Headers */,
 				45D5D64819D383B000A76535 /* STYDataScanner.h in Headers */,
@@ -599,7 +599,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */;
+			buildConfigurationList = 4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1107,7 +1107,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "shanty" */ = {
+		4538AEA9185F851A003DF921 /* Build configuration list for PBXProject "Shanty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4538AECF185F851B003DF921 /* Debug */,

@@ -10,11 +10,9 @@
 
 #import "STYPeer.h"
 
-// TODO: Refactor this.
 @interface STYMessageHandler : NSObject
 
 - (void)addCommand:(NSString *)inCommand block:(STYMessageBlock)inBlock;
-
 - (STYMessageBlock)blockForMessage:(STYMessage *)inMessage error:(NSError *__autoreleasing *)outError;
 
 @end

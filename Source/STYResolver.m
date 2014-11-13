@@ -14,6 +14,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
+#import "STYConstants.h"
+
 @implementation STYResolver
 
 - (id)init
@@ -43,9 +45,7 @@
         };
         struct addrinfo *address = NULL;
 
-//        NSLog(@"Resolving %@", name);
         int result = getaddrinfo(name.UTF8String, service.UTF8String, &hints, &address);
-//        NSLog(@"Resolved %@", name);
         if (result == 0)
             {
             const struct addrinfo *current = address;
@@ -60,10 +60,13 @@
 
                 if (inet_ntop(current->ai_family, &theAddress->sin_addr, buffer, theLength) == NULL)
                     {
-                    // TODO: Use handler
-                    NSLog(@"Error: %d", errno);
+                    if (handler != NULL)
+                        {
+                        NSError *theError = [NSError errorWithDomain:kSTYErrorDomain code:kSTYErrorCode_Unknown userInfo:NULL];
+                        handler(NULL, theError);
+                        }
+                    return;
                     }
-//                NSLog(@"%s %s (%d %d %d %d)", buffer, current->ai_canonname, current->ai_flags, current->ai_family, current->ai_socktype, current->ai_protocol);
                 current = current->ai_next;
                 }
             }

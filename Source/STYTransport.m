@@ -124,7 +124,6 @@
 
 - (STYMessage *)messageForSending:(STYMessage *)inMessage
     {
-    // TODO - copying the message is weird. Be much nicer to mutate it.
     STYMutableMessage *theMessage = [inMessage mutableCopy];
     theMessage.messageID = self.nextOutgoingMessageID++;
     return theMessage;
@@ -183,8 +182,6 @@
     __weak typeof(self) weak_self = self;
     [self.socket read:^(bool done, dispatch_data_t data, int error) {
     
-//        NSLog(@"%d %d %d", done, dispatch_data_get_size(data), error);
-    
         __strong typeof(weak_self) strong_self = weak_self;
         if (strong_self == NULL)
             {
@@ -203,8 +200,6 @@
             }
         else if (error != 0)
             {
-            /// TODO handle error (via completion block)
-            
             NSError *thePOSIXError = [NSError errorWithDomain:NSPOSIXErrorDomain code:error userInfo:NULL];
             STYLogError_(@"%@: dispatch_io_read: %@", self, thePOSIXError);
             inCompletion(thePOSIXError);

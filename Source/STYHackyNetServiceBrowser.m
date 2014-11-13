@@ -99,13 +99,6 @@
     
 - (void)netServiceBrowser:(STYNetServiceBrowser *)aNetServiceBrowser didFindService:(STYNetService *)aNetService moreComing:(BOOL)moreComing
     {
-    STYNetService *theFoundService = [self.services objectForKey:aNetService.key];
-    
-    if (theFoundService != NULL)
-        {
-        aNetService = theFoundService;
-        }
-    
     if ([self.delegate respondsToSelector:@selector(netServiceBrowser:didFindService:moreComing:)])
         {
         STYNetService *theFoundService = [self.services objectForKey:aNetService.key];

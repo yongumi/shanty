@@ -34,7 +34,6 @@
 + (NSDictionary *)decode:(NSData *)inData error:(NSError *__autoreleasing *)outError
     {
     NSDictionary *theDictionary = [NSJSONSerialization JSONObjectWithData:inData options:0 error:outError];
-    // TODO zip...
     return(theDictionary);
     }
     
@@ -77,7 +76,7 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _direction = kSTYMessageDirection_Outgoing; // TODO - guessing direction is probably bad
+        _direction = kSTYMessageDirection_Outgoing; // Guessing direction is probably bad
 
         NSMutableDictionary *theControlData = [[self.class defaultControlData] mutableCopy];
         if (inControlData)
@@ -104,7 +103,7 @@
     theCopy.metadata = self.metadata;
     theCopy.data = self.data;
 
-    theCopy->_direction = self.direction; // TODO - lazy
+    theCopy->_direction = self.direction;
     return(theCopy);
     }
 
@@ -115,7 +114,7 @@
     theCopy.metadata = self.metadata;
     theCopy.data = self.data;
 
-    theCopy->_direction = self.direction; // TODO - lazy
+    theCopy->_direction = self.direction;
     return(theCopy);
     }
 

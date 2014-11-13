@@ -23,7 +23,6 @@
     {
     if ((self = [super init]) != NULL)
         {
-        _mode = DataScannerMode_Binary;
         _dataEndianness = DataScannerDataEndianness_Native;
         }
     return self;

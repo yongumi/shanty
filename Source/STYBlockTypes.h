@@ -1,5 +1,5 @@
 //
-//  STYCompletionBlocks.h
+//  STYBlockTypes.h
 //  Shanty
 //
 //  Created by Jonathan Wight on 11/5/13.
@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
-// TODO: Rename to STYBlockTypes.h???
 
 @class STYPeer;
 @class STYMessage;

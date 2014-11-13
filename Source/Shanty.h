@@ -15,7 +15,7 @@ FOUNDATION_EXPORT double Shanty_VersionNumber;
 FOUNDATION_EXPORT const unsigned char Shanty_VersionString[];
 
 #import <Shanty/STYAddress.h>
-#import <Shanty/STYCompletionBlocks.h>
+#import <Shanty/STYBlockTypes.h>
 #import <Shanty/STYConstants.h>
 #import <Shanty/STYDataScanner+Message.h>
 #import <Shanty/STYDataScanner.h>

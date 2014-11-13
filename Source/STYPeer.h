@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "STYCompletionBlocks.h"
+#import "STYBlockTypes.h"
 
 // TODO: Rename
 typedef NS_ENUM(NSInteger, STYMessengerMode) {
@@ -74,8 +74,8 @@ typedef NS_ENUM(NSInteger, STYPeerState) {
 #pragma mark -
 
 @interface STYPeer (Subclassing)
-@property (readwrite, atomic) STYPeerState state; // TODO: Should be readonly but needed by subclasses.
-@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // TODO: Should be readonly but needed by subclasses.
+@property (readwrite, atomic) STYPeerState state; // NOTE: Should be readonly but needed by subclasses.
+@property (readwrite, nonatomic) STYMessageHandler *systemHandler; // NOTE: Should be readonly but needed by subclasses.
 @property (readwrite, nonatomic) STYMessageHandler *messageHandler;
 
 - (void)willChangeToState:(STYPeerState)inState fromState:(STYPeerState)inOldState;

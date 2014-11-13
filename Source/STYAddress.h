@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STYCompletionBlocks.h"
+#import "STYBlockTypes.h"
 
 @class STYNetService;
 
@@ -31,7 +31,6 @@
 - (NSArray *)IPV4Addresses;
 - (NSArray *)IPV6Addresses;
 
-// TODO: This is a quick hack and will be going away.
 - (NSString *)toString;
 
 - (instancetype)addressBySettingPort:(int16_t)inPort;

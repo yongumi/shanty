@@ -100,7 +100,7 @@
 
     if ([aNetService.domain rangeOfString:@"members.btmm.icloud.com."].location != NSNotFound)
         {
-        // TODO: For now as a work-around to prevent duplicate services. Back to My Mac is IPv6 only and right now shanty is IPv4 only (due to laziness)
+        // NOTE: For now as a work-around to prevent duplicate services. Back to My Mac is IPv6 only and right now shanty is IPv4 only (due to laziness)
         return;
         }
 

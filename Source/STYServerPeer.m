@@ -29,7 +29,6 @@
 
     __weak typeof(self) weak_self = self;
 
-    // TODO: Technically we only need this if the peer is a server.
     [self.systemHandler addCommand:kSTYHelloCommand block:^(STYPeer *inPeer, STYMessage *inMessage, NSError **outError) {
         __strong typeof(self) strong_self = weak_self;
         if (strong_self == NULL)

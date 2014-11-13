@@ -164,7 +164,6 @@ static void MyDNSServiceRegisterReply(DNSServiceRef sdRef, DNSServiceFlags flags
 
 static void MyDNSServiceResolveReply(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, const char *hosttarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context)
     {
-//    NSLog(@"MyDNSServiceResolveReply flags:%d idx:%d err:%d fullname:%s hosttarget:%s port:%d", flags, interfaceIndex, errorCode, fullname, hosttarget, port);
     if (errorCode == kDNSServiceErr_NoError)
         {
         STYNetService *self = (__bridge STYNetService *)context;

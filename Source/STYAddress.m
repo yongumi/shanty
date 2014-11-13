@@ -18,8 +18,6 @@
 #import "STYConstants.h"
 #import "STYNetService.h"
 
-// TODO - hey what about that IPV6?
-
 @interface STYAddress () <STYNetServiceDelegate>
 @property (readwrite, nonatomic, copy) NSArray *addresses;
 @property (readwrite, nonatomic, copy) NSString *hostname;
@@ -146,7 +144,6 @@
 
 - (NSString *)toString
     {
-    // TODO HACK
     // This only returns the first address and only works on IPV4
     NSData *theAddress = self.addresses.firstObject;
     return [NSString stringWithFormat:@"%@:%hu", [STYAddress descriptionForAddress:theAddress], [STYAddress portForAddress:theAddress]];
@@ -228,7 +225,7 @@
 
 - (BOOL)isLoopback
     {
-    // TODO: This is a bit of a hack.
+    // TODO: This is a bit of a hack. Ignores IPV6 for example...
     return self.addresses.count == 1 && [self.addresses[0] isEqual:[self _addressDataWithIPV4Address:INADDR_LOOPBACK port:self.port]];
     }
 
