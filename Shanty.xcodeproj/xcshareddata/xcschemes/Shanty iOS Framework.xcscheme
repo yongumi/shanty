@@ -17,7 +17,7 @@
                BlueprintIdentifier = "45E6A596185F8F2000F87958"
                BuildableName = "Shanty Static iOS Framework"
                BlueprintName = "Shanty Static iOS Framework"
-               ReferencedContainer = "container:shanty.xcodeproj">
+               ReferencedContainer = "container:Shanty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,7 +28,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "45DA232B187E7BA700599FAC"
+               BuildableName = "Shanty Mac OS X Tests.xctest"
+               BlueprintName = "Shanty Mac OS X Tests"
+               ReferencedContainer = "container:Shanty.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45E6A596185F8F2000F87958"
+            BuildableName = "Shanty Static iOS Framework"
+            BlueprintName = "Shanty Static iOS Framework"
+            ReferencedContainer = "container:Shanty.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -45,7 +64,7 @@
             BlueprintIdentifier = "45E6A596185F8F2000F87958"
             BuildableName = "Shanty Static iOS Framework"
             BlueprintName = "Shanty Static iOS Framework"
-            ReferencedContainer = "container:shanty.xcodeproj">
+            ReferencedContainer = "container:Shanty.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -57,6 +76,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45E6A596185F8F2000F87958"
+            BuildableName = "Shanty Static iOS Framework"
+            BlueprintName = "Shanty Static iOS Framework"
+            ReferencedContainer = "container:Shanty.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
