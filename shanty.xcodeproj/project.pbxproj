@@ -46,6 +46,7 @@
 		456DF7651A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7611A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m */; };
 		456DF7661A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7611A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m */; };
 		456DF7671A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 456DF7611A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m */; };
+		45A7C7311A156E4800AE8AFC /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A7C7301A156E4800AE8AFC /* Tests.swift */; };
 		45D5D64219D383B000A76535 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64319D383B000A76535 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D5D64419D383B000A76535 /* STYClientPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044619D35C9000CED777 /* STYClientPeer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -83,7 +84,6 @@
 		45D5D67719D38DB000A76535 /* STYPeerBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D5D67419D38DB000A76535 /* STYPeerBrowserViewController.xib */; };
 		45DA232F187E7BA700599FAC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA232E187E7BA700599FAC /* XCTest.framework */; };
 		45DA2335187E7BA700599FAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DA2333187E7BA700599FAC /* InfoPlist.strings */; };
-		45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */; };
 		45FF046B19D35C9000CED777 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF046C19D35C9000CED777 /* Shanty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044319D35C9000CED777 /* Shanty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45FF046D19D35C9000CED777 /* STYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FF044419D35C9000CED777 /* STYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -191,6 +191,8 @@
 		456DF7591A0C2B7D00F3F3A7 /* STYNetServiceBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYNetServiceBrowser.m; sourceTree = "<group>"; };
 		456DF7601A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYHackyNetServiceBrowser.h; sourceTree = "<group>"; };
 		456DF7611A0C2ED500F3F3A7 /* STYHackyNetServiceBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STYHackyNetServiceBrowser.m; sourceTree = "<group>"; };
+		45A7C72F1A156E4700AE8AFC /* Shanty Mac OS X Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac OS X Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		45A7C7301A156E4800AE8AFC /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		45C73061191AD9CD006254B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45D5D62819D382DC00A76535 /* Shanty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shanty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5D67219D38DB000A76535 /* STYPeerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYPeerBrowserViewController.h; sourceTree = "<group>"; };
@@ -200,7 +202,6 @@
 		45DA232E187E7BA700599FAC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45DA2332187E7BA700599FAC /* Shanty Mac OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shanty Mac OS X Tests-Info.plist"; sourceTree = "<group>"; };
 		45DA2334187E7BA700599FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shanty_Mac_OS_X_Tests.m; sourceTree = "<group>"; };
 		45DA2338187E7BA700599FAC /* Shanty Mac OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shanty Mac OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
 		45FF044319D35C9000CED777 /* Shanty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shanty.h; sourceTree = "<group>"; };
 		45FF044419D35C9000CED777 /* STYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STYAddress.h; sourceTree = "<group>"; };
@@ -324,8 +325,8 @@
 		45DA2330187E7BA700599FAC /* Shanty Mac OS X Tests */ = {
 			isa = PBXGroup;
 			children = (
-				45DA2336187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m */,
 				45DA2331187E7BA700599FAC /* Supporting Files */,
+				45A7C7301A156E4800AE8AFC /* Tests.swift */,
 			);
 			path = "Shanty Mac OS X Tests";
 			sourceTree = "<group>";
@@ -333,6 +334,7 @@
 		45DA2331187E7BA700599FAC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45A7C72F1A156E4700AE8AFC /* Shanty Mac OS X Tests-Bridging-Header.h */,
 				45DA2332187E7BA700599FAC /* Shanty Mac OS X Tests-Info.plist */,
 				45DA2333187E7BA700599FAC /* InfoPlist.strings */,
 				45DA2338187E7BA700599FAC /* Shanty Mac OS X Tests-Prefix.pch */,
@@ -741,7 +743,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45DA2337187E7BA700599FAC /* Shanty_Mac_OS_X_Tests.m in Sources */,
+				45A7C7311A156E4800AE8AFC /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,6 +1024,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shanty.framework/Versions/A/Shanty";
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -1036,9 +1039,12 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "Shanty Mac OS X Tests/Shanty Mac OS X Tests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Shanty Mac OS X Tests/Shanty Mac OS X Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1048,6 +1054,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shanty.framework/Versions/A/Shanty";
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1059,9 +1066,11 @@
 				GCC_PREFIX_HEADER = "Shanty Mac OS X Tests/Shanty Mac OS X Tests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "Shanty Mac OS X Tests/Shanty Mac OS X Tests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Shanty Mac OS X Tests/Shanty Mac OS X Tests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
